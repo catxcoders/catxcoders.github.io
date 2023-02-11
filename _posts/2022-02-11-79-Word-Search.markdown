@@ -1,0 +1,79 @@
+---
+layout: post
+title:  "79. Word Search"
+date:   2022-02-11 21:27:53 +0800
+categories: medium, python
+---
+
+# 題目
+
+[79. Word Search
+](https://leetcode.com/problems/word-search/)
+
+# 解題思路
+
+這題我們很直接會想要用BFS/DFS的解法來解，以每個點為起點去做搜尋，這樣時間複雜度為$O(M N 3^L)$，$M, N$為棋盤的長寬，$L$為搜尋字串的長度，最差的情況來說，我們需要走訪$M \times N$個點作為起點，每個點又需要走過$L$個點做探索，每個位置可以往上下左右走，所以最壞有$4*3^{L-1}$種可能。
+
+## 錯誤思路
+
+我們可以試著想一下有什麼地方是重複的計算，但先跟大家說下面的想法是錯的
+
+假設我們的棋盤是
+
+$ABEOK$
+$CAOLL$
+
+而我們要搜索的字串為$ABEOP$，假設我們是用DFS，可以看到我們從第一個$A (0,0)$出發後，會試過：
+
+$A\rightarrow B\rightarrow E\rightarrow O\rightarrow K\rightarrow Fail$
+
+$A\rightarrow B\rightarrow E\rightarrow O\rightarrow L \rightarrow Fail$
+
+之後我們到下一個$A(1,1)$，也會去搜尋：
+
+$A\rightarrow B\rightarrow E\rightarrow O\rightarrow K\rightarrow Fail$
+
+$A\rightarrow B\rightarrow E\rightarrow O\rightarrow L \rightarrow Fail$
+
+可以看到這兩個路徑通過同一個點$B(0,1)$，之後的路徑是一模一樣的，所以當我們第一次搜索知道後面已經找不到時，第二次搜索應該就可以直接停止：
+
+$A\rightarrow B\rightarrow Fail$
+
+$A\rightarrow B\rightarrow Fail$
+
+大家有發現這個想法錯誤在哪嗎？
+
+因為我們兩次走到同個點$B(0,1)$的時候，棋盤的走訪狀態並不同，所以第一次探索的結果，並不能直接用在第二次，舉一個例子，假設我們今天想要搜索的字串為$ABEOA$，這樣從$A(1,1)$出發，經過$B(0,1)$是False，但從$A (0,0)$出發，卻可以是True，所以這個方法並不能適用。
+
+## 解題思路
+
+基本上的解法是採取DFS，除此之外我們要記錄棋盤是否走訪過的狀態，我們可以透過一個二維矩陣`visited`來紀錄，也可以直接將當前位置修改成一個非大寫字母的字元(因為題目有註明棋盤只會是大寫字母)。
+
+```python3=
+class Solution:
+    def exist(self, board: List[List[str]], word: str) -> bool:
+        for i in range(len(board)):
+            for j in range(len(board[0])):
+                if self.dfs(board, i, j, word):
+                    return True
+        return False
+        
+    def dfs(self, board, i, j, word):
+        if board[i][j] == "#" or board[i][j] != word[0]:
+            return False
+        if board[i][j] == word[0] and len(word) == 1:
+            return True
+        
+        tmp = board[i][j]
+        board[i][j] = "#"
+        if i-1 >= 0 and self.dfs(board, i-1, j, word[1:]):
+            return True
+        if j+1 < len(board[0]) and self.dfs(board, i, j+1, word[1:]):
+            return True
+        if i+1 < len(board) and self.dfs(board, i+1, j, word[1:]):
+            return True
+        if j-1 >= 0 and self.dfs(board, i, j-1, word[1:]):
+            return True
+        board[i][j] = tmp
+        return False
+```

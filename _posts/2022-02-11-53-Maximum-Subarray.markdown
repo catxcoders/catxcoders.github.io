@@ -1,8 +1,8 @@
 ---
 layout: post
 title:  "53. Maximum Subarray"
-date:   2022-11-26 21:27:53 +0800
-categories: medium
+date:   2022-02-11 21:27:53 +0800
+categories: medium, python
 ---
 
 題目網址: [53. Maximum Subarray](https://leetcode.com/problems/maximum-subarray/)
@@ -97,5 +97,46 @@ class Solution:
             sum += num
             ans = max(ans, sum-min_sum)
             min_sum = min(sum, min_sum)
+        return ans
+```
+
+
+
+
+# 動態規劃
+
+先思考一下，如果子陣列的結尾位置為`i`，那麼最大總和的子陣列總和可以怎麼計算呢?
+
+以`cr[i]`代表`nums[i]`為結尾的總和最大nums子陣列，在已知cr[i-1]的前提下，cr[i]有兩種可能:
+1. 加上以前一個位置結尾的子陣列最大總和: cr[i-1]+nums[i]
+    ```
+    nums = [-2,1,-3,4,-1,2,1,-5,4]
+                           ^
+                           i
+    ```
+    當我們要計算結尾為index i = 6的子陣列最大總和, 以`cr[i-1]`為結尾的最大子陣列總和為`cr[5]=1`，nums[i]=1加上以前一個位置結尾的子陣列最大總和 **大於** 從當前i這個位置算起，因此`cr[i]` = `cr[i-1]+nums[i]` = `cr[5]+nums[6]` = 2
+
+2. 不包含前一個位置的最大總和: nums[i]
+    ```
+    nums = [-2,1,-3,4,-1,2,1,-5,4]
+               ^
+               i
+    ```
+    當我們要計算結尾為index i =1的子陣列最大總和, 以`cr[i-1]`為結尾的最大子陣列總和為`cr[0]=-2`，加上以前一個位置結尾的子陣列最大總和 **不如** 從當前i這個位置算起，因此cr[i] = nums[i]
+
+回到這個題目，我們可以使用迴圈，去計算每個結尾位置為`i`，最大總和的子陣列總和，只保留最大的總和，就是整個陣列的最大子陣列總和啦~
+
+## 時間複雜度
+每次藉由前一個`cr[i-1]`來計算以當前index為結尾的子陣列最大總和`cr[i]`，時間複雜度是$O(1)$，針對每個`nums[i]`為結尾都需要一次計算，因此時間複雜度為$O(N)$。
+
+
+```python=
+class Solution:
+    def maxSubArray(self, nums: List[int]) -> int:
+        cr = 0
+        ans = -inf
+        for num in nums:
+            cr = max(cr+num, num)
+            ans = max(ans, cr)
         return ans
 ```
