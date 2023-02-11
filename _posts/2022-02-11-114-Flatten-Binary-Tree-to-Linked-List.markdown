@@ -16,7 +16,7 @@ categories: medium, python
 ### 解題思路
 從這棵樹的前序遍歷最遠的`Node`開始(下圖中的`6`)
 
-```graphviz
+{% graphviz %}
 digraph {
 //rankdir=LR
 ranksep=0.3
@@ -33,7 +33,7 @@ node [ label="\N"]
 1 -> 5 -> null
 5 -> 6
 }
-```
+{% endgraphviz %}
 ---
 將這個`Node`(下圖中的`6`)的指標存到`pre`
 ```graphviz
