@@ -1,18 +1,16 @@
 ---
 layout: page
-title: About
+title: About CatXCoder
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](https://jekyllrb.com/)
+歡迎來到我們的網站**CatXCoder**！我們是兩位熱愛程式設計的軟體工程師，致力於分享我們在LeetCode的解題經驗和程式相關的主題。
 
-You can find the source code for Minima at GitHub:
-[jekyll][jekyll-organization] /
-[minima](https://github.com/jekyll/minima)
+在這個網站上，可以找到各種關於LeetCode解法的文章和討論。我們希望透過這個平台，能夠讓更多的程式設計師，特別是初學者能夠更輕鬆地學習，掌握各種解題技巧和程式實現的知識。
 
-You can find the source code for Jekyll at GitHub:
-[jekyll][jekyll-organization] /
-[jekyll](https://github.com/jekyll/jekyll)
+除了LeetCode解法，我們還將分享其他與程式相關的主題，例如演算法、資料結構、機器學習、深度學習等。我們的目標是讓這個網站成為一個互動和學習的地方，讓我們共同成長。
 
+如果對我們的內容感興趣，請不要猶豫，立即加入我們的FB社群。可以在本網站上留言和發問，我們將會盡快回復您。也歡迎您關注我們的IG，以便及時獲得我們的最新消息。
 
-[jekyll-organization]: https://github.com/jekyll
+最後，我們要感謝您的光臨，希望我們的網站能夠對你有所幫助，讓您在程式設計的道路上走得更遠！
+
