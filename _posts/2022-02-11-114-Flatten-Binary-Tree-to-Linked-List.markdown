@@ -5,6 +5,8 @@ date:   2022-02-11 21:27:53 +0800
 categories: medium, python
 ---
 
+Test 1
+
 題目網址: [114. Flatten Binary Tree to Linked List](https://leetcode.com/problems/flatten-binary-tree-to-linked-list/description/)
 
 # 題目
