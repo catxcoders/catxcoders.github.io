@@ -16,7 +16,7 @@ categories: medium, python
 ### 解題思路
 從這棵樹的前序遍歷最遠的`Node`開始(下圖中的`6`)
 
-```graphviz
+{% graphviz %}
 digraph {
 //rankdir=LR
 ranksep=0.3
@@ -33,10 +33,10 @@ node [ label="\N"]
 1 -> 5 -> null
 5 -> 6
 }
-```
+{% endgraphviz %}
 ---
 將這個`Node`(下圖中的`6`)的指標存到`pre`
-```graphviz
+{% graphviz %}
 digraph {
 rankdir=LR
 ranksep=0.3
@@ -47,8 +47,9 @@ node [ label="\N"]
 
 pre -> 6
 }
-```
-```graphviz
+{% endgraphviz %}
+
+{% graphviz %}
 digraph {
 //rankdir=LR
 ranksep=0.3
@@ -67,11 +68,11 @@ node [ label="\N"]
 1 -> 5 -> n1
 5 -> 6
 }
-```
+{% endgraphviz %}
 
 ---
 不是`pre`的child且前序遍歷最遠的`Node`(下圖中的`5`)的`left`設為NULL，並將上一步的`pre`接到`Node`(下圖中的`5`)的`right`，將`pre`設為`Node`(下圖中的`5`)
-```graphviz
+{% graphviz %}
 digraph {
 rankdir=LR
 ranksep=0.3
@@ -83,9 +84,9 @@ node [ label="\N"]
 
 pre -> 5 -> 6
 }
-```
+{% endgraphviz %}
 
-```graphviz
+{% graphviz %}
 digraph {
 //rankdir=LR
 ranksep=0.3
@@ -104,10 +105,10 @@ node [ label="\N"]
 1 -> 5 -> n1
 5 -> 6
 }
-```
+{% endgraphviz %}
 ---
 不是`pre`的child且前序遍歷最遠的`Node`(下圖中的`4`)的`left`設為NULL，並將上一步的`pre`接到`Node`(下圖中的`4`)的`right`，將`pre`設為`Node`(下圖中的`4`)
-```graphviz
+{% graphviz %}
 digraph {
 rankdir=LR
 ranksep=0.3
@@ -120,9 +121,9 @@ node [ label="\N"]
 
 pre -> 4 -> 5 -> 6
 }
-```
+{% endgraphviz %}
 
-```graphviz
+{% graphviz %}
 digraph {
 //rankdir=LR
 ranksep=0.3
@@ -144,11 +145,11 @@ node [ label="\N"]
 4 -> n2
 5 -> n3
 }
-```
+{% endgraphviz %}
 
 ---
 依此類推...
-```graphviz
+{% graphviz %}
 digraph {
 rankdir=LR
 ranksep=0.3
@@ -162,9 +163,9 @@ node [ label="\N"]
 
 pre -> 3 -> 4 -> 5 -> 6
 }
-```
+{% endgraphviz %}
 
-```graphviz
+{% graphviz %}
 digraph {
 //rankdir=LR
 ranksep=0.3
@@ -189,11 +190,11 @@ node [ label="\N"]
 5 -> n3
 2 -> n5
 }
-```
+{% endgraphviz %}
 
 ---
 依此類推...
-```graphviz
+{% graphviz %}
 digraph {
 rankdir=LR
 ranksep=0.3
@@ -208,9 +209,9 @@ node [ label="\N"]
 
 pre -> 2 -> 3 -> 4 -> 5 -> 6
 }
-```
+{% endgraphviz %}
 
-```graphviz
+{% graphviz %}
 digraph {
 //rankdir=LR
 ranksep=0.3
@@ -236,10 +237,10 @@ node [ label="\N"]
 5 -> n3
 2 -> n5
 }
-```
+{% endgraphviz %}
 ---
 依此類推...
-```graphviz
+{% graphviz %}
 digraph {
 rankdir=LR
 ranksep=0.3
@@ -255,9 +256,9 @@ node [ label="\N"]
 
 pre -> 1 -> 2 -> 3 -> 4 -> 5 -> 6
 }
-```
+{% endgraphviz %}
 
-```graphviz
+{% graphviz %}
 digraph {
 //rankdir=LR
 ranksep=0.3
@@ -284,7 +285,7 @@ node [ label="\N"]
 5 -> n3
 2 -> n5
 }
-```
+{% endgraphviz %}
 
 ### 實作
 1. 以[前序遍歷](https://en.wikipedia.org/wiki/Tree_traversal#Pre-order,_NLR)倒序遞迴的方式去遍歷所有節點
@@ -326,7 +327,7 @@ class Solution:
 ### 解題思路
 一開始，我們將指標`cr`指到`root`，以下用黃色代表`cr`
 `cr`(節點`1`)的左邊子樹(淺粉色區域)的`root`(節點`2`)，左邊子樹前序遍歷最遠的點(節點`4`)
-```graphviz
+{% graphviz %}
 digraph {
 //rankdir=LR
 ranksep=0.3
@@ -347,7 +348,7 @@ subgraph cluster_1 {2 3 4}
 1 -> 5 -> n1
 5 -> 6
 }
-```
+{% endgraphviz %}
 
 將左邊子樹(淺粉色區域)移到`cr`(節點`1`)和`cr.right`(節點`5`)的中間:
 1. 將`cr`右側子樹接到前序遍歷最遠的點(節點4)的右側
@@ -355,7 +356,7 @@ subgraph cluster_1 {2 3 4}
 
 
 
-```graphviz
+{% graphviz %}
 digraph {
 //rankdir=LR
 ranksep=0.3
@@ -379,12 +380,12 @@ subgraph cluster_1 {2 3 4}
 4 -> n3
 5 -> 6
 }
-```
+{% endgraphviz %}
 `cr`向右移動，此時`cr`為節點`2`。
 `cr`(節點`2`)的左邊子樹(淺粉色區域)的`root`(節點`3`)，左邊子樹前序遍歷最遠的點(節點`3`)
 
 
-```graphviz
+{% graphviz %}
 digraph {
 //rankdir=LR
 ranksep=0.3
@@ -408,9 +409,9 @@ subgraph cluster_1 {3}
 4 -> n3
 5 -> 6
 }
-```
+{% endgraphviz %}
 將`cr`左邊子樹(淺粉色區域)移到`cr`(節點`2`)和`cr.right`(節點`4`)的中間
-```graphviz
+{% graphviz %}
 digraph {
 //rankdir=LR
 ranksep=0.3
@@ -439,12 +440,12 @@ subgraph cluster_1 {3}
 5 -> n3
 2 -> n5
 }
-```
+{% endgraphviz %}
 `cr`向右移動，此時`cr`為節點`3`。
 `cr`的左側為空，不需要做任何事情。
 `cr`持續向右移動，如果`cr`的左側不為空，按照之前的方式將左側子樹移到`cr`和`cr.right`中間
 
-```graphviz
+{% graphviz %}
 digraph {
 //rankdir=LR
 ranksep=0.3
@@ -471,7 +472,7 @@ node [ label="\N"]
 5 -> n3
 2 -> n5
 }
-```
+{% endgraphviz %}
 
 ### 實作
 ```python=
