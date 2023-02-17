@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: custom_post
 title:  "560. Subarray Sum Equals K"
 date:   2022-11-04 21:27:53 +0800
 categories: medium

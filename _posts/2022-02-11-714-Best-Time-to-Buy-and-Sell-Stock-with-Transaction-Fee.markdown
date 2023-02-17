@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: custom_post
 title:  "714. Best Time to Buy and Sell Stock with Transaction Fee"
 date:   2022-02-11 21:27:53 +0800
 categories: medium, greedy, coder

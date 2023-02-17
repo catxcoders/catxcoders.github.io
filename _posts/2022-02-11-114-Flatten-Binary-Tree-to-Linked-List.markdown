@@ -1,11 +1,11 @@
 ---
-layout: post
+layout: custom_post
 title:  "114. Flatten Binary Tree to Linked List"
 date:   2022-02-11 21:27:53 +0800
 categories: medium, python
 ---
 
-Test 2
+Test 3
 
 題目網址: [114. Flatten Binary Tree to Linked List](https://leetcode.com/problems/flatten-binary-tree-to-linked-list/description/)
 

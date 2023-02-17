@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: custom_post
 title:  "20. Valid Parentheses"
 date:   2022-02-11 21:27:53 +0800
 categories: easy, stack, python

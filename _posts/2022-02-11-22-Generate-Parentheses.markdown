@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: custom_post
 title:  "22. Generate Parentheses"
 date:   2022-02-11 21:27:53 +0800
 categories: medium, recursive, coder
