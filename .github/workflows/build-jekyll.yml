@@ -34,5 +34,5 @@ jobs:
           bundler_ver: '>=0'         # Default is latest bundler version
           cname: ''                  # Default is to not use a cname
           actor: ''                  # Default is the GITHUB_ACTOR
-          pre_build_commands: 'sudo pacman -S graphviz'     # Installing additional dependencies (Arch Linux)
+          pre_build_commands: 'sudo pacman -S graphvizi --noconfirm'     # Installing additional dependencies (Arch Linux)
 
