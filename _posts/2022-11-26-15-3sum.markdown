@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: custom_post
 title:  "15. 3Sum"
 date:   2022-11-26 21:27:53 +0800
 categories: medium

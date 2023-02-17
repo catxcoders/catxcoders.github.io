@@ -23,43 +23,4 @@ layout: home
 <!-- Font Awesome -->
 <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js" integrity="	sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe" crossorigin="anonymous"></script>
 
-<!-- support MathJax -->
-<style TYPE="text/css">
-	code.has-jax {font: inherit; font-size: 100%; background: inherit; border: inherit;}
-</style>
-<script type="text/x-mathjax-config">
-	MathJax.Hub.Config({
-	    tex2jax: {
-	        inlineMath: [['$','$'], ['\\(','\\)']],
-	        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'] // removed 'code' entry
-	    }
-	});
-	MathJax.Hub.Queue(function() {
-	    var all = MathJax.Hub.getAllJax(), i;
-	    for(i = 0; i < all.length; i += 1) {
-	        all[i].SourceElement().parentNode.className += ' has-jax';
-	    }
-	});
-</script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-<!-- A patch to fix mathjax -->
-<!-- https://github.com/mathjax/MathJax/issues/1737 -->
-<script type="text/x-mathjax-config">
-if (MathJax.Hub.Browser.isSafari && parseInt(MathJax.Hub.Browser.webkit) >= 603) {
-  MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready", function () {
-    var HTMLCSS = MathJax.OutputJax["HTML-CSS"];
-    var MML = MathJax.ElementJax.mml;
-    var toHTML = MML.mo.prototype.toHTML;
-    MML.mo.Augment({
-      toHTML: function (span) {
-        span = toHTML.call(this,span);
-        if (span.bbox.w === 0 && span.bbox.lw < 0 && span.firstChild) {
-          span.style.marginLeft = HTMLCSS.Em(span.bbox.lw);
-        }
-        return span;
-      }
-    });
-  });
-}
-</script>
