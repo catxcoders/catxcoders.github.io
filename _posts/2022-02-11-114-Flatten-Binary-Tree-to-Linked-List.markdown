@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: index
 title:  "114. Flatten Binary Tree to Linked List"
 date:   2022-02-11 21:27:53 +0800
 categories: medium, python
