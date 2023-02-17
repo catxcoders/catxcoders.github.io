@@ -10,7 +10,7 @@ categories: easy, python
 # 解題思路
 不論這兩條`List`有沒有排序過，都可以直接將這兩條`List`拼起來再做sort，這樣的時間複雜度是O(nlogn), n為兩條`List`總元素個數。
 因為兩條`List`都是排序好的，因此可以試著運用這個特性，來減少計算量。
-```graphviz
+{% graphviz %}
 digraph {
 rankdir=LR
 ranksep=0.3
@@ -26,10 +26,10 @@ node [ label="\N"]
 1.1 -> 1.2 -> 1.4
 2.1 -> 2.3 -> 2.4 -> 2.5
 }
-```
+{% endgraphviz %}
 比較兩條排序好的`list`的第一個元素，將比較小的元素接到比較result後，直到至少有一條List為空
 
-```graphviz
+{% graphviz %}
 digraph {
 rankdir=LR
 ranksep=0.3
@@ -46,10 +46,11 @@ node [ label="\N"]
 2.1 ->2.3 -> 2.4 -> 2.5
 result -> 1.1  
 }
-```
+
+{% endgraphviz %}
 ---
 
-```graphviz
+{% graphviz %}
 digraph {
 rankdir=LR
 ranksep=0.3
@@ -66,10 +67,12 @@ node [ label="\N"]
 2.3 -> 2.4 -> 2.5
 result -> 1.1 -> 2.1
 }
-```
+
+{% endgraphviz %}
 ---
 
-```graphviz
+{% graphviz %}
+
 digraph {
 rankdir=LR
 ranksep=0.3
@@ -86,9 +89,10 @@ node [ label="\N"]
 2.3 -> 2.4 -> 2.5
 result ->1.1 -> 2.1 -> 1.2
 }
-```
+
+{% endgraphviz %}
 ---
-```graphviz
+{% graphviz %}
 digraph {
 rankdir=LR
 ranksep=0.3
@@ -105,10 +109,11 @@ node [ label="\N"]
 2.4 -> 2.5
 result ->1.1 -> 2.1 -> 1.2 -> 2.3
 }
-```
+
+{% endgraphviz %}
 ---
 只剩下一條list還有元素，把這條list剩餘的元素按照順序直接放到result的最尾端
-```graphviz
+{% graphviz %}
 digraph {
 rankdir=LR
 ranksep=0.3
@@ -125,12 +130,13 @@ node [ label="\N"]
 2.4 -> 2.5
 result ->1.1 -> 2.1 -> 1.2 -> 2.3 -> 1.4
 }
-```
+
+{% endgraphviz %}
 
 ---
 我們就成功把兩條排序好的List合成一條排序好的List了!!
 
-```graphviz
+{% graphviz %}
 digraph {
 rankdir=LR
 ranksep=0.3
@@ -145,7 +151,8 @@ node [ label="\N"]
 
 result ->1.1 -> 2.1 -> 1.2 -> 2.3 -> 1.4 -> 2.4 -> 2.5
 }
-```
+
+{% endgraphviz %}
 
 # 實作
 ```python=
