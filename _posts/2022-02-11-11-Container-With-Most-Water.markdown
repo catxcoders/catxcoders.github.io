@@ -17,7 +17,7 @@ categories: medium, greedy, coder
 
 ## 實作
 
-```python=
+```python
 class Solution:
     def maxArea(self, height: List[int]) -> int:
         left, right = 0, len(height) - 1

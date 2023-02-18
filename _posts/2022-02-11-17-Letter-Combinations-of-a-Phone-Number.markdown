@@ -20,7 +20,7 @@ categories: medium, recursive, python
 
 最後，函數會回傳包含所有可能字母組合的列表。
 
-```python=
+```python
 def letterCombinations(self, digits: str) -> List[str]:
 
         digit_to_letter = {

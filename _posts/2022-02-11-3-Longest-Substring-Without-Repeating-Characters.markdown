@@ -16,7 +16,7 @@ categories: medium, python
 
 我們如果用起始位置(含)跟結束位置(不含)來表示一個字串，那麼一個長度為n的字串，會有$n^2/2$個組合。可以透過像這樣的兩層迴圈去迭代所有可能。
 
-```python3!
+```python
 for i in range(n):
     for j in range(i+1, n):
         print(s[i:j])
@@ -33,7 +33,7 @@ for i in range(n):
 
 以程式碼呈現，則是這樣：
 
-```python3!
+```python
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
         if not s:
@@ -62,7 +62,7 @@ class Solution:
 
 實作上，我們也可以使用Dict來記錄每個字元的起始位置，去避免我們要反覆去維護一個「表示上一步的字串」的Set，回想一下，我們是要去對說現在的字元有沒有出現在，上一步的字串中，也就是dp[k-1]~k-1，所以我們如果今天發現這個字元有在Dict裡面，我們還需要額外確認，這個字元的起始位置是不是位於dp[k-1]跟k-1之間，如果不在的話，就也代表這個字元沒有出現在上一步的字串中。
 
-```python3!
+```python
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
         if not s:
@@ -89,7 +89,7 @@ class Solution:
 
 由於這個前指針，最多也是看過n-1個位置(不需要判斷最後一個位置)，而我們的後指針，也就是我們的外層迴圈，走過n個位置，所以時間複雜度為$O(n)$。
 
-```python3!
+```python
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
         l = 0 # left pointer

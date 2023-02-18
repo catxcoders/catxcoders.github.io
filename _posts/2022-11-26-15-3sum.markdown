@@ -13,7 +13,7 @@ categories: medium
 
 假設我們給定一個數列，還有一個給定的數字n，我們想知道，所有不重複兩個數字和為n的：
 
-```python3!
+```python
 def twoSum(nums, n):
     ans = []
     # Our solution
@@ -24,7 +24,7 @@ def twoSum(nums, n):
 
 我們可以想到最簡單的方法，就是用兩層迴圈去窮舉所有可能，但我們要注意一點，因為題目提供的數列有可能有重複的數字，所以我們要先排序後，並跳過重複數字的部分。
 
-```python3!
+```python
 def twoSum(nums, n):
     ans = []
     nums = sorted(nums)
@@ -51,7 +51,7 @@ def twoSum(nums, n):
 
 大家觀察暴力解的作法，由於一開始我們已經將數列排序，所以第二層迴圈的部分可以用Binary Search來取代。
 
-```python3!
+```python
 def binary_search(nums, n):
     if len(nums) == 0:
         return False
@@ -88,7 +88,7 @@ def twoSum(nums, n):
 
 使用這個方法我們也同樣需要避免計算到重覆的組合，每一回合查找完畢，我們就可以將配對到的值移除Hash Table，因為同一個數字，一定只會對應到另一個值。
 
-```python3
+```python
 def twoSum(nums, n):
     ht = dict()
     
@@ -128,7 +128,7 @@ def twoSum(nums, n):
 
 所以讓我們回到Three Sum的這題，由於排序不再是我們的Bottle Neck，所以我們可以直接使用兩個指標的作法，並再外層多加一層迴圈即可，所以時間複雜度為$O(n(logn)) + O(n^2)$，即為$O(n^2)$。
 
-```python3!
+```python
 class Solution(object):
     def threeSum(self, nums):
         """

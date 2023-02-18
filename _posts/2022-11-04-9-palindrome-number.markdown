@@ -29,7 +29,7 @@ categories: easy
 
 所以我們在`while迴圈`的條件可以設定成：`tail > head`。
 
-```python3
+```python
 class Solution:
     def isPalindrome(self, x: int) -> bool:
         if x == 0:

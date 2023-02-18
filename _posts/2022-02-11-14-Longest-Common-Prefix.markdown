@@ -22,7 +22,7 @@ categories: coder, medium
 5. 如果有不同，直接返回當前結果
 6. 如果所有字符都相同，繼續遍歷下一位字符
 
-```python3=
+```python
 class Solution:
     def longestCommonPrefix(self, strs: List[str]) -> str:
         if len(strs) == 0:

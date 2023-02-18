@@ -27,7 +27,7 @@ categories: medium, recursive, coder
 
 ## 實作
 以下是一個使用回溯法的 Python 解決方案：
-```python=
+```python
 def generateParenthesis(n):
     res = []
     def backtrack(s = '', left = 0, right = 0):

@@ -14,7 +14,7 @@ categories: medium
 ## 子陣列由i到j總和計算: 
 計算子陣列`nums[i:j]`(包含`i`、不包含`j`)的總和`sum(nums, i, j)`可以有兩種方式
 1. 由index`i` 加到 `j` (包含i、不包含j)
-```python=
+```python
 def sum(nums, i, j):
     s = 0
     for idx in range(i,j):
@@ -25,7 +25,7 @@ def sum(nums, i, j):
 preSum(i) 代表陣列nums[0:i]的總合
 preSum(j) 代表陣列nums[0:j]的總合
 preSum(j)減去 preSum(i)就是 nums[i:j]的總合
-```python=
+```python
 def preSum(m):
     sum(nums, 0, m)
 preSum(j) - preSum(i)
@@ -35,7 +35,7 @@ preSum(j) - preSum(i)
 
 
 # 實作
-```python=
+```python
 class Solution:
     def subarraySum(self, nums: List[int], k: int) -> int:
         ans = 0

@@ -24,7 +24,7 @@ categories: coder, medium
 
 以下是用 Python 的解法範例：
 
-```python3=
+```python
 class Solution:
     def isValidSudoku(self, board: List[List[str]]) -> bool:
         for i in range(9):

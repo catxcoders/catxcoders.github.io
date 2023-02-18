@@ -155,7 +155,7 @@ result ->1.1 -> 2.1 -> 1.2 -> 2.3 -> 1.4 -> 2.4 -> 2.5
 {% endgraphviz %}
 
 # 實作
-```python=
+```python
 # Definition for singly-linked list.
 # class ListNode:
 #     def __init__(self, val=0, next=None):
