@@ -297,7 +297,7 @@ node [ label="\N"]
 2. 訪問到當前節點時，將當前節點的`left`設為None, 並將`right`設為前一次存在pre中的結點
 3. 將當前存在`pre`(代表已經flatten好的部分)
 
-```python=
+~~~ python
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):
@@ -319,7 +319,7 @@ class Solution:
         root.left = None
         root.right = self.pre
         self.pre = root
-```
+~~~
 
 ### 時間複雜度
 由於`pre`會指到每個節點一次，更新節點狀態的時間複雜度為$O(1)$，圖中有n個節點，時間複雜度為$O(n)$
@@ -477,7 +477,7 @@ node [ label="\N"]
 {% endgraphviz %}
 
 ### 實作
-```python=
+```python
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):

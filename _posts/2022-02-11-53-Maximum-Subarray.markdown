@@ -130,7 +130,7 @@ class Solution:
 每次藉由前一個`cr[i-1]`來計算以當前index為結尾的子陣列最大總和`cr[i]`，時間複雜度是$O(1)$，針對每個`nums[i]`為結尾都需要一次計算，因此時間複雜度為$O(N)$。
 
 
-```python=
+```python
 class Solution:
     def maxSubArray(self, nums: List[int]) -> int:
         cr = 0

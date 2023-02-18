@@ -18,6 +18,8 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 markdown: kramdown
+highlighter: rouge 
+
 title: CatxCoder
 email: catxcoder@example.com
 description: >- # this means to ignore newlines until "baseurl:"
@@ -33,6 +35,7 @@ github_username:  catxcoders
 theme: minima
 plugins:
   - jekyll-feed
+  - jekyll-seo-tag
 
 gems:
   - jekyll-graphviz
