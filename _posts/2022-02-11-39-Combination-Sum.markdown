@@ -23,7 +23,7 @@ categories: medium, recursive, coder
 
 ## 實作
 以下是一個使用回溯法的 Python 解決方案：
-```python=
+```python
 def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
     def backtrack(start, target, combination, combinations):
         if target == 0:

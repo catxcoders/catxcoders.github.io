@@ -31,7 +31,7 @@ categories: medium, greedy, python
 4. 遍歷結束後，返回答案陣列`ans`。
 
 ## 實作
-```python=
+```python
 class Solution:
     def merge(self, intervals: List[List[int]]) -> List[List[int]]:
         intervals.sort()

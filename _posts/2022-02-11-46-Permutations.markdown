@@ -26,7 +26,7 @@ categories: medium, recursive, coder
 
 ## 實作
 以下是一個使用回溯法的 Python 解決方案：
-```python=
+```python
 class Solution:
     def permute(self, nums):
         def backtrack(first=0):

@@ -27,7 +27,7 @@ categories: coder, hard
 4. 對於`res`列表中的每一行：如果不是最後一行，就將空格數分配到行中，使其具有 `maxWidth`的長度，如果是最後一行，則以左對齊的形式輸出行。
 5. 返回 res 列表。
 
-```python3=
+```python
 class Solution:
     def fullJustify(self, words: List[str], maxWidth: int) -> List[str]:
         res = []

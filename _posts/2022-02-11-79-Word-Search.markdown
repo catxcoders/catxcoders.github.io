@@ -49,7 +49,7 @@ $A\rightarrow B\rightarrow Fail$
 
 基本上的解法是採取DFS，除此之外我們要記錄棋盤是否走訪過的狀態，我們可以透過一個二維矩陣`visited`來紀錄，也可以直接將當前位置修改成一個非大寫字母的字元(因為題目有註明棋盤只會是大寫字母)。
 
-```python3=
+```python
 class Solution:
     def exist(self, board: List[List[str]], word: str) -> bool:
         for i in range(len(board)):

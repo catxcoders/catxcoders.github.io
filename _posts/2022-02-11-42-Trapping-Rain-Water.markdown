@@ -32,7 +32,7 @@ b. 否則，減少右指針並更新 right_max，如果新位置的高度大於 
 
 ## 實作
 以下是一個使用「双指针」演算法的 Python 實現：
-```python=
+```python
 def trap(height):
     n = len(height)
     left, right = 0, n - 1

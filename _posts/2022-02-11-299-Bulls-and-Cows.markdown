@@ -22,7 +22,7 @@ categories: coder, medium
 
 這題我們直覺去遍歷secret和guess的每一位，如果他們相同且位置也相同，就增加"bulls"的數量；如果他們相同但位置不同，就增加"cows"的数量。最後，根據統計的"bulls"和"cows"的數量，按照題目的要求格式化輸出即可。
 
-```python3=
+```python
 class Solution:
     def getHint(self, secret: str, guess: str) -> str:
         bull, cow = 0, 0

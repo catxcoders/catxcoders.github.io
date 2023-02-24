@@ -19,7 +19,7 @@ graphviz:
 
 以下圖為例子，指標cr = 0，到cr前最小的preSum: minSum = 0，結尾為cr的最大總和的子陣列`ans_0 = preSum(0)-minSum = -2 - 0 = -2`。
 
-```graphviz
+{% graphviz %}
 digraph hierarchy {
   //rankdir=LR;
   node [ shape=record ];
@@ -37,14 +37,14 @@ node [label="\N" shape=box style="rounded,filled" height=0.3]
 minSum -> 1
 preSum -> 0
 }
-```
+{% endgraphviz %}
 
 
 cr依序遍歷nums的每個元素...
 
 指標cr = 4，到cr前最小的preSum: minSum = -2+1+(-3) = -4，結尾為cr的最大總和的子陣列`ans_4 = preSum(cr)-minSum = -1-(-4) = 3`。
 
-```graphviz
+{% graphviz %}
 digraph hierarchy {
   //rankdir=LR;
   node [ shape=record ];
@@ -61,9 +61,9 @@ cr -> arr:<4>
 minSum -> -4
 preSum -> -1
 }
-```
+{% endgraphviz %}
 指標cr = 5，minSum = -2+1+(-3) = -4，結尾為cr的最大總和的子陣列`ans_5 = preSum(cr)-minSum = 1-(-4) = 5`。
-```graphviz
+{% graphviz %}
 digraph hierarchy {
   //rankdir=LR;
   node [ shape=record ];
@@ -80,7 +80,7 @@ cr -> arr:<5>
 minSum -> -4
 preSum -> 1
 }
-```
+{% endgraphviz %}
 `cr`每前進一步，就會計算出一個結尾為`cr`的最大子陣列總和`ans_cr`，回傳最大的`ans_cr`就是最大子陣列總和。
 
 ## 時間複雜度
@@ -88,7 +88,7 @@ preSum -> 1
 
 
 ## 實作
-```python=
+```python
 class Solution:
     def maxSubArray(self, nums: List[int]) -> int:
         sum = 0

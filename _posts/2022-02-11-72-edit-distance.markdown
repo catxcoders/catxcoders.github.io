@@ -91,7 +91,7 @@ H(%%%%%)
 
 所以，時間複雜度就是`O(mn)`，`n, m`分別為`word1, word2`的字串長度
 
-```python3
+```python
 class Solution:
     def minDistance(self, word1: str, word2: str) -> int:
         n = len(word1)
@@ -122,7 +122,7 @@ class Solution:
     o  2 ? ? ? ? ?
     r  3 ? ? ? ? ?
     
-```python3=
+```python
 class Solution:
     def minDistance(self, word1: str, word2: str) -> int:
         n = len(word1)

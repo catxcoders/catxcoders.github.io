@@ -167,5 +167,4 @@ class Solution(object):
                     head += 1
                     tail -= 1
         return out
-            
 ```
