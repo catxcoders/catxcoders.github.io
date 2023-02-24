@@ -21,13 +21,11 @@ markdown: kramdown
 highlighter: rouge 
 
 title: CatxCoder
-email: catxcoder@example.com
+email: catxcoder@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
+  Leetcode Lovers :)
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://www.catxcoder.com" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: catxcoder
 github_username:  catxcoders
 
@@ -39,6 +37,11 @@ plugins:
 
 gems:
   - jekyll-graphviz
+
+minima:
+  skin: dark
+
+google_analytics: G-MHQH8LKZYV
 
 # Exclude from processing.
 # The following items will not be processed, by default.
