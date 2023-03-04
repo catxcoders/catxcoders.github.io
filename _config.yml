@@ -4,6 +4,8 @@ exclude: ['README.md']
 collections:
   themes:
     output: true
+  problems:
+    output: true
 plugins: ['jekyll-feed']
 gems:
   - jekyll-graphviz
