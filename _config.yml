@@ -2,7 +2,7 @@ markdown: kramdown
 baseurl: 
 exclude: ['README.md']
 collections:
-  works:
+  themes:
     output: true
 plugins: ['jekyll-feed']
 gems:
