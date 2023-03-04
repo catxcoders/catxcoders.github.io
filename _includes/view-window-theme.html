@@ -1,0 +1,36 @@
+<div class="post-view-color post-view-window">
+	
+	<!-- title -->
+	<div class="post-view-title text-left" >
+		<p>{{ theme.title }}</p>
+	</div>
+	
+	<!-- date -->
+	<div class="post-view-date">
+			{{ theme.date | date: "%-d %B %Y"  }}
+	</div>
+
+	<!-- tags -->
+	<div class="post-view-tags">
+		{% for tag in theme.tags %}
+		<i href="#" class="badge badge-dark">{{ tag }}</i>
+		{% endfor %}
+
+	</div>
+	<hr>
+
+	<!-- excerpt -->
+	<div class="post-view-excerpt text-left">
+		<p>
+			{{ theme.excerpt }}
+		</p>
+	</div>		
+	<hr>
+
+	<!-- Read Button -->
+	<div class="post-view-readmore text-center">
+		<a href="{{ site.baseurl }}{{ theme.url }}">
+		<i class="fab fa-readme fa-2x"></i>
+		</a>
+	</div>
+</div>
