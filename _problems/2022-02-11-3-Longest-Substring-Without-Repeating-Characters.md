@@ -1,8 +1,8 @@
 ---
 layout: article_problem
 title:  "3. Longest Substring Without Repeating Characters"
-date: 2022-02-11 21:27:53 +0800
-categories: medium, python
+excerpt_separator: <!--more-->
+tags: medium python
 ---
 
 # 題目
