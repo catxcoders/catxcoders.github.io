@@ -1,8 +1,9 @@
 ---
-layout: custom_post
+layout: article_post
 title:  "300. Longest Increasing Subsequence"
-date:   2022-02-11 21:27:53 +0800
-categories: medium, LIS, dp, binary search, bs, python
+categories: medium
+tags: leetcode medium python dp
+excerpt_separator: <!--more-->
 ---
 
 # 300. Longest Increasing Subsequence

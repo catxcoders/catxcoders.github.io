@@ -1,8 +1,9 @@
 ---
-layout: custom_post
+layout: article_post
 title:  "11. Container With Most Water"
-date:   2022-02-11 21:27:53 +0800
-categories: medium, greedy, coder
+categories: medium
+tags: leetcode medium python greedy coder
+excerpt_separator: <!--more-->
 ---
 
 ## 題目

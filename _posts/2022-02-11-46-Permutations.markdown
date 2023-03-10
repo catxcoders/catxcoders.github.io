@@ -1,8 +1,9 @@
 ---
-layout: custom_post
+layout: article_post
 title:  "46. Permutations"
-date:   2022-02-11 21:27:53 +0800
-categories: medium, recursive, coder
+categories: medium
+tags: leetcode medium python coder recursion
+excerpt_separator: <!--more-->
 ---
 
 # 題目

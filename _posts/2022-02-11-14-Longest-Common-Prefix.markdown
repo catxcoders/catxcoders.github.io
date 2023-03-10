@@ -1,8 +1,9 @@
 ---
-layout: custom_post
+layout: article_post
 title:  "14. Longest Common Prefix"
-date:   2022-02-11 21:27:53 +0800
-categories: coder, medium
+categories: medium
+tags: leetcode medium python coder string
+excerpt_separator: <!--more-->
 ---
 
 [14. Longest Common Prefix](https://leetcode.com/problems/longest-common-prefix/)

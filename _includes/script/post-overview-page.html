@@ -1,0 +1,38 @@
+<script>
+
+speed = 50;
+limit = [{{site.categories.easy.size}}, {{site.categories.medium.size}}, {{site.categories.hard.size}}];
+limit = limit.map(zoom)
+nameList = [".progress-easy", ".progress-medium", ".progress-hard"]
+console.log(limit);
+i = 0;
+
+
+function zoom(value, index, array){
+	return value * 3;
+}
+
+function runProgress(){
+	var flag = false;
+	for(c=0; c<5; c++){
+		if(i <= limit[c]){
+			flag = true
+			percentage = i + "%";
+			$(nameList[c]).css("width", percentage);
+			$(nameList[c]).attr("aria-valuenow", i);
+
+		}else{
+			$(nameList[c]).html(limit[c]/3);
+		}
+	}
+	if(flag){
+		setTimeout(runProgress, speed);
+		i++;
+	}
+}
+runProgress();
+	
+
+
+
+</script>

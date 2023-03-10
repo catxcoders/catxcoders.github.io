@@ -1,8 +1,9 @@
 ---
-layout: custom_post
+layout: article_post
 title:  "42. Trapping Rain Water"
-date:   2022-02-11 21:27:53 +0800
-categories: hard, greedy, coder
+categories: hard
+tags: leetcode hard python coder greedy
+excerpt_separator: <!--more-->
 ---
 
 題目網址: [42. Trapping Rain Water](https://leetcode.com/problems/trapping-rain-water/)

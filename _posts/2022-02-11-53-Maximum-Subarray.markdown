@@ -1,9 +1,9 @@
 ---
-layout: custom_post
+layout: article_post
 title:  "53. Maximum Subarray"
-date:   2022-02-11 21:27:53 +0800
-categories: medium, python
-graphviz: 
+categories: medium
+tags: leetcode medium python dp
+excerpt_separator: <!--more-->
 ---
 
 題目網址: [53. Maximum Subarray](https://leetcode.com/problems/maximum-subarray/)

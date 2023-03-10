@@ -1,9 +1,11 @@
 ---
-layout: custom_post
+layout: article_post
 title:  "560. Subarray Sum Equals K"
-date:   2022-11-04 21:27:53 +0800
 categories: medium
+tags: leetcode medium python
+excerpt_separator: <!--more-->
 ---
+
 
 題目網址: [560. Subarray Sum Equals K](https://leetcode.com/problems/subarray-sum-equals-k/)
 

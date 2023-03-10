@@ -1,8 +1,9 @@
 ---
-layout: custom_post
+layout: article_post
 title:  "20. Valid Parentheses"
-date:   2022-02-11 21:27:53 +0800
-categories: easy, stack, python
+categories: easy
+tags: leetcode easy python coder stack
+excerpt_separator: <!--more-->
 ---
 
 # 題目
