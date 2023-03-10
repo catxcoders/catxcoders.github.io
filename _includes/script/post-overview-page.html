@@ -1,9 +1,9 @@
 <script>
 
 speed = 50;
-limit = [{{site.categories.cs.size}}, {{site.categories.jpstudy.size}}, {{site.categories.math.size}}, {{site.categories.life.size}}, {{site.categories.nlp.size}}];
+limit = [{{site.categories.easy.size}}, {{site.categories.medium.size}}, {{site.categories.hard.size}}];
 limit = limit.map(zoom)
-nameList = [".progress-cs", ".progress-jpstudy", ".progress-math", ".progress-life", ".progress-nlp"]
+nameList = [".progress-easy", ".progress-medium", ".progress-hard"]
 console.log(limit);
 i = 0;
 
