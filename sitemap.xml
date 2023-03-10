@@ -9,133 +9,158 @@
 
 <url>
   <loc>https://www.catxcoder.com/</loc>
-  <lastmod>2023-02-24T06:27:06+00:00</lastmod>
+  <lastmod>2023-03-10T14:11:17+00:00</lastmod>
   <priority>1.00</priority>
 </url>
 <url>
-  <loc>https://www.catxcoder.com/about/</loc>
-  <lastmod>2023-02-24T06:27:06+00:00</lastmod>
+  <loc>https://www.catxcoder.com/index.html</loc>
+  <lastmod>2023-03-10T14:11:17+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.catxcoder.com/posts/</loc>
+  <lastmod>2023-03-10T14:11:17+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.catxcoder.com/works/</loc>
+  <lastmod>2023-03-10T14:11:17+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://www.catxcoder.com/medium/2022/11/26/15-3sum.html</loc>
-  <lastmod>2023-02-24T06:27:06+00:00</lastmod>
+  <lastmod>2023-03-10T14:11:17+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://www.catxcoder.com/easy/2022/11/04/9-palindrome-number.html</loc>
-  <lastmod>2023-02-24T06:27:06+00:00</lastmod>
+  <lastmod>2023-03-10T14:11:17+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://www.catxcoder.com/medium/2022/11/04/560-Subarray-Sum-Equals-K.html</loc>
-  <lastmod>2023-02-24T06:27:06+00:00</lastmod>
+  <lastmod>2023-03-10T14:11:17+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://www.catxcoder.com/medium,/python/2022/02/11/79-Word-Search.html</loc>
-  <lastmod>2023-02-24T06:27:06+00:00</lastmod>
+  <loc>https://www.catxcoder.com/medium/2022/02/11/79-Word-Search.html</loc>
+  <lastmod>2023-03-10T14:11:17+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://www.catxcoder.com/medium,/recursive,/coder/2022/02/11/78-Subsets.html</loc>
-  <lastmod>2023-02-24T06:27:06+00:00</lastmod>
+  <loc>https://www.catxcoder.com/medium/2022/02/11/78-Subsets.html</loc>
+  <lastmod>2023-03-10T14:11:17+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://www.catxcoder.com/hard/2022/02/11/72-edit-distance.html</loc>
-  <lastmod>2023-02-24T06:27:06+00:00</lastmod>
+  <lastmod>2023-03-10T14:11:17+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://www.catxcoder.com/medium,/greedy,/coder/2022/02/11/714-Best-Time-to-Buy-and-Sell-Stock-with-Transaction-Fee.html</loc>
-  <lastmod>2023-02-24T06:27:06+00:00</lastmod>
+  <loc>https://www.catxcoder.com/medium/2022/02/11/714-Best-Time-to-Buy-and-Sell-Stock-with-Transaction-Fee.html</loc>
+  <lastmod>2023-03-10T14:11:17+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://www.catxcoder.com/coder,/hard/2022/02/11/68-Text-Justification.html</loc>
-  <lastmod>2023-02-24T06:27:06+00:00</lastmod>
+  <loc>https://www.catxcoder.com/hard/2022/02/11/68-Text-Justification.html</loc>
+  <lastmod>2023-03-10T14:11:17+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://www.catxcoder.com/medium,/greedy,/python/2022/02/11/56-merge-interval.markdown.html</loc>
-  <lastmod>2023-02-24T06:27:06+00:00</lastmod>
+  <loc>https://www.catxcoder.com/medium/2022/02/11/56-merge-interval.markdown.html</loc>
+  <lastmod>2023-03-10T14:11:17+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://www.catxcoder.com/medium,/python/2022/02/11/53-Maximum-Subarray.html</loc>
-  <lastmod>2023-02-24T06:27:06+00:00</lastmod>
+  <loc>https://www.catxcoder.com/medium/2022/02/11/53-Maximum-Subarray.html</loc>
+  <lastmod>2023-03-10T14:11:17+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://www.catxcoder.com/medium,/recursive,/coder/2022/02/11/46-Permutations.html</loc>
-  <lastmod>2023-02-24T06:27:06+00:00</lastmod>
+  <loc>https://www.catxcoder.com/medium/2022/02/11/46-Permutations.html</loc>
+  <lastmod>2023-03-10T14:11:17+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://www.catxcoder.com/hard,/greedy,/coder/2022/02/11/42-Trapping-Rain-Water.html</loc>
-  <lastmod>2023-02-24T06:27:06+00:00</lastmod>
+  <loc>https://www.catxcoder.com/hard/2022/02/11/42-Trapping-Rain-Water.html</loc>
+  <lastmod>2023-03-10T14:11:17+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://www.catxcoder.com/medium,/recursive,/coder/2022/02/11/39-Combination-Sum.html</loc>
-  <lastmod>2023-02-24T06:27:06+00:00</lastmod>
+  <loc>https://www.catxcoder.com/medium/2022/02/11/39-Combination-Sum.html</loc>
+  <lastmod>2023-03-10T14:11:17+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://www.catxcoder.com/coder,/medium/2022/02/11/36-Valid-Sudoku.html</loc>
-  <lastmod>2023-02-24T06:27:06+00:00</lastmod>
+  <loc>https://www.catxcoder.com/medium/2022/02/11/36-Valid-Sudoku.html</loc>
+  <lastmod>2023-03-10T14:11:17+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://www.catxcoder.com/medium,/lis,/dp,/binary/search,/bs,/python/2022/02/11/300-Longest-Increasing-Subsequence.html</loc>
-  <lastmod>2023-02-24T06:27:06+00:00</lastmod>
+  <loc>https://www.catxcoder.com/medium/2022/02/11/300-Longest-Increasing-Subsequence.html</loc>
+  <lastmod>2023-03-10T14:11:17+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://www.catxcoder.com/medium,/python/2022/02/11/3-Longest-Substring-Without-Repeating-Characters.html</loc>
-  <lastmod>2023-02-24T06:27:06+00:00</lastmod>
+  <loc>https://www.catxcoder.com/medium/2022/02/11/3-Longest-Substring-Without-Repeating-Characters.html</loc>
+  <lastmod>2023-03-10T14:11:17+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://www.catxcoder.com/coder,/medium/2022/02/11/299-Bulls-and-Cows.html</loc>
-  <lastmod>2023-02-24T06:27:06+00:00</lastmod>
+  <loc>https://www.catxcoder.com/medium/2022/02/11/299-Bulls-and-Cows.html</loc>
+  <lastmod>2023-03-10T14:11:17+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://www.catxcoder.com/medium,/recursive,/coder/2022/02/11/22-Generate-Parentheses.html</loc>
-  <lastmod>2023-02-24T06:27:06+00:00</lastmod>
+  <loc>https://www.catxcoder.com/medium/2022/02/11/22-Generate-Parentheses.html</loc>
+  <lastmod>2023-03-10T14:11:17+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://www.catxcoder.com/easy,/python/2022/02/11/21-Merge-Two-Sorted-Lists.html</loc>
-  <lastmod>2023-02-24T06:27:06+00:00</lastmod>
+  <loc>https://www.catxcoder.com/easy/2022/02/11/21-Merge-Two-Sorted-Lists.html</loc>
+  <lastmod>2023-03-10T14:11:17+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://www.catxcoder.com/easy,/stack,/python/2022/02/11/20-Valid-Parentheses.html</loc>
-  <lastmod>2023-02-24T06:27:06+00:00</lastmod>
+  <loc>https://www.catxcoder.com/easy/2022/02/11/20-Valid-Parentheses.html</loc>
+  <lastmod>2023-03-10T14:11:17+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://www.catxcoder.com/medium,/recursive,/python/2022/02/11/17-Letter-Combinations-of-a-Phone-Number.html</loc>
-  <lastmod>2023-02-24T06:27:06+00:00</lastmod>
+  <loc>https://www.catxcoder.com/medium/2022/02/11/17-Letter-Combinations-of-a-Phone-Number.html</loc>
+  <lastmod>2023-03-10T14:11:17+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://www.catxcoder.com/coder,/medium/2022/02/11/14-Longest-Common-Prefix.html</loc>
-  <lastmod>2023-02-24T06:27:06+00:00</lastmod>
+  <loc>https://www.catxcoder.com/medium/2022/02/11/14-Longest-Common-Prefix.html</loc>
+  <lastmod>2023-03-10T14:11:17+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://www.catxcoder.com/medium,/python/2022/02/11/114-Flatten-Binary-Tree-to-Linked-List.html</loc>
-  <lastmod>2023-02-24T06:27:06+00:00</lastmod>
+  <loc>https://www.catxcoder.com/medium/2022/02/11/114-Flatten-Binary-Tree-to-Linked-List.html</loc>
+  <lastmod>2023-03-10T14:11:17+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://www.catxcoder.com/medium,/greedy,/coder/2022/02/11/11-Container-With-Most-Water.html</loc>
-  <lastmod>2023-02-24T06:27:06+00:00</lastmod>
+  <loc>https://www.catxcoder.com/medium/2022/02/11/11-Container-With-Most-Water.html</loc>
+  <lastmod>2023-03-10T14:11:17+00:00</lastmod>
   <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.catxcoder.com/posts/categories/easy/</loc>
+  <lastmod>2023-03-10T14:11:17+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.catxcoder.com/posts/categories/medium/</loc>
+  <lastmod>2023-03-10T14:11:17+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.catxcoder.com/posts/categories/hard/</loc>
+  <lastmod>2023-03-10T14:11:17+00:00</lastmod>
+  <priority>0.64</priority>
 </url>
 
 
