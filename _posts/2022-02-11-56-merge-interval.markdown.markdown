@@ -1,8 +1,9 @@
 ---
-layout: custom_post
+layout: article_post
 title:  "56. Merge Intervals"
-date:   2022-02-11 21:27:53 +0800
-categories: medium, greedy, python
+categories: medium
+tags: leetcode medium python greedy
+excerpt_separator: <!--more-->
 ---
 
 題目網址: [56. Merge Intervals](https://leetcode.com/problems/merge-intervals/)

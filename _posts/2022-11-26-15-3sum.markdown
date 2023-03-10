@@ -1,9 +1,11 @@
 ---
-layout: custom_post
+layout: article_post
 title:  "15. 3Sum"
-date:   2022-11-26 21:27:53 +0800
 categories: medium
+tags: leetcode medium python
+excerpt_separator: <!--more-->
 ---
+
 
 題目網址: [15. 3Sum](https://leetcode.com/problems/3sum/) 
 

@@ -1,9 +1,11 @@
 ---
-layout: custom_post
+layout: article_post
 title:  "68. Text Justification"
-date:   2022-02-11 21:27:53 +0800
-categories: coder, hard
+categories: hard
+tags: leetcode hard python coder
+excerpt_separator: <!--more-->
 ---
+
 
 # 題目說明
 

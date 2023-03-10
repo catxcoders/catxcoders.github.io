@@ -1,9 +1,11 @@
 ---
-layout: custom_post
+layout: article_post
 title:  "714. Best Time to Buy and Sell Stock with Transaction Fee"
-date:   2022-02-11 21:27:53 +0800
-categories: medium, greedy, coder
+categories: medium
+tags: leetcode medium python greedy
+excerpt_separator: <!--more-->
 ---
+
 
 ## 題目
 給定一個數組prices，其中prices[i]表示第i天的股票價格，以及一個代表交易費用的整數fee。

@@ -1,8 +1,9 @@
 ---
-layout: custom_post
+layout: article_post
 title:  "17. Letter Combinations of a Phone Number"
-date:   2022-02-11 21:27:53 +0800
-categories: medium, recursive, python
+categories: medium
+tags: leetcode medium python coder recursion
+excerpt_separator: <!--more-->
 ---
 
 # 題目

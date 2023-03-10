@@ -1,8 +1,9 @@
 ---
-layout: custom_post
+layout: article_post
 title:  "72. Edit Distance"
-date:   2022-02-11 21:27:53 +0800
 categories: hard
+tags: leetcode hard python string
+excerpt_separator: <!--more-->
 ---
 
 # 題目

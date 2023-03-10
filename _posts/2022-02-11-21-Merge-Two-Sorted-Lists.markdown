@@ -1,8 +1,9 @@
 ---
-layout: custom_post
+layout: article_post
 title:  "21. Merge Two Sorted Lists"
-date:   2022-02-11 21:27:53 +0800
-categories: easy, python
+categories: easy
+tags: leetcode easy python linked-list
+excerpt_separator: <!--more-->
 ---
 
 題目網址: [21. Merge Two Sorted Lists](https://leetcode.com/problems/merge-two-sorted-lists/description/)

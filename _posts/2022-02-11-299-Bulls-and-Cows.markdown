@@ -1,9 +1,11 @@
 ---
-layout: custom_post
+layout: article_post
 title:  "299. Bulls and Cows"
-date:   2022-02-11 21:27:53 +0800
-categories: coder, medium
+categories: medium
+tags: leetcode medium python coder
+excerpt_separator: <!--more-->
 ---
+
 
 [299. Bulls and Cows
 ](https://leetcode.com/problems/bulls-and-cows/)

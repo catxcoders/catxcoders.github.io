@@ -1,8 +1,9 @@
 ---
-layout: custom_post
+layout: article_post
 title:  "9. Palindrome Number"
-date:   2022-11-04 21:27:53 +0800
 categories: easy
+tags: leetcode easy python
+excerpt_separator: <!--more-->
 ---
 
 題目網址: [9. Palindrome Number](https://leetcode.com/problems/palindrome-number/)
