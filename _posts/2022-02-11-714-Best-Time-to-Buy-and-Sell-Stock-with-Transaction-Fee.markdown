@@ -1,6 +1,6 @@
 ---
 layout: article_post
-title:  "714. Best Time to Buy and Sell Stock with Transaction Fee"
+title:  "[LeetCode] 714. Best Time to Buy and Sell Stock with Transaction Fee 題解-- 刷題貓"
 categories: medium
 tags: leetcode medium python greedy
 excerpt_separator: <!--more-->
