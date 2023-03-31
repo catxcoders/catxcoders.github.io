@@ -1,5 +1,5 @@
 ---
-layout: article_post
+layout: article_work
 title:  "隊列(Queue)和堆疊(Stack)"
 tags: Queue Stack
 excerpt_separator: <!--more-->
