@@ -5,12 +5,12 @@ tags: Queue Stack
 excerpt_separator: <!--more-->
 ---
 
-<!--more-->
-
 # 隊列(Queue)和堆疊(Stack)
 
 
 序列是一種線性數據結構，就是元素會按照一定的順序排列。今天我們要介紹兩種基本的序列，就是隊列(Queue)和堆疊(Stack)。
+
+<!--more-->
 
 # 什麼是隊列（Queue）？
 
