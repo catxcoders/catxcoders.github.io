@@ -6,6 +6,8 @@ tags: leetcode medium python tree
 excerpt_separator: <!--more-->
 ---
 
+<!--more-->
+
 題目網址: [114. Flatten Binary Tree to Linked List](https://leetcode.com/problems/flatten-binary-tree-to-linked-list/description/)
 
 # 題目

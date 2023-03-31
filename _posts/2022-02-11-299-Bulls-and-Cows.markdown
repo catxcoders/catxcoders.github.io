@@ -6,6 +6,7 @@ tags: leetcode medium python coder
 excerpt_separator: <!--more-->
 ---
 
+<!--more-->
 
 [299. Bulls and Cows
 ](https://leetcode.com/problems/bulls-and-cows/)

@@ -6,6 +6,8 @@ tags: leetcode medium python coder recursion
 excerpt_separator: <!--more-->
 ---
 
+<!--more-->
+
 題目網址: [22. Generate Parentheses](https://leetcode.com/problems/generate-parentheses/)
 
 ## 解題思路

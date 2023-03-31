@@ -6,6 +6,8 @@ tags: leetcode hard python string
 excerpt_separator: <!--more-->
 ---
 
+<!--more-->
+
 # 題目
 
 [72. Edit Distance](https://leetcode.com/problems/edit-distance)

@@ -1,7 +1,7 @@
 <div class="profile-page-tags-section">
 <div>
 	{% for post in site.posts %}
-        {% if post.categories contains "easy" or post.categories contains "medium" or post.categories contains "hard" %}
+        {% if post.tags contains tag %}
 		<a href="{{ site.baseurl }}{{ post.url }}" class="badge badge-warning">{{ post.title }}</a>
         {% endif %}
 	{% endfor %}

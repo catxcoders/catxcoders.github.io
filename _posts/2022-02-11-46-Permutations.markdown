@@ -6,6 +6,8 @@ tags: leetcode medium python coder recursion
 excerpt_separator: <!--more-->
 ---
 
+<!--more-->
+
 # 題目
 這是一個數組的排列組合題。給定一個元素獨一無二的數組，求出所有可能的排列。
 題目網址: [46. Permutations](https://leetcode.com/problems/permutations/)

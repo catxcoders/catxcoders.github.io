@@ -6,6 +6,8 @@ tags: leetcode medium python dp
 excerpt_separator: <!--more-->
 ---
 
+<!--more-->
+
 # 300. Longest Increasing Subsequence
 ###### tags: `medium`, `LIS`, `dp`, `binary search`, `bs`,  `python`
 

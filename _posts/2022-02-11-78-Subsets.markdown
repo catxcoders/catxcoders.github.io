@@ -6,6 +6,8 @@ tags: leetcode medium python coder recusion
 excerpt_separator: <!--more-->
 ---
 
+<!--more-->
+
 # 題目
 這是一道關於「子集」的題目。給定一個整數數組 nums，其中所有元素均為唯一的，請返回所有可能的「子集」（即集合的幂集）。
 解決方案集不得包含重複的子集。您可以以任意順序返回解決方案。

@@ -6,6 +6,8 @@ tags: leetcode easy python linked-list
 excerpt_separator: <!--more-->
 ---
 
+<!--more-->
+
 題目網址: [21. Merge Two Sorted Lists](https://leetcode.com/problems/merge-two-sorted-lists/description/)
 
 # 解題思路

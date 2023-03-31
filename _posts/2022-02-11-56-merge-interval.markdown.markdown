@@ -6,6 +6,8 @@ tags: leetcode medium python greedy
 excerpt_separator: <!--more-->
 ---
 
+<!--more-->
+
 題目網址: [56. Merge Intervals](https://leetcode.com/problems/merge-intervals/)
 
 ## 題目

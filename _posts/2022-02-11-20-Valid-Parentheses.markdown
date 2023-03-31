@@ -6,6 +6,8 @@ tags: leetcode easy python coder stack
 excerpt_separator: <!--more-->
 ---
 
+<!--more-->
+
 # 題目
 
 [20. Valid Parentheses

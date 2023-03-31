@@ -6,6 +6,8 @@ tags: leetcode medium python coder string
 excerpt_separator: <!--more-->
 ---
 
+<!--more-->
+
 [14. Longest Common Prefix](https://leetcode.com/problems/longest-common-prefix/)
 
 # 解題思路

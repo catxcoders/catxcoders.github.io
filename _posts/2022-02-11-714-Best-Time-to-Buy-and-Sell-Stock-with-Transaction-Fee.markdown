@@ -6,6 +6,7 @@ tags: leetcode medium python greedy
 excerpt_separator: <!--more-->
 ---
 
+<!--more-->
 
 ## 題目
 給定一個數組prices，其中prices[i]表示第i天的股票價格，以及一個代表交易費用的整數fee。

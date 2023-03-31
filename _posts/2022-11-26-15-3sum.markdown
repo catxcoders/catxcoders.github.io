@@ -6,6 +6,7 @@ tags: leetcode medium python
 excerpt_separator: <!--more-->
 ---
 
+<!--more-->
 
 題目網址: [15. 3Sum](https://leetcode.com/problems/3sum/) 
 

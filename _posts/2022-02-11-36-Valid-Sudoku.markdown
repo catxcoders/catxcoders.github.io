@@ -6,6 +6,8 @@ tags: leetcode medium python coder
 excerpt_separator: <!--more-->
 ---
 
+<!--more-->
+
 # 題目
 
 題目網址: [36. Valid Sudoku](https://leetcode.com/problems/valid-sudoku/)
