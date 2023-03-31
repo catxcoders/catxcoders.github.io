@@ -8,9 +8,7 @@ excerpt_separator: <!--more-->
 
 <!--more-->
 
-# 題目
-
-[72. Edit Distance](https://leetcode.com/problems/edit-distance)
+題目網址: [72. Edit Distance](https://leetcode.com/problems/edit-distance)
 
 # 解題思路
 

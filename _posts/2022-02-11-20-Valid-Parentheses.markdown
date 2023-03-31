@@ -8,9 +8,7 @@ excerpt_separator: <!--more-->
 
 <!--more-->
 
-# 題目
-
-[20. Valid Parentheses
+題目網址: [20. Valid Parentheses
 ](https://leetcode.com/problems/valid-parentheses/)
 
 # 解題思路

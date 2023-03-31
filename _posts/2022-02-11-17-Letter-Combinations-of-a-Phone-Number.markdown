@@ -8,9 +8,7 @@ excerpt_separator: <!--more-->
 
 <!--more-->
 
-# 題目
-
-[17. Letter Combinations of a Phone Number
+題目網址: [17. Letter Combinations of a Phone Number
 ](https://leetcode.com/problems/letter-combinations-of-a-phone-number/)
 
 # 解題思路

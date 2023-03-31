@@ -8,9 +8,7 @@ excerpt_separator: <!--more-->
 
 <!--more-->
 
-# 題目
-
-[3. Longest Substring Without Repeating Characters
+題目網址: [3. Longest Substring Without Repeating Characters
 ](https://leetcode.com/problems/longest-substring-without-repeating-characters/)
 
 # 解題思路

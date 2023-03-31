@@ -8,12 +8,7 @@ excerpt_separator: <!--more-->
 
 <!--more-->
 
-# 300. Longest Increasing Subsequence
-###### tags: `medium`, `LIS`, `dp`, `binary search`, `bs`,  `python`
-
-# 題目
-
-[300. Longest Increasing Subsequence](https://leetcode.com/submissions/detail/310107536/)
+題目網址: [300. Longest Increasing Subsequence](https://leetcode.com/submissions/detail/310107536/)
 
 # 解題思路
 

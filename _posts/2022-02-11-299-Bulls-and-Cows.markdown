@@ -8,7 +8,7 @@ excerpt_separator: <!--more-->
 
 <!--more-->
 
-[299. Bulls and Cows
+題目網址: [299. Bulls and Cows
 ](https://leetcode.com/problems/bulls-and-cows/)
 
 這是一個"Bulls and Cows"遊戲，你和你的朋友玩。你先寫下一個秘密數字，然後讓你的朋友猜數字。當你的朋友猜時，你會提供一個提示，內容包括：

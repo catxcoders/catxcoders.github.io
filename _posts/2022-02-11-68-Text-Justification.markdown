@@ -8,6 +8,8 @@ excerpt_separator: <!--more-->
 
 <!--more-->
 
+題目網址: [68. Text Justification](https://leetcode.com/problems/text-justification/)
+
 # 題目說明
 
 這是一道文本格式化的題目。給定一個字符串數組 words 和一個寬度 maxWidth，要求將文本格式化為每一行的寬度正好為 maxWidth 且完全（左右）對齊。
@@ -17,8 +19,6 @@ excerpt_separator: <!--more-->
 文字之間的額外空格應盡可能均勻分配。如果一行上的空格數不均勻分配在文字之間，左邊的空槽將分配更多的空格，而右邊的空槽分配的空格較少。
 
 最後一行的文本應左對齊，並且在文字之間不插入額外空格。
-
-[68. Text Justification](https://leetcode.com/problems/text-justification/)
 
 # 解題思路
 

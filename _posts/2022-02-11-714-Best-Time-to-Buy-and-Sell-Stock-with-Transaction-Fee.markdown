@@ -8,7 +8,10 @@ excerpt_separator: <!--more-->
 
 <!--more-->
 
+題目網址: [714. Best Time to Buy and Sell Stock with Transaction Fee](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/)
+
 ## 題目
+
 給定一個數組prices，其中prices[i]表示第i天的股票價格，以及一個代表交易費用的整數fee。
 
 找到您可以實現的最大利潤。您可以進行任意多次交易，但每次交易都需要支付交易費用。

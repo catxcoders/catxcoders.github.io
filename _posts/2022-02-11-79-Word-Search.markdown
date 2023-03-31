@@ -8,9 +8,7 @@ excerpt_separator: <!--more-->
 
 <!--more-->
 
-# 題目
-
-[79. Word Search
+題目網址: [79. Word Search
 ](https://leetcode.com/problems/word-search/)
 
 # 解題思路
