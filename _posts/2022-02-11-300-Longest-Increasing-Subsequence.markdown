@@ -1,6 +1,7 @@
 ---
 layout: article_post
-title:  "300. Longest Increasing Subsequence"
+title:  "[Leetcode解題] Longest Increasing Subsequence - dp解"
+description:  "[Leetcode解題] Longest Increasing Subsequence - dp解"
 categories: medium
 tags: leetcode medium python dp
 excerpt_separator: <!--more-->

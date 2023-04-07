@@ -1,6 +1,7 @@
 ---
 layout: article_post
-title:  "20. Valid Parentheses"
+title:  "[Leetcode解題] Valid Parentheses - Stack解"
+description: "[Leetcode解題] Valid Parentheses - Stack解"
 categories: easy
 tags: leetcode easy python coder stack
 excerpt_separator: <!--more-->

@@ -1,6 +1,7 @@
 ---
 layout: article_post
-title:  "46. Permutations"
+title:  "[Leetcode解題] Permutations - 遞迴/backtrace解"
+description:  "[Leetcode解題] Permutations - 遞迴/backtrace解"
 categories: medium
 tags: leetcode medium python coder recursion
 excerpt_separator: <!--more-->

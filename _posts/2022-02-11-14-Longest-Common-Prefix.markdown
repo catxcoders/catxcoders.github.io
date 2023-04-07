@@ -1,6 +1,7 @@
 ---
 layout: article_post
-title:  "14. Longest Common Prefix"
+title:  "[Leetcode解題] Longest Common Prefix - 暴力解"
+description: "[Leetcode解題] Longest Common Prefix - 暴力解"
 categories: medium
 tags: leetcode medium python coder string
 excerpt_separator: <!--more-->

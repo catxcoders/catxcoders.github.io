@@ -1,6 +1,7 @@
 ---
 layout: article_post
-title:  "68. Text Justification"
+title:  "[Leetcode解題] Text Justification - greedy解"
+description:  "[Leetcode解題] Text Justification - greedy解"
 categories: hard
 tags: leetcode hard python coder
 excerpt_separator: <!--more-->

@@ -1,6 +1,7 @@
 ---
 layout: article_post
-title:  "9. Palindrome Number"
+title:  "[Leetcode解題] Palindrome Number - 前後指針解"
+description:  "[Leetcode解題] Palindrome Number - 前後指針解"
 categories: easy
 tags: leetcode easy python
 excerpt_separator: <!--more-->

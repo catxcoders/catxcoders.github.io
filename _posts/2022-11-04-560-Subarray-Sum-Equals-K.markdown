@@ -1,6 +1,7 @@
 ---
 layout: article_post
-title:  "560. Subarray Sum Equals K"
+title:  "[Leetcode解題] Subarray Sum Equals K - presum解"
+description:  "[Leetcode解題] Subarray Sum Equals K - presum解"
 categories: medium
 tags: leetcode medium python
 excerpt_separator: <!--more-->

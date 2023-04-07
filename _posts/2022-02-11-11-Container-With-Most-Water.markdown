@@ -1,6 +1,7 @@
 ---
 layout: article_post
-title:  "11. Container With Most Water"
+title:  "[Leetcode解題] Container With Most Water - 使用前後指針解"
+description: "[Leetcode解題] Container With Most Water - 使用前後指針解"
 categories: medium
 tags: leetcode medium python greedy coder
 excerpt_separator: <!--more-->
