@@ -1,6 +1,7 @@
 ---
 layout: article_post
-title:  "299. Bulls and Cows"
+title:  "[Leetcode解題] Bulls and Cows - 暴力解"
+description:  "[Leetcode解題] Bulls and Cows - 暴力解"
 categories: medium
 tags: leetcode medium python coder
 excerpt_separator: <!--more-->

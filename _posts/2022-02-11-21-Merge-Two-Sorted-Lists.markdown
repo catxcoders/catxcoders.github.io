@@ -1,6 +1,7 @@
 ---
 layout: article_post
-title:  "21. Merge Two Sorted Lists"
+title: "[Leetcode解題] Merge Two Sorted Lists - 指針解"
+description: "[Leetcode解題] Merge Two Sorted Lists - 指針解"
 categories: easy
 tags: leetcode easy python linked-list
 excerpt_separator: <!--more-->

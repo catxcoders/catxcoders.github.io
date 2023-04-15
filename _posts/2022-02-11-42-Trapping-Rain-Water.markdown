@@ -1,6 +1,7 @@
 ---
 layout: article_post
-title:  "42. Trapping Rain Water"
+title:  "[Leetcode解題] Trapping Rain Water - 左右指針解"
+description:  "[Leetcode解題] Trapping Rain Water - 左右指針解"
 categories: hard
 tags: leetcode hard python coder greedy
 excerpt_separator: <!--more-->

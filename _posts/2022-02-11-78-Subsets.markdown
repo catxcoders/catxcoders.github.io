@@ -1,6 +1,7 @@
 ---
 layout: article_post
-title:  "78. Subsets"
+title:  "[Leetcode解題] Subsets - dfs解"
+description:  "[Leetcode解題] Subsets - dfs解"
 categories: medium
 tags: leetcode medium python coder recusion
 excerpt_separator: <!--more-->

@@ -1,6 +1,7 @@
 ---
 layout: article_post
-title:  "36. Valid Sudoku"
+title:  "[Leetcode解題] Valid Sudoku - 迴圈解"
+description:  "[Leetcode解題] Valid Sudoku - 迴圈解"
 categories: medium
 tags: leetcode medium python coder
 excerpt_separator: <!--more-->

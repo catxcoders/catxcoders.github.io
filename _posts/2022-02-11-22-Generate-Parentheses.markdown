@@ -1,6 +1,7 @@
 ---
 layout: article_post
-title:  "22. Generate Parentheses"
+title:  "[Leetcode解題] Generate Parentheses - Backtrace解"
+description:  "[Leetcode解題] Generate Parentheses - Backtrace解"
 categories: medium
 tags: leetcode medium python coder recursion
 excerpt_separator: <!--more-->

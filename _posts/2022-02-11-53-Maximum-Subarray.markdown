@@ -1,6 +1,7 @@
 ---
 layout: article_post
-title:  "53. Maximum Subarray"
+title:  "[Leetcode解題] Maximum Subarray - presum解"
+description:  "[Leetcode解題] Maximum Subarray - presum解"
 categories: medium
 tags: leetcode medium python dp
 excerpt_separator: <!--more-->

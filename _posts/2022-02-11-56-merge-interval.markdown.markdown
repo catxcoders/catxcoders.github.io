@@ -1,6 +1,7 @@
 ---
 layout: article_post
-title:  "56. Merge Intervals"
+title:  "[Leetcode解題] Merge Intervals - greedy解"
+description:  "[Leetcode解題] Merge Intervals - greedy解"
 categories: medium
 tags: leetcode medium python greedy
 excerpt_separator: <!--more-->

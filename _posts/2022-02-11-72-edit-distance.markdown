@@ -1,6 +1,7 @@
 ---
 layout: article_post
-title:  "72. Edit Distance"
+title:  "[Leetcode解題] Edit Distance - dp解"
+description:  "[Leetcode解題] Edit Distance - dp解"
 categories: hard
 tags: leetcode hard python string
 excerpt_separator: <!--more-->
