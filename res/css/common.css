@@ -31,6 +31,10 @@ table {
 		margin: auto;
 }
 
+svg {
+	width: 100%;
+}
+
 /* Fix Overflowing markdown table */
 .table-wrapper {
   overflow-x: auto;
