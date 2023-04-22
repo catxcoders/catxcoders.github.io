@@ -6,16 +6,12 @@ tags: cs
 ---
 <div class="container-fluid text-center">
 	<div>
-			{% include profile-page/photo-section.html %}
-	</div>
-	<div>
-			{% include profile-page/intro-box.html %}
-	</div>
-	<div>
 			{% include profile-page/button-box.html %}
 	</div>
 	<div>
 			{% include profile-page/tag-box.html tags=page.tags tag="easy" %}
+			{% include profile-page/tag-box.html tags=page.tags tag="medium" %}
+			{% include profile-page/tag-box.html tags=page.tags tag="hard" %}
 	</div>
 
 </div>
