@@ -3,13 +3,13 @@
 	{% for post in site.posts %}
   	{% if post.tags contains include.tag %}
 	  {% if include.tag == 'easy' %}
-	  	<a href="{{ site.baseurl }}{{ post.url }}" class="badge badge-warning">{{ post.title }}</a>
+	  	<a href="{{ site.baseurl }}{{ post.url }}" class="badge badge-success">{{ post.title }}</a>
   	  {% endif %}
 	  {% if include.tag == 'medium' %}
-		<a href="{{ site.baseurl }}{{ post.url }}" class="badge badge-success">{{ post.title }}</a>
+		<a href="{{ site.baseurl }}{{ post.url }}" class="badge badge-warning">{{ post.title }}</a>
 	  {% endif %}
 	  {% if include.tag == 'hard' %}
-	  	<a href="{{ site.baseurl }}{{ post.url }}" class="badge badge-dark">{{ post.title }}</a>
+	  	<a href="{{ site.baseurl }}{{ post.url }}" class="badge badge-error">{{ post.title }}</a>
   	  {% endif %}
     {% endif %}
 	{% endfor %}
