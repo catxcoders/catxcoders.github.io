@@ -138,4 +138,4 @@ not stack  # False
 
 以下是隊列和堆疊的一些練習：
 
-- [20-Valid-Parentheses](https://www.catxcoder.com/easy,/stack,/python/2022/02/11/20-Valid-Parentheses.html)
+- [20-Valid-Parentheses](https://www.catxcoder.com/easy/2022/02/11/20-Valid-Parentheses.html)
