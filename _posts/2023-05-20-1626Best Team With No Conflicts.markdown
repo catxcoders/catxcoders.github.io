@@ -27,7 +27,7 @@ excerpt_separator: <!--more-->
 3. 遍歷每個球員i，從0到n-1：
     * 初始化dp[i]為球員i的得分。
     * 遍歷所有年齡較小的球員j，從0到i-1：
-        * 如果球員j的得分不低於球員i的得分，則更新dp[i]為dp[j] + players[i].score。
+        * 如果球員j的得分不高於球員i的得分，則更新dp[i]為dp[j] + players[i].score。
 4. 返回dp中的最大值作為答案。
 
 # 實作
