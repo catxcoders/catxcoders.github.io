@@ -21,7 +21,7 @@ excerpt_separator: <!--more-->
 
 我們如果從每個點都走到盡頭，而沒有循環出現的話，那這個圖就沒有循環，於是我們可以想出使用`DFS`來進行：
 
-```python=
+```python
 def contains_cycle(i):
     if v[i] == 1:
         return True
@@ -44,7 +44,7 @@ return True
 `v[i]=-1`: 代表此點正在被拜訪中，也就是是DFS前面經過的點之一，表示循環出現
 `v[i]=0`: 代表此點沒有被拜訪過
 
-```python=
+```python
 class Solution(object):
     def canFinish(self, numCourses, prerequisites):
         """
