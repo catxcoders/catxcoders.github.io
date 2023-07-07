@@ -1,6 +1,6 @@
 ---
 layout: article_post
-title:  "[Leetcode解題] Minimum Size Subarray Sum - Presum + 前後指針解法
+title:  "[Leetcode解題] Minimum Size Subarray Sum - Presum + 前後指針解法"
 description: "[Leetcode解題] 經典Leetcode必刷題目，學習使用前後指針以及Presum"
 categories: medium
 tags: leetcode medium python presum pointer
