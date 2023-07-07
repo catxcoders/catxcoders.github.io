@@ -14,10 +14,18 @@
 
 	<!-- tags -->
 	<div class="post-view-tags">
-		{% for tag in post.categories %}
-		<a href="#" class="badge badge-success">{{ tag }}</a>
+    {% for tag in page.categories %}
+      {% if tag == 'easy' %}
+		<a href="{{site.baseurl}}/posts/categories/{{tag}}/" class="badge badge-success">{{ tag }}</a>
+  	  {% endif %}
+      {% if tag == 'medium' %}
+		<a href="{{site.baseurl}}/posts/categories/{{tag}}/" class="badge badge-warning">{{ tag }}</a>
+  	  {% endif %}
+      {% if tag == 'hard' %}
+		<a href="{{site.baseurl}}/posts/categories/{{tag}}/" class="badge badge-danger">{{ tag }}</a>
+  	  {% endif %}
 		{% endfor %}
-		{% for tag in post.tags %}
+		{% for tag in page.tags %}
 		<i href="#" class="badge badge-dark">{{ tag }}</i>
 		{% endfor %}
 	</div>
