@@ -24,7 +24,7 @@ layout: home_post
 		<a href="{{site.baseurl}}/posts/categories/{{tag}}/" class="badge badge-warning">{{ tag }}</a>
   	  {% endif %}
       {% if tag == 'hard' %}
-		<a href="{{site.baseurl}}/posts/categories/{{tag}}/" class="badge badge-error">{{ tag }}</a>
+		<a href="{{site.baseurl}}/posts/categories/{{tag}}/" class="badge badge-danger">{{ tag }}</a>
   	  {% endif %}
 		{% endfor %}
 		{% for tag in page.tags %}
