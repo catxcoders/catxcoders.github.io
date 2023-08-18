@@ -1,12 +1,12 @@
 ---
-layout: home_post
+layout: home_category
+title: "Leetcode題目總覽頁面"
 ---
-<h1>POSTS</h1>
-<ul>
-	{% for post in site.posts %}
-	<li>
-		<a href="{{ site.baseurl }}{{ post.url }}">{{post.title}}</a>
-		<p></p>
-	</li>
-	{% endfor %}
-</ul>
+
+{% include post-overview-page/category-box.html title="簡易" icon="fas fa-dice-d6 fa-1x" color="easy-color" description="(Easy Problem)" name="progress-easy" type="easy"%}
+
+{% include post-overview-page/category-box.html title="中等" icon="fas fa-cubes fa-1x" color="medium-color" description="(Medium Problem)" name="progress-medium" type="medium"%}
+
+{% include post-overview-page/category-box.html title="困難" icon="fas fa-cubes-stacked fa-1x" color="hard-color" description="(Hard Problem)" name="progress-hard" type="hard"%}
+
+{% include script/post-overview-page.html %}
