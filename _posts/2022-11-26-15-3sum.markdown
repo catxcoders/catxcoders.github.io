@@ -1,6 +1,6 @@
 ---
 layout: article_post
-title:  "[Leetcode解題] 3Sum - 遞迴解"
+title:  "[Leetcode解題] 3Sum - 前後指針解"
 description:  "[Leetcode解題] 3Sum - 前後指針解"
 categories: medium
 tags: two-pointers bs
