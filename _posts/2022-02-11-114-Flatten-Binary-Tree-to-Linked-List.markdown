@@ -3,7 +3,8 @@ layout: article_post
 title:  "[Leetcode解題] Flatten Binary Tree to Linked List - 遍歷二叉樹"
 description:  "[Leetcode解題] Flatten Binary Tree to Linked List - 遍歷二叉樹"
 categories: medium
-tags: leetcode medium python tree
+tags: tree linked-list
+langs: python
 excerpt_separator: <!--more-->
 ---
 

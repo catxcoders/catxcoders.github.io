@@ -3,7 +3,8 @@ layout: article_post
 title:  "[Leetcode解題] Edit Distance - dp解"
 description:  "[Leetcode解題] Edit Distance - dp解"
 categories: hard
-tags: leetcode hard python string
+tags: dp string
+langs: python
 excerpt_separator: <!--more-->
 ---
 

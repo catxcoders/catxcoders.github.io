@@ -3,7 +3,8 @@ layout: article_post
 title:  "[Leetcode解題] Word Search - bfs/dfs解"
 description:  "[Leetcode解題] Word Search - bfs/dfs解"
 categories: medium
-tags: leetcode medium python coder dp
+tags: dp dfs bfs
+langs: python
 excerpt_separator: <!--more-->
 ---
 

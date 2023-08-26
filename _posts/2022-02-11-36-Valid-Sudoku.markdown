@@ -3,7 +3,8 @@ layout: article_post
 title:  "[Leetcode解題] Valid Sudoku - 迴圈解"
 description:  "[Leetcode解題] Valid Sudoku - 迴圈解"
 categories: medium
-tags: leetcode medium python coder
+tags: loop
+langs: python
 excerpt_separator: <!--more-->
 ---
 

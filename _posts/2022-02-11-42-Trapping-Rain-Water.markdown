@@ -3,7 +3,8 @@ layout: article_post
 title:  "[Leetcode解題] Trapping Rain Water - 左右指針解"
 description:  "[Leetcode解題] Trapping Rain Water - 左右指針解"
 categories: hard
-tags: leetcode hard python coder greedy
+tags: greedy two-pointers
+langs: python
 excerpt_separator: <!--more-->
 ---
 

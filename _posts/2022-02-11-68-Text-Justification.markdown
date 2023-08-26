@@ -3,7 +3,8 @@ layout: article_post
 title:  "[Leetcode解題] Text Justification - greedy解"
 description:  "[Leetcode解題] Text Justification - greedy解"
 categories: hard
-tags: leetcode hard python coder
+tags: greedy
+langs: python
 excerpt_separator: <!--more-->
 ---
 

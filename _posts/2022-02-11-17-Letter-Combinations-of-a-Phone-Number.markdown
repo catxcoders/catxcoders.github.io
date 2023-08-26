@@ -3,7 +3,8 @@ layout: article_post
 title:  "[Leetcode解題] Letter Combinations of a Phone Number - 遞迴解"
 description: "[Leetcode解題] Longest Common Prefix - 遞迴解"
 categories: medium
-tags: leetcode medium python coder recursion
+tags: recursion
+langs: python
 excerpt_separator: <!--more-->
 ---
 

@@ -3,7 +3,8 @@ layout: article_post
 title:  "[Leetcode解題] Detonate the Maximum Bombs - 使用圖算法"
 description: "[Leetcode解題] Detonate the Maximum Bombs - 使用圖算法"
 categories: medium
-tags: leetcode medium python dfs graph
+tags: dfs graph
+langs: python
 excerpt_separator: <!--more-->
 ---
 

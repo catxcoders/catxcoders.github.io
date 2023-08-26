@@ -3,7 +3,8 @@ layout: article_post
 title:  "[Leetcode解題] Course Schedule - 使用DFS解法"
 description: "[Leetcode解題] Course Schedule - 使用DFS解法"
 categories: medium
-tags: leetcode medium python dfs
+tags: dfs
+langs: python
 excerpt_separator: <!--more-->
 ---
 

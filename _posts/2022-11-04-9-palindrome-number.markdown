@@ -3,7 +3,8 @@ layout: article_post
 title:  "[Leetcode解題] Palindrome Number - 前後指針解"
 description:  "[Leetcode解題] Palindrome Number - 前後指針解"
 categories: easy
-tags: leetcode easy python
+tags: two-pointers
+langs: python
 excerpt_separator: <!--more-->
 ---
 

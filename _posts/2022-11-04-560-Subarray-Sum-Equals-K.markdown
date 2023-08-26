@@ -3,7 +3,8 @@ layout: article_post
 title:  "[Leetcode解題] Subarray Sum Equals K - presum解"
 description:  "[Leetcode解題] Subarray Sum Equals K - presum解"
 categories: medium
-tags: leetcode medium python
+tags: presum
+langs: python
 excerpt_separator: <!--more-->
 ---
 

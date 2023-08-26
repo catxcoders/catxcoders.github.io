@@ -3,7 +3,8 @@ layout: article_post
 title:  "[Leetcode解題] Permutations - 遞迴/backtrace解"
 description:  "[Leetcode解題] Permutations - 遞迴/backtrace解"
 categories: medium
-tags: leetcode medium python coder recursion
+tags: recursion backtrace
+langs: python
 excerpt_separator: <!--more-->
 ---
 

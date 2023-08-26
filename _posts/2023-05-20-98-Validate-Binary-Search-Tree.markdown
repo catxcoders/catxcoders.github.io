@@ -3,7 +3,8 @@ layout: article_post
 title:  "[Leetcode解題] Validate Binary Search Tree - 遞迴解"
 description:  "[Leetcode解題] Validate Binary Search Tree - 遞迴解"
 categories: medium
-tags: leetcode medium python bts binary-tree binary-search-tree
+tags: bst binary-tree binary-search-tree recursion
+langs: python
 excerpt_separator: <!--more-->
 ---
 

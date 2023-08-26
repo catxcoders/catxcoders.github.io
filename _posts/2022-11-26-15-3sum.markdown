@@ -1,9 +1,10 @@
 ---
 layout: article_post
 title:  "[Leetcode解題] 3Sum - 遞迴解"
-description:  "[Leetcode解題] 3Sum - 遞迴解"
+description:  "[Leetcode解題] 3Sum - 前後指針解"
 categories: medium
-tags: leetcode medium python
+tags: two-pointers bs
+langs: python
 excerpt_separator: <!--more-->
 ---
 

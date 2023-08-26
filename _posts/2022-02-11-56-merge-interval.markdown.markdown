@@ -3,7 +3,8 @@ layout: article_post
 title:  "[Leetcode解題] Merge Intervals - greedy解"
 description:  "[Leetcode解題] Merge Intervals - greedy解"
 categories: medium
-tags: leetcode medium python greedy
+tags: greedy
+langs: python
 excerpt_separator: <!--more-->
 ---
 

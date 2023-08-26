@@ -3,7 +3,8 @@ layout: article_post
 title: "[Leetcode解題] Merge Two Sorted Lists - 指針解"
 description: "[Leetcode解題] Merge Two Sorted Lists - 指針解"
 categories: easy
-tags: leetcode easy python linked-list
+tags: linked-list pointer
+langs: python
 excerpt_separator: <!--more-->
 ---
 

@@ -3,7 +3,8 @@ layout: article_post
 title:  "[Leetcode解題] Longest Valid Parentheses - Stack解"
 description:  "[Leetcode解題] Longest Valid Parentheses - Stack解"
 categories: medium
-tags: leetcode hard python stack
+tags: stack
+langs: python
 excerpt_separator: <!--more-->
 ---
 

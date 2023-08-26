@@ -3,7 +3,8 @@ layout: article_post
 title:  "[Leetcode解題] Bulls and Cows - 暴力解"
 description:  "[Leetcode解題] Bulls and Cows - 暴力解"
 categories: medium
-tags: leetcode medium python coder
+tags: enum
+langs: python
 excerpt_separator: <!--more-->
 ---
 

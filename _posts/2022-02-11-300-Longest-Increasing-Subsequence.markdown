@@ -3,7 +3,8 @@ layout: article_post
 title:  "[Leetcode解題] Longest Increasing Subsequence - dp解"
 description:  "[Leetcode解題] Longest Increasing Subsequence - dp解"
 categories: medium
-tags: leetcode medium python dp
+tags: dp
+langs: python
 excerpt_separator: <!--more-->
 ---
 

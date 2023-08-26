@@ -3,7 +3,8 @@ layout: article_post
 title:  "[Leetcode解題] Find Smallest Letter Greater Than Target - 使用二分搜尋法"
 description: "[Leetcode解題] Find Smallest Letter Greater Than Target - 使用二分搜尋法"
 categories: easy
-tags: easy binary-search bs
+tags: binary-search bs
+langs: python
 excerpt_separator: <!--more-->
 ---
 
