@@ -42,13 +42,45 @@ layout: home_post
 	</div>		
   <div style="text-align: left; padding: 25px;">
   <h1>相關文章</h1>
+{% assign shown = "" | split: ',' %}
+
 {% for post in site.posts %}
-  {% for tag in page.tags %}
-    {% if post.tags contains tag %}
-      {% include posts/pagination-box.html post=post %}
-    {% endif %}
-  {% endfor %}
+  {% if post.categories == 'easy' %}	
+  	{% unless shown contains post.title %}
+	 	{% for tag in page.tags %}
+			{% if post.tags contains tag %}
+				{% assign shown = "" | push: post.title %}
+				{% include posts/pagination-box.html post=post %}
+			{% endif %}
+  		{% endfor %}
+	{% endunless %}
+  {% endif %}
+{% endfor %}
+
+{% for post in site.posts %}
+  {% if post.categories == 'medium' %}	
+  	{% unless shown contains post.title %}
+	 	{% for tag in page.tags %}
+			{% if post.tags contains tag %}
+				{% assign shown = "" | push: post.title %}
+				{% include posts/pagination-box.html post=post %}
+			{% endif %}
+  		{% endfor %}
+	{% endunless %}
+  {% endif %}
+{% endfor %}
+
+{% for post in site.posts %}
+  {% if post.categories == 'hard' %}	
+  	{% unless shown contains post.title %}
+	 	{% for tag in page.tags %}
+			{% if post.tags contains tag %}
+				{% assign shown = "" | push: post.title %}
+				{% include posts/pagination-box.html post=post %}
+			{% endif %}
+  		{% endfor %}
+	{% endunless %}
+  {% endif %}
 {% endfor %}
   </div>
 </div>
-
