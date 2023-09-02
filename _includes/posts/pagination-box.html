@@ -1,0 +1,30 @@
+<div class="pagination-box">
+  {% if include.post.categories contains 'easy' %}
+  <a href="{{ include.post.url }}" class="badge badge-success">{{ include.post.title }}</a>
+  {% endif %}
+  {% if include.post.categories contains 'medium' %}
+  <a href="{{ include.post.url }}" class="badge badge-warning">{{ include.post.title }}</a>
+  {% endif %}
+  {% if include.post.categories contains 'hard' %}
+  <a href="{{ include.post.url }}" class="badge badge-danger">{{ include.post.title }}</a>
+  {% endif %}
+  <!--
+  <div>{{ include.post.title }}</div>
+  <div class="post-view-tags">
+		{% for tag in include.post.categories %}
+      {% if tag == 'easy' %}
+		<a href="{{site.baseurl}}/posts/categories/{{tag}}/" class="badge badge-success">{{ tag }}</a>
+  	  {% endif %}
+      {% if tag == 'medium' %}
+		<a href="{{site.baseurl}}/posts/categories/{{tag}}/" class="badge badge-warning">{{ tag }}</a>
+  	  {% endif %}
+      {% if tag == 'hard' %}
+		<a href="{{site.baseurl}}/posts/categories/{{tag}}/" class="badge badge-danger">{{ tag }}</a>
+  	  {% endif %}
+		{% endfor %}
+		{% for tag in include.post.tags %}
+		<i href="#" class="badge badge-dark">{{ tag }}</i>
+		{% endfor %}
+  </div>
+  -->
+</div>
