@@ -42,13 +42,35 @@ layout: home_post
 	</div>		
   <div style="text-align: left; padding: 25px;">
   <h1>相關文章</h1>
-{% for post in site.posts %}
-  {% for tag in page.tags %}
-    {% if post.tags contains tag %}
-      {% include posts/pagination-box.html post=post %}
-    {% endif %}
+  {% for post in site.posts %}
+	{% if post.categories contains 'easy' %}	
+		{% for tag in page.tags %}
+			{% if post.tags contains tag %}
+				{% include posts/pagination-box.html post=post %}
+			{% endif %}
+		{% endfor %}
+	{% endif %}
   {% endfor %}
-{% endfor %}
+  
+  {% for post in site.posts %}
+  	{% if post.categories contains 'medium' %}	
+		{% for tag in page.tags %}
+			{% if post.tags contains tag %}
+				{% include posts/pagination-box.html post=post %}
+			{% endif %}
+		{% endfor %}
+  	{% endif %}
+  {% endfor %}
+
+  {% for post in site.posts %}
+  	{% if post.categories contains 'hard' %}	
+		{% for tag in page.tags %}
+			{% if post.tags contains tag %}
+				{% include posts/pagination-box.html post=post %}
+			{% endif %}
+		{% endfor %}
+  	{% endif %}
+  {% endfor %}
   </div>
 </div>
 
