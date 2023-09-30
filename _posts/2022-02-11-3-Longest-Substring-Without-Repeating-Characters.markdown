@@ -5,6 +5,7 @@ description: "最長不重複子串 - 用暴力法、DP法和前後指針解決(
 categories: medium
 tags: dp two-pointers
 langs: python
+companys: apple amazon microsoft
 excerpt_separator: <!--more-->
 ---
 

@@ -7,9 +7,9 @@ $(document).ready(function(){
 
 
 speed = 1;
-limit = [{{site.posts.size}}, {{site.works.size}}];
+limit = [{{site.posts.size}}, {{site.works.size}}, {{site.categories.companys.meta.size}}, {{site.categories.companys.amazon.size}}, {{site.categories.companys.linkedin.size}}, {{site.categories.companys.apple.size}}, {{site.categories.companys.microsoft.size}}, {{site.categories.companys.google.size}}];
 limit = limit.map(zoom)
-nameList = [".progress-posts", ".progress-works"]
+nameList = [".progress-posts", ".progress-works", ".progress-meta", ".progress-amazon", ".progress-linkedin", ".progress-apple", ".progress-microsoft", ".progress-google"]
 console.log(limit);
 i = 0;
 
@@ -20,7 +20,7 @@ function zoom(value, index, array){
 
 function runProgress(){
 	var flag = false;
-	for(c=0; c<5; c++){
+	for(c=0; c<8; c++){
 		if(i <= limit[c]){
 			flag = true
 			percentage = i + "%";
