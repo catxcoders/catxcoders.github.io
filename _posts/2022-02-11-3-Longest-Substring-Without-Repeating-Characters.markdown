@@ -3,9 +3,7 @@ layout: article_post
 title:  "[Leetcode解題] Longest Substring Without Repeating Characters - 用暴力法、DP法和前後指針解決"
 description: "最長不重複子串 - 用暴力法、DP法和前後指針解決(Longest Substring Without Repeating Characters)"
 categories: medium
-tags: dp two-pointers
-langs: python
-companys: apple amazon microsoft
+tags: dp two-pointers python apple amazon microsoft
 excerpt_separator: <!--more-->
 ---
 
