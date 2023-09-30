@@ -27,7 +27,7 @@ excerpt_separator: <!--more-->
 我們可以看下圖的一個狀況，假如我們先選引爆$D$，我們知道$D$可以引爆$A, B, C$，假如我們是用一般$DFS$的話，我們紀錄引爆的數量為4，但是下一回合，假如我們選到$E$，我們不能直接用紀錄的D數量，因為這樣的話$B$這個點會被重複計算到。
 
 
-```graphviz
+{% graphviz %}
 digraph {
 node [style="filled" height=0.3]
 node [fillcolor=lightblue] D
@@ -36,9 +36,9 @@ D -> C
 C->A
 C->B
 }
-```
+{% endgraphviz %}
 
-```graphviz
+{% graphviz %}
 digraph {
 node [style="filled" height=0.3]
 node [fillcolor=lightblue] E
@@ -49,11 +49,11 @@ D -> C
 C->A
 C->B
 }
-```
+{% endgraphviz %}
 
 
 
-```python=
+```python
 import math
 
 class Solution:
