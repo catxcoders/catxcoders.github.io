@@ -3,7 +3,7 @@ layout: article_post
 title:  "[Leetcode解題] Valid Parentheses - Stack解"
 description: "[Leetcode解題] Valid Parentheses - Stack解"
 categories: easy
-tags: stack
+tags: stack amazon microsoft
 langs: python
 excerpt_separator: <!--more-->
 ---

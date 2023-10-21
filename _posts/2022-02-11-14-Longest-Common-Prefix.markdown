@@ -3,7 +3,7 @@ layout: article_post
 title:  "[Leetcode解題] Longest Common Prefix - 暴力解"
 description: "[Leetcode解題] Longest Common Prefix - 暴力解"
 categories: medium
-tags: string
+tags: string apple
 langs: python
 excerpt_separator: <!--more-->
 ---

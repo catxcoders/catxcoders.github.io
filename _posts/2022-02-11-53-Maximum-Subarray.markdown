@@ -3,7 +3,7 @@ layout: article_post
 title:  "[Leetcode解題] Maximum Subarray - presum解"
 description:  "[Leetcode解題] Maximum Subarray - presum解"
 categories: medium
-tags: dp presum
+tags: dp presum apple
 langs: python
 excerpt_separator: <!--more-->
 ---

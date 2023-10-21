@@ -3,7 +3,7 @@ layout: article_post
 title:  "[Leetcode解題] Median of Two Sorted Arrays  - 使用分治法(Divide-and-conquer)算法"
 description: "[Leetcode解題] Median of Two Sorted Arrays  - 使用分治法(Divide-and-conquer)算法"
 categories: hard
-tags: divide-and-conquer
+tags: divide-and-conquer apple amazon
 langs: python
 excerpt_separator: <!--more-->
 ---

@@ -3,7 +3,7 @@ layout: article_post
 title:  "[Leetcode解題] Generate Parentheses - Backtrace解"
 description:  "[Leetcode解題] Generate Parentheses - Backtrace解"
 categories: medium
-tags: recursion backtrace
+tags: recursion backtrace apple
 langs: python
 excerpt_separator: <!--more-->
 ---
