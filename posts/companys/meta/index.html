@@ -1,0 +1,6 @@
+---
+layout: home_post
+---
+{% for post in site.tags.meta %}
+	{% include view-window-post.html post=post %}
+{% endfor %}
