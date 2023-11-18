@@ -12,17 +12,19 @@ excerpt_separator: <!--more-->
 
 ## 題目描述
 給定一個整數陣列 `nums` 和一個整數 `k`，請找出陣列中第 k 大的元素。請注意，這裡指的是陣列按照升序排序後的第 k 大元素，而非第 k 個不同的元素。我們可以不使用sort解決這個問題嗎?
+
 Example 1:
 ```
 Input: nums = [3,2,1,5,6,4], k = 2
 Output: 5
 ```
+
 Example 2:
 ```
 Input: nums = [3,2,3,1,2,4,5,5,6], k = 4
 Output: 4
 ```
-## Min Heap
+## [解法1: Min Heap]
 ### Min Heap解題思路
 為了找到第 $k$ 大的元素，我們可以使用**最小堆**（*Min Heap*）來維護目前陣列中的前 $k$ 大元素。我們首先建立一個大小為 $k$ 的*Min Heap* `heap`，然後將陣列中的元素依次加入`heap`中。當`heap`的大小超過 $k$ 時，我們將`top`元素（最小值）彈出，保持`heap`的大小為 $k$。最終，`top`元素即為第 $k$ 大的元素。
 
@@ -49,7 +51,7 @@ class Solution:
 ### Min Heap 時間複雜度
 在最壞情況下，我們需要遍歷整個陣列，並將每個元素加入或彈出最小堆，時間複雜度為 $O(N log k)$，其中 $N$ 為陣列的長度。這是因為最小堆的大小為 $k$，每次堆操作的時間複雜度為 $log k$。
 
-## Quick Select
+## [解法2: Quick Select]
 ### Quick Select 解題思路
 *Quick Select* 是一種基於**快速排序**(*Quick Sort*)的演算法，用於在未完全排序的數組中找到第 $k$ 大（或第 $k$ 小）的元素。其基本思想是選擇一個基準元素(`pivot`)，將數組分為比`pivot`小和比`pivot`大的兩部分。然後，根據 $k$ 與`pivot`的位置關係，決定繼續在左半部分或右半部分進行搜索。
 
@@ -57,7 +59,7 @@ class Solution:
 ```python
 class Solution:
     def quickSelect(self, nums, k):
-        # 遞歸實現 Quick Select 算法
+        # 遞迴實現 Quick Select 算法
         if not nums:
             return None
 
@@ -71,7 +73,7 @@ class Solution:
         # 等於基準元素的元素個數
         M_len = len(nums)-len(L)-len(R)
 
-        # 遞歸執行 Quick Select
+        # 遞迴執行 Quick Select
         if k <= len(L):
             return self.quickSelect(L, k)
         elif k <= len(L) + M_len:
