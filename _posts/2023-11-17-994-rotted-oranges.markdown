@@ -9,7 +9,6 @@ excerpt_separator: <!--more-->
 ---
 
 # 題目
-
 [994. rotted oranges](https://leetcode.com/problems/rotting-oranges/)
 
 這題題目給定一個二維矩陣，矩陣中每個值代表一顆橘子的狀態，橘子的狀態可能有三種，可能為`腐爛(2)`, `新鮮(1)`, `空(0)`，如果空代表該格沒有橘子。
@@ -31,6 +30,7 @@ excerpt_separator: <!--more-->
 1. 矩陣裡都是空的，這樣代表在時間t=0的時候，所有橘子(0顆)都變腐爛了，所以回傳`0`
 2. 矩陣裡有橘子但沒有腐爛的橘子，這樣無法成功，所以回傳`-1`
 
+# 實作
 ```python
 class Solution:
     def nearby(self, grid, i, j):

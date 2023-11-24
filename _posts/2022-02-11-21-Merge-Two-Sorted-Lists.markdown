@@ -7,8 +7,8 @@ tags: linked-list pointer
 langs: python
 excerpt_separator: <!--more-->
 ---
-
-題目網址: [21. Merge Two Sorted Lists](https://leetcode.com/problems/merge-two-sorted-lists/description/)
+## 題目
+[21. Merge Two Sorted Lists](https://leetcode.com/problems/merge-two-sorted-lists/description/)
 
 <!--more-->
 

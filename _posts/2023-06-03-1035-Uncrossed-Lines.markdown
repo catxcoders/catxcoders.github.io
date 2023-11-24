@@ -8,9 +8,8 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
-題目網址: [1035. Uncrossed Lines](https://leetcode.com/problems/uncrossed-lines/)
-
 # 題目
+[1035. Uncrossed Lines](https://leetcode.com/problems/uncrossed-lines/)
 給定兩個整數列表 $nums1$ 和 $nums2$，我們將列表 $nums1$ 和 $nums2$ 中的整數（按照給定順序）分別寫在兩條水平線上。
 
 我們可以繪製連接線：一條直線連接兩個數字 `nums1[i]` 和 `nums2[j]`，滿足以下條件：

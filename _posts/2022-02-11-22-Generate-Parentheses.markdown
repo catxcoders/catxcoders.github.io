@@ -8,11 +8,12 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
-題目網址: [22. Generate Parentheses](https://leetcode.com/problems/generate-parentheses/)
+# 題目
+[22. Generate Parentheses](https://leetcode.com/problems/generate-parentheses/)
 
 <!--more-->
 
-## 解題思路
+# 解題思路
 給定 n 對括號，寫一個函數來生成所有形成良好括號的組合。
 
 這個問題可以使用回溯的方法解決。我們使用一個列表存儲所有形成良好括號的組合，並使用一個遞歸函數生成所有組合。
@@ -30,7 +31,7 @@ excerpt_separator: <!--more-->
 最後，我們不傳任何參數調用 backtrack 以開始生成組合。
 
 
-## 實作
+# 實作
 以下是一個使用回溯法的 Python 解決方案：
 ```python
 def generateParenthesis(n):
@@ -49,7 +50,7 @@ def generateParenthesis(n):
 ```
 
 
-## 複雜度
+# 複雜度
 此題目的時間複雜度是 $O(4^n/\sqrt{n})$，其中 $n$ 是括號對數。
 
 這是因為對於每個括號對數，最多有 $2n$ 個括號，因此，最多有 $4^n$ 種組合方案。然而，由於有些組合不合法，因此，真正的組合數比 $4^n$ 小。根據 Catalan Number 的計算，真正的組合數是 $C_{n}^{2n} / (n+1)$，因此，真正的時間複雜度是 $O(4^n/\sqrt{n})$。

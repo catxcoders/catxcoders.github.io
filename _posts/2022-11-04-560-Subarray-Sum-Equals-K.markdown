@@ -8,9 +8,8 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
-題目網址: [560. Subarray Sum Equals K](https://leetcode.com/problems/subarray-sum-equals-k/)
-
 # 題目 
+[560. Subarray Sum Equals K](https://leetcode.com/problems/subarray-sum-equals-k/)
 給定一個整數陣列 `nums` 和一個整數 `k`，返回總和等於 `k` 的子陣列的總數。 子陣列是陣列中元素的連續非空序列。
 
 <!--more-->

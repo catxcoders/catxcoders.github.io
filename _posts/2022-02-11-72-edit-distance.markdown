@@ -8,7 +8,8 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
-題目網址: [72. Edit Distance](https://leetcode.com/problems/edit-distance)
+# 題目
+[72. Edit Distance](https://leetcode.com/problems/edit-distance)
 
 <!--more-->
 
@@ -94,6 +95,7 @@ H(%%%%%)
 
 所以，時間複雜度就是`O(mn)`，`n, m`分別為`word1, word2`的字串長度
 
+# 實作
 ```python
 class Solution:
     def minDistance(self, word1: str, word2: str) -> int:

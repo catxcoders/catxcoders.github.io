@@ -8,10 +8,8 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
-題目網址: [68. Text Justification](https://leetcode.com/problems/text-justification/)
-
-# 題目說明
-
+# 題目
+[68. Text Justification](https://leetcode.com/problems/text-justification/)
 這是一道文本格式化的題目。給定一個字符串數組 words 和一個寬度 maxWidth，要求將文本格式化為每一行的寬度正好為 maxWidth 且完全（左右）對齊。
 
 題目要求應該採用貪婪策略將您的文字打包，即在每一行中打包盡可能多的文字。必要時填充額外的空格''，使每一行的寬度正好為 maxWidth。
@@ -32,6 +30,7 @@ excerpt_separator: <!--more-->
 4. 對於`res`列表中的每一行：如果不是最後一行，就將空格數分配到行中，使其具有 `maxWidth`的長度，如果是最後一行，則以左對齊的形式輸出行。
 5. 返回 res 列表。
 
+# 實作
 ```python
 class Solution:
     def fullJustify(self, words: List[str], maxWidth: int) -> List[str]:

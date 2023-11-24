@@ -8,7 +8,8 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
-題目網址: [14. Longest Common Prefix](https://leetcode.com/problems/longest-common-prefix/)
+## 題目
+[14. Longest Common Prefix](https://leetcode.com/problems/longest-common-prefix/)
 
 <!--more-->
 
@@ -27,6 +28,7 @@ excerpt_separator: <!--more-->
 5. 如果有不同，直接返回當前結果
 6. 如果所有字符都相同，繼續遍歷下一位字符
 
+# 實作
 ```python
 class Solution:
     def longestCommonPrefix(self, strs: List[str]) -> str:

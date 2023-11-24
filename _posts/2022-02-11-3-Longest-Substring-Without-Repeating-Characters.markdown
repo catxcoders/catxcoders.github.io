@@ -7,8 +7,8 @@ tags: dp two-pointers python apple amazon microsoft
 excerpt_separator: <!--more-->
 ---
 
-題目網址: [3. Longest Substring Without Repeating Characters
-](https://leetcode.com/problems/longest-substring-without-repeating-characters/)
+# 題目
+[3. Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/)
 
 <!--more-->
 
@@ -33,8 +33,7 @@ for i in range(n):
 如果有的話：我們就知道這一步的起始位置dp[k+1]是該字元的下一個位置
 如果沒有的話：則跟上一步使用同一個起始位置
 
-以程式碼呈現，則是這樣：
-
+# 實作
 ```python
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:

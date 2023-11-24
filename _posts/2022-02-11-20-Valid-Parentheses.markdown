@@ -8,7 +8,8 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
-題目網址: [20. Valid Parentheses](https://leetcode.com/problems/valid-parentheses/)
+## 題目
+[20. Valid Parentheses](https://leetcode.com/problems/valid-parentheses/)
 
 <!--more-->
 
@@ -20,7 +21,7 @@ excerpt_separator: <!--more-->
 
 如果我們順利看完所有的括號都合法，我們還要特別確認Stack是否為空，因為如果不為空，代表還有一些左括號並沒有匹配到右括號，這樣也不是一個合法的情況，例如"(()"，如果為空的話，那就能確定是正確的情況。
 
-
+# 實作
 ```python
 class Solution:
     def isValid(self, s: str) -> bool:

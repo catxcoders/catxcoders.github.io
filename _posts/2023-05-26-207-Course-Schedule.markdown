@@ -8,9 +8,8 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
-題目網址: [207. ](https://leetcode.com/problems/course-schedule)
-
 # 題目
+[207. ](https://leetcode.com/problems/course-schedule)
 
 這題我們給定一個序列，序列中的元素為課程編號以及其先修課程，舉例來說[$a_i$, $b_i$]代表我們必須先修過$b_i$才能選修$a_i$。另外會給定課程總數$numCourses$，課程的編號從$0$至$numCourses-1$，而題目要求我們是否能夠完成全部課程。
 
@@ -22,6 +21,7 @@ excerpt_separator: <!--more-->
 
 我們如果從每個點都走到盡頭，而沒有循環出現的話，那這個圖就沒有循環，於是我們可以想出使用`DFS`來進行：
 
+# 實作
 ```python
 def contains_cycle(i):
     if v[i] == 1:
@@ -45,6 +45,7 @@ return True
 `v[i]=-1`: 代表此點正在被拜訪中，也就是是DFS前面經過的點之一，表示循環出現
 `v[i]=0`: 代表此點沒有被拜訪過
 
+# 實作
 ```python
 class Solution(object):
     def canFinish(self, numCourses, prerequisites):

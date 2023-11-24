@@ -54,14 +54,13 @@ stack: [75, 71, 69] -> [75, 71] -> [75] -> [75, 72]
 
 因為72比69大，所以`pop()`，72也比71大，所以再`pop()`，72比75小，所以放進`stack`，這步驟我們就可以看出，我們放進`stack`的元素，在第一次遇到比他大的值的時候，就會將其移除並計算索引差，stack會維持一個單調的狀態，後面的步驟我們就跳過。
 
-## monotonic stack
+# monotonic stack
 
 一種特殊的`stack`，須保證裡面的各個元素為遞增或遞減，舉例來說，如果像這題是遞減，我們遇到比`top`大的元素，就必須不斷對`stack`進行`pop()`，直到比`top`小，才能加進去。
 
 通常這樣的資料結構會拿來處理，找「第一個比較大」或是「第一個比較小」的這種問題。
 
-## 程式碼
-
+# 實作
 ```python
 class Solution:
     def dailyTemperatures(self, temperatures: List[int]) -> List[int]:

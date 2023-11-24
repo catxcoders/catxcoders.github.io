@@ -8,8 +8,8 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
-題目網址: [299. Bulls and Cows
-](https://leetcode.com/problems/bulls-and-cows/)
+# 題目
+[299. Bulls and Cows](https://leetcode.com/problems/bulls-and-cows/)
 
 這是一個"Bulls and Cows"遊戲，你和你的朋友玩。你先寫下一個秘密數字，然後讓你的朋友猜數字。當你的朋友猜時，你會提供一個提示，內容包括：
 
@@ -27,6 +27,7 @@ excerpt_separator: <!--more-->
 
 這題我們直覺去遍歷secret和guess的每一位，如果他們相同且位置也相同，就增加"bulls"的數量；如果他們相同但位置不同，就增加"cows"的数量。最後，根據統計的"bulls"和"cows"的數量，按照題目的要求格式化輸出即可。
 
+# 實作
 ```python
 class Solution:
     def getHint(self, secret: str, guess: str) -> str:

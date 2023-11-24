@@ -9,7 +9,7 @@ excerpt_separator: <!--more-->
 ---
 
 # 題目:
-題目網址: [227. Basic Calculator II](https://leetcode.com/problems/basic-calculator-ii/)
+[227. Basic Calculator II](https://leetcode.com/problems/basic-calculator-ii/)
 
 給定一個字符串s，表示一個表達式，請求解這個表達式的值。
 
@@ -29,7 +29,7 @@ excerpt_separator: <!--more-->
 - 遇到運算符或字符串結尾時，根據當前運算符對前一個數字進行運算，然後更新運算符和當前數字。
 - 使用陣列（或列表）保存中間結果，最終將中間結果相加得到最終結果。
 
-# Python實作:
+# 實作:
 ```python
 class Solution:
     def calculate(self, s: str) -> int:

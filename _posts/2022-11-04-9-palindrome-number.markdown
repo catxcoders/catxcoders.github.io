@@ -8,7 +8,8 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
-題目網址: [9. Palindrome Number](https://leetcode.com/problems/palindrome-number/)
+# 題目
+[9. Palindrome Number](https://leetcode.com/problems/palindrome-number/)
 
 <!--more-->
 
@@ -34,6 +35,7 @@ excerpt_separator: <!--more-->
 
 所以我們在`while迴圈`的條件可以設定成：`tail > head`。
 
+# 實作
 ```python
 class Solution:
     def isPalindrome(self, x: int) -> bool:

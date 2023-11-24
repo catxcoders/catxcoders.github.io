@@ -8,10 +8,8 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
-題目網址: [209. ](https://leetcode.com/problems/minimum-size-subarray-sum/)
-
 # 題目
-
+[209. Minimum Size Subarray Sum](https://leetcode.com/problems/minimum-size-subarray-sum/)
 這題給定一個正整數陣列，以及一個正整數`target`，要求陣列中最短的子陣列和大於或等於`target`。
 
 <!--more-->
@@ -28,8 +26,8 @@ for i in range(len(nums)):
 
 此外，求和的部分，我們可以透過`presum`的技巧來優化，將複雜度壓到`O(1)`
 
+## 實作
 ```python
-
 presum = [0]
 total = 0
 for num in range(nums):
@@ -45,6 +43,7 @@ for i in range(len(nums)):
 
 當我們目前的和小於目標時，後指針就往後一步(加大矩陣)，當目前的和大於或等於目標的時候就將前指針往後一步(縮小矩陣)，並且紀錄目前的長度，這個過程中，我們會計算到所有符合的子矩陣。
 
+## 實作
 ```python
 class Solution:
     def minSubArrayLen(self, target: int, nums: List[int]) -> int:

@@ -8,9 +8,8 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
-題目網址: [990. Satisfiability of Equality Equations](https://leetcode.com/problems/satisfiability-of-equality-equations/)
-
-# 題目描述
+# 題目
+[990. Satisfiability of Equality Equations](https://leetcode.com/problems/satisfiability-of-equality-equations/)
 給定一個字串序列 $equations$，表示變量之間的關係。每個字串 `equations[i]` 的長度為4，有兩種不同的形式：`"xi==yi"` 或 `"xi!=yi"`。其中，$x_i$ 和 $y_i$ 是小寫字母（可以相同），表示單個字母的變量名。
 
 如果能夠對變量名分配整數，使得滿足所有給定的等式關係，則返回 $true$；否則返回 $false$。

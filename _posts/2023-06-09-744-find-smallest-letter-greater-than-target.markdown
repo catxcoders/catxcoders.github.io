@@ -8,10 +8,8 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
-題目網址: [744. ](https://leetcode.com/problems/find-smallest-letter-greater-than-target)
-
 # 題目
-
+[744. Find Smallest Letter Greater Than Target](https://leetcode.com/problems/find-smallest-letter-greater-than-target)
 給定一個排序過後的列表(根據字母順序)，列表中的元素為小寫的英文字母，另外給定一個`target`為英文單字，我們要回傳列表中，大於`target`的最小英文字母，這邊的大小判定是根據字母順序(lexicographical order)。
 
 題目給定的列表，至少包含兩個相異的英文字母，並且有可能出現重複的字母。

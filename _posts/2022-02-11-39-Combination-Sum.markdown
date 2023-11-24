@@ -8,14 +8,15 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
-題目網址: [39. Combination Sum](https://leetcode.com/problems/combination-sum/)
+# 題目
+[39. Combination Sum](https://leetcode.com/problems/combination-sum/)
 
 # 題目
 給定一個不同整數的候選人陣列和目標整數目標，返回所有選定的數字的總和為目標的候選人的所有唯一組合的列表。您可以以任意順序返回組合。
 
 <!--more-->
 
-## 解題思路
+# 解題思路
 這道題可以使用回溯算法來解決，解題思路如下：
 
 1. 定義一個空列表 combination，用來存储每個組合。
@@ -27,7 +28,7 @@ excerpt_separator: <!--more-->
 7. 重複步驟 2 到 6，直到所有數組都被遍歷完畢，得到所有組合。
 
 
-## 實作
+# 實作
 以下是一個使用回溯法的 Python 解決方案：
 ```python
 def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
@@ -51,7 +52,7 @@ def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]
 ```
 
 
-## 複雜度
+# 複雜度
 在這個題目中，時間複雜度的計算方式是：$O(2^n)$，其中 $n$ 是數組的長度。因為每個數字都可以選或不選，所以總共有 $2^n$ 種可能的組合，因此需要遍歷整個數組。
 
 但是，在本題的實現中，我們使用了剪枝技巧，可以大大縮短執行時間。因此，實際上的時間複雜度可能比 $O(2^n)$ 更低。

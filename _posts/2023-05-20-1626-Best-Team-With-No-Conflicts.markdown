@@ -8,8 +8,8 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
-題目網址: [1626. Best Team With No Conflicts](https://leetcode.com/problems/best-team-with-no-conflicts/)
 # 題目
+[1626. Best Team With No Conflicts](https://leetcode.com/problems/best-team-with-no-conflicts/)
 給定兩個列表scores和ages，其中scores[i]和ages[i]分別表示第i個球員的得分和年齡。球隊的得分是所有球員得分的總和。但球隊有一個限制：**年齡較小的球員的得分不能嚴格高於年齡較大的球員**。同齡球員之間不會存在衝突。請找出所有可能的籃球隊中的最高總分。
 
 <!--more-->

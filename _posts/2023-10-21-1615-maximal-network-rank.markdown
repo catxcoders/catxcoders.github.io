@@ -9,7 +9,7 @@ excerpt_separator: <!--more-->
 ---
 
 # 題目
-
+[1615. Maximal Network Rank](https://leetcode.com/problems/maximal-network-rank/)
 給定$n$個城市，每個城市之間可以連結道路，給定一個陣列$roads$描述任兩城市之間的道路，求最大的`network rank`為何? 
 
  <!--more-->
@@ -18,6 +18,7 @@ excerpt_separator: <!--more-->
 
 這題很單純，我們就是直接去窮舉所有可能，首先計算每個城市的`rank`，再去加總任兩城市間的`network rank`。
 
+# 實作
 ```python
 class Solution:
     def maximalNetworkRank(self, n: int, roads: List[List[int]]) -> int:

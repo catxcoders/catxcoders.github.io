@@ -8,10 +8,8 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
-題目網址: [98. Validate Binary Search Tree](https://leetcode.com/problems/validate-binary-search-tree/)
-
 # 題目
-
+[98. Validate Binary Search Tree](https://leetcode.com/problems/validate-binary-search-tree/)
 這題我們要驗證給定的樹是否為一個合法的二元搜尋樹(Binary Search Tree)，一個合法的`BTS`需要符合以下幾點：
 
 1. 所有左子樹的節點都必須小於根節點(root)

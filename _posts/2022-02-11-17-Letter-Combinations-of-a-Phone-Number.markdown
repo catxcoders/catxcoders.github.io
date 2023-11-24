@@ -8,8 +8,8 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
-題目網址: [17. Letter Combinations of a Phone Number
-](https://leetcode.com/problems/letter-combinations-of-a-phone-number/)
+## 題目
+[17. Letter Combinations of a Phone Number](https://leetcode.com/problems/letter-combinations-of-a-phone-number/)
 
 <!--more-->
 
@@ -23,6 +23,7 @@ excerpt_separator: <!--more-->
 
 最後，函數會回傳包含所有可能字母組合的列表。
 
+# 實作
 ```python
 def letterCombinations(self, digits: str) -> List[str]:
 

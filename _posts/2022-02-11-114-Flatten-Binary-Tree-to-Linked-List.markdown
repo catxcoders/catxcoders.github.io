@@ -8,16 +8,16 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
-題目網址: [114. Flatten Binary Tree to Linked List](https://leetcode.com/problems/flatten-binary-tree-to-linked-list/description/)
-
 # 題目
+[114. Flatten Binary Tree to Linked List](https://leetcode.com/problems/flatten-binary-tree-to-linked-list/description/)
+
 給一個二叉樹的`root`，將樹壓平成一個`linked list`。
 這個`linked list`應該與二叉樹的[前序遍歷](https://en.wikipedia.org/wiki/Tree_traversal#Pre-order,_NLR)順序相同。
 
 <!--more-->
 
-## 解法一
-### 解題思路
+# 解法一
+## 解題思路
 從這棵樹的前序遍歷最遠的`Node`開始(下圖中的`6`)
 
 {% graphviz %}
@@ -291,7 +291,7 @@ node [ label="\N"]
 }
 {% endgraphviz %}
 
-### 實作
+## 實作
 1. 以[前序遍歷](https://en.wikipedia.org/wiki/Tree_traversal#Pre-order,_NLR)倒序遞迴的方式去遍歷所有節點
     1.1 遞迴遍歷當前節點的右子樹。
     1.2 遞迴遍歷當前節點的左子樹。 
@@ -323,12 +323,12 @@ class Solution:
         self.pre = root
 ~~~
 
-### 時間複雜度
+## 時間複雜度
 由於`pre`會指到每個節點一次，更新節點狀態的時間複雜度為$O(1)$，圖中有n個節點，時間複雜度為$O(n)$
 
 ---
-## 解法二
-### 解題思路
+# 解法二
+## 解題思路
 一開始，我們將指標`cr`指到`root`，以下用黃色代表`cr`
 `cr`(節點`1`)的左邊子樹(淺粉色區域)的`root`(節點`2`)，左邊子樹前序遍歷最遠的點(節點`4`)
 {% graphviz %}
@@ -478,7 +478,7 @@ node [ label="\N"]
 }
 {% endgraphviz %}
 
-### 實作
+## 實作
 ```python
 # Definition for a binary tree node.
 # class TreeNode:
@@ -503,5 +503,5 @@ class Solution:
                 cr.left = None
             cr = cr.right
 ```
-### 時間複雜度
+## 時間複雜度
 這個做法由於每個節點會成為一次`cr`，將`cr`的右側的子樹合併至左側的時間複雜度為$O(1)$，圖中有n個節點，時間複雜度為$O(n)$

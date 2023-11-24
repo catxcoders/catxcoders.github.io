@@ -8,9 +8,9 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
-題目網址: [32. Longest Valid Parentheses](https://leetcode.com/problems/longest-valid-parentheses/)
 
 # 題目
+[32. Longest Valid Parentheses](https://leetcode.com/problems/longest-valid-parentheses/)
 最長有效括號子字串長度。
 
 <!--more-->
@@ -19,7 +19,7 @@ excerpt_separator: <!--more-->
 
 這個問題可以使用堆疊(stack)的概念來解決。我們可以遍歷字符串，並維護一個stack，使得stack的最新的索引(index)`k`，代表子字串`s[k+1, cr]`是以`cr`結尾的最長有效括號。
 
-## 算法
+# 算法
 1. 在Python中使用List創建一個堆疊(stack)，並將`-1`放入堆疊(stack)作為起始索引(index)，由於`stack[-1]`是非有效但離`cr`最近的索引`idx`，而s[0]有可能為有效括號，因此要預放入index `-1`。
 3. 遍歷字串`s`，對於每個字符：
     - 如果遇到`(`，將其索引(index)放入(push)堆疊（stack）
@@ -31,7 +31,7 @@ excerpt_separator: <!--more-->
             - 更新最長有效括號子字串的長度
 4. 返回最長有效括號子字串的長度
 
-## 實作
+# 實作
 
 ```python
 class Solution:
@@ -58,6 +58,6 @@ class Solution:
 ```
 
 
-## 複雜度
+# 複雜度
 * 時間複雜度：該算法遍歷一次字符串，所以時間複雜度為$O(n)$，其中$n$是字符串的長度。
 * 空間複雜度：該算法使用了一個堆疊來存儲索引，最壞情況下，堆疊的大小為$n$，所以空間複雜度為$O(n)$。

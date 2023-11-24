@@ -8,7 +8,8 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
-題目網址: [300. Longest Increasing Subsequence](https://leetcode.com/submissions/detail/310107536/)
+# 題目
+[300. Longest Increasing Subsequence](https://leetcode.com/submissions/detail/310107536/)
 
 <!--more-->
 
@@ -32,6 +33,7 @@ x x x x x x o
 
 我們必須考慮前面o前面所有x點的狀況，並取最大值，如果都沒辦法擴展的話，代表以o點為結尾的LIS長度為1(預設值)，也就是LISL[o] = 1。
 
+## 實作
 ```python
 class Solution:
     def lengthOfLIS(self, nums: List[int]) -> int:
@@ -71,7 +73,7 @@ class Solution:
 [1,2,3,4]
 [1,2,3,4,5]
 
-
+## 實作
 ```python
 class Solution:
     def bs(self, nums, target, offset):
