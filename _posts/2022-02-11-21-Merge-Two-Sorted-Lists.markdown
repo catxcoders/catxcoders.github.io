@@ -9,6 +9,9 @@ excerpt_separator: <!--more-->
 ---
 ## 題目
 [21. Merge Two Sorted Lists](https://leetcode.com/problems/merge-two-sorted-lists/description/)
+給定兩個排的List: list1 和 list2。
+將這兩個給定兩個排的List合併為一個排序的給定兩個排的List。合併的過程應該通過拼接第一個和第二個給定兩個排的List的節點完成。
+返回合併後List的head。
 
 <!--more-->
 

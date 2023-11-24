@@ -1,6 +1,6 @@
 ---
 layout: article_post
-title:  "[Leetcode解題] 227. Basic Calculator II"
+title:  "[Leetcode解題] 227. Basic Calculator II - stack解"
 description: "[Leetcode解題] 經典Leetcode必刷題目"
 categories: medium
 tags: stack meta

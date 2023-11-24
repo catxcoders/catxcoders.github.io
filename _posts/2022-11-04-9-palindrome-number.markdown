@@ -10,6 +10,7 @@ excerpt_separator: <!--more-->
 
 # 題目
 [9. Palindrome Number](https://leetcode.com/problems/palindrome-number/)
+給定一個整數 x，如果 x 是回文數，則返回 true；否則返回 false。
 
 <!--more-->
 
