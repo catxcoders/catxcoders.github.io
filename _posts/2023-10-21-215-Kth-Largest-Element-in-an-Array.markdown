@@ -3,7 +3,7 @@ layout: article_post
 title:  "[Leetcode解題] Kth Largest Element in an Array - 最小堆（Min Heap）& Quick Select 解 "
 description: "[Leetcode解題] 經典Leetcode必刷題目"
 categories: medium
-tags: heap quick-select
+tags: heap quick-select meta
 langs: python
 excerpt_separator: <!--more-->
 ---
@@ -32,7 +32,7 @@ Output: 4
 ### Min Heap解題思路
 為了找到第 $k$ 大的元素，我們可以使用**最小堆**（*Min Heap*）來維護目前陣列中的前 $k$ 大元素。我們首先建立一個大小為 $k$ 的*Min Heap* `heap`，然後將陣列中的元素依次加入`heap`中。當`heap`的大小超過 $k$ 時，我們將`top`元素（最小值）彈出，保持`heap`的大小為 $k$。最終，`top`元素即為第 $k$ 大的元素。
 
-### Min Heap代碼實現
+### Min Heap 實作
 ```python
 class Solution:
     def findKthLargest(self, nums: List[int], k: int) -> int:
@@ -59,7 +59,7 @@ class Solution:
 ### Quick Select 解題思路
 *Quick Select* 是一種基於**快速排序**(*Quick Sort*)的演算法，用於在未完全排序的數組中找到第 $k$ 大（或第 $k$ 小）的元素。其基本思想是選擇一個基準元素(`pivot`)，將數組分為比`pivot`小和比`pivot`大的兩部分。然後，根據 $k$ 與`pivot`的位置關係，決定繼續在左半部分或右半部分進行搜索。
 
-### Quick Select代碼實現
+### Quick Select 實作
 ```python
 class Solution:
     def quickSelect(self, nums, k):
