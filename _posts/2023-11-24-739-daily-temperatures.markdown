@@ -60,7 +60,7 @@ stack: [75, 71, 69] -> [75, 71] -> [75] -> [75, 72]
 
 ## 程式碼
 
-```python=
+```python
 class Solution:
     def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
         stack = []
