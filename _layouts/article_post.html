@@ -43,7 +43,7 @@ layout: home_post
   <div style="text-align: left; padding: 25px;">
   <h1>相關文章</h1>
   {% for post in site.posts %}
-	{% if post.categories contains 'easy' %}	
+	{% if post.categories contains 'easy' %}
 		{% for tag in page.tags %}
 			{% if post.tags contains tag %}
 				{% include posts/pagination-box.html post=post %}
@@ -53,7 +53,7 @@ layout: home_post
   {% endfor %}
   
   {% for post in site.posts %}
-  	{% if post.categories contains 'medium' %}	
+  	{% if post.categories contains 'medium' %}
 		{% for tag in page.tags %}
 			{% if post.tags contains tag %}
 				{% include posts/pagination-box.html post=post %}
@@ -63,7 +63,7 @@ layout: home_post
   {% endfor %}
 
   {% for post in site.posts %}
-  	{% if post.categories contains 'hard' %}	
+  	{% if post.categories contains 'hard' %}
 		{% for tag in page.tags %}
 			{% if post.tags contains tag %}
 				{% include posts/pagination-box.html post=post %}
