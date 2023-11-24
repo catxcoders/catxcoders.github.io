@@ -8,10 +8,9 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
-<!--more-->
+題目網址: [20. Valid Parentheses](https://leetcode.com/problems/valid-parentheses/)
 
-題目網址: [20. Valid Parentheses
-](https://leetcode.com/problems/valid-parentheses/)
+<!--more-->
 
 # 解題思路
 

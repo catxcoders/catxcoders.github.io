@@ -8,11 +8,10 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
-<!--more-->
-
 題目網址: [1319. Number of Operations to Make Network Connected](https://leetcode.com/problems/number-of-operations-to-make-network-connected/)
 
 # 題目
+
 連接所有計算機的最少操作次數
 
 給定$n$台計算機，編號從$0$到$n-1$，它們之間通過以太網電纜相互連接，形成一個網絡。給定初始的連接配置connections，其中`connections[i] = [ai, bi]`表示計算機`ai`和`bi`之間有一條連接。任何一台計算機都可以通過網絡直接或間接地連接到任何其他計算機。
@@ -20,6 +19,8 @@ excerpt_separator: <!--more-->
 你可以提取某些已經連接的電纜，將它們連接到任意一對未連接的計算機上，使它們直接連接起來。
 
 請計算出需要執行的最小操作次數，使得所有計算機都能連接在一起。如果無法實現，請返回$-1$。
+
+<!--more-->
 
 # 解題思路
 

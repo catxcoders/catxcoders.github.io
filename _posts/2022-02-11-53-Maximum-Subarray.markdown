@@ -8,13 +8,12 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
-<!--more-->
-
 題目網址: [53. Maximum Subarray](https://leetcode.com/problems/maximum-subarray/)
 
 # 題目
 給定一個整數陣列`nums`，找到**子陣列**其總和最大並返回其總和。
 
+<!--more-->
 
 # 使用preSum
 

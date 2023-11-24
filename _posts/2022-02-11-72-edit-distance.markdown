@@ -8,9 +8,9 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
-<!--more-->
-
 題目網址: [72. Edit Distance](https://leetcode.com/problems/edit-distance)
+
+<!--more-->
 
 # 解題思路
 

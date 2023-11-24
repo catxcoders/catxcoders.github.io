@@ -8,8 +8,6 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
-<!--more-->
-
 題目網址: [299. Bulls and Cows
 ](https://leetcode.com/problems/bulls-and-cows/)
 
@@ -22,6 +20,8 @@ excerpt_separator: <!--more-->
 給定秘密數字secret和朋友的猜測guess，返回朋友的猜測的提示。提示應格式化為"xAyB"，其中x是公牛的數量，y是牛的數量。
 
 特別要注意的是，secret和guess都可能包含重複的數字。
+
+<!--more-->
 
 # 解題思路
 

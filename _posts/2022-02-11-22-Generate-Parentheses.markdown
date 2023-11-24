@@ -8,9 +8,9 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
-<!--more-->
-
 題目網址: [22. Generate Parentheses](https://leetcode.com/problems/generate-parentheses/)
+
+<!--more-->
 
 ## 解題思路
 給定 n 對括號，寫一個函數來生成所有形成良好括號的組合。

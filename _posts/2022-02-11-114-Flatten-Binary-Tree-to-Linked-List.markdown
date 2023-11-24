@@ -8,14 +8,13 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
-<!--more-->
-
 題目網址: [114. Flatten Binary Tree to Linked List](https://leetcode.com/problems/flatten-binary-tree-to-linked-list/description/)
 
 # 題目
 給一個二叉樹的`root`，將樹壓平成一個`linked list`。
 這個`linked list`應該與二叉樹的[前序遍歷](https://en.wikipedia.org/wiki/Tree_traversal#Pre-order,_NLR)順序相同。
 
+<!--more-->
 
 ## 解法一
 ### 解題思路

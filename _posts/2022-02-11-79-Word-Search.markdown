@@ -8,14 +8,14 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
-<!--more-->
-
 題目網址: [79. Word Search
 ](https://leetcode.com/problems/word-search/)
 
 # 解題思路
 
 這題我們很直接會想要用BFS/DFS的解法來解，以每個點為起點去做搜尋，這樣時間複雜度為$O(M N 3^L)$，$M, N$為棋盤的長寬，$L$為搜尋字串的長度，最差的情況來說，我們需要走訪$M \times N$個點作為起點，每個點又需要走過$L$個點做探索，每個位置可以往上下左右走，所以最壞有$4*3^{L-1}$種可能。
+
+<!--more-->
 
 ## 錯誤思路
 

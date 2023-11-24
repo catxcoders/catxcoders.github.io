@@ -8,9 +8,9 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
-<!--more-->
-
 題目網址: [21. Merge Two Sorted Lists](https://leetcode.com/problems/merge-two-sorted-lists/description/)
+
+<!--more-->
 
 # 解題思路
 不論這兩條`List`有沒有排序過，都可以直接將這兩條`List`拼起來再做sort，這樣的時間複雜度是O(nlogn), n為兩條`List`總元素個數。

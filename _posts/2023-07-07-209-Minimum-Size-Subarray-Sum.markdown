@@ -8,13 +8,13 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
-<!--more-->
-
 題目網址: [209. ](https://leetcode.com/problems/minimum-size-subarray-sum/)
 
 # 題目
 
 這題給定一個正整數陣列，以及一個正整數`target`，要求陣列中最短的子陣列和大於或等於`target`。
+
+<!--more-->
 
 # 解題思路
 

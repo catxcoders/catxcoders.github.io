@@ -8,12 +8,12 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
-<!--more-->
-
 題目網址: [56. Merge Intervals](https://leetcode.com/problems/merge-intervals/)
 
 ## 題目
 給定一個區間陣列`intervals(List[List[int]])`，其中 `intervals[i] = [start_i, end_i]`，合併所有重疊區間，並返回覆蓋輸入中所有區間的非重疊區間陣列。
+
+<!--more-->
 
 ### 例子 1:
 區間陣列: intervals = [[1,3],[2,6],[8,10],[15,18]]

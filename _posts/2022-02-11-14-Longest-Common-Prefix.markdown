@@ -8,9 +8,9 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
-<!--more-->
-
 題目網址: [14. Longest Common Prefix](https://leetcode.com/problems/longest-common-prefix/)
+
+<!--more-->
 
 # 解題思路
 

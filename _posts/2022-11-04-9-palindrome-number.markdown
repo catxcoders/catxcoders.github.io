@@ -8,9 +8,9 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
-<!--more-->
-
 題目網址: [9. Palindrome Number](https://leetcode.com/problems/palindrome-number/)
+
+<!--more-->
 
 # 解題思路
 

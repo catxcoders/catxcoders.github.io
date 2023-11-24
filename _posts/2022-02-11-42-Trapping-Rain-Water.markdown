@@ -8,10 +8,9 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
-<!--more-->
-
 題目網址: [42. Trapping Rain Water](https://leetcode.com/problems/trapping-rain-water/)
 
+<!--more-->
 
 ## 解題思路
 「困住雨水」這個問題是在想像一個有長條狀物（代表高度）的地圖上下雨的情況，我們要計算雨水在這個地圖上最多能夠被困住多少。

@@ -11,6 +11,7 @@ excerpt_separator: <!--more-->
 # 215. Kth Largest Element in an Array
 
 ## 題目描述
+
 給定一個整數陣列 `nums` 和一個整數 `k`，請找出陣列中第 k 大的元素。請注意，這裡指的是陣列按照升序排序後的第 k 大元素，而非第 k 個不同的元素。我們可以不使用sort解決這個問題嗎?
 
 Example 1:
@@ -24,6 +25,9 @@ Example 2:
 Input: nums = [3,2,3,1,2,4,5,5,6], k = 4
 Output: 4
 ```
+
+<!--more-->
+
 ## [解法1: Min Heap]
 ### Min Heap解題思路
 為了找到第 $k$ 大的元素，我們可以使用**最小堆**（*Min Heap*）來維護目前陣列中的前 $k$ 大元素。我們首先建立一個大小為 $k$ 的*Min Heap* `heap`，然後將陣列中的元素依次加入`heap`中。當`heap`的大小超過 $k$ 時，我們將`top`元素（最小值）彈出，保持`heap`的大小為 $k$。最終，`top`元素即為第 $k$ 大的元素。

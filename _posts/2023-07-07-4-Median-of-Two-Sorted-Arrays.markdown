@@ -8,16 +8,17 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
-<!--more-->
-
 題目網址: [4. Median of Two Sorted Arrays](https://leetcode.com/problems/median-of-two-sorted-arrays/)
 
 # 題目
+
 兩個已排序陣列的中位數
 
 給定兩個大小分別為 $m$ 和 $n$ 的已排序陣列 $nums1$ 和 $nums2$，找出這兩個陣列的中位數。
 
 整體運行時間複雜度應為 $O(log(m+n))$。
+
+<!--more-->
 
 # 解題思路
 

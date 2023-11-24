@@ -8,8 +8,6 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
-<!--more-->
-
 題目網址: [714. Best Time to Buy and Sell Stock with Transaction Fee](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/)
 
 ## 題目
@@ -19,8 +17,8 @@ excerpt_separator: <!--more-->
 找到您可以實現的最大利潤。您可以進行任意多次交易，但每次交易都需要支付交易費用。
 
 注意：您不能同時進行多個交易（即，在買入股票之前必須先將其出售）。
-題目網址: [714. Best Time to Buy and Sell Stock with Transaction Fee](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/)
 
+<!--more-->
 
 ## 解題思路
 解法：貪心算法

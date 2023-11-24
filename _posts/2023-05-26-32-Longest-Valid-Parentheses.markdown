@@ -8,13 +8,12 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
-<!--more-->
 題目網址: [32. Longest Valid Parentheses](https://leetcode.com/problems/longest-valid-parentheses/)
 
 # 題目
 最長有效括號子字串長度。
 
-
+<!--more-->
 
 # 解題思路
 

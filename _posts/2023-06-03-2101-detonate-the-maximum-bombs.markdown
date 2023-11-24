@@ -8,13 +8,13 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
-<!--more-->
-
 題目網址: [2101. ](https://leetcode.com/problems/detonate-the-maximum-bombs/)
 
 # 題目
 
 給定一個列表，列表中的每個元素有三個組成元素，$(x, y, r)$表示圓中心點的位置，以及其半徑$r$，每個點表示一顆炸彈，圓的面積表示炸彈可以炸的範圍，爆炸時會引爆其他炸彈，題目要求，若只能引爆一顆炸彈，最多可以引爆幾顆炸彈。
+
+<!--more-->
 
 # 解題思路
 

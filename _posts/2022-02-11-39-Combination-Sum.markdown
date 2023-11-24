@@ -8,12 +8,12 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
-<!--more-->
-
 題目網址: [39. Combination Sum](https://leetcode.com/problems/combination-sum/)
 
 # 題目
 給定一個不同整數的候選人陣列和目標整數目標，返回所有選定的數字的總和為目標的候選人的所有唯一組合的列表。您可以以任意順序返回組合。
+
+<!--more-->
 
 ## 解題思路
 這道題可以使用回溯算法來解決，解題思路如下：

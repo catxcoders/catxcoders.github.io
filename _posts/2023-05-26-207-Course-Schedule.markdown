@@ -8,13 +8,13 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
-<!--more-->
-
 題目網址: [207. ](https://leetcode.com/problems/course-schedule)
 
 # 題目
 
 這題我們給定一個序列，序列中的元素為課程編號以及其先修課程，舉例來說[$a_i$, $b_i$]代表我們必須先修過$b_i$才能選修$a_i$。另外會給定課程總數$numCourses$，課程的編號從$0$至$numCourses-1$，而題目要求我們是否能夠完成全部課程。
+
+<!--more-->
 
 # 解題思路
 

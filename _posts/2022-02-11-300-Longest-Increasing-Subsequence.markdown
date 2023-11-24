@@ -8,9 +8,9 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
-<!--more-->
-
 題目網址: [300. Longest Increasing Subsequence](https://leetcode.com/submissions/detail/310107536/)
+
+<!--more-->
 
 # 解題思路
 

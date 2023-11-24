@@ -8,8 +8,6 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
-<!--more-->
-
 題目網址: [98. Validate Binary Search Tree](https://leetcode.com/problems/validate-binary-search-tree/)
 
 # 題目
@@ -20,6 +18,7 @@ excerpt_separator: <!--more-->
 2. 所有右子樹的節點都必須大於根節點
 3. 左子樹跟右子樹也要是二元搜尋樹
 
+<!--more-->
 
 ## 解題思路
 

@@ -7,10 +7,10 @@ tags: dp two-pointers python apple amazon microsoft
 excerpt_separator: <!--more-->
 ---
 
-<!--more-->
-
 題目網址: [3. Longest Substring Without Repeating Characters
 ](https://leetcode.com/problems/longest-substring-without-repeating-characters/)
+
+<!--more-->
 
 # 解題思路
 
