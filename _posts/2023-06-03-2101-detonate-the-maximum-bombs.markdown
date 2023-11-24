@@ -49,7 +49,7 @@ C->B
 }
 {% endgraphviz %}
 
-
+# 實作
 
 ```python
 import math
