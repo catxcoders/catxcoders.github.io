@@ -9,7 +9,7 @@ i = 0;
 
 
 function zoom(value, index, array){
-	return value * 3;
+	return value;
 }
 
 function runProgress(){
@@ -22,7 +22,7 @@ function runProgress(){
 			$(nameList[c]).attr("aria-valuenow", i);
 
 		}else{
-			$(nameList[c]).html(limit[c]/3);
+			$(nameList[c]).html(limit[c]);
 		}
 	}
 	if(flag){
