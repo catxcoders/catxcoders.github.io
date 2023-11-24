@@ -3,7 +3,7 @@ layout: article_post
 title:  "[Leetcode解題] 227. Basic Calculator II"
 description: "[Leetcode解題] 經典Leetcode必刷題目"
 categories: medium
-tags: stack
+tags: stack meta
 langs: python
 excerpt_separator: <!--more-->
 ---
