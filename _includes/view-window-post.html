@@ -1,8 +1,8 @@
 <!-- OK -->
 
-<a href="{{ site.baseurl }}{{ post.url }}">
 <div class="post-view-color post-view-window">
 	<!-- title -->
+	<a href="{{ site.baseurl }}{{ post.url }}">
 	<div class="post-view-title text-left" >
 		<p>{{ post.title }}</p>
 	</div>
@@ -11,6 +11,7 @@
 	<div class="post-view-date">
 			{{ post.date | date: "%-d %B %Y"  }}
 	</div>
+	</a>
 
 	<!-- tags -->
 	<div class="post-view-tags">
@@ -40,8 +41,9 @@
 	<hr>
 
 	<!-- Read Button -->
+	<a href="{{ site.baseurl }}{{ post.url }}">
 	<div class="post-view-readmore text-center">
 		<i class="fab fa-readme fa-2x"></i>
 	</div>
+	</a>
 </div>
-</a>
