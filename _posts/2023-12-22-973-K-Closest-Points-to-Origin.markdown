@@ -2,7 +2,7 @@
 layout: article_post
 title:  "[Leetcode解題] K Closest Points to Origin - Quick Select解"
 description:  "[Leetcode解題] K Closest Points to Origin - Quick Select解"
-categories: medium quickselect
+categories: medium
 tags: quickselect
 langs: python
 excerpt_separator: <!--more-->
