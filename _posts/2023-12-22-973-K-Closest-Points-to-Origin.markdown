@@ -19,7 +19,7 @@ excerpt_separator: <!--more-->
 這個問題與[Kth Largest Element in an Array](https://www.catxcoder.com/medium/2023/10/21/215-Kth-Largest-Element-in-an-Array.html)很類似，可以使用**快速選擇**（*Quick Select*）的思想來解決。*Quick Select*是一種修改版的*Quick Sort*，用於找到第 $k$ 小的元素。我們可以使用這個方法來找到最近的 $k$ 個點。
 
 1. 計算每個點到原點的距離，並存儲在一個陣列中。
-2. 使用快速選擇，找到第 k 小的距離，以及對應的點的索引。
+2. 使用*Quick Select*，找到第 k 小的距離，以及對應的點的索引。
 3. 返回前 k 個最近的點。
 
 這樣的實現方式可以在不需要對整個陣列進行排序的情況下找到最近的 $k$ 個點，從而提高效率。
