@@ -12,8 +12,9 @@ excerpt_separator: <!--more-->
 
 [438. Find All Anagrams in a String](https://leetcode.com/problems/find-all-anagrams-in-a-string/)
 
-excerpt_separator: <!--more-->
+給定兩個字串`s1`與`s2`，判斷`s2`中是否包含`s1`其中一種排列組合的子字串，回傳各個位置的indices
 
+excerpt_separator: <!--more-->
 
 ## 解題思路
 
