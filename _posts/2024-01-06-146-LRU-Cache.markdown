@@ -1,0 +1,159 @@
+---
+layout: article_post
+title:  "[Leetcode解題] 146. LRU Cache"
+description:  "[Leetcode解題] 146. LRU Cache"
+categories: medium
+tags: double-linked-list hashmap
+langs: python
+excerpt_separator: <!--more-->
+---
+
+## 題目
+
+[146. LRU Cache](https://leetcode.com/problems/lru-cache/description/)
+設計一個資料結構，符合最近最少使用 (LRU) cache的限制。實作 LRUCache 類別，包含以下方法：
+
+- LRUCache(int capacity)：初始化一個具有正數容量的 LRU cache。
+- int get(int key)：如果key存在，返回相對應的value，否則返回 -1。
+- void put(int key, int value)：如果key存在，更新相對應的value。否則，將key-value添加到cache中。如果使key的數量超過capacity，則淘汰最近最少使用的key。
+
+> get 和 put 方法的平均時間複雜度應為 O(1)。
+
+<!--more-->
+
+
+## 解題思路
+
+為了實現 $O(1)$ 的平均時間複雜度，我們可以使用有序字典 (*OrderedDict*) 來儲存cache的內容，以保持**插入順序**。
+
+- `get` 函式：如果 key 存在，將該 key 移動到有序Dictionary的最後，並返回對應的值；否則返回 -1。
+- `put` 函式：如果 key 存在，更新其值並將該 key 移動到有序Dictionary的最後；如果 key 不存在，將新的 key-value 對加入cache。若cache大小超過容量，則移除有序Dictionary中的第一個元素（最少使用的元素）。
+
+### OrderedDict介紹
+*OrderedDict* 是 Python 中的一個有序 *dictionary* 類別，它在內部實現中使用了*doubly linked list (DLL)* 和 *dictionary*的組合，以保持元素的**插入順序**。
+
+具體來說，*OrderedDict* 的內部實現主要包括兩個方面：
+
+- **Dictionary**：用來存key-value pairs的 hash-table。
+這個 hash-table 使用dictionary快速查找，例如根據key查找value。
+- **Doubly Linked List**：用來維護插入順序的Linked List結構。
+每個節點包含了key、value以及指向前一個節點和後一個節點的pointer。
+當一個元素被插入時，它同時被添加到雙向Linked List的tail；當一個元素被訪問時，它被移動到Linked List的tail，這樣最近被訪問的元素總是位於Linked List的tail。
+
+## 實作
+### Python實作: 使用*OrderedDict*
+```python
+class LRUCache:
+    def __init__(self, capacity: int):
+        self.capacity = capacity
+        self.cache = OrderedDict()
+
+    def get(self, key: int) -> int:
+        if key in self.cache:
+            self.cache.move_to_end(key)
+            return self.cache[key]
+        return -1
+
+    def put(self, key: int, value: int) -> None:
+        if key in self.cache:
+            self.cache[key] = value
+            self.cache.move_to_end(key)
+        else:
+            self.cache[key] = value
+            if len(self.cache) > self.capacity:
+                self.cache.popitem(last=False) 
+
+
+# Your LRUCache object will be instantiated and called as such:
+# obj = LRUCache(capacity)
+# param_1 = obj.get(key)
+# obj.put(key,value)
+        
+```
+
+### C++ 實作: 使用`double linked-list`與`hash_map`實作*OrderedDict*
+在C++中，沒有OrderedDict，但是我們可以使用`double linked-list`與`hash_map`自己實作
+```cpp
+template<typename Key, typename Value>
+class OrderDict{
+public:
+    Value& operator [] (const Key key){
+        if (hash_map.find(key)!=hash_map.end()){
+            return hash_map[key]->value;
+        }
+
+        order_list.push_back({key, Value()});
+        hash_map[key] = prev(order_list.end());
+        return hash_map[key]->value;
+    }
+
+    bool find(const Key key) const {
+        return hash_map.find(key) != hash_map.end();
+    }
+
+    Value get(const Key key) {
+        if (find(key)){
+            return (*this)[key];
+        }else{
+            runtime_error("key not found");
+            return Value();
+        }
+    }
+
+    void move_back(const Key key) {
+        if (find(key))
+            order_list.splice(order_list.end(), order_list, hash_map[key]);
+    }
+
+    void pop_front() {
+        hash_map.erase(order_list.front().key);
+        order_list.pop_front();
+    }
+
+    size_t size() const {
+        return order_list.size();
+    }
+
+private:
+    struct Node{
+        Key key;
+        Value value;
+    };
+
+    list<Node> order_list;
+    unordered_map<Key, typename list<Node>::iterator> hash_map;
+
+};
+
+class LRUCache {
+public:
+    LRUCache(int capacity) :capacity(capacity){ }
+    
+    int get(int key) {
+        if (order_dict.find(key)){
+            order_dict.move_back(key);
+            return order_dict.get(key);
+        }
+        return -1;
+    }
+    
+    void put(int key, int value) {
+        if (order_dict.find(key)) order_dict.move_back(key);
+        order_dict[key] = value;
+        if (order_dict.size() > capacity) order_dict.pop_front();
+    }
+private:
+    int capacity;
+    OrderDict<int, int> order_dict;
+};
+
+/**
+ * Your LRUCache object will be instantiated and called as such:
+ * LRUCache* obj = new LRUCache(capacity);
+ * int param_1 = obj->get(key);
+ * obj->put(key,value);
+ */
+```
+
+## 時間複雜度
+`get` 和 `put` 函式的平均時間複雜度為 $O(1)$。由於有序字典 (*OrderedDict*) 保持插入順序，cache的最後一個元素總是最近最少使用的元素，因此這兩個操作的時間複雜度都是 $O(1)$。
