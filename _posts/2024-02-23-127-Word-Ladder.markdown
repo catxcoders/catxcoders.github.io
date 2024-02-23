@@ -1,0 +1,90 @@
+---
+layout: article_post
+title:  "[Leetcode解題] 127. Word Ladder - BFS解"
+description:  "[Leetcode解題] 127. Word Ladder - BFS解"
+categories: hard amazon
+tags: bfs
+langs: python
+excerpt_separator: <!--more-->
+---
+
+## 題目
+[127. Word Ladder](https://leetcode.com/problems/word-ladder/)
+給定兩個單字 beginWord 和 endWord，以及一個字典 wordList，其中包含了許多單字。請找出從 beginWord 到 endWord 的最短轉換序列的長度，轉換規則如下：
+
+- 每個相鄰的單字之間只能相差一個字母。
+- 轉換序列中的每個單字都必須在 wordList 中，但 beginWord 不一定需要在 wordList 中。
+- 最後一個單字必須是 endWord。
+如果無法找到這樣的轉換序列，則返回 0。
+<!--more-->
+
+## 解題思路
+這是一個典型的圖論問題，我們可以將單字視為節點，如果兩個單字可以相互轉換，則它們之間存在一條邊。我們需要找出從beginWord到endWord的最短路徑，因此可以使用廣度優先搜索（BFS）來解決此問題。
+
+1. 創建一個字典或集合來保存單字列表 wordList，以便快速查找單字。
+2. 創建一個 queue 來存放待處理的單字以及它們所在的層級。
+3. 進行BFS，從起始單字開始，逐步尋找與其只相差一個字母的單字，直到找到 endWord 為止。
+4. 返回最短轉換序列的長度。
+
+## 實作
+### Python實作
+```python
+class Solution:
+    def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
+        # 將單字列表轉換為集合，以便查找操作更快
+        wordSet = set(wordList)
+
+        # 建立隊列，起始單字和步數
+        queue = deque([(beginWord, 1)])
+
+        while queue:
+            current_word, level = queue.popleft()
+            if current_word == endWord:
+                return level
+            # 尋找與當前單字只相差一個字母的單字
+            for i in range(len(current_word)):
+                for char in string.ascii_lowercase:
+                    next_word = current_word[:i] + char + current_word[i+1:]
+                    if next_word in wordSet:
+                        wordSet.remove(next_word)
+                        queue.append((next_word, level + 1))
+        return 0
+        
+```
+### C++實作
+```C++
+class Solution {
+public:
+    int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
+        unordered_set<string> wordSet(wordList.begin(), wordList.end());
+        queue<string> q;
+        q.push(beginWord);
+        int tTime = 1;
+
+        while(!q.empty()){
+            auto qSize = q.size();
+            for (int k=0; k<qSize; k++){
+                auto &w = q.front();
+                for (int i=0; i<w.size(); i++){
+                    auto tmp = w[i];
+                    for (char j='a'; j<='z'; j++){
+                        w[i] = j;
+                        if (wordSet.find(w)!=wordSet.end()){
+                            if (w == endWord) return tTime+1;
+                            q.push(w);
+                            wordSet.erase(w);
+                        }
+                    }
+                    w[i] = tmp;
+                }
+                q.pop();
+            }
+            tTime++;
+        }
+        return 0;
+    }
+};
+```
+
+## 時間複雜度
+假設單字的長度為$L$，wordList中有 $N$ 個單字，則建立單字集合的時間複雜度為 $O(NL)$，而 BFS 搜索的時間複雜度為 $O(NL)$，因此總體時間複雜度為 $O(NL)$。
