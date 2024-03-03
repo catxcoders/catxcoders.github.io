@@ -8,8 +8,6 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
-# 239. Sliding Window Maximum
-
 # 題目
 
 [239. Sliding Window Maximum](https://leetcode.com/problems/sliding-window-maximum/description/)
