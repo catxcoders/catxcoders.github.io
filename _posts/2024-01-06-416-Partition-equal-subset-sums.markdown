@@ -33,7 +33,7 @@ excerpt_separator: <!--more-->
 此方法可行的一個前提是因為矩陣總和的target最大為$10000$，故可以直接創一個二維矩陣，但若範圍更大，則可以用$dict$來存會更節省空間。
 
 
-```python=
+```python
 class Solution:
     def canPartition(self, nums: List[int]) -> bool:
         def partition(nums, target):

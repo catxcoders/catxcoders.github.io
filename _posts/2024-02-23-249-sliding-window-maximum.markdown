@@ -26,7 +26,7 @@ excerpt_separator: <!--more-->
 
 另外，使用`deque`，可以讓我們在移除元素時時間複雜度為$O(1)$。
 
-```python=
+```python
 from collections import deque
 class Solution:
     def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
@@ -48,7 +48,7 @@ class Solution:
         return res
 ```
 
-```cpp=
+```cpp
 class Solution {
 public:
     vector<int> maxSlidingWindow(vector<int>& nums, int k) {
