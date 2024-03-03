@@ -1,0 +1,133 @@
+---
+layout: article_post
+title:  "[Leetcode解題] 189. Rotate Array"
+description:  "[Leetcode解題] 189. Rotate Array"
+categories: medium 
+tags: space-complexity
+langs: python
+excerpt_separator: <!--more-->
+---
+
+# 題目
+
+[189. Rotate Array](https://leetcode.com/problems/sliding-window-maximum/description/)
+
+給一個矩陣`nums`以及一個數字`k`，將矩陣元素往右移動`k`，舉例來說，如果給`[1,2,3,4,5,6,7], k=3`，所有元素往右三格即得`[5,6,7,1,2,3,4]`。
+
+題目要求要在$O(1)$的空間複雜度下解。
+
+# 解題思路
+
+這題看似簡單但卻因為常數空間複雜度的限制變得有點難，大家可能一開始會想到最無腦的方法：
+
+```python=
+nums = nums[:k] + nums[k:]
+```
+但python在做slicing的時候，就會複製出一塊新的記憶體，所以這邊的空間複雜度已經為`O(n)`了，不符題目要求。
+
+再來，可能會想說，那可以一步一步往右移動，這樣只需要多幾個變數來做swap的cache，像是：
+
+```python=
+ptr1 = nums[0]
+ptr2 = nums[1]
+for i in range(n):
+    nums[(i+1)%n] = ptr1
+    ptr1 = ptr2
+    ptr2 = nums[(i+2)%n]
+```
+
+但這麼做，最壞的時間複雜度可以為$O(n^2)$，不是很實際的做法。
+
+所以我們想，可以透過反轉(reverse)矩陣來做，舉例來說：
+
+`[1,2,3,4,5,6,7], k=3`
+
+可以透過三次的反轉矩陣得解
+
+1. 整個矩陣反轉 => [7,6,5,4,3,2,1]
+2. 到k反轉 => [5,6,7,4,3,2,1]
+3. k之後的元素反轉 => [5,6,7,1,2,3,4]
+
+這邊的思路是，每次做矩陣反轉的時候，每個元素的索引會從`i`到`n-i-1`
+
+所以如果做兩次整個矩陣反轉，很直覺會回到原點：
+
+1. i -> n-i-1
+2. n-i-1 -> n-(n-i-1)-1 = i
+
+從`i`到`i`回到了原點
+
+但這邊如果我們之後反轉是部分反轉的話呢：
+
+1. i -> n-i-1 (整個反轉)
+2. n-i-1 -> k-(n-i-1)-1 = k-n+i = i + (k-n) (只到k反轉)
+
+這邊我們可以看到，經過兩個步驟，就會從原本的`i`移動`k-n`步到`i + k-n`
+
+這邊我們要代入一個觀念，`i`跟`i+n`是一樣的，所以`i+k-n`也等於`i+k`，故就等於往右了`k`步！
+
+所以很神奇的，當我們做兩次不同長度的矩陣反轉，就可以將元素往右移動`k`步
+
+# Python swap
+
+這邊需要特別講一下，Python中我們怎麼做swap，當然可以直接使用一個變數來做：
+```python
+def swap(x, y):
+    tmp = x
+    x = y
+    y = tmp
+    del tmp
+```
+
+有一種更`pythonic`的方法是使用`tuple assigment`，我們知道python是從右到左開始`evaluation`，所以寫成：
+
+```python
+x, y = y, x
+```
+這會先創一個(y, x)的tuple，再將其assign到左邊去
+
+# 程式碼
+
+Python
+
+```python
+class Solution:
+    def rotate(self, nums: List[int], k: int) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        k = k % len(nums)
+        n = len(nums)
+        for i in range(n // 2):
+            nums[i], nums[n-i-1] = nums[n-i-1], nums[i]
+        
+        n = k
+        for i in range(n // 2):
+            nums[i], nums[n-i-1] = nums[n-i-1], nums[i]
+
+        n = len(nums)-k
+        for i in range(n // 2):
+            nums[k+i], nums[n+k-i-1] = nums[n+k-i-1], nums[k+i]
+        
+```
+
+C++的話可以直接透過`reverse`來做更為簡潔。
+```cpp
+class Solution {
+public:
+    void rotate(vector<int>& nums, int k) {
+        int n = nums.size();
+        k = k % n;
+        reverse(nums.begin(), nums.end());
+        reverse(nums.begin(), nums.begin()+k);
+        reverse(nums.begin()+k, nums.end());
+    }
+};
+```
+
+
+# 時間複雜度
+
+每做一次矩陣翻轉，我們需要做$n/2$次的swap，每個元素會被swap兩次，所以時間複雜度可以看做是$O(n)$，而我們知道swap只需要常數的空間，故空間複雜度為$O(1)$
+
+
