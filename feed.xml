@@ -1,0 +1,916 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2024-03-23T12:26:35+00:00</updated><id>/feed.xml</id><entry><title type="html">[Leetcode解題] 139. Word Break - 使用dp解</title><link href="/medium/2024/03/23/139-Word-Break.html" rel="alternate" type="text/html" title="[Leetcode解題] 139. Word Break - 使用dp解" /><published>2024-03-23T00:00:00+00:00</published><updated>2024-03-23T00:00:00+00:00</updated><id>/medium/2024/03/23/139-Word-Break</id><content type="html" xml:base="/medium/2024/03/23/139-Word-Break.html"><![CDATA[<h2 id="題目">題目</h2>
+
+<p><a href="https://leetcode.com/problems/word-break/">139. Word Break</a></p>
+
+<p>給一個字串以及一個詞表（一個包含單詞的矩陣），求該字串是否能被以詞表內的單字切分，單字可以被重複利用。</p>
+
+<!--more-->
+
+<h2 id="解題思路">解題思路</h2>
+
+<p>這題我們使用dp來解，dp矩陣表示「以該索引的字串是否能被詞表單字表示」，舉例來說，假設給定字串s為<code class="language-plaintext highlighter-rouge">leetcode</code></p>
+
+<p>dp[0]表示以第一個字元<code class="language-plaintext highlighter-rouge">l</code>起始，所以也就等同於題目所求<code class="language-plaintext highlighter-rouge">leetcode</code>是否能被以詞表表示。</p>
+
+<p>dp[4]表示以第五個字元<code class="language-plaintext highlighter-rouge">c</code>起始，也就是<code class="language-plaintext highlighter-rouge">code</code>是否能被以詞表表示。</p>
+
+<p>到這邊我們就能表示「optimal substructure」，在第k步時，我們去檢驗詞表內每個單字，如果以下兩個條件成立，我們則能得到dp[k]為True</p>
+
+<ol>
+  <li>s[k:k+len(word)] == word</li>
+  <li>dp[k+len(word)] == True</li>
+</ol>
+
+<p>舉例來說，dp[0]的情況，我們可得知，<code class="language-plaintext highlighter-rouge">s[0:4] == "leet"</code>且dp[4]為<code class="language-plaintext highlighter-rouge">True</code>，所以dp[0]為True，至此得解。</p>
+
+<p>有一點要注意的地方，我們需要定義dp[n]，也就是以第n+1個字元為起始的狀況（空字串）為<code class="language-plaintext highlighter-rouge">True</code>。</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">wordBreak</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">wordDict</span><span class="p">):</span>
+        <span class="s">"""
+        :type s: str
+        :type wordDict: List[str]
+        :rtype: bool
+        """</span>     
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+        <span class="n">dp</span> <span class="o">=</span> <span class="p">[</span><span class="bp">False</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">dp</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">wordDict</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">i</span><span class="o">+</span><span class="nb">len</span><span class="p">(</span><span class="n">word</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">n</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="nb">len</span><span class="p">(</span><span class="n">word</span><span class="p">)]</span> <span class="o">==</span> <span class="n">word</span> <span class="ow">and</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="nb">len</span><span class="p">(</span><span class="n">word</span><span class="p">)]:</span>
+                    <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="k">return</span> <span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</code></pre></div></div>
+
+<h2 id="bottom-up-or-top-down">Bottom up or Top down</h2>
+
+<p>這題我們可以討論一下<code class="language-plaintext highlighter-rouge">Bottom up</code>跟<code class="language-plaintext highlighter-rouge">Top down</code>的差異，通常使用dp的情況我們是<code class="language-plaintext highlighter-rouge">Bottom up</code>的做，而我們可以利用類似的想法來寫出<code class="language-plaintext highlighter-rouge">Top down</code>的作法，通常會變成是<code class="language-plaintext highlighter-rouge">recursion</code>搭配<code class="language-plaintext highlighter-rouge">memorization</code>。</p>
+
+<p>這次我們定義一個函式f只有一個參數k表示字元的起始索引，所以從頭開始，如果：</p>
+
+<ol>
+  <li>s[k:].startswith(word)</li>
+  <li>f(len(word)) == True</li>
+</ol>
+
+<p>則f(k) == True，而題目所求為f(0)。</p>
+
+<p>但這樣TopDown的過程會有很多重複的狀況，舉一個測資<code class="language-plaintext highlighter-rouge">s='aaaa', wordDict=['a', 'aa']</code>。</p>
+
+<p>所以我們必須用一個矩陣來存每一步的結果避免重複計算。</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    
+    <span class="k">def</span> <span class="nf">wordBreak</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">wordDict</span><span class="p">):</span>
+        <span class="s">"""
+        :type s: str
+        :type wordDict: List[str]
+        :rtype: bool
+        """</span>
+        <span class="n">mem</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">mem</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">def</span> <span class="nf">substructure</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">mem</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="n">mem</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">wordDict</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">:].</span><span class="n">startswith</span><span class="p">(</span><span class="n">word</span><span class="p">)</span> <span class="ow">and</span> <span class="n">substructure</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="nb">len</span><span class="p">(</span><span class="n">word</span><span class="p">)):</span>
+                    <span class="n">mem</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+                    <span class="k">return</span> <span class="bp">True</span>
+            <span class="n">mem</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">return</span> <span class="bp">False</span>            
+        <span class="k">return</span> <span class="n">substructure</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>我們可以討論一下兩種做法的差別及優缺。</p>
+
+<p>使用<code class="language-plaintext highlighter-rouge">Top down</code>的作法時，可以看到我們可能會跳過某些索引，像是<code class="language-plaintext highlighter-rouge">s='leetcode', wordDict=['leet', 'code']</code>的情況，跑的過程會是：</p>
+
+<p>f(0) -&gt; f(4) -&gt; f(8)</p>
+
+<p>但是照dp的做法，會是：</p>
+
+<p>dp[8] -&gt; dp[7] -&gt; … -&gt; dp[0]</p>
+
+<p>計算會較多，因為bottomup的思維不確定之後那些會被用到，所以都必須先計算起來放。</p>
+
+<p>而如果是<code class="language-plaintext highlighter-rouge">s='aaaaaa....aabb', wordDict=['a', 'aa', 'aaa']</code>這個情況，假設有100萬個a+2個b好了。</p>
+
+<p>topDown的過程會是:</p>
+
+<p>f(0) -&gt; f(1) -&gt; f(2) -&gt; … -&gt; f(1M) -&gt; f(1M-1) -&gt; f(1M-2) -&gt; f(1M-1) -&gt; …</p>
+
+<p>你可以想像因為’a’, ‘aa’, ‘aaa’導致很多重複的function call，當然這可透過<code class="language-plaintext highlighter-rouge">memorization</code>加上在<code class="language-plaintext highlighter-rouge">function call</code>之前來避免。另一個問題是，遞迴的層數如果太深，會造成<code class="language-plaintext highlighter-rouge">stack overflow</code>的問題，因為上一層的函式還沒結束，所以一些local的變數還需被保存在記憶體中。</p>
+
+<p>而bottomup的過程則是相同：</p>
+
+<p>dp[1M+2] -&gt; dp[1M+1] -&gt; … -&gt; dp[0]</p>
+
+<p>所以我認為兩種方法在一些特殊情況會有點不同，而我自己是比較喜歡dp看起來邏輯比較清晰可以一眼確定時間複雜度的作法。</p>
+
+<h2 id="時間複雜度">時間複雜度</h2>
+
+<p>最壞的情況，我們必須遍歷一次整個字串，每個索引又須遍歷整個詞表，所以為$O(nm)$，$n$為字串長度，$m$為詞表長度。</p>]]></content><author><name></name></author><category term="medium" /><category term="dp" /><category term="recursion" /><summary type="html"><![CDATA[Dynamic Programming, Topdown, Bottomup]]></summary></entry><entry><title type="html">[Leetcode解題] 2009. Minimum Number of Operations to Make Array Continuous - 使用 Binary Search 算法</title><link href="/hard/2024/03/09/2009-Minimum-Number-of-Operations-to-Make-Array-Continuous.html" rel="alternate" type="text/html" title="[Leetcode解題] 2009. Minimum Number of Operations to Make Array Continuous - 使用 Binary Search 算法" /><published>2024-03-09T00:00:00+00:00</published><updated>2024-03-09T00:00:00+00:00</updated><id>/hard/2024/03/09/2009-Minimum-Number-of-Operations-to-Make-Array-Continuous</id><content type="html" xml:base="/hard/2024/03/09/2009-Minimum-Number-of-Operations-to-Make-Array-Continuous.html"><![CDATA[<h1 id="題目">題目</h1>
+<p><a href="https://leetcode.com/problems/minimum-number-of-operations-to-make-array-continuous/">2009. Minimum Number of Operations to Make Array Continuous</a>
+給定一個整數陣列 nums。在一次操作中，你可以將 nums 中的任何元素替換為任何整數。
+如果滿足以下兩個條件，則 nums 被認為是連續的：</p>
+
+<p>nums 中的所有元素都是唯一的。
+nums 中的最大元素與最小元素之間的差等於 nums.length - 1。
+例如，nums = [4, 2, 5, 3] 是連續的，但 nums = [1, 22, 22, 24, 24] 不是連續的。</p>
+
+<p>返回使 nums 變得連續所需的最小操作次數。
+<!--more--></p>
+
+<h1 id="解題思路">解題思路</h1>
+<p>我們的目標是使得陣列連續，也就是要求最大元素與最小元素之間的差為 nums.length - 1，同時保持所有元素唯一。因此，我們可以通過以下步驟來解決這個問題：</p>
+
+<ol>
+  <li>將 nums 進行排序，這樣最大元素與最小元素就位於陣列的兩端了。</li>
+  <li>對於每個可能的連續子陣列，找到最大元素的索引。這可以通過Binary Search來實現。</li>
+  <li>子陣列中需要替換的重複元素的數量。這可以通過一個輔助陣列(PreSum的概念)來計算重複元素的個數。</li>
+  <li>對於每個連續子陣列，計算需要替換的操作次數，並保留最小值。</li>
+</ol>
+
+<h1 id="python-實作">Python 實作</h1>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">minOperations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nums</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
+        <span class="n">nums</span><span class="p">.</span><span class="n">sort</span><span class="p">()</span>
+        <span class="n">minOps</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s">'inf'</span><span class="p">)</span>
+        <span class="n">duplicate</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
+
+        <span class="n">d</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]:</span>
+                <span class="n">d</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">duplicate</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">d</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+            <span class="n">interval_max</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span>
+            <span class="n">interval_max_idx</span> <span class="o">=</span> <span class="n">bisect_right</span><span class="p">(</span><span class="n">nums</span><span class="p">,</span> <span class="n">interval_max</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+            <span class="n">duplicate_num</span> <span class="o">=</span> <span class="n">duplicate</span><span class="p">[</span><span class="n">interval_max_idx</span><span class="p">]</span> <span class="o">-</span> <span class="n">duplicate</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">minOps</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">minOps</span><span class="p">,</span> <span class="n">duplicate_num</span> <span class="o">+</span> <span class="n">n</span> <span class="o">-</span> <span class="p">(</span><span class="n">interval_max_idx</span> <span class="o">-</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">minOps</span>
+</code></pre></div></div>
+
+<h1 id="c-實作">C++ 實作</h1>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="nl">public:</span>
+    <span class="kt">int</span> <span class="n">minOperations</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">nums</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">duplicate</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+        <span class="kt">int</span> <span class="n">minOps</span> <span class="o">=</span> <span class="n">INT_MAX</span><span class="p">;</span>
+
+        <span class="n">sort</span><span class="p">(</span><span class="n">nums</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">nums</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+        <span class="kt">int</span> <span class="n">d</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">++</span><span class="n">d</span><span class="p">;</span>
+            <span class="n">duplicate</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">d</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+            <span class="kt">int</span> <span class="n">interval_max</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+            <span class="kt">int</span> <span class="n">interval_max_idx</span> <span class="o">=</span> <span class="n">upper_bound</span><span class="p">(</span><span class="n">nums</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">nums</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">interval_max</span><span class="p">)</span> <span class="o">-</span> <span class="n">nums</span><span class="p">.</span><span class="n">begin</span><span class="p">()</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+            <span class="kt">int</span> <span class="n">duplicate_num</span> <span class="o">=</span> <span class="n">duplicate</span><span class="p">[</span><span class="n">interval_max_idx</span><span class="p">]</span><span class="o">-</span> <span class="n">duplicate</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+            <span class="n">minOps</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">minOps</span><span class="p">,</span> <span class="n">duplicate_num</span> <span class="o">+</span> <span class="n">n</span> <span class="o">-</span> <span class="p">(</span><span class="n">interval_max_idx</span><span class="o">-</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">));</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">minOps</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<h1 id="時間複雜度">時間複雜度</h1>
+<p>排序的時間複雜度為 $O(n log n)$，其中 $n$ 是陣列的長度，對於每個連續子陣列，進行Binary Search的時間複雜度為 $O(log n)$。總體時間複雜度為 $O(n log n)$。</p>]]></content><author><name></name></author><category term="hard" /><category term="binary-search" /><category term="bs" /><summary type="html"><![CDATA[[Leetcode解題] 2009. Minimum Number of Operations to Make Array Continuous - 使用 Binary Search 算法]]></summary></entry><entry><title type="html">[Leetcode解題] 368. Largest Divisible Subset - 使用dp 算法</title><link href="/medium/2024/03/03/368-Largest-Divisible-Subset.html" rel="alternate" type="text/html" title="[Leetcode解題] 368. Largest Divisible Subset - 使用dp 算法" /><published>2024-03-03T00:00:00+00:00</published><updated>2024-03-03T00:00:00+00:00</updated><id>/medium/2024/03/03/368-Largest-Divisible-Subset</id><content type="html" xml:base="/medium/2024/03/03/368-Largest-Divisible-Subset.html"><![CDATA[<h1 id="題目">題目</h1>
+<p><a href="https://leetcode.com/problems/largest-divisible-subset/">368. Largest Divisible Subset</a>
+給定一組不同的正整數 nums，返回最大的子集 answer，使得該子集中的每對元素 $(answer[i], answer[j])$ 都滿足以下條件：
+$answer[i] \% answer[j] == 0$，或者 $answer[j] \% answer[i] == 0$</p>
+
+<p>如果有多個解，返回其中任意一個。
+<!--more--></p>
+
+<h1 id="解題思路">解題思路</h1>
+<ul>
+  <li>首先，<strong>將 <code class="language-plaintext highlighter-rouge">nums</code> 排序</strong>，排序的目的是為了確保對於每個數字，我們只需要檢查它之前的數字是否能整除它，這樣可以減少重複的計算。</li>
+  <li>我們可以利用 <strong>動態規劃（Dynamic Programming）</strong> 來解決這個問題
+    <ul>
+      <li>創建兩個陣列 <code class="language-plaintext highlighter-rouge">dp</code> 和 <code class="language-plaintext highlighter-rouge">parent</code>
+        <ul>
+          <li><code class="language-plaintext highlighter-rouge">dp[i]</code> 表示以 <code class="language-plaintext highlighter-rouge">nums[i]</code> 結尾的最大子集的大小</li>
+          <li><code class="language-plaintext highlighter-rouge">parent[i]</code> 表示在該最大子集中，<code class="language-plaintext highlighter-rouge">nums[i]</code> 的前一個數字的index(可以理解為當$nums[i]\%nums[j]==0$，<code class="language-plaintext highlighter-rouge">j</code>是<code class="language-plaintext highlighter-rouge">i</code>的<code class="language-plaintext highlighter-rouge">parent</code>)。</li>
+        </ul>
+      </li>
+      <li>遍歷<code class="language-plaintext highlighter-rouge">nums</code>，對於每個 <code class="language-plaintext highlighter-rouge">nums[i]</code>，再從 <code class="language-plaintext highlighter-rouge">nums[0]</code> 到 <code class="language-plaintext highlighter-rouge">nums[i-1]</code> 中找出可以整除 <code class="language-plaintext highlighter-rouge">nums[i]</code> 的數字 <code class="language-plaintext highlighter-rouge">nums[j]</code> ($nums[i]\%nums[j]==0$)，並更新 <code class="language-plaintext highlighter-rouge">dp[i]</code> 和 <code class="language-plaintext highlighter-rouge">parent[i]</code>。這樣，我們就可以得到<strong>以每個數字結尾的最大子集的大小<code class="language-plaintext highlighter-rouge">dp[i]</code>以及它的前一個數字<code class="language-plaintext highlighter-rouge">parent[i]</code></strong>。</li>
+    </ul>
+  </li>
+  <li>最後，我們找出 <code class="language-plaintext highlighter-rouge">dp</code> 中最大的值及其對應的index，根據 <code class="language-plaintext highlighter-rouge">parent</code> 陣列，倒推出最大子集。</li>
+</ul>
+
+<h1 id="python-實作">Python 實作</h1>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">largestDivisibleSubset</span><span class="p">(</span><span class="n">nums</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">nums</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[]</span>
+    
+    <span class="n">nums</span><span class="p">.</span><span class="n">sort</span><span class="p">()</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
+    <span class="n">dp</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
+    <span class="n">max_length</span><span class="p">,</span> <span class="n">max_index</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span>
+    
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">%</span> <span class="n">nums</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">dp</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">dp</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+                    <span class="n">parent</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">j</span>
+                <span class="k">if</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">max_length</span><span class="p">:</span>
+                    <span class="n">max_length</span> <span class="o">=</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                    <span class="n">max_index</span> <span class="o">=</span> <span class="n">i</span>
+    
+    <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">while</span> <span class="n">max_index</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+        <span class="n">result</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">max_index</span><span class="p">])</span>
+        <span class="n">max_index</span> <span class="o">=</span> <span class="n">parent</span><span class="p">[</span><span class="n">max_index</span><span class="p">]</span>
+    
+    <span class="k">return</span> <span class="n">result</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</code></pre></div></div>
+<h1 id="c-實作">C++ 實作</h1>
+<p>這個做法加入了剪枝的技巧，把<code class="language-plaintext highlighter-rouge">nums</code>中的每個點視為一個node，按照該node能往上找幾層來分類，由層數大到小找出可以整除 nums[i] 的數字，一但找到，更新parent，就不用繼續搜索下去。</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="nl">public:</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">largestDivisibleSubset</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">nums</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">sort</span><span class="p">(</span><span class="n">nums</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">nums</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+
+        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">parent</span><span class="p">(</span><span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">layerNodes</span><span class="p">;</span>
+        <span class="n">layerNodes</span><span class="p">.</span><span class="n">push_back</span><span class="p">({</span><span class="mi">0</span><span class="p">});</span>
+
+        <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+            <span class="kt">bool</span> <span class="n">find</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">layer</span><span class="o">=</span><span class="n">layerNodes</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="n">layer</span><span class="o">&gt;=</span><span class="mi">0</span><span class="p">;</span> <span class="n">layer</span><span class="o">--</span><span class="p">){</span>
+                <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span> <span class="n">node_idx</span><span class="o">:</span> <span class="n">layerNodes</span><span class="p">[</span><span class="n">layer</span><span class="p">]){</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">%</span><span class="n">nums</span><span class="p">[</span><span class="n">node_idx</span><span class="p">]</span><span class="o">==</span><span class="mi">0</span><span class="p">){</span>
+                        <span class="n">parent</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">node_idx</span><span class="p">;</span>
+                        <span class="k">if</span> <span class="p">(</span><span class="n">layer</span><span class="o">==</span><span class="n">layerNodes</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+                            <span class="n">layerNodes</span><span class="p">.</span><span class="n">push_back</span><span class="p">({});</span>
+                        <span class="n">layerNodes</span><span class="p">[</span><span class="n">layer</span><span class="o">+</span><span class="mi">1</span><span class="p">].</span><span class="n">push_back</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+                        <span class="n">find</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+                        <span class="k">break</span><span class="p">;</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">find</span><span class="p">)</span> <span class="k">break</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">find</span><span class="p">)</span> <span class="n">layerNodes</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">push_back</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="k">auto</span> <span class="n">idx</span> <span class="o">=</span> <span class="n">layerNodes</span><span class="p">[</span><span class="n">layerNodes</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">];</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">LargestDivisibleSubset</span><span class="p">;</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">idx</span><span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">){</span>
+            <span class="n">LargestDivisibleSubset</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">idx</span><span class="p">]);</span>
+            <span class="n">idx</span> <span class="o">=</span> <span class="n">parent</span><span class="p">[</span><span class="n">idx</span><span class="p">];</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">LargestDivisibleSubset</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<h1 id="時間複雜度">時間複雜度</h1>
+<p>排序 <code class="language-plaintext highlighter-rouge">nums</code> 需要 $O(n log n)$ 的時間。接著遍歷 <code class="language-plaintext highlighter-rouge">nums</code> ，對於每個數字，內部還有一個遍歷，因此時間複雜度為 $O(n^2)$。總體時間複雜度為 $O(n^2)$。</p>]]></content><author><name></name></author><category term="medium" /><category term="dp" /><summary type="html"><![CDATA[[Leetcode解題] 368. Largest Divisible Subset - 使用dp 算法]]></summary></entry><entry><title type="html">[Leetcode解題] 127. Word Ladder - BFS解</title><link href="/hard/amazon/2024/02/23/127-Word-Ladder.html" rel="alternate" type="text/html" title="[Leetcode解題] 127. Word Ladder - BFS解" /><published>2024-02-23T00:00:00+00:00</published><updated>2024-02-23T00:00:00+00:00</updated><id>/hard/amazon/2024/02/23/127-Word-Ladder</id><content type="html" xml:base="/hard/amazon/2024/02/23/127-Word-Ladder.html"><![CDATA[<h2 id="題目">題目</h2>
+<p><a href="https://leetcode.com/problems/word-ladder/">127. Word Ladder</a>
+給定兩個單字 beginWord 和 endWord，以及一個字典 wordList，其中包含了許多單字。請找出從 beginWord 到 endWord 的最短轉換序列的長度，轉換規則如下：</p>
+
+<ul>
+  <li>每個相鄰的單字之間只能相差一個字母。</li>
+  <li>轉換序列中的每個單字都必須在 wordList 中，但 beginWord 不一定需要在 wordList 中。</li>
+  <li>最後一個單字必須是 endWord。
+如果無法找到這樣的轉換序列，則返回 0。
+<!--more--></li>
+</ul>
+
+<h2 id="解題思路">解題思路</h2>
+<p>這是一個典型的圖論問題，我們可以將單字視為節點，如果兩個單字可以相互轉換，則它們之間存在一條邊。我們需要找出從beginWord到endWord的最短路徑，因此可以使用廣度優先搜索（BFS）來解決此問題。</p>
+
+<ol>
+  <li>創建一個字典或集合來保存單字列表 wordList，以便快速查找單字。</li>
+  <li>創建一個 queue 來存放待處理的單字以及它們所在的層級。</li>
+  <li>進行BFS，從起始單字開始，逐步尋找與其只相差一個字母的單字，直到找到 endWord 為止。</li>
+  <li>返回最短轉換序列的長度。</li>
+</ol>
+
+<h2 id="實作">實作</h2>
+<h3 id="python實作">Python實作</h3>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">ladderLength</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">beginWord</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">endWord</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">wordList</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="c1"># 將單字列表轉換為集合，以便查找操作更快
+</span>        <span class="n">wordSet</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">wordList</span><span class="p">)</span>
+
+        <span class="c1"># 建立隊列，起始單字和步數
+</span>        <span class="n">queue</span> <span class="o">=</span> <span class="n">deque</span><span class="p">([(</span><span class="n">beginWord</span><span class="p">,</span> <span class="mi">1</span><span class="p">)])</span>
+
+        <span class="k">while</span> <span class="n">queue</span><span class="p">:</span>
+            <span class="n">current_word</span><span class="p">,</span> <span class="n">level</span> <span class="o">=</span> <span class="n">queue</span><span class="p">.</span><span class="n">popleft</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">current_word</span> <span class="o">==</span> <span class="n">endWord</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">level</span>
+            <span class="c1"># 尋找與當前單字只相差一個字母的單字
+</span>            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">current_word</span><span class="p">)):</span>
+                <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">string</span><span class="p">.</span><span class="n">ascii_lowercase</span><span class="p">:</span>
+                    <span class="n">next_word</span> <span class="o">=</span> <span class="n">current_word</span><span class="p">[:</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">char</span> <span class="o">+</span> <span class="n">current_word</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">:]</span>
+                    <span class="k">if</span> <span class="n">next_word</span> <span class="ow">in</span> <span class="n">wordSet</span><span class="p">:</span>
+                        <span class="n">wordSet</span><span class="p">.</span><span class="n">remove</span><span class="p">(</span><span class="n">next_word</span><span class="p">)</span>
+                        <span class="n">queue</span><span class="p">.</span><span class="n">append</span><span class="p">((</span><span class="n">next_word</span><span class="p">,</span> <span class="n">level</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="k">return</span> <span class="mi">0</span>
+        
+</code></pre></div></div>
+<h3 id="c實作">C++實作</h3>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="nl">public:</span>
+    <span class="kt">int</span> <span class="n">ladderLength</span><span class="p">(</span><span class="n">string</span> <span class="n">beginWord</span><span class="p">,</span> <span class="n">string</span> <span class="n">endWord</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;&amp;</span> <span class="n">wordList</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">unordered_set</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">wordSet</span><span class="p">(</span><span class="n">wordList</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">wordList</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+        <span class="n">queue</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">q</span><span class="p">;</span>
+        <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">beginWord</span><span class="p">);</span>
+        <span class="kt">int</span> <span class="n">tTime</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+
+        <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">q</span><span class="p">.</span><span class="n">empty</span><span class="p">()){</span>
+            <span class="k">auto</span> <span class="n">qSize</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">k</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">k</span><span class="o">&lt;</span><span class="n">qSize</span><span class="p">;</span> <span class="n">k</span><span class="o">++</span><span class="p">){</span>
+                <span class="k">auto</span> <span class="o">&amp;</span><span class="n">w</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">front</span><span class="p">();</span>
+                <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">w</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+                    <span class="k">auto</span> <span class="n">tmp</span> <span class="o">=</span> <span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+                    <span class="k">for</span> <span class="p">(</span><span class="kt">char</span> <span class="n">j</span><span class="o">=</span><span class="sc">'a'</span><span class="p">;</span> <span class="n">j</span><span class="o">&lt;=</span><span class="sc">'z'</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">){</span>
+                        <span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">j</span><span class="p">;</span>
+                        <span class="k">if</span> <span class="p">(</span><span class="n">wordSet</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">w</span><span class="p">)</span><span class="o">!=</span><span class="n">wordSet</span><span class="p">.</span><span class="n">end</span><span class="p">()){</span>
+                            <span class="k">if</span> <span class="p">(</span><span class="n">w</span> <span class="o">==</span> <span class="n">endWord</span><span class="p">)</span> <span class="k">return</span> <span class="n">tTime</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
+                            <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">w</span><span class="p">);</span>
+                            <span class="n">wordSet</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span><span class="n">w</span><span class="p">);</span>
+                        <span class="p">}</span>
+                    <span class="p">}</span>
+                    <span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">tmp</span><span class="p">;</span>
+                <span class="p">}</span>
+                <span class="n">q</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+            <span class="p">}</span>
+            <span class="n">tTime</span><span class="o">++</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<h2 id="時間複雜度">時間複雜度</h2>
+<p>假設單字的長度為$L$，wordList中有 $N$ 個單字，則建立單字集合的時間複雜度為 $O(NL)$，而 BFS 搜索的時間複雜度為 $O(NL)$，因此總體時間複雜度為 $O(NL)$。</p>]]></content><author><name></name></author><category term="hard" /><category term="amazon" /><category term="bfs" /><summary type="html"><![CDATA[[Leetcode解題] 127. Word Ladder - BFS解]]></summary></entry><entry><title type="html">[Leetcode解題] 189. Rotate Array</title><link href="/medium/2024/02/23/189-rotate-array.html" rel="alternate" type="text/html" title="[Leetcode解題] 189. Rotate Array" /><published>2024-02-23T00:00:00+00:00</published><updated>2024-02-23T00:00:00+00:00</updated><id>/medium/2024/02/23/189-rotate-array</id><content type="html" xml:base="/medium/2024/02/23/189-rotate-array.html"><![CDATA[<h1 id="題目">題目</h1>
+
+<p><a href="https://leetcode.com/problems/sliding-window-maximum/description/">189. Rotate Array</a></p>
+
+<p>給一個矩陣<code class="language-plaintext highlighter-rouge">nums</code>以及一個數字<code class="language-plaintext highlighter-rouge">k</code>，將矩陣元素往右移動<code class="language-plaintext highlighter-rouge">k</code>，舉例來說，如果給<code class="language-plaintext highlighter-rouge">[1,2,3,4,5,6,7], k=3</code>，所有元素往右三格即得<code class="language-plaintext highlighter-rouge">[5,6,7,1,2,3,4]</code>。</p>
+
+<p>題目要求要在$O(1)$的空間複雜度下解。</p>
+
+<h1 id="解題思路">解題思路</h1>
+
+<p>這題看似簡單但卻因為常數空間複雜度的限制變得有點難，大家可能一開始會想到最無腦的方法：</p>
+
+<pre><code class="language-python=">nums = nums[:k] + nums[k:]
+</code></pre>
+<p>但python在做slicing的時候，就會複製出一塊新的記憶體，所以這邊的空間複雜度已經為<code class="language-plaintext highlighter-rouge">O(n)</code>了，不符題目要求。</p>
+
+<p>再來，可能會想說，那可以一步一步往右移動，這樣只需要多幾個變數來做swap的cache，像是：</p>
+
+<pre><code class="language-python=">ptr1 = nums[0]
+ptr2 = nums[1]
+for i in range(n):
+    nums[(i+1)%n] = ptr1
+    ptr1 = ptr2
+    ptr2 = nums[(i+2)%n]
+</code></pre>
+
+<p>但這麼做，最壞的時間複雜度可以為$O(n^2)$，不是很實際的做法。</p>
+
+<p>所以我們想，可以透過反轉(reverse)矩陣來做，舉例來說：</p>
+
+<p><code class="language-plaintext highlighter-rouge">[1,2,3,4,5,6,7], k=3</code></p>
+
+<p>可以透過三次的反轉矩陣得解</p>
+
+<ol>
+  <li>整個矩陣反轉 =&gt; [7,6,5,4,3,2,1]</li>
+  <li>到k反轉 =&gt; [5,6,7,4,3,2,1]</li>
+  <li>k之後的元素反轉 =&gt; [5,6,7,1,2,3,4]</li>
+</ol>
+
+<p>這邊的思路是，每次做矩陣反轉的時候，每個元素的索引會從<code class="language-plaintext highlighter-rouge">i</code>到<code class="language-plaintext highlighter-rouge">n-i-1</code></p>
+
+<p>所以如果做兩次整個矩陣反轉，很直覺會回到原點：</p>
+
+<ol>
+  <li>i -&gt; n-i-1</li>
+  <li>n-i-1 -&gt; n-(n-i-1)-1 = i</li>
+</ol>
+
+<p>從<code class="language-plaintext highlighter-rouge">i</code>到<code class="language-plaintext highlighter-rouge">i</code>回到了原點</p>
+
+<p>但這邊如果我們之後反轉是部分反轉的話呢：</p>
+
+<ol>
+  <li>i -&gt; n-i-1 (整個反轉)</li>
+  <li>n-i-1 -&gt; k-(n-i-1)-1 = k-n+i = i + (k-n) (只到k反轉)</li>
+</ol>
+
+<p>這邊我們可以看到，經過兩個步驟，就會從原本的<code class="language-plaintext highlighter-rouge">i</code>移動<code class="language-plaintext highlighter-rouge">k-n</code>步到<code class="language-plaintext highlighter-rouge">i + k-n</code></p>
+
+<p>這邊我們要代入一個觀念，<code class="language-plaintext highlighter-rouge">i</code>跟<code class="language-plaintext highlighter-rouge">i+n</code>是一樣的，所以<code class="language-plaintext highlighter-rouge">i+k-n</code>也等於<code class="language-plaintext highlighter-rouge">i+k</code>，故就等於往右了<code class="language-plaintext highlighter-rouge">k</code>步！</p>
+
+<p>所以很神奇的，當我們做兩次不同長度的矩陣反轉，就可以將元素往右移動<code class="language-plaintext highlighter-rouge">k</code>步</p>
+
+<h1 id="python-swap">Python swap</h1>
+
+<p>這邊需要特別講一下，Python中我們怎麼做swap，當然可以直接使用一個變數來做：</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">swap</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="n">tmp</span> <span class="o">=</span> <span class="n">x</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">y</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">tmp</span>
+    <span class="k">del</span> <span class="n">tmp</span>
+</code></pre></div></div>
+
+<p>有一種更<code class="language-plaintext highlighter-rouge">pythonic</code>的方法是使用<code class="language-plaintext highlighter-rouge">tuple assigment</code>，我們知道python是從右到左開始<code class="language-plaintext highlighter-rouge">evaluation</code>，所以寫成：</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span>
+</code></pre></div></div>
+<p>這會先創一個(y, x)的tuple，再將其assign到左邊去</p>
+
+<h1 id="程式碼">程式碼</h1>
+
+<p>Python</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">rotate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nums</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="s">"""
+        Do not return anything, modify nums in-place instead.
+        """</span>
+        <span class="n">k</span> <span class="o">=</span> <span class="n">k</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span> <span class="o">//</span> <span class="mi">2</span><span class="p">):</span>
+            <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">nums</span><span class="p">[</span><span class="n">n</span><span class="o">-</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="n">n</span><span class="o">-</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        
+        <span class="n">n</span> <span class="o">=</span> <span class="n">k</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span> <span class="o">//</span> <span class="mi">2</span><span class="p">):</span>
+            <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">nums</span><span class="p">[</span><span class="n">n</span><span class="o">-</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="n">n</span><span class="o">-</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span><span class="o">-</span><span class="n">k</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span> <span class="o">//</span> <span class="mi">2</span><span class="p">):</span>
+            <span class="n">nums</span><span class="p">[</span><span class="n">k</span><span class="o">+</span><span class="n">i</span><span class="p">],</span> <span class="n">nums</span><span class="p">[</span><span class="n">n</span><span class="o">+</span><span class="n">k</span><span class="o">-</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="n">n</span><span class="o">+</span><span class="n">k</span><span class="o">-</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">nums</span><span class="p">[</span><span class="n">k</span><span class="o">+</span><span class="n">i</span><span class="p">]</span>
+        
+</code></pre></div></div>
+
+<p>C++的話可以直接透過<code class="language-plaintext highlighter-rouge">reverse</code>來做更為簡潔。</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="nl">public:</span>
+    <span class="kt">void</span> <span class="n">rotate</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">nums</span><span class="p">,</span> <span class="kt">int</span> <span class="n">k</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+        <span class="n">k</span> <span class="o">=</span> <span class="n">k</span> <span class="o">%</span> <span class="n">n</span><span class="p">;</span>
+        <span class="n">reverse</span><span class="p">(</span><span class="n">nums</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">nums</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+        <span class="n">reverse</span><span class="p">(</span><span class="n">nums</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">nums</span><span class="p">.</span><span class="n">begin</span><span class="p">()</span><span class="o">+</span><span class="n">k</span><span class="p">);</span>
+        <span class="n">reverse</span><span class="p">(</span><span class="n">nums</span><span class="p">.</span><span class="n">begin</span><span class="p">()</span><span class="o">+</span><span class="n">k</span><span class="p">,</span> <span class="n">nums</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<h1 id="時間複雜度">時間複雜度</h1>
+
+<p>每做一次矩陣翻轉，我們需要做$n/2$次的swap，每個元素會被swap兩次，所以時間複雜度可以看做是$O(n)$，而我們知道swap只需要常數的空間，故空間複雜度為$O(1)$</p>]]></content><author><name></name></author><category term="medium" /><category term="space-complexity" /><summary type="html"><![CDATA[[Leetcode解題] 189. Rotate Array]]></summary></entry><entry><title type="html">[Leetcode解題] 239. Sliding Window Maximum</title><link href="/hard/2024/02/23/249-sliding-window-maximum.html" rel="alternate" type="text/html" title="[Leetcode解題] 239. Sliding Window Maximum" /><published>2024-02-23T00:00:00+00:00</published><updated>2024-02-23T00:00:00+00:00</updated><id>/hard/2024/02/23/249-sliding-window-maximum</id><content type="html" xml:base="/hard/2024/02/23/249-sliding-window-maximum.html"><![CDATA[<h1 id="題目">題目</h1>
+
+<p><a href="https://leetcode.com/problems/sliding-window-maximum/description/">239. Sliding Window Maximum</a></p>
+
+<p>給定一個陣列$nums$，以及<code class="language-plaintext highlighter-rouge">sliding window size</code> $k$，找出每個<code class="language-plaintext highlighter-rouge">sliding window</code>下的<code class="language-plaintext highlighter-rouge">max</code>。</p>
+
+<!--more-->
+
+<h1 id="解題思路">解題思路</h1>
+
+<p>我們先觀察一下題目，由於我們想要找<code class="language-plaintext highlighter-rouge">max</code>，所以可能會想到要用<code class="language-plaintext highlighter-rouge">k-size</code>的<code class="language-plaintext highlighter-rouge">heap</code>來存放元素，這樣我們每次只要比<code class="language-plaintext highlighter-rouge">root</code>，就可以知道有沒有比上一輪的sliding window最大的元素大，但要這麼做的前提是我們每移動一格，最左邊的元素要被剔除，而用heap有點難做到這件事情。</p>
+
+<p>所以若要做到這一點，使用單調佇列(monotonic queue)可以做到這一點，我們<code class="language-plaintext highlighter-rouge">queue</code>裡面存<code class="language-plaintext highlighter-rouge">index</code>，以便我們可以更方便的剔除<code class="language-plaintext highlighter-rouge">sliding window</code>外的元素。</p>
+
+<p>實際的作法是，我們讓一個<code class="language-plaintext highlighter-rouge">deque</code>裡面是遞減的放元素，這樣我們能確保最左邊可以保留最大的元素，而我們不在意在<code class="language-plaintext highlighter-rouge">sliding window</code>中任何比最右邊元素小的元素，因為它們不會影響到結果，比如說我們有一個window裡面有<code class="language-plaintext highlighter-rouge">[4, 5, 6]</code>，那4和5其實已經完全沒有用了，因為6是最大且最靠右的值，所以當我們繼續往右slide，可能會影響結果的只有<code class="language-plaintext highlighter-rouge">6</code>，我們可以從這個角度切入想到使用<code class="language-plaintext highlighter-rouge">monotonic queue</code>的作法。</p>
+
+<p>另外，使用<code class="language-plaintext highlighter-rouge">deque</code>，可以讓我們在移除元素時時間複雜度為$O(1)$。</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">deque</span>
+<span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">maxSlidingWindow</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nums</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="n">deque</span><span class="p">()</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+            <span class="k">while</span> <span class="n">d</span> <span class="ow">and</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">nums</span><span class="p">[</span><span class="n">d</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]:</span>
+                <span class="n">d</span><span class="p">.</span><span class="n">pop</span><span class="p">()</span>
+            <span class="n">d</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">d</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">-</span> <span class="n">d</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">k</span><span class="p">:</span>
+                <span class="n">d</span><span class="p">.</span><span class="n">popleft</span><span class="p">()</span>
+
+            <span class="k">while</span> <span class="n">d</span> <span class="ow">and</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">nums</span><span class="p">[</span><span class="n">d</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]:</span>
+                <span class="n">d</span><span class="p">.</span><span class="n">pop</span><span class="p">()</span>
+            <span class="n">d</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+            <span class="n">res</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">d</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
+        <span class="k">return</span> <span class="n">res</span>
+</code></pre></div></div>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="nl">public:</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">maxSlidingWindow</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">nums</span><span class="p">,</span> <span class="kt">int</span> <span class="n">k</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">deque</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">deq</span><span class="p">;</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">ans</span><span class="p">;</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+            <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">deq</span><span class="p">.</span><span class="n">empty</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="n">nums</span><span class="p">[</span><span class="n">deq</span><span class="p">.</span><span class="n">back</span><span class="p">()]</span><span class="o">&lt;</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="n">deq</span><span class="p">.</span><span class="n">pop_back</span><span class="p">();</span>
+            <span class="n">deq</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">i</span><span class="o">&lt;</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="k">continue</span><span class="p">;</span>
+            <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">deq</span><span class="p">.</span><span class="n">empty</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="n">deq</span><span class="p">.</span><span class="n">front</span><span class="p">()</span><span class="o">&lt;=</span><span class="n">i</span><span class="o">-</span><span class="n">k</span><span class="p">)</span> <span class="n">deq</span><span class="p">.</span><span class="n">pop_front</span><span class="p">();</span>
+            <span class="n">ans</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">deq</span><span class="p">.</span><span class="n">front</span><span class="p">()]);</span>
+        <span class="p">}</span>
+        
+        <span class="k">return</span> <span class="n">ans</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<h1 id="時間複雜度">時間複雜度</h1>
+
+<p>因為每個元素最多都只會進出一次<code class="language-plaintext highlighter-rouge">deque</code>，所以$O(n)$</p>]]></content><author><name></name></author><category term="hard" /><category term="monotonic-queue" /><category term="deque" /><category term="queue" /><summary type="html"><![CDATA[[Leetcode解題] 239. Sliding Window Maximum]]></summary></entry><entry><title type="html">[Leetcode解題] 199. Binary Tree Right Side View - BFS解</title><link href="/medium/2024/02/18/199-Binary-Tree-Right-Side-View.html" rel="alternate" type="text/html" title="[Leetcode解題] 199. Binary Tree Right Side View - BFS解" /><published>2024-02-18T00:00:00+00:00</published><updated>2024-02-18T00:00:00+00:00</updated><id>/medium/2024/02/18/199-Binary-Tree-Right-Side-View</id><content type="html" xml:base="/medium/2024/02/18/199-Binary-Tree-Right-Side-View.html"><![CDATA[<h2 id="題目">題目</h2>
+
+<p><a href="https://leetcode.com/problems/binary-tree-right-side-view/">199. Binary Tree Right Side View</a>
+給定一棵二元樹的根節點，想像自己站在樹的右側，然後要返回你能看到的節點值，並且按照從上到下的順序排列。
+<!--more--></p>
+
+<h2 id="解題思路">解題思路</h2>
+<p>我們可以使用<strong>廣度優先搜尋（BFS）</strong> 來解決這個問題。當我們從右側看這棵樹時，我們只會看到每一層最右邊的節點。所以我們可以使用 BFS，但是每一層先從右邊開始遍歷，這樣我們就能確保每一層都是從右側看到的節點。</p>
+
+<p>具體步驟如下：</p>
+<ol>
+  <li>初始化一個空列表 visible_nodes 來存放從右側看到的節點值。</li>
+  <li>使用 BFS 來遍歷二元樹。從根節點開始，逐層遍歷，每一層從右側開始。</li>
+  <li>在 BFS 的每一層中，將最右邊的節點值添加到 visible_nodes 中。</li>
+  <li>最後返回 visible_nodes。</li>
+</ol>
+
+<h2 id="python實作">Python實作</h2>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+</span><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">rightSideView</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">TreeNode</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">root</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[]</span>
+
+        <span class="n">visible_nodes</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">queue</span> <span class="o">=</span> <span class="p">[</span><span class="n">root</span><span class="p">]</span>
+
+        <span class="k">while</span> <span class="n">queue</span><span class="p">:</span>
+            <span class="n">visible_nodes</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">queue</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">].</span><span class="n">val</span><span class="p">)</span> 
+            <span class="n">next_level</span> <span class="o">=</span> <span class="p">[]</span>
+
+            <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">queue</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">node</span><span class="p">.</span><span class="n">left</span><span class="p">:</span>
+                    <span class="n">next_level</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="n">left</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">node</span><span class="p">.</span><span class="n">right</span><span class="p">:</span>
+                    <span class="n">next_level</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="n">right</span><span class="p">)</span>
+
+            <span class="n">queue</span> <span class="o">=</span> <span class="n">next_level</span>
+
+        <span class="k">return</span> <span class="n">visible_nodes</span>
+</code></pre></div></div>
+
+<h2 id="c-實作">C++ 實作</h2>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */</span>
+<span class="cm">/*
+Using BFS traverse all the node
+queue keep track of the same depth node, from right to left
+each iteration is the same depth, so we just push the first one in the visible_nodes
+*/</span>
+
+<span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="nl">public:</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">rightSideView</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">root</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">visible_nodes</span><span class="p">;</span>
+        <span class="n">queue</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">*&gt;</span> <span class="n">q</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">root</span><span class="p">)</span> <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">root</span><span class="p">);</span>
+
+        <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">q</span><span class="p">.</span><span class="n">empty</span><span class="p">()){</span>
+            <span class="n">queue</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">*&gt;</span> <span class="n">nextLayer</span><span class="p">;</span>
+            <span class="k">auto</span> <span class="n">right</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">front</span><span class="p">();</span>
+            <span class="n">visible_nodes</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">right</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">);</span>
+            <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">q</span><span class="p">.</span><span class="n">empty</span><span class="p">()){</span>
+                <span class="k">auto</span> <span class="n">cr</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">front</span><span class="p">();</span>
+                <span class="n">q</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">cr</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">)</span> <span class="n">nextLayer</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">cr</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">);</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">cr</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">)</span> <span class="n">nextLayer</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">cr</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="n">q</span> <span class="o">=</span> <span class="n">move</span><span class="p">(</span><span class="n">nextLayer</span><span class="p">);</span> <span class="c1">// 避免複製</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">visible_nodes</span><span class="p">;</span>
+        
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<h2 id="複雜度分析">複雜度分析：</h2>
+<p>$O(N)$，其中 $N$ 是binary tree中的節點數。我們需要遍歷每個節點一次。</p>]]></content><author><name></name></author><category term="medium" /><category term="dfs" /><category term="bfs" /><summary type="html"><![CDATA[[Leetcode解題] 199. Binary Tree Right Side View - BFS解]]></summary></entry><entry><title type="html">[Leetcode解題] 200. Number of Islands - DFS解</title><link href="/medium/amazon/microsoft/apple/google/nvidia/2024/02/03/200-Number-of-Islands.html" rel="alternate" type="text/html" title="[Leetcode解題] 200. Number of Islands - DFS解" /><published>2024-02-03T00:00:00+00:00</published><updated>2024-02-03T00:00:00+00:00</updated><id>/medium/amazon/microsoft/apple/google/nvidia/2024/02/03/200-Number-of-Islands</id><content type="html" xml:base="/medium/amazon/microsoft/apple/google/nvidia/2024/02/03/200-Number-of-Islands.html"><![CDATA[<h2 id="題目">題目</h2>
+
+<p><a href="https://leetcode.com/problems/number-of-islands/">200. Number of Islands</a></p>
+
+<p>給定一個m x n的2D二進制網格grid，代表一張地圖，其中’1’代表陸地，’0’代表水域。請計算並返回地圖上的島嶼數量。</p>
+
+<p>島嶼是由水域包圍並由相鄰的陸地水平或垂直連接形成的。請注意，網格的四個邊緣都被水域包圍。
+<!--more--></p>
+
+<h2 id="解題思路">解題思路</h2>
+<p>這個問題可以使用深度優先搜尋(DFS)或廣度優先搜尋(BFS)的方式解決。我們可以遍歷整個網格，當遇到一個陸地’1’時，就開始一個搜尋過程，將相鄰的陸地都標記為已訪問，直到遍歷完整個島嶼。這樣，我們就能確保每個島嶼只被計算一次。</p>
+
+<h2 id="python實作">Python實作</h2>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">numIslands</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grid</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">grid</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">grid</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="k">return</span> <span class="mi">0</span>
+        
+        <span class="k">def</span> <span class="nf">dfs</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">):</span>
+            <span class="c1"># 檢查邊界條件
+</span>            <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">grid</span><span class="p">)</span> <span class="ow">or</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">j</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="ow">or</span> <span class="n">grid</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="s">'0'</span><span class="p">:</span>
+                <span class="k">return</span>
+            
+            <span class="c1"># 將目前的陸地標記為已訪問
+</span>            <span class="n">grid</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="s">'0'</span>
+            
+            <span class="c1"># 遞歸搜尋相鄰的陸地
+</span>            <span class="n">dfs</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
+            <span class="n">dfs</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
+            <span class="n">dfs</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">dfs</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        
+        <span class="n">island_count</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">grid</span><span class="p">)):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="mi">0</span><span class="p">])):</span>
+                <span class="k">if</span> <span class="n">grid</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="s">'1'</span><span class="p">:</span>
+                    <span class="c1"># 若遇到陸地，開始搜尋並增加島嶼數量
+</span>                    <span class="n">island_count</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="n">dfs</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">island_count</span>
+            
+</code></pre></div></div>
+
+<h2 id="時間複雜度">時間複雜度</h2>
+<p>時間複雜度為$O(m * n)$，其中m和n分別是網格的行數和列數。這是因為我們需要遍歷整個網格，並在每個陸地上進行DFS操作。</p>]]></content><author><name></name></author><category term="medium" /><category term="amazon" /><category term="microsoft" /><category term="apple" /><category term="google" /><category term="nvidia" /><category term="dfs" /><category term="bfs" /><summary type="html"><![CDATA[[Leetcode解題] 200. Number of Islands - DFS解]]></summary></entry><entry><title type="html">[Leetcode解題] 23. Merge k Sorted Lists - heap(Priority Queue)解</title><link href="/hard/amazon/microsoft/apple/2024/02/03/23-Merge-k-Sorted-Lists.html" rel="alternate" type="text/html" title="[Leetcode解題] 23. Merge k Sorted Lists - heap(Priority Queue)解" /><published>2024-02-03T00:00:00+00:00</published><updated>2024-02-03T00:00:00+00:00</updated><id>/hard/amazon/microsoft/apple/2024/02/03/23-Merge-k-Sorted-Lists</id><content type="html" xml:base="/hard/amazon/microsoft/apple/2024/02/03/23-Merge-k-Sorted-Lists.html"><![CDATA[<h2 id="題目">題目</h2>
+
+<p><a href="https://leetcode.com/problems/merge-k-sorted-lists/description/">23. Merge k Sorted Lists</a></p>
+
+<p>給定 $k$ 個已經排序的 <code class="language-plaintext highlighter-rouge">linked-lists</code>，將它們合併成一個排序的 <code class="language-plaintext highlighter-rouge">linked-list</code>，並返回。
+<!--more--></p>
+
+<h2 id="解題思路">解題思路：</h2>
+<ol>
+  <li>我們可以使用<em>Priority Queue</em>（優先級佇列）來維護每個list的head節點。</li>
+  <li>將每個list的head節點加入<em>Priority Queue</em>，以確保優先出現最小值的head節點。</li>
+  <li>依次從<em>Priority Queue</em>中取出最小值的head節點，將其加入結果list。</li>
+  <li>如果取出的head節點有下一個節點，將其加回<em>Priority Queue</em>。</li>
+  <li>重複以上步驟，直到<em>Priority Queue</em>為空，即所有list都被合併。</li>
+</ol>
+
+<h2 id="python-實作">Python 實作：</h2>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">mergeKLists</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lists</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">ListNode</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ListNode</span><span class="p">]:</span>
+        <span class="c1"># 定義Priority Queue
+</span>        <span class="n">min_heap</span> <span class="o">=</span> <span class="p">[]</span>
+        
+        <span class="c1"># 初始化，將每個list的頭節點加入Priority Queue
+</span>        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">lst</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">lists</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">lst</span><span class="p">:</span>
+                <span class="n">heapq</span><span class="p">.</span><span class="n">heappush</span><span class="p">(</span><span class="n">min_heap</span><span class="p">,</span> <span class="p">(</span><span class="n">lst</span><span class="p">.</span><span class="n">val</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">lst</span><span class="p">))</span>
+        
+        <span class="c1"># 初始化結果list的頭節點
+</span>        <span class="n">dummy</span> <span class="o">=</span> <span class="n">ListNode</span><span class="p">()</span>
+        <span class="n">current</span> <span class="o">=</span> <span class="n">dummy</span>
+        
+        <span class="c1"># 開始合併
+</span>        <span class="k">while</span> <span class="n">min_heap</span><span class="p">:</span>
+            <span class="n">val</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">node</span> <span class="o">=</span> <span class="n">heapq</span><span class="p">.</span><span class="n">heappop</span><span class="p">(</span><span class="n">min_heap</span><span class="p">)</span>
+            <span class="n">current</span><span class="p">.</span><span class="nb">next</span> <span class="o">=</span> <span class="n">node</span>
+            <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="p">.</span><span class="nb">next</span>
+            
+            <span class="c1"># 如果head節點有下一個節點，將其加回Priority Queue
+</span>            <span class="k">if</span> <span class="n">node</span><span class="p">.</span><span class="nb">next</span><span class="p">:</span>
+                <span class="n">heapq</span><span class="p">.</span><span class="n">heappush</span><span class="p">(</span><span class="n">min_heap</span><span class="p">,</span> <span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="nb">next</span><span class="p">.</span><span class="n">val</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">node</span><span class="p">.</span><span class="nb">next</span><span class="p">))</span>
+        
+        <span class="k">return</span> <span class="n">dummy</span><span class="p">.</span><span class="nb">next</span>
+</code></pre></div></div>
+
+<h2 id="c-實作">C++ 實作：</h2>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */</span>
+<span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="nl">public:</span>
+    <span class="n">ListNode</span><span class="o">*</span> <span class="n">mergeKLists</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">ListNode</span><span class="o">*&gt;&amp;</span> <span class="n">lists</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">auto</span> <span class="n">cmp</span> <span class="o">=</span> <span class="p">[](</span><span class="k">const</span>  <span class="n">ListNode</span><span class="o">*</span> <span class="n">a</span><span class="p">,</span> <span class="k">const</span> <span class="n">ListNode</span><span class="o">*</span> <span class="n">b</span><span class="p">){</span>
+            <span class="k">return</span> <span class="n">a</span><span class="o">-&gt;</span><span class="n">val</span> <span class="o">&gt;</span> <span class="n">b</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">;</span>
+        <span class="p">};</span>
+        <span class="n">priority_queue</span><span class="o">&lt;</span><span class="n">ListNode</span><span class="o">*</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">ListNode</span><span class="o">*&gt;</span><span class="p">,</span> <span class="k">decltype</span><span class="p">(</span><span class="n">cmp</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">pq</span><span class="p">(</span><span class="n">cmp</span><span class="p">);</span>
+        <span class="n">ListNode</span><span class="o">*</span> <span class="n">merged_list</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ListNode</span><span class="p">();</span>
+        <span class="n">ListNode</span><span class="o">*</span> <span class="n">cr</span> <span class="o">=</span> <span class="n">merged_list</span><span class="p">;</span>
+
+        <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="n">list</span><span class="o">:</span> <span class="n">lists</span><span class="p">){</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">list</span><span class="p">){</span>
+                <span class="n">pq</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">list</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">pq</span><span class="p">.</span><span class="n">empty</span><span class="p">()){</span>
+            <span class="n">cr</span> <span class="o">-&gt;</span> <span class="n">next</span> <span class="o">=</span> <span class="n">pq</span><span class="p">.</span><span class="n">top</span><span class="p">();</span>
+            <span class="n">pq</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+            <span class="n">cr</span> <span class="o">=</span> <span class="n">cr</span> <span class="o">-&gt;</span> <span class="n">next</span><span class="p">;</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">cr</span> <span class="o">-&gt;</span> <span class="n">next</span><span class="p">){</span>
+                <span class="n">pq</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">cr</span> <span class="o">-&gt;</span> <span class="n">next</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="k">auto</span> <span class="n">result</span> <span class="o">=</span> <span class="n">merged_list</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+        <span class="k">delete</span> <span class="n">merged_list</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<h2 id="時間複雜度">時間複雜度：</h2>
+<p>假設 $k$ 為<code class="language-plaintext highlighter-rouge">list</code>數量，$n$ 為所有<code class="language-plaintext highlighter-rouge">list</code>節點的總數。在最壞情況下，每個<code class="language-plaintext highlighter-rouge">list</code>的每個節點都需要進出Priority Queue一次，所以時間複雜度為 $O(n log k)$。</p>]]></content><author><name></name></author><category term="hard" /><category term="amazon" /><category term="microsoft" /><category term="apple" /><category term="heap" /><summary type="html"><![CDATA[[Leetcode解題] 23. Merge k Sorted Lists - heap(Priority Queue)解]]></summary></entry><entry><title type="html">[Leetcode解題] 146. LRU Cache</title><link href="/medium/2024/01/06/146-LRU-Cache.html" rel="alternate" type="text/html" title="[Leetcode解題] 146. LRU Cache" /><published>2024-01-06T00:00:00+00:00</published><updated>2024-01-06T00:00:00+00:00</updated><id>/medium/2024/01/06/146-LRU-Cache</id><content type="html" xml:base="/medium/2024/01/06/146-LRU-Cache.html"><![CDATA[<h2 id="題目">題目</h2>
+
+<p><a href="https://leetcode.com/problems/lru-cache/description/">146. LRU Cache</a>
+設計一個資料結構，符合最近最少使用 (LRU) cache的限制。實作 LRUCache 類別，包含以下方法：</p>
+
+<ul>
+  <li>LRUCache(int capacity)：初始化一個具有正數容量的 LRU cache。</li>
+  <li>int get(int key)：如果key存在，返回相對應的value，否則返回 -1。</li>
+  <li>void put(int key, int value)：如果key存在，更新相對應的value。否則，將key-value添加到cache中。如果使key的數量超過capacity，則淘汰最近最少使用的key。</li>
+</ul>
+
+<blockquote>
+  <p>get 和 put 方法的平均時間複雜度應為 O(1)。</p>
+</blockquote>
+
+<!--more-->
+
+<h2 id="解題思路">解題思路</h2>
+
+<p>為了實現 $O(1)$ 的平均時間複雜度，我們可以使用有序字典 (<em>OrderedDict</em>) 來儲存cache的內容，以保持<strong>插入順序</strong>。</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">get</code> 函式：如果 key 存在，將該 key 移動到有序Dictionary的最後，並返回對應的值；否則返回 -1。</li>
+  <li><code class="language-plaintext highlighter-rouge">put</code> 函式：如果 key 存在，更新其值並將該 key 移動到有序Dictionary的最後；如果 key 不存在，將新的 key-value 對加入cache。若cache大小超過容量，則移除有序Dictionary中的第一個元素（最少使用的元素）。</li>
+</ul>
+
+<h3 id="ordereddict介紹">OrderedDict介紹</h3>
+<p><em>OrderedDict</em> 是 Python 中的一個有序 <em>dictionary</em> 類別，它在內部實現中使用了<em>doubly linked list (DLL)</em> 和 <em>dictionary</em>的組合，以保持元素的<strong>插入順序</strong>。</p>
+
+<p>具體來說，<em>OrderedDict</em> 的內部實現主要包括兩個方面：</p>
+
+<ul>
+  <li><strong>Dictionary</strong>：用來存key-value pairs的 hash-table。
+這個 hash-table 使用dictionary快速查找，例如根據key查找value。</li>
+  <li><strong>Doubly Linked List</strong>：用來維護插入順序的Linked List結構。
+每個節點包含了key、value以及指向前一個節點和後一個節點的pointer。
+當一個元素被插入時，它同時被添加到雙向Linked List的tail；當一個元素被訪問時，它被移動到Linked List的tail，這樣最近被訪問的元素總是位於Linked List的tail。</li>
+</ul>
+
+<h2 id="實作">實作</h2>
+<h3 id="python實作-使用ordereddict">Python實作: 使用<em>OrderedDict</em></h3>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">LRUCache</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">capacity</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">capacity</span> <span class="o">=</span> <span class="n">capacity</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">cache</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">.</span><span class="n">cache</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">cache</span><span class="p">.</span><span class="n">move_to_end</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">cache</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+
+    <span class="k">def</span> <span class="nf">put</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">.</span><span class="n">cache</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">cache</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">cache</span><span class="p">.</span><span class="n">move_to_end</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">cache</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">cache</span><span class="p">)</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="p">.</span><span class="n">capacity</span><span class="p">:</span>
+                <span class="bp">self</span><span class="p">.</span><span class="n">cache</span><span class="p">.</span><span class="n">popitem</span><span class="p">(</span><span class="n">last</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span> 
+
+
+<span class="c1"># Your LRUCache object will be instantiated and called as such:
+# obj = LRUCache(capacity)
+# param_1 = obj.get(key)
+# obj.put(key,value)
+</span>        
+</code></pre></div></div>
+
+<h3 id="c-實作-使用double-linked-list與hash_map實作ordereddict">C++ 實作: 使用<code class="language-plaintext highlighter-rouge">double linked-list</code>與<code class="language-plaintext highlighter-rouge">hash_map</code>實作<em>OrderedDict</em></h3>
+<p>在C++中，沒有OrderedDict，但是我們可以使用<code class="language-plaintext highlighter-rouge">double linked-list</code>與<code class="language-plaintext highlighter-rouge">hash_map</code>自己實作</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="nc">Key</span><span class="p">,</span> <span class="k">typename</span> <span class="nc">Value</span><span class="p">&gt;</span>
+<span class="k">class</span> <span class="nc">OrderDict</span><span class="p">{</span>
+<span class="nl">public:</span>
+    <span class="n">Value</span><span class="o">&amp;</span> <span class="k">operator</span> <span class="p">[]</span> <span class="p">(</span><span class="k">const</span> <span class="n">Key</span> <span class="n">key</span><span class="p">){</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">hash_map</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">key</span><span class="p">)</span><span class="o">!=</span><span class="n">hash_map</span><span class="p">.</span><span class="n">end</span><span class="p">()){</span>
+            <span class="k">return</span> <span class="n">hash_map</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="n">order_list</span><span class="p">.</span><span class="n">push_back</span><span class="p">({</span><span class="n">key</span><span class="p">,</span> <span class="n">Value</span><span class="p">()});</span>
+        <span class="n">hash_map</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">prev</span><span class="p">(</span><span class="n">order_list</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+        <span class="k">return</span> <span class="n">hash_map</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kt">bool</span> <span class="n">find</span><span class="p">(</span><span class="k">const</span> <span class="n">Key</span> <span class="n">key</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">hash_map</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="o">!=</span> <span class="n">hash_map</span><span class="p">.</span><span class="n">end</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="n">Value</span> <span class="n">get</span><span class="p">(</span><span class="k">const</span> <span class="n">Key</span> <span class="n">key</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">find</span><span class="p">(</span><span class="n">key</span><span class="p">)){</span>
+            <span class="k">return</span> <span class="p">(</span><span class="o">*</span><span class="k">this</span><span class="p">)[</span><span class="n">key</span><span class="p">];</span>
+        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+            <span class="n">runtime_error</span><span class="p">(</span><span class="s">"key not found"</span><span class="p">);</span>
+            <span class="k">return</span> <span class="n">Value</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="kt">void</span> <span class="n">move_back</span><span class="p">(</span><span class="k">const</span> <span class="n">Key</span> <span class="n">key</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">find</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
+            <span class="n">order_list</span><span class="p">.</span><span class="n">splice</span><span class="p">(</span><span class="n">order_list</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">order_list</span><span class="p">,</span> <span class="n">hash_map</span><span class="p">[</span><span class="n">key</span><span class="p">]);</span>
+    <span class="p">}</span>
+
+    <span class="kt">void</span> <span class="n">pop_front</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">hash_map</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span><span class="n">order_list</span><span class="p">.</span><span class="n">front</span><span class="p">().</span><span class="n">key</span><span class="p">);</span>
+        <span class="n">order_list</span><span class="p">.</span><span class="n">pop_front</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="kt">size_t</span> <span class="n">size</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">order_list</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+    <span class="p">}</span>
+
+<span class="nl">private:</span>
+    <span class="k">struct</span> <span class="nc">Node</span><span class="p">{</span>
+        <span class="n">Key</span> <span class="n">key</span><span class="p">;</span>
+        <span class="n">Value</span> <span class="n">value</span><span class="p">;</span>
+    <span class="p">};</span>
+
+    <span class="n">list</span><span class="o">&lt;</span><span class="n">Node</span><span class="o">&gt;</span> <span class="n">order_list</span><span class="p">;</span>
+    <span class="n">unordered_map</span><span class="o">&lt;</span><span class="n">Key</span><span class="p">,</span> <span class="k">typename</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">Node</span><span class="o">&gt;::</span><span class="n">iterator</span><span class="o">&gt;</span> <span class="n">hash_map</span><span class="p">;</span>
+
+<span class="p">};</span>
+
+<span class="k">class</span> <span class="nc">LRUCache</span> <span class="p">{</span>
+<span class="nl">public:</span>
+    <span class="n">LRUCache</span><span class="p">(</span><span class="kt">int</span> <span class="n">capacity</span><span class="p">)</span> <span class="o">:</span><span class="n">capacity</span><span class="p">(</span><span class="n">capacity</span><span class="p">){</span> <span class="p">}</span>
+    
+    <span class="kt">int</span> <span class="n">get</span><span class="p">(</span><span class="kt">int</span> <span class="n">key</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">order_dict</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">key</span><span class="p">)){</span>
+            <span class="n">order_dict</span><span class="p">.</span><span class="n">move_back</span><span class="p">(</span><span class="n">key</span><span class="p">);</span>
+            <span class="k">return</span> <span class="n">order_dict</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+    
+    <span class="kt">void</span> <span class="n">put</span><span class="p">(</span><span class="kt">int</span> <span class="n">key</span><span class="p">,</span> <span class="kt">int</span> <span class="n">value</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">order_dict</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">key</span><span class="p">))</span> <span class="n">order_dict</span><span class="p">.</span><span class="n">move_back</span><span class="p">(</span><span class="n">key</span><span class="p">);</span>
+        <span class="n">order_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">order_dict</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&gt;</span> <span class="n">capacity</span><span class="p">)</span> <span class="n">order_dict</span><span class="p">.</span><span class="n">pop_front</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="nl">private:</span>
+    <span class="kt">int</span> <span class="n">capacity</span><span class="p">;</span>
+    <span class="n">OrderDict</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">order_dict</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="cm">/**
+ * Your LRUCache object will be instantiated and called as such:
+ * LRUCache* obj = new LRUCache(capacity);
+ * int param_1 = obj-&gt;get(key);
+ * obj-&gt;put(key,value);
+ */</span>
+</code></pre></div></div>
+
+<h2 id="時間複雜度">時間複雜度</h2>
+<p><code class="language-plaintext highlighter-rouge">get</code> 和 <code class="language-plaintext highlighter-rouge">put</code> 函式的平均時間複雜度為 $O(1)$。由於有序字典 (<em>OrderedDict</em>) 保持插入順序，cache的最後一個元素總是最近最少使用的元素，因此這兩個操作的時間複雜度都是 $O(1)$。</p>]]></content><author><name></name></author><category term="medium" /><category term="double-linked-list" /><category term="hashmap" /><summary type="html"><![CDATA[[Leetcode解題] 146. LRU Cache]]></summary></entry></feed>

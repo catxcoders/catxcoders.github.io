@@ -1,0 +1,1028 @@
+<!-- OK -->
+
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="utf-8">
+	<link rel="icon" type="image/x-icon" href="/res/catxcoder.ico">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>[Leetcode解題] 127. Word Ladder - BFS解</title>
+	<meta name="description" content="[Leetcode解題] 127. Word Ladder - BFS解" />
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<!-- My CSS -->
+<link href="/res/css/common.css" rel="stylesheet">
+
+	</head>
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-MHQH8LKZYV"></script>
+	<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+
+	gtag('config', 'G-MHQH8LKZYV');
+	</script>
+	<body>		
+				<!-- JQeury -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+    
+	<!-- Font Awesome -->
+	<!--<script defer src="https://use.fontawesome.com/releases/v6.4.2/js/all.js" integrity="	sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe" crossorigin="anonymous"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" integrity="sha512-uKQ39gEGiyUJl4AI6L+ekBdGKpGw4xJ55+xyJG7YFlJokPNYegn9KwQ3P8A7aFQAUtUsAQHep+d/lrGqrbPIDQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<!-- support MathJax -->
+	<style TYPE="text/css">
+	code.has-jax {font: inherit; font-size: 100%; background: inherit; border: inherit;}
+	</style>
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	    tex2jax: {
+	        inlineMath: [['$','$'], ['\\(','\\)']],
+	        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'] // removed 'code' entry
+	    }
+	});
+	MathJax.Hub.Queue(function() {
+	    var all = MathJax.Hub.getAllJax(), i;
+	    for(i = 0; i < all.length; i += 1) {
+	        all[i].SourceElement().parentNode.className += ' has-jax';
+	    }
+	});
+	</script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<!-- A patch to fix mathjax -->
+<!-- https://github.com/mathjax/MathJax/issues/1737 -->
+	<script type="text/x-mathjax-config">
+if (MathJax.Hub.Browser.isSafari && parseInt(MathJax.Hub.Browser.webkit) >= 603) {
+  MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready", function () {
+    var HTMLCSS = MathJax.OutputJax["HTML-CSS"];
+    var MML = MathJax.ElementJax.mml;
+    var toHTML = MML.mo.prototype.toHTML;
+    MML.mo.Augment({
+      toHTML: function (span) {
+        span = toHTML.call(this,span);
+        if (span.bbox.w === 0 && span.bbox.lw < 0 && span.firstChild) {
+          span.style.marginLeft = HTMLCSS.Em(span.bbox.lw);
+        }
+        return span;
+      }
+    });
+  });
+}
+</script>
+
+		<header>
+			<!-- OK -->
+
+<div class="container">
+  <nav class="navbar navbar-expand-lg navbar-default nav-color" >
+    <a href="/index.html">
+      <img src="/res/catxcoder.ico" class="img-fluid" style="width: 32px; margin-right: 10px;">
+    </a>
+    <a class="navbar-item" href="/index.html">
+      刷題貓
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span><i class="fas fa-bars" ></i></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <ul class="navbar-nav ml-auto navbar-right">
+          <li class="nav-item">
+             <a class="nav-link" href="/index.html">首頁</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/posts/categories">難度</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/posts/algorithms">演算法</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/works">主題式</a>
+          </li>
+        </ul>
+    </div>
+  </nav>
+</div>
+
+		</header>
+		<main>
+			<!-- OK -->
+
+<div class="container-fluid text-center bg-color">
+	<div class="row bg-icon">
+		<div class="col-md-2 col-sm-0">
+
+		</div>
+		<div class="view-home col-md-8 col-sm-12 post-home-color">
+			<div class="post-view-color post-view-window">
+	
+	<!-- title -->
+	<div class="post-view-title text-left" >
+		<p>[Leetcode解題] 127. Word Ladder - BFS解</p>
+	</div>
+	
+	<!-- date -->
+	<div class="post-view-date">
+			23 February 2024
+	</div>
+
+	<!-- tags -->
+	<div class="post-view-tags">
+		
+      
+      
+      
+		<a href="/posts/categories/hard/" class="badge badge-danger">hard</a>
+  	  
+		
+      
+      
+      
+		
+		
+		<i href="#" class="badge badge-dark">bfs</i>
+		
+	</div>
+	<hr>
+
+	<!-- excerpt -->
+	<div class="post-view-excerpt text-left">
+		<p>
+			<h2 id="題目">題目</h2>
+<p><a href="https://leetcode.com/problems/word-ladder/">127. Word Ladder</a>
+給定兩個單字 beginWord 和 endWord，以及一個字典 wordList，其中包含了許多單字。請找出從 beginWord 到 endWord 的最短轉換序列的長度，轉換規則如下：</p>
+
+<ul>
+  <li>每個相鄰的單字之間只能相差一個字母。</li>
+  <li>轉換序列中的每個單字都必須在 wordList 中，但 beginWord 不一定需要在 wordList 中。</li>
+  <li>最後一個單字必須是 endWord。
+如果無法找到這樣的轉換序列，則返回 0。
+<!--more--></li>
+</ul>
+
+<h2 id="解題思路">解題思路</h2>
+<p>這是一個典型的圖論問題，我們可以將單字視為節點，如果兩個單字可以相互轉換，則它們之間存在一條邊。我們需要找出從beginWord到endWord的最短路徑，因此可以使用廣度優先搜索（BFS）來解決此問題。</p>
+
+<ol>
+  <li>創建一個字典或集合來保存單字列表 wordList，以便快速查找單字。</li>
+  <li>創建一個 queue 來存放待處理的單字以及它們所在的層級。</li>
+  <li>進行BFS，從起始單字開始，逐步尋找與其只相差一個字母的單字，直到找到 endWord 為止。</li>
+  <li>返回最短轉換序列的長度。</li>
+</ol>
+
+<h2 id="實作">實作</h2>
+<h3 id="python實作">Python實作</h3>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">ladderLength</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">beginWord</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">endWord</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">wordList</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="c1"># 將單字列表轉換為集合，以便查找操作更快
+</span>        <span class="n">wordSet</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">wordList</span><span class="p">)</span>
+
+        <span class="c1"># 建立隊列，起始單字和步數
+</span>        <span class="n">queue</span> <span class="o">=</span> <span class="n">deque</span><span class="p">([(</span><span class="n">beginWord</span><span class="p">,</span> <span class="mi">1</span><span class="p">)])</span>
+
+        <span class="k">while</span> <span class="n">queue</span><span class="p">:</span>
+            <span class="n">current_word</span><span class="p">,</span> <span class="n">level</span> <span class="o">=</span> <span class="n">queue</span><span class="p">.</span><span class="n">popleft</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">current_word</span> <span class="o">==</span> <span class="n">endWord</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">level</span>
+            <span class="c1"># 尋找與當前單字只相差一個字母的單字
+</span>            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">current_word</span><span class="p">)):</span>
+                <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">string</span><span class="p">.</span><span class="n">ascii_lowercase</span><span class="p">:</span>
+                    <span class="n">next_word</span> <span class="o">=</span> <span class="n">current_word</span><span class="p">[:</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">char</span> <span class="o">+</span> <span class="n">current_word</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">:]</span>
+                    <span class="k">if</span> <span class="n">next_word</span> <span class="ow">in</span> <span class="n">wordSet</span><span class="p">:</span>
+                        <span class="n">wordSet</span><span class="p">.</span><span class="n">remove</span><span class="p">(</span><span class="n">next_word</span><span class="p">)</span>
+                        <span class="n">queue</span><span class="p">.</span><span class="n">append</span><span class="p">((</span><span class="n">next_word</span><span class="p">,</span> <span class="n">level</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="k">return</span> <span class="mi">0</span>
+        
+</code></pre></div></div>
+<h3 id="c實作">C++實作</h3>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="nl">public:</span>
+    <span class="kt">int</span> <span class="n">ladderLength</span><span class="p">(</span><span class="n">string</span> <span class="n">beginWord</span><span class="p">,</span> <span class="n">string</span> <span class="n">endWord</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;&amp;</span> <span class="n">wordList</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">unordered_set</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">wordSet</span><span class="p">(</span><span class="n">wordList</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">wordList</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+        <span class="n">queue</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">q</span><span class="p">;</span>
+        <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">beginWord</span><span class="p">);</span>
+        <span class="kt">int</span> <span class="n">tTime</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+
+        <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">q</span><span class="p">.</span><span class="n">empty</span><span class="p">()){</span>
+            <span class="k">auto</span> <span class="n">qSize</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">k</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">k</span><span class="o">&lt;</span><span class="n">qSize</span><span class="p">;</span> <span class="n">k</span><span class="o">++</span><span class="p">){</span>
+                <span class="k">auto</span> <span class="o">&amp;</span><span class="n">w</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">front</span><span class="p">();</span>
+                <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">w</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+                    <span class="k">auto</span> <span class="n">tmp</span> <span class="o">=</span> <span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+                    <span class="k">for</span> <span class="p">(</span><span class="kt">char</span> <span class="n">j</span><span class="o">=</span><span class="sc">'a'</span><span class="p">;</span> <span class="n">j</span><span class="o">&lt;=</span><span class="sc">'z'</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">){</span>
+                        <span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">j</span><span class="p">;</span>
+                        <span class="k">if</span> <span class="p">(</span><span class="n">wordSet</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">w</span><span class="p">)</span><span class="o">!=</span><span class="n">wordSet</span><span class="p">.</span><span class="n">end</span><span class="p">()){</span>
+                            <span class="k">if</span> <span class="p">(</span><span class="n">w</span> <span class="o">==</span> <span class="n">endWord</span><span class="p">)</span> <span class="k">return</span> <span class="n">tTime</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
+                            <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">w</span><span class="p">);</span>
+                            <span class="n">wordSet</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span><span class="n">w</span><span class="p">);</span>
+                        <span class="p">}</span>
+                    <span class="p">}</span>
+                    <span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">tmp</span><span class="p">;</span>
+                <span class="p">}</span>
+                <span class="n">q</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+            <span class="p">}</span>
+            <span class="n">tTime</span><span class="o">++</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<h2 id="時間複雜度">時間複雜度</h2>
+<p>假設單字的長度為$L$，wordList中有 $N$ 個單字，則建立單字集合的時間複雜度為 $O(NL)$，而 BFS 搜索的時間複雜度為 $O(NL)$，因此總體時間複雜度為 $O(NL)$。</p>
+
+		</p>
+	</div>		
+  <div style="text-align: left; padding: 25px;">
+  <h1>相關文章</h1>
+  
+	
+  
+	
+  
+	
+  
+	
+  
+	
+  
+	
+  
+	
+  
+	
+  
+	
+  
+	
+  
+	
+  
+	
+  
+	
+  
+	
+  
+	
+  
+	
+  
+	
+  
+	
+  
+	
+  
+	
+  
+	
+  
+	
+  
+	
+  
+	
+  
+	
+  
+	
+		
+			
+		
+	
+  
+	
+  
+	
+  
+	
+  
+	
+  
+	
+  
+	
+  
+	
+  
+	
+		
+			
+		
+	
+  
+	
+  
+	
+  
+	
+  
+	
+  
+	
+  
+	
+  
+	
+  
+	
+  
+	
+  
+	
+  
+	
+  
+	
+  
+	
+  
+	
+  
+	
+  
+	
+  
+	
+		
+			
+		
+	
+  
+	
+		
+			
+		
+	
+  
+	
+  
+	
+  
+	
+  
+	
+  
+  
+  
+  	
+		
+			
+		
+  	
+  
+  	
+  
+  	
+		
+			
+		
+  	
+  
+  	
+  
+  	
+		
+			
+		
+  	
+  
+  	
+  
+  	
+		
+			
+				<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/02/18/199-Binary-Tree-Right-Side-View.html" class="badge badge-warning">[Leetcode解題] 199. Binary Tree Right Side View - BFS解</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 199. Binary Tree Right Side View - BFS解</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">dfs</i>
+		
+		<i href="#" class="badge badge-dark">bfs</i>
+		
+  </div>
+  -->
+</div>
+
+			
+		
+  	
+  
+  	
+  
+  	
+		
+			
+				<div class="pagination-box">
+  
+  
+  <a href="/medium/amazon/microsoft/apple/google/nvidia/2024/02/03/200-Number-of-Islands.html" class="badge badge-warning">[Leetcode解題] 200. Number of Islands - DFS解</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 200. Number of Islands - DFS解</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+      
+      
+      
+		
+      
+      
+      
+		
+      
+      
+      
+		
+      
+      
+      
+		
+      
+      
+      
+		
+		
+		<i href="#" class="badge badge-dark">dfs</i>
+		
+		<i href="#" class="badge badge-dark">bfs</i>
+		
+  </div>
+  -->
+</div>
+
+			
+		
+  	
+  
+  	
+		
+			
+		
+  	
+  
+  	
+		
+			
+		
+  	
+  
+  	
+		
+			
+		
+  	
+  
+  	
+		
+			
+		
+  	
+  
+  	
+		
+			
+		
+  	
+  
+  	
+		
+			
+		
+  	
+  
+  	
+		
+			
+		
+  	
+  
+  	
+		
+			
+		
+  	
+  
+  	
+		
+			
+		
+  	
+  
+  	
+		
+			
+				<div class="pagination-box">
+  
+  
+  <a href="/medium/2023/11/17/994-rotted-oranges.html" class="badge badge-warning">[Leetcode解題] 994. rotted oranges - BFS</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 994. rotted oranges - BFS</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">graph</i>
+		
+		<i href="#" class="badge badge-dark">bfs</i>
+		
+		<i href="#" class="badge badge-dark">graph</i>
+		
+  </div>
+  -->
+</div>
+
+			
+		
+  	
+  
+  	
+		
+			
+		
+  	
+  
+  	
+		
+			
+		
+  	
+  
+  	
+		
+			
+		
+  	
+  
+  	
+  
+  	
+		
+			
+		
+  	
+  
+  	
+		
+			
+		
+  	
+  
+  	
+  
+  	
+		
+			
+		
+  	
+  
+  	
+		
+			
+		
+  	
+  
+  	
+		
+			
+		
+  	
+  
+  	
+		
+			
+		
+  	
+  
+  	
+		
+			
+		
+  	
+  
+  	
+		
+			
+		
+  	
+  
+  	
+		
+			
+		
+  	
+  
+  	
+  
+  	
+		
+			
+		
+  	
+  
+  	
+		
+			
+				<div class="pagination-box">
+  
+  
+  <a href="/medium/2022/02/11/79-Word-Search.html" class="badge badge-warning">[Leetcode解題] Word Search - bfs/dfs解</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] Word Search - bfs/dfs解</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">dp</i>
+		
+		<i href="#" class="badge badge-dark">dfs</i>
+		
+		<i href="#" class="badge badge-dark">bfs</i>
+		
+  </div>
+  -->
+</div>
+
+			
+		
+  	
+  
+  	
+		
+			
+		
+  	
+  
+  	
+  
+  	
+		
+			
+		
+  	
+  
+  	
+  
+  	
+		
+			
+		
+  	
+  
+  	
+		
+			
+		
+  	
+  
+  	
+		
+			
+		
+  	
+  
+  	
+  
+  	
+		
+			
+		
+  	
+  
+  	
+		
+			
+		
+  	
+  
+  	
+		
+			
+		
+  	
+  
+  	
+		
+			
+		
+  	
+  
+  	
+		
+			
+		
+  	
+  
+  	
+		
+			
+		
+  	
+  
+  	
+  
+  	
+  
+  	
+		
+			
+		
+  	
+  
+  	
+		
+			
+		
+  	
+  
+  	
+		
+			
+		
+  	
+  
+  	
+		
+			
+		
+  	
+  
+
+  
+  	
+  
+  	
+		
+			
+		
+  	
+  
+  	
+  
+  	
+		
+			
+		
+  	
+  
+  	
+  
+  	
+		
+			
+				<div class="pagination-box">
+  
+  
+  
+  <a href="/hard/amazon/2024/02/23/127-Word-Ladder.html" class="badge badge-danger">[Leetcode解題] 127. Word Ladder - BFS解</a>
+  
+  <!--
+  <div>[Leetcode解題] 127. Word Ladder - BFS解</div>
+  <div class="post-view-tags">
+		
+      
+      
+      
+		<a href="/posts/categories/hard/" class="badge badge-danger">hard</a>
+  	  
+		
+      
+      
+      
+		
+		
+		<i href="#" class="badge badge-dark">bfs</i>
+		
+  </div>
+  -->
+</div>
+
+			
+		
+  	
+  
+  	
+  
+  	
+		
+			
+		
+  	
+  
+  	
+  
+  	
+  
+  	
+  
+  	
+  
+  	
+  
+  	
+  
+  	
+  
+  	
+  
+  	
+  
+  	
+  
+  	
+  
+  	
+  
+  	
+  
+  	
+  
+  	
+		
+			
+		
+  	
+  
+  	
+  
+  	
+  
+  	
+  
+  	
+  
+  	
+  
+  	
+  
+  	
+  
+  	
+  
+  	
+  
+  	
+  
+  	
+  
+  	
+  
+  	
+  
+  	
+  
+  	
+		
+			
+		
+  	
+  
+  	
+  
+  	
+		
+			
+		
+  	
+  
+  	
+  
+  	
+  
+  	
+  
+  	
+		
+			
+		
+  	
+  
+  	
+  
+  	
+  
+  	
+  
+  	
+  
+  	
+  
+  	
+  
+  	
+  
+  	
+  
+  	
+  
+  	
+  
+  	
+  
+  	
+  
+  </div>
+</div>
+
+
+		</div>
+		<div class="col-md-2 col-sm-0">
+		</div>
+	</div>
+</div>
+
+		</main>
+		<footer class="footer">
+			<!-- No -->
+
+<!--This is the footer of the website-->
+
+<div class="footer-window container-fluid footer-color">
+	<div class="row">
+		<div class="footer-view footer-left col-md-4 text-left">
+			<div class="footer-section">
+				<div class="account-box">
+			</div>
+			</div>
+		</div>
+		<div class="footer-view footer-center col-md-4 text-center">
+			<div class="footer-section">
+				<div class="footer-copyright">
+					解題愛好者
+					<br><br>
+					歡迎來到刷題貓！我們是兩位熱愛程式設計的工程師，在此分享Leetcode刷題心得以及整理主題式的文章
+					<br><br>
+					© 2023 CATXCODER All Rights Reserved
+				</div>
+				<div>
+				</div>
+			</div>
+		</div>
+		<div class="footer-view footer-right col-md-4 text-center">
+			<div class="footer-section">
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--
+log
+<p>Version 0.0.2</p>
+			<p>0.0.2 - 配色完成</p>
+			<p>0.0.2 - 基本模板完成</p>
+			<p>0.0.2 - 自我介紹新增打字效果</p>
+
+
+
+
+-->
+
+		</footer>
+		</div>
+	</body>
+</html>
+
+<script>
+$(".badge-info").hover(function(){
+    $(this).hide(1000);
+});
+
+
+</script>
