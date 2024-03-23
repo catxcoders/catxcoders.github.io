@@ -1,0 +1,122 @@
+---
+layout: article_post
+title:  "[Leetcode解題] 139. Word Break - 使用dp解"
+description:  "Dynamic Programming, Topdown, Bottomup"
+categories: medium 
+tags: dp recursion
+langs: python
+excerpt_separator: <!--more-->
+---
+
+## 題目
+
+[139. Word Break](https://leetcode.com/problems/word-break/)
+
+給一個字串以及一個詞表（一個包含單詞的矩陣），求該字串是否能被以詞表內的單字切分，單字可以被重複利用。
+
+<!--more-->
+
+## 解題思路
+
+這題我們使用dp來解，dp矩陣表示「以該索引的字串是否能被詞表單字表示」，舉例來說，假設給定字串s為`leetcode`
+
+dp[0]表示以第一個字元`l`起始，所以也就等同於題目所求`leetcode`是否能被以詞表表示。
+
+dp[4]表示以第五個字元`c`起始，也就是`code`是否能被以詞表表示。
+
+到這邊我們就能表示「optimal substructure」，在第k步時，我們去檢驗詞表內每個單字，如果以下兩個條件成立，我們則能得到dp[k]為True
+
+1. s[k:k+len(word)] == word
+2. dp[k+len(word)] == True
+
+舉例來說，dp[0]的情況，我們可得知，`s[0:4] == "leet"`且dp[4]為`True`，所以dp[0]為True，至此得解。
+
+有一點要注意的地方，我們需要定義dp[n]，也就是以第n+1個字元為起始的狀況（空字串）為`True`。
+
+```python
+class Solution(object):
+    def wordBreak(self, s, wordDict):
+        """
+        :type s: str
+        :type wordDict: List[str]
+        :rtype: bool
+        """     
+        n = len(s)
+        dp = [False] * (n+1)
+        dp[n] = True
+        for i in range(n-1, -1, -1):
+            for word in wordDict:
+                if i+len(word) > n:
+                    continue
+                if s[i:i+len(word)] == word and dp[i+len(word)]:
+                    dp[i] = True
+        return dp[0]
+```
+
+## Bottom up or Top down
+
+這題我們可以討論一下`Bottom up`跟`Top down`的差異，通常使用dp的情況我們是`Bottom up`的做，而我們可以利用類似的想法來寫出`Top down`的作法，通常會變成是`recursion`搭配`memorization`。
+
+這次我們定義一個函式f只有一個參數k表示字元的起始索引，所以從頭開始，如果：
+
+1. s[k:].startswith(word)
+2. f(len(word)) == True
+
+則f(k) == True，而題目所求為f(0)。
+
+但這樣TopDown的過程會有很多重複的狀況，舉一個測資`s='aaaa', wordDict=['a', 'aa']`。
+
+所以我們必須用一個矩陣來存每一步的結果避免重複計算。
+
+```python
+class Solution(object):
+    
+    def wordBreak(self, s, wordDict):
+        """
+        :type s: str
+        :type wordDict: List[str]
+        :rtype: bool
+        """
+        mem = [-1] * (len(s)+1)
+        mem[len(s)] = 1
+        def substructure(i):
+            if mem[i] != -1:
+                return bool(mem[i])
+            for word in wordDict:
+                if s[i:].startswith(word) and substructure(i+len(word)):
+                    mem[i] = 1
+                    return True
+            mem[i] = 0
+            return False            
+        return substructure(0)
+```
+
+我們可以討論一下兩種做法的差別及優缺。
+
+使用`Top down`的作法時，可以看到我們可能會跳過某些索引，像是`s='leetcode', wordDict=['leet', 'code']`的情況，跑的過程會是：
+
+f(0) -> f(4) -> f(8)
+
+但是照dp的做法，會是：
+
+dp[8] -> dp[7] -> ... -> dp[0]
+
+計算會較多，因為bottomup的思維不確定之後那些會被用到，所以都必須先計算起來放。
+
+而如果是`s='aaaaaa....aabb', wordDict=['a', 'aa', 'aaa']`這個情況，假設有100萬個a+2個b好了。
+
+topDown的過程會是:
+
+f(0) -> f(1) -> f(2) -> ... -> f(1M) -> f(1M-1) -> f(1M-2) -> f(1M-1) -> ...
+
+你可以想像因為'a', 'aa', 'aaa'導致很多重複的function call，當然這可透過`memorization`加上在`function call`之前來避免。另一個問題是，遞迴的層數如果太深，會造成`stack overflow`的問題，因為上一層的函式還沒結束，所以一些local的變數還需被保存在記憶體中。
+
+而bottomup的過程則是相同：
+
+dp[1M+2] -> dp[1M+1] -> ... -> dp[0]
+
+所以我認為兩種方法在一些特殊情況會有點不同，而我自己是比較喜歡dp看起來邏輯比較清晰可以一眼確定時間複雜度的作法。
+
+## 時間複雜度
+
+最壞的情況，我們必須遍歷一次整個字串，每個索引又須遍歷整個詞表，所以為$O(nm)$，$n$為字串長度，$m$為詞表長度。
