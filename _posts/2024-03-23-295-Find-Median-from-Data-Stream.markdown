@@ -29,7 +29,7 @@ excerpt_separator: <!--more-->
 - 如果左半部分的元素比右半部分多於一個，則將`Max Heap`的頂部元素移動到`Min Heap`。
 - 這樣保證了中位數始終是Max Heap的頂部元素，或是兩個堆頂部元素的平均值（如果列表大小為偶數）。
 
-## Python 代碼實作：
+## 代碼實作：
 ```python
 class MedianFinder:
     def __init__(self):
@@ -61,6 +61,55 @@ class MedianFinder:
 # obj.addNum(num)
 # param_2 = obj.findMedian()
 ```
+
+##
+```cpp
+class MedianFinder {
+public:
+    MedianFinder() {
+        _size=0;
+    }
+
+    void balance(){
+        auto lSize = maxHeap.size();
+        auto rSize = minHeap.size();
+        if (rSize>lSize){
+            maxHeap.push(minHeap.top());
+            minHeap.pop();
+        }else if (lSize>rSize+1){
+            minHeap.push(maxHeap.top());
+            maxHeap.pop();
+        }
+    }
+    
+    void addNum(int num) {
+        _size++;
+        if (maxHeap.empty()) maxHeap.push(num);
+        else if (num<maxHeap.top()) maxHeap.push(num);
+        else minHeap.push(num);
+        balance();
+    }
+    
+    double findMedian() {
+        if (_size%2==0){
+            return (double(maxHeap.top())+double(minHeap.top()))/2;
+        }
+        return maxHeap.top();
+    }
+private: 
+    size_t _size;
+    priority_queue<int> maxHeap; // for first n/2 elements
+    priority_queue<int, vector<int>, greater<int>> minHeap; // for last n/2 elements
+};
+
+/**
+ * Your MedianFinder object will be instantiated and called as such:
+ * MedianFinder* obj = new MedianFinder();
+ * obj->addNum(num);
+ * double param_2 = obj->findMedian();
+ */
+```
+
 ## 時間複雜度：
 - 添加數字（addNum）的時間複雜度為 $O(log n)$，其中 $n$ 是資料流中的元素數量。
 - 查找中位數（findMedian）的時間複雜度為 $O(1)$。
