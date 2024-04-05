@@ -2,7 +2,7 @@
 layout: article_post
 title:  "[Leetcode解題] 41. First Missing Positive"
 description:  "[Leetcode解題] 41. First Missing Positive"
-categories: medium 
+categories: hard 
 tags: HashTable
 langs: python
 excerpt_separator: <!--more-->
