@@ -1,0 +1,51 @@
+---
+layout: article_post
+title:  "[Leetcode解題] 140. Word Break II"
+description:  "Topdown"
+categories: hard 
+tags: dp recursion
+langs: python
+excerpt_separator: <!--more-->
+---
+
+# 140. Word Break II
+
+## 題目
+
+[140. Word Break II](https://leetcode.com/problems/word-break-ii/)
+
+給一個字串以及一個詞表（一個包含單詞的矩陣），求該字串是否能被以詞表內的單字切分，並返回所有的可能，單字可以被重複利用。
+
+# 解題思路
+
+這題跟我們上次寫的[Word Break I]類似，只不過這次我們需要返回所有可能的組合。我們一樣可以採取`Top-down`的方法，然後將`memorization`矩陣存該索引為始的所有可能組合。
+
+```python
+class Solution(object):
+    def wordBreak(self, s, wordDict):
+        """
+        :type s: str
+        :type wordDict: List[str]
+        :rtype: List[str]
+        """
+        mem = [[] for i in range((len(s)+1))]
+        def subWordBreak(i):
+            if mem[i]:
+                return mem[i]
+            ans = []
+            for word in wordDict:
+                if s[i:] == word:
+                    ans.append(word)
+                    continue
+                if s[i:].startswith(word):
+                    for subWord in subWordBreak(i+len(word)):
+                        ans.append(" ".join([word, subWord]))
+            mem[i] = ans
+            return ans
+            
+        return subWordBreak(0)
+```
+
+## 時間複雜度
+
+最壞的情況，我們必須遍歷一次整個字串，每個索引又須遍歷整個詞表，所以為$O(nm)$，$n$為字串長度，$m$為詞表長度。
