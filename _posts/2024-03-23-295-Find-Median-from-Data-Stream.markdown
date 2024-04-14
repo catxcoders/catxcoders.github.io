@@ -2,7 +2,7 @@
 layout: article_post
 title:  "[Leetcode解題] 295. Find Median from Data Stream - 使用heap解"
 description:  "[Leetcode解題] 295. Find Median from Data Stream - 使用heap解"
-categories: medium 
+categories: hard 
 tags: heap priority-queue
 langs: python
 excerpt_separator: <!--more-->

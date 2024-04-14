@@ -13,6 +13,7 @@ excerpt_separator: <!--more-->
 [416. Partition Equal Subset Sum](https://leetcode.com/problems/partition-equal-subset-sum/description/)
 
 給定一個矩陣，判定是否能將此矩陣分開成兩個子集(subsets)，並且兩個子集的和相等。
+<!--more-->
 
 # 解題思路
 

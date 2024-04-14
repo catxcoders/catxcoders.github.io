@@ -15,7 +15,7 @@ excerpt_separator: <!--more-->
 [140. Word Break II](https://leetcode.com/problems/word-break-ii/)
 
 給一個字串以及一個詞表（一個包含單詞的矩陣），求該字串是否能被以詞表內的單字切分，並返回所有的可能，單字可以被重複利用。
-
+<!--more-->
 # 解題思路
 
 這題跟我們上次寫的[Word Break I]類似，只不過這次我們需要返回所有可能的組合。我們一樣可以採取`Top-down`的方法，然後將`memorization`矩陣存該索引為始的所有可能組合。
