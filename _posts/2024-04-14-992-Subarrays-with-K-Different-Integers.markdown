@@ -8,7 +8,8 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
-## 題目
+# 題目
+
 [992. Subarrays with K Different Integers](https://leetcode.com/problems/subarrays-with-k-different-integers)
 給定一個整數陣列nums和一個整數k，返回nums中好的子陣列的數量。
 
@@ -18,7 +19,7 @@ excerpt_separator: <!--more-->
 子陣列是陣列的連續部分。
 <!--more-->
 
-## 解題思路
+# 解題思路
 
 這個問題可以使用**滑動窗口**來解決。我們需要維護兩個窗口
 * **以目前`index`為結尾**包含$k$個不同元素的最**長**子陣列，
@@ -37,7 +38,7 @@ excerpt_separator: <!--more-->
     - 如果當前窗口內的不同元素數量等於`k`，則計算以`mid`為結尾的包含`k`個不同元素的子數組數量並更新`count`。
 4. 返回`count`。
 
-## Python實作
+# Python實作
 
 ```python
 class Solution:
@@ -67,7 +68,7 @@ class Solution:
 
 ```
 
-## C++實作
+# C++實作
 
 ```cpp
 class Solution {
@@ -103,7 +104,7 @@ public:
 
 ```
 
-## 複雜度分析
+# 複雜度分析
 
 - **時間複雜度**：遍歷一次陣列需要$O(n)$的時間，其中$n$是陣列的長度。在每次遍歷中，我們進行$O(1)$的操作，因此總的時間複雜度為$O(n)$。
 - **空間複雜度**：我們使用了兩個`unordered_map`來存儲頻率和最後一次出現的索引，以及一些變量。因此，空間複雜度為$O(n)$。

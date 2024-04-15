@@ -15,6 +15,7 @@ excerpt_separator: <!--more-->
 [309. Best Time to Buy and Sell Stock with Cooldown](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/)
 
 想像你在買賣股票，給定一個股票價格的序列表示每天的股價，每次可以選擇買或是賣，如果賣出的時候，會有一天的cooldown不能買，每次只能持有一個股票。
+ <!--more-->
 
 # 解題思路
 
