@@ -5,3 +5,6 @@ collections:
   works:
     output: true
 plugins: ['jekyll-feed', 'jekyll-sitemap']
+graphviz:
+  options: "-Tsvg" # 'dot' command option
+  command: "dot"   # execute this string. specify full path to 'dot' if you need
