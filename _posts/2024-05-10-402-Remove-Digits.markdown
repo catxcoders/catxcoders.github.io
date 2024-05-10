@@ -11,7 +11,7 @@ excerpt_separator: <!--more-->
 ## 題目
 [402. Remove K Digits](https://leetcode.com/problems/remove-k-digits/)
 給定一個表示非負整數的字符串 `num` 和一個整數 `k`，從 `num` 中移除 `k` 個數字後，返回可能的最小整數。
-
+<!--more-->
 #### Example 1:
 Input: num = "1432219", k = 3
 Output: "1219"
