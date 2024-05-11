@@ -2,7 +2,7 @@
 layout: article_post
 title:  "[Leetcode解題] 514. Freedom Trail - 用DP結合BFS解"
 description:  "[Leetcode解題] 514. Freedom Trail - 用DP結合BFS解"
-categories: medium 
+categories: hard 
 tags:  dfs dp
 langs: python
 excerpt_separator: <!--more-->
