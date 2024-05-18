@@ -21,14 +21,14 @@ excerpt_separator: <!--more-->
 
 這題看似簡單但卻因為常數空間複雜度的限制變得有點難，大家可能一開始會想到最無腦的方法：
 
-```python=
+```python
 nums = nums[:k] + nums[k:]
 ```
 但python在做slicing的時候，就會複製出一塊新的記憶體，所以這邊的空間複雜度已經為`O(n)`了，不符題目要求。
 
 再來，可能會想說，那可以一步一步往右移動，這樣只需要多幾個變數來做swap的cache，像是：
 
-```python=
+```python
 ptr1 = nums[0]
 ptr2 = nums[1]
 for i in range(n):
