@@ -1,3 +1,4 @@
+url: "https://www.catxcoder.com"
 markdown: kramdown
 baseurl: 
 exclude: ['README.md']
