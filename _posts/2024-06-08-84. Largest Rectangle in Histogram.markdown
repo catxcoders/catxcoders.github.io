@@ -1,9 +1,9 @@
 ---
 layout: article_post
-title:  "[Leetcode解題] 1423. Maximum Points You Can Obtain from Cards"
-description:  "[Leetcode解題] 1423. Maximum Points You Can Obtain from Cards"
-categories: medium 
-tags: array presum sliding-window
+title:  "[Leetcode解題] 84. Largest Rectangle in Histogram - monotonic-stack解"
+description:  "[Leetcode解題] 84. Largest Rectangle in Histogram - monotonic-stack解"
+categories: hard 
+tags: monotonic-stack stack
 langs: python
 excerpt_separator: <!--more-->
 ---
