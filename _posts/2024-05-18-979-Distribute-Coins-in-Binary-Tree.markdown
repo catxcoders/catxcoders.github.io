@@ -13,7 +13,7 @@ excerpt_separator: <!--more-->
 ](https://leetcode.com/problems/distribute-coins-in-binary-tree/)
 
 給一棵二元樹，上面每個點可能會有硬幣，但所有硬幣總和的數量跟節點的數量一樣，求最小要移動幾步才能讓每個點剛好有一個硬幣。
-
+<!--more-->
 ## 解題思路
 
 我們可以從`leaf nodes`開始做，如果一個`node`，有多餘的金幣，就把他丟給`parent node`，反之，如果缺金幣，就從`parent node`，放一個金幣到該點，這邊有一個關鍵是，`parent node`，也有可能沒有足夠的金幣，但我們可以先用負數來表示。

@@ -1,0 +1,93 @@
+---
+layout: article_post
+title:  "[Leetcode解題] 84. Largest Rectangle in Histogram - monotonic-stack解"
+description:  "[Leetcode解題] 84. Largest Rectangle in Histogram - monotonic-stack解"
+categories: hard 
+tags: monotonic-stack stack
+langs: python
+excerpt_separator: <!--more-->
+---
+
+# 84. Largest Rectangle in Histogram
+
+## 題目
+[84. Largest Rectangle in Histogram](https://leetcode.com/problems/largest-rectangle-in-histogram/)
+給定一個由整數組成的數組 `heights`，這個數組代表直方圖的柱子高度，其中每個柱子的寬度為 1。請返回直方圖中最大矩形的面積。
+
+<!--more-->
+## 解題思路
+
+為了找到最大矩形的面積，我們可以使用一種稱為*monotonic stack*(單調棧)的資料結構來輔助解題。
+
+### 什麼是單調棧？
+
+單調棧（Monotonic Stack）是一種特殊的棧（stack）資料結構，其內部元素按照某種單調性排列。根據排列方式的不同，單調棧可以分為兩種：
+
+- 單調遞增棧（Monotonic Increasing Stack）：棧中的元素（通常是索引或值）從棧底到棧頂單調遞增，即每個元素小於或等於其後面的元素。
+- 單調遞減棧（Monotonic Decreasing Stack）：棧中的元素從棧底到棧頂單調遞減，即每個元素大於或等於其後面的元素。
+
+
+### 為什麼要使用單調遞增棧？
+
+我們使用單調遞增棧的主要原因是，它可以幫助我們有效地找到「局部的低谷」，當前柱子低於棧頂柱子時，就意味著我們可以計算以前所有高於當前柱子的柱子的矩形面積。
+
+具體來說：
+- 當我們從左到右遍歷 `heights` 時，每當遇到一個比棧頂柱子矮的柱子時，我們知道我們可以計算出**以棧頂柱子為高度的**最大矩形面積(`stack.top()`的前一個柱子是面積的左側，比棧頂柱子矮的柱子為矩形右側的下一個)。這是因為後續較短的柱子表示該高度的連續區間已經結束，我們可以確定這是這個柱子的最遠延伸範圍。
+- 使用單調棧可以幫助我們高效地找到在每個柱子為高時可能構成的最大矩形，而不需要重新遍歷已經過的柱子。
+
+### 為什麼stack中的倒數第二個柱子為矩形左側?
+
+我們使用單調遞增棧，當`stack.top()`的高度比當前(`current`) 的`height`高時，就會被pop掉(去計算面積)因此在`stack`中 **`current`** 與 **`current`的前一個** 之間的值都比當前`height`高，因為這些值是被`current`或比`current`大的值pop掉的。
+
+因此當我們在計算高度時，以`stack[-1]`為高度，`stack[-2]`會比`stack[-1]`矮(因為是單調遞增棧)，但是index 介於 `stack[-2]`與`stack[-1]`之間的柱子，都會高於stack[-1]。
+
+
+## Python 代碼實現
+
+```python
+class Solution:
+    def largestRectangleArea(self, heights: List[int]) -> int:
+        stack = []
+        max_area = 0
+        heights.append(0)  # 加入最後一個高度為0，在最後結束的時候會把所有stack內的都pop並計算面積
+        
+        for i in range(len(heights)):
+            while stack and heights[i] < heights[stack[-1]]:
+                h = heights[stack.pop()]
+                w = i if not stack else i - stack[-1] - 1
+                max_area = max(max_area, h * w)
+            stack.append(i)
+        
+        heights.pop()  # 移除我們自行加入的最後一個元素
+        return max_area
+```
+
+## C++ 代碼實現
+
+```cpp
+class Solution {
+public:
+    int largestRectangleArea(vector<int>& heights) {
+        stack<int> s;
+        heights.push_back(0); // 加入最後一個高度為0，在最後結束的時候會把所有stack內的都pop並計算面積
+        int max_area = 0;
+        
+        for (int i = 0; i < heights.size(); ++i) {
+            while (!s.empty() && heights[i] < heights[s.top()]) {
+                int h = heights[s.top()];
+                s.pop();
+                int w = s.empty() ? i : i - s.top() - 1;
+                max_area = max(max_area, h * w);
+            }
+            s.push(i);
+        }
+        
+        heights.pop_back(); // 移除我們自行加入的最後一個元素
+        return max_area;
+    }
+};
+```
+
+## 時間複雜度
+
+這個解法的時間複雜度為 $O(n)$，其中 $n$ 是 `heights` 數組的長度。每個柱子最多只會被`push`到`stack`一次並且只會被`pop`一次，因此總的時間複雜度是線性的。
