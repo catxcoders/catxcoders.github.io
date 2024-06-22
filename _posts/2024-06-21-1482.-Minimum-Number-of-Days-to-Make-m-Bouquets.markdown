@@ -1,0 +1,145 @@
+---
+layout: article_post
+title:  "[Leetcode解題] 1482. Minimum Number of Days to Make m Bouquets - binary-search解"
+description:  "[Leetcode解題] 1482. Minimum Number of Days to Make m Bouquets - binary-search解"
+categories: medium 
+tags: binary-search
+langs: python
+excerpt_separator: <!--more-->
+---
+
+## 題目
+
+[1482. Minimum Number of Days to Make m Bouquets](https://leetcode.com/problems/minimum-number-of-days-to-make-m-bouquets)
+你有一個整數陣列 `bloomDay`，以及兩個整數 `m` 和 `k`。你希望製作 `m` 束花，每束花需要 `k` 朵相鄰的花。
+
+花園裡有 `n` 朵花，第 `i` 朵花在 `bloomDay[i]` 這一天綻放，然後可以用來製作一束花。
+
+我們需要找到能夠製作 `m` 束花的最少天數。如果無法製作出 `m` 束花，返回 -1。
+
+### 輸入說明
+
+- `bloomDay`: 整數陣列，代表每朵花綻放的日子。
+- `m`: 需要製作的花束數量。
+- `k`: 每束花需要的相鄰花朵數量。
+
+### 輸出說明
+
+返回能夠製作 `m` 束花的最少天數，如果無法製作出 `m` 束花，返回 -1。
+<!--more-->
+
+## 解題思路
+為了解決這個問題，我們可以利用二分搜尋(binary-search)來找到最小的天數 `d`，在這個天數內能夠製作 `m` 束花。
+
+### 具體步驟
+
+1. **檢查基本條件**：如果需要的花朵總數（`m * k`）超過花園中的花朵數量 `n`，那麼無法完成，直接返回 -1。
+
+2. **設置二分搜尋(binart-search)範圍**：我們需要搜尋的最小天數為 `1`，最大天數為 `bloomDay` 中的最大值。
+
+3. **二分搜尋**：
+   - 計算中間天數 `mid`，然後檢查在這個天數 `mid` 是否可以製作出 `m` 束花。
+   - 使用輔助函數 `canMakeBouquets` 來計算在 `mid` 天內可以製作的花束數量。
+   - 如果在 `mid` 天數內可以製作 `m` 束或更多的花，則縮小右邊界，否則調整左邊界。
+
+4. **返回結果**：二分搜尋結束時，左邊界即為我們所需要的最小天數。
+
+### 輔助函數
+
+我們需要一個輔助函數 `canMakeBouquets` 來計算在 `mid` 天內可以製作的花束數量。該函數遍歷 `bloomDay`，計算在 `mid` 天內能夠相鄰綻放的花朵數量，並檢查能夠形成的花束數量。
+
+
+## Python 實現
+
+```python
+class Solution:
+    def minDays(self, bloomDay: List[int], m: int, k: int) -> int:
+        # 檢查基本條件
+        if m * k > len(bloomDay):
+            return -1
+        
+        def canMakeBouquets(days: int) -> bool:
+            bouquets = 0
+            flowers = 0
+            
+            for day in bloomDay:
+                if day <= days:
+                    flowers += 1
+                    if flowers == k:
+                        bouquets += 1
+                        flowers = 0
+                else:
+                    flowers = 0
+                
+                if bouquets >= m:
+                    return True
+            return False
+        
+        # 設置二分搜尋範圍
+        left, right = 1, max(bloomDay)
+        
+        while left < right:
+            mid = (left + right) // 2
+            if canMakeBouquets(mid):
+                right = mid
+            else:
+                left = mid + 1
+        
+        return left
+```
+
+## C++ 實現
+```cpp
+class Solution {
+public:
+    int minDays(vector<int>& bloomDay, int m, int k) {
+        long long atleastNumFlowers = (long long)m*(long long)k;
+        if (atleastNumFlowers>bloomDay.size()) return -1;
+
+        int maxDay = *max_element(bloomDay.begin(), bloomDay.end());
+
+        auto bounquetCount = [&](int numOfDays){
+            int numOfBounquet = 0;
+            int tempK = k;
+            for(auto day: bloomDay){
+                if (day<=numOfDays)  // bloomed
+                    tempK--;
+                else
+                    tempK = k;
+
+                if (tempK==0){ // bounquet 
+                    tempK = k;
+                    numOfBounquet++;
+                }
+            }
+            return numOfBounquet;
+        };
+
+        // lower_bound
+        int start = 1;
+        int length = maxDay-1;
+        while(length){
+            int mid = start + length/2;
+            int numOfBouquets = bounquetCount(mid);
+            if (numOfBouquets<m){
+                start = mid +1;
+                length -= (length/2+1);
+            }else{
+                length = length/2;
+            }
+        }
+
+        return start;
+    }
+};
+```
+
+## 複雜度分析
+
+- **時間複雜度**：
+  - 二分搜尋(binary-search)的部分需要 $O(\log D)$ 的時間，其中 $D$ 是 `bloomDay` 中的最大值。
+  - 每次二分搜尋內，我們都需要遍歷 `bloomDay` 陣列來檢查是否可以製作 `m` 束花，這需要 $O(n)$ 的時間。
+  - 因此，總的時間複雜度是 $O(n \log D)$。
+
+- **空間複雜度**：
+  - 只使用了常數的額外空間，故空間複雜度為 $O(1)$。
