@@ -1,55 +1,123 @@
 ---
 layout: article_post
-title:  "[Leetcode解題] 1248. Count Number of Nice Subarrays - 使用presum+hashtable解"
-description:  "Count Number of Nice Subarrays"
+title:  "[Leetcode解題] 1438. Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit - 使用deque+ two pointer解"
+description:  "[Leetcode解題] 1438. Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit - 使用deque+ two pointer解"
 categories: medium 
-tags: array presum hash hashtable
+tags: array deque sliding-window
 langs: python
 excerpt_separator: <!--more-->
 ---
 
 ## 題目
 
-[1248. Count Number of Nice Subarrays](https://leetcode.com/problems/count-number-of-nice-subarrays/)
-
-給定一個整數矩陣`nums`和一個整數`k`。如果一個連續子陣列包含恰好`k`個奇數元素，則稱其為漂亮子陣列`nice sub-arrays`。求全部漂亮子陣列的數量。
+[1438. Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit](https://leetcode.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/)
+給定一個整數數組 `nums` 和一個整數 `limit`，請返回**長度最大的非空子陣列**的長度，使得該子陣列中任何兩個元素之間的絕對差不超過 `limit`。
 
 ## 解題思路
 
-這題的思路跟[523](https://www.catxcoder.com/medium/2024/05/18/523-Continuous-subarray-sum.html)蠻像的，我們都是要使用`presum`搭配`hashtable`來解題，這邊還有一些觀察，如果這邊的`presum`紀錄的是從開始到當前索引的奇數數字數量，那它會是一個遞增數列，舉例來說：
+這道題目要求我們找出一個連續子陣列，使得該子陣列中的最大值與最小值之間的差不超過 `limit`。我們可以用**雙指針**和兩個單調遞增及單調遞減的**雙端隊列**(deque)來解決這個問題。
 
-原數列：[1,1,2,1,1,1]
+具體思路如下：
 
-計算開始到當前索引的奇數個數：[1,2,2,3,4,5], k = 3
+1. **雙端隊列(deque)**：
+   - 使用 `increaseDeque` 來維護一個單調遞增的隊列，隊列中的元素在index與數值上都是遞增的，對應的是當前子陣列中的最小值。
+   - 使用 `decreaseDeque` 來維護一個單調遞減的隊列，隊列中的元素在index上是遞增的，在數值上是遞減的，隊列中的元素對應的是當前子陣列中的最大值。
+    > 我們在實作的時候是存index在雙端隊列(deque)中，方便計算長度。
 
-當我們求出這個數列後，可以搭配`hashtable`來記錄，每個回合我們要去找`num - k`有沒有存在於`hashtable`中，如果有的話，代表可以形成`nice sub-arrays`，並且可以形成`hashtable[num-k]`個。
+2. **遍歷陣列**：
+   - 對於陣列中的每個元素，將其加入 `increaseDeque` 和 `decreaseDeque` 中，並保持兩個隊列的單調性。
+   - 在每次加入新元素後，檢查當前子陣列的最大值與最小值之間的差是否超過了 `limit`。
+   - 如果超過了 `limit`，我們需要調整左邊界 `l`，直到子陣列再次符合條件。
+     如果現在加入的元素會導致最大值與最小值之間的差是否超過了 limit，那只有兩種情況: 
+       1. 加入的值為區間的最大值，我們要調整左邊界`l`使得最小值變大到符合 *最大值與最小值之間的差 <= limit* ，由於`increaseDeque` 隊列中的元素在index與數值上都是遞增的，因此我們可以透過`increaseDeque`找最小符合限制的左界。
+       2. 加入的值為區間的最小值，與加入為最大值類似，只是換成透過`decreaseDeque`找最小的index符合限制的左界。
 
-以上面的例子舉例來說，在`idx=4, num=4`的那個點，若`k=3`，則要找`hashtable`中有沒有`1(4-3)`，有的話則代表有`hashtable[1]`個`nice sub-arrays`以4為結尾。
+3. **更新結果**：
+   - 在調整左邊界後，計算當前子陣列的長度，並更新最大子陣列長度。
 
-## 程式碼
+這樣，我們就可以在線性時間內找到符合條件的最大子陣列的長度。
+
+## Python 實作
 
 ```python
-class Solution(object):
-    def numberOfSubarrays(self, nums, k):
-        """
-        :type nums: List[int]
-        :type k: int
-        :rtype: int
-        """
-        ht = {0: 1}
+class Solution:
+    def longestSubarray(self, nums: List[int], limit: int) -> int:
+        increaseDeque = deque()  # 單調遞增隊列
+        decreaseDeque = deque()  # 單調遞減隊列
+        l = 0  # 左邊界
+        max_length = 0  # 最長的子陣列長度
         
-        num_nice_arr = 0
-        cur = 0
-        for num in nums:
-            if num % 2 == 1:
-                cur += 1
-            ht.setdefault(cur, 0)
-            ht[cur] += 1
-            if cur - k in ht:
-                num_nice_arr += ht[cur-k]
-        return num_nice_arr
+        for r in range(len(nums)):
+            # 維護單調遞增隊列
+            while increaseDeque and nums[r] < nums[increaseDeque[-1]]:
+                increaseDeque.pop()
+            increaseDeque.append(r)
+            
+            # 維護單調遞減隊列
+            while decreaseDeque and nums[r] > nums[decreaseDeque[-1]]:
+                decreaseDeque.pop()
+            decreaseDeque.append(r)
+            
+            # 當前子陣列不符合條件時，移動左邊界
+            while nums[decreaseDeque[0]] - nums[increaseDeque[0]] > limit:
+                l += 1
+                if increaseDeque[0] < l:
+                    increaseDeque.popleft()
+                if decreaseDeque[0] < l:
+                    decreaseDeque.popleft()
+            
+            # 更新最大子陣列長度
+            max_length = max(max_length, r - l + 1)
+        
+        return max_length
+```
+## C++ 實作
+
+```cpp
+class Solution {
+public:
+    int longestSubarray(vector<int>& nums, int limit) {
+        // maintain two monotonic stacks
+        deque<int> increaseSt; // Holds indices in increasing order, front is the minimum of the interval.
+        deque<int> decreaseSt; // Holds indices in decreasing order, front is the maximum of the interval.
+        int l = -1; // left bound of the interval, (exclusive)
+        int r; // right bound of the interval, (inclusive)
+        int sizeOfSubArr = 1;
+
+        // traverse each number in nums, treating it as the right end of interval
+        for (r = 0; r<nums.size(); r++){
+            // add number in increaseSt and decreaseSt, and maintain two monotonic stacks
+            while(!increaseSt.empty() && nums[r] < nums[increaseSt.back()]) increaseSt.pop_back();
+            while(!decreaseSt.empty() && nums[r] > nums[decreaseSt.back()]) decreaseSt.pop_back();
+            increaseSt.push_back(r);
+            decreaseSt.push_back(r);
+            
+            // check the current interval is valid
+            if (nums[decreaseSt.front()]-nums[increaseSt.front()]>limit){
+                sizeOfSubArr = max(sizeOfSubArr, r-l-1);
+                
+                // move the left of interval to make the interval valid
+                while(nums[decreaseSt.front()]-nums[increaseSt.front()]>limit){
+                    if (decreaseSt.front() == r){
+                        l = increaseSt.front();
+                        increaseSt.pop_front();
+                    }else{
+                        l = decreaseSt.front();
+                        decreaseSt.pop_front();
+                    }
+                }
+            }
+        }
+        sizeOfSubArr = max(sizeOfSubArr, r-l-1);
+        return sizeOfSubArr;
+    }
+};
 ```
 
 ## 時間複雜度
 
-所以我們只需進行一次迴圈，時間複雜度為$O(n)$
+這個解法的時間複雜度是 $O(n)$，其中 `n` 是陣列 `nums` 的長度。因為每個元素最多只會被加入和移除兩個雙端隊列(deque)各一次，所以整個過程的時間複雜度是線性的。
+
+## 空間複雜度
+
+空間複雜度是 $O(n)$，因為我們使用了兩個雙端隊列(deque)來維護當前子陣列的最小值和最大值。在最壞情況下，這些隊列可以包含 `n` 個元素。
