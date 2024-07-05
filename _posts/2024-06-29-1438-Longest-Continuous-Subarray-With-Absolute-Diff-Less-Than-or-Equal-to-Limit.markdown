@@ -12,6 +12,7 @@ excerpt_separator: <!--more-->
 
 [1438. Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit](https://leetcode.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/)
 給定一個整數數組 `nums` 和一個整數 `limit`，請返回**長度最大的非空子陣列**的長度，使得該子陣列中任何兩個元素之間的絕對差不超過 `limit`。
+<!--more-->
 
 ## 解題思路
 
