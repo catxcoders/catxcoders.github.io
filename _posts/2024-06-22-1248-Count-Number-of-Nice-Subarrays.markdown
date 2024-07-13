@@ -13,6 +13,7 @@ excerpt_separator: <!--more-->
 [1248. Count Number of Nice Subarrays](https://leetcode.com/problems/count-number-of-nice-subarrays/)
 
 給定一個整數矩陣`nums`和一個整數`k`。如果一個連續子陣列包含恰好`k`個奇數元素，則稱其為漂亮子陣列`nice sub-arrays`。求全部漂亮子陣列的數量。
+<!--more-->
 
 ## 解題思路
 
