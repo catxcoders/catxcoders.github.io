@@ -8,8 +8,6 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
-# 986. Interval List Intersections
-
 ## 題目：求兩個區間列表的交集
 
 [986. Interval List Intersections ](https://leetcode.com/problems/interval-list-intersections/)
