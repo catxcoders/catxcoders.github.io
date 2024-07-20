@@ -11,7 +11,7 @@ excerpt_separator: <!--more-->
 ## 題目：
 [543. Diameter of Binary Tree](https://leetcode.com/problems/diameter-of-binary-tree/)
 給定一個`binary tree`，求樹中任兩點最遠的距離。
-
+<!--more-->
 
 ## 解題思路
 
