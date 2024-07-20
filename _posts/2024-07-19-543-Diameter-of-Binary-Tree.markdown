@@ -1,7 +1,7 @@
 ---
 layout: article_post
 title:  "[Leetcode解題] 543. Diameter of Binary Tree - 使用DFS解"
-description:  "Robot Collisions"
+description:  "[Leetcode解題] 543. Diameter of Binary Tree - 使用DFS解"
 categories: easy
 tags: dfs
 langs: python cpp
