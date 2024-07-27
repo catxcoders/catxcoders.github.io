@@ -3,7 +3,7 @@ layout: article_post
 title:  "[Leetcode解題] 1143. Longest Common Subsequence - 使用 Rolling DP 指針解"
 description:  "[Leetcode解題] 1143. Longest Common Subsequence - 使用 Rolling DP 指針解"
 categories: medium
-tags: array two-pointers
+tags: dp
 langs: python
 excerpt_separator: <!--more-->
 ---
