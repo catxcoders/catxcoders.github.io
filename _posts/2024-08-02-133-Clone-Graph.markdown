@@ -1,0 +1,116 @@
+---
+layout: article_post
+title:  "[Leetcode解題] 133. Clone Graph - 使用 DFS 解"
+description:  "[Leetcode解題] 133. Clone Graph - 使用 DFS 解"
+categories: medium
+tags: dfs
+langs: python
+excerpt_separator: <!--more-->
+---
+
+# 133. Clone Graph
+
+## 題目描述
+[133. Clone Graph](https://leetcode.com/problems/clone-graph/)
+給定一個連通無向圖中的一個節點的引用。請返回這個圖的深拷貝（克隆）。
+
+每個節點包含一個整數值和一個鄰居列表（`List[Node]`）。
+
+節點的定義如下：
+
+```python
+class Node:
+    def __init__(self, val=0, neighbors=[]):
+        self.val = val
+        self.neighbors = neighbors
+```
+<!--more-->
+
+## 解題思路
+
+1. **使用*hash-table*(哈希表)記錄節點的對應關系**：我們需要一個辦法來記錄每個已經訪問過的節點，以防止無限迴圈的發生。同時hash-table來存儲原節點和對應克隆節點的映射關系，這樣可以方便地查找和避免重複創建節點。
+
+2. **深度優先搜索（DFS）或廣度優先搜索（BFS）遍歷圖**：對於這類圖的深度複製問題，可以用「深度優先搜索（DFS）」或者「廣度優先搜索（BFS）」來解決。以下我們使用 DFS 方法。
+3. **建立鄰居關系**：對於每個節點的所有鄰居，如果已經創建就從哈希表中取出對應的克隆節點，否則會先克隆這個節點，並將其添加到當前克隆節點的鄰居列表中。
+
+要深拷貝一個圖，需要確保每個節點及其鄰居都被完整地複製，並且原圖中的節點間的連接在新圖中也得到相應的反映。這可以通過下列步驟實現：
+- 創建一個哈希表來存儲已經複製過的節點，key是原節點，value是複製的節點。
+- 使用 DFS 進行遍歷，每次遍歷到一個節點時：
+    - 如果節點已經在哈希表中，直接返回其對應的複製節點。
+    - 如果節點不在哈希表中，創建一個新的節點，並將其加入哈希表。
+- 遞迴地複製所有鄰居節點，並更新新節點的鄰居列表。
+
+## Python代碼實現
+```python
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, val = 0, neighbors = None):
+        self.val = val
+        self.neighbors = neighbors if neighbors is not None else []
+"""
+
+from typing import Optional
+class Solution:
+    def __init__(self):
+        self.node_map = {}
+
+    def cloneGraph(self, node: Optional['Node']) -> Optional['Node']:
+        if not node:
+            return None
+        
+        if node in self.node_map:
+            return self.node_map[node]
+        
+        new_node = Node(node.val)
+        self.node_map[node] = new_node
+        
+        for neighbor in node.neighbors:
+            new_node.neighbors.append(self.cloneGraph(neighbor))
+        
+        return new_node
+```
+
+## C++ 代碼實現
+
+```cpp
+/*
+// Definition for a Node.
+class Node {
+public:
+    int val;
+    vector<Node*> neighbors;
+    Node() {
+        val = 0;
+        neighbors = vector<Node*>();
+    }
+    Node(int _val) {
+        val = _val;
+        neighbors = vector<Node*>();
+    }
+    Node(int _val, vector<Node*> _neighbors) {
+        val = _val;
+        neighbors = _neighbors;
+    }
+};
+*/
+
+class Solution {
+public:
+    unordered_map<Node*, Node*> nodeMap;
+    Node* cloneGraph(Node* node) {
+        if (!node) return nullptr;
+        Node*& newNode = nodeMap[node];
+        if (newNode) return newNode;
+        newNode = new Node(node-> val);
+        for(const auto &n: node->neighbors){
+            newNode->neighbors.push_back(cloneGraph(n));
+        }
+        return newNode;
+    }
+};
+```
+
+## 時間複雜度
+
+這個解法的時間複雜度為$O(N+E)$，其中 $N$ 是圖中節點的數量，$E$是邊的數量。我們需要訪問每個節點並創建其對應的克隆節點，每個節點只被訪問一次，每個邊也只被創建一次。
