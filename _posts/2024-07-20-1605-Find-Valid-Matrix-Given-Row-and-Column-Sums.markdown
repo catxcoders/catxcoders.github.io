@@ -10,7 +10,7 @@ excerpt_separator: <!--more-->
 
 # 題目
 
-[1605. Find Valid Matrix Given Row and Column Sums](https://leetcode.com/problems/find-valid-matrix-given-row-and-column-sums
+[1605. Find Valid Matrix Given Row and Column Sums](https://leetcode.com/problems/find-valid-matrix-given-row-and-column-sums)
 
 給定兩個非負整數數組`rowSum`和`colSum`。`rowSum[i]`表示第 i 行所有元素的和，而 `colSum[j]` 表示第 j 列所有元素的和。求任意一個滿足`rowSum`和`colSum`要求的非負整數矩陣，其大小為 `rowSum.length` x `colSum.length`。
 
