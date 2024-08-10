@@ -51,7 +51,7 @@ excerpt_separator: <!--more-->
 
 ## 程式碼
 
-```python=
+```python
 class Solution(object):
     def regionsBySlashes(self, grid):
         """
