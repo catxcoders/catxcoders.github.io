@@ -13,7 +13,7 @@ excerpt_separator: <!--more-->
 ## 題目
 [31. Next Permutation](https://leetcode.com/problems/next-permutation/)
 題目要求是找到一個整數陣列的下一個字典序排列。如果已經是最大排列，那麼就返回最小排列（即升序排列）。這個功能要求只使用常數額外記憶體。
-
+<!--more-->
 ## 解題思路
 
 我們先看一個例子: 假設我們有一個陣列 nums = [1, 3, 5, 4, 2]，現在我們要找到它的下一個排列。
