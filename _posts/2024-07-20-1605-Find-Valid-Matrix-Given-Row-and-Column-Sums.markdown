@@ -45,7 +45,7 @@ excerpt_separator: <!--more-->
 
 這題主要是使用兩個指針，分別記錄行列的索引，`greedy`的從左到右填充矩陣。
 
-```
+```python
 class Solution(object):
     def restoreMatrix(self, rowSum, colSum):
         """
