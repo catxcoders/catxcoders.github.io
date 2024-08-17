@@ -8,8 +8,6 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
-# 31. Next Permutation
-
 ## 題目
 [31. Next Permutation](https://leetcode.com/problems/next-permutation/)
 題目要求是找到一個整數陣列的下一個字典序排列。如果已經是最大排列，那麼就返回最小排列（即升序排列）。這個功能要求只使用常數額外記憶體。

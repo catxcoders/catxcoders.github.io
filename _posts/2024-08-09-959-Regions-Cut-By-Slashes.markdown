@@ -1,84 +1,98 @@
 ---
 layout: article_post
-title:  "[Leetcode解題] 31. Next Permutation"
-description:  "[Leetcode解題] 31. Next Permutation"
+title:  "[Leetcode解題]  959. Regions Cut By Slashes 以DFS解"
+description:  "[Leetcode解題]  959. Regions Cut By Slashes"
 categories: medium
-tags: array
+tags: graph dfs
 langs: python
 excerpt_separator: <!--more-->
 ---
 
-# 31. Next Permutation
-
 ## 題目
-[31. Next Permutation](https://leetcode.com/problems/next-permutation/)
-題目要求是找到一個整數陣列的下一個字典序排列。如果已經是最大排列，那麼就返回最小排列（即升序排列）。這個功能要求只使用常數額外記憶體。
+
+[959. Regions Cut By Slashes](https://leetcode.com/problems/regions-cut-by-slashes/)
+
+一個 n x n 的網格由 1 x 1 的方格組成，每個方格內包含 '/', '\\' 或空格 ' '，這些字符將方格劃分為連續的區域。給定表示為字符串數組的網格 grid，返回區域的數量。
 <!--more-->
+
 ## 解題思路
 
-我們先看一個例子: 假設我們有一個陣列 nums = [1, 3, 5, 4, 2]，現在我們要找到它的下一個排列。
-```
-nums = [1, 3, 5, 4, 2]
-           ^
-```
-我們關注目前是數字3的這個位置，我們的目標是
-- 這個位置(由右向左第一個下降的數值)的數值變大一點點，因此可以將3跟4交換
-    ```
-    nums = [1, 4, 5, 3, 2]
-               ^
-    ```
-- **這個位置之後的字典序是最小**: 由於原本是降序排列，因此最小字典序就直接reverse就可以了
-    ```
-    nums = [1, 4, 2, 3, 5]
-               ^
-    ```
-> **先交換再reverse** 與 **先reverse再交換**，結果是一樣的，但是如果先reverse就可以使用函式庫中的upper_bound，因此下面的解題流程是先reverse再交換。
+這題可以用圖的思路來想，每個區域如果可以跟旁邊的區域連通，那就是有一條Edge，然後我們用計算有多少個`connected graph`就等同於有多少連通區域。
 
-因此整個解題的流程是:
-1. **尋找第一個下降點**：從後往前看，找到第一個數字`nums[idx]`，使得`nums[idx]`小於`nums[idx+1]`。這個位置之後的數字必定是降序排列。
-2. **反轉後段**：因為從`idx+1`到結尾是降序，我們直接反轉這段，讓它變成升序，目的是創造出這部分可以達到的最小排列。
-3. **找到交換位置**：我們需要在`idx+1`到結尾中內找到第一個比`nums[idx]`大的數，如果存在，將第一個比`nums[idx]`大的數，與`nums[idx]`進行交換。這樣才能確保整體排列是剛好大於當前排列的下一個排列。進行交換後，從idx位置後的序列仍然保持升序，這樣整體序列就是字典序的下一個排列。
+但如果是原來的樣子，我們會不太好計算連通區域，我們可以把每個點再切更小，然後把斜線的區域以'x'表示，這麼以來我們只要簡單的判斷上下左右是否遇到'x'，如果遇到則不能走。
 
-## Python 實作
+我們可以看兩個例子：
+
+例子1
+["/\\","\\/"]
+我們把它展開細分後3x3會變成
 ```python
-def nextPermutation(nums):
-    # 找到第一個下降點
-    idx = len(nums) - 2
-    while idx >= 0 and nums[idx] >= nums[idx + 1]:
-        idx -= 1
-
-    # 反轉後段
-    nums[idx + 1:] = reversed(nums[idx + 1:])
-
-    # 如果有下降點，進行交換
-    if idx >= 0:
-        # 找到第一個大於nums[idx]的位置進行交換
-        swap_idx = bisect.bisect_right(nums, nums[idx], idx + 1)
-        nums[idx], nums[swap_idx] = nums[swap_idx], nums[idx]
-
+001100
+010010
+100001
+100001
+010010
+001100
 ```
 
-## C++實作
-```cpp
-class Solution {
-public:
-    void nextPermutation(vector<int>& nums) {
-        // Step 1: Find the first decreasing element from the end
-        int idx = nums.size() - 2;
-        while (idx >= 0 && nums[idx] >= nums[idx + 1]) {
-            idx--;
-        }
+例子2
+["//","/ "]
 
-        // Step 2: Reverse the numbers after the found index to make them in ascending order
-        reverse(nums.begin() + idx + 1, nums.end());
+```python
+001001
+010010
+100100
+001000
+010000
+100000
+```
 
-        // Step 3: If the decreasing element was found, find the next larger element to swap
-        if (idx >= 0) {
-            iter_swap(nums.begin() + idx, upper_bound(nums.begin() + idx + 1, nums.end(), nums[idx]));
-        }
-    }
-};
+所以切分後，我們只要把0的區域流通即可，可以透過DFS
+
+## 程式碼
+
+```python
+class Solution(object):
+    def regionsBySlashes(self, grid):
+        """
+        :type grid: List[str]
+        :rtype: int
+        """
+        def dfs(i, j, subgrid):
+            subgrid[i][j] = 'v'
+            if i > 0 and subgrid[i-1][j] == ' ':
+                dfs(i-1, j, subgrid)
+            if i < len(subgrid)-1 and subgrid[i+1][j] == ' ':
+                dfs(i+1, j, subgrid)
+            if j > 0 and subgrid[i][j-1] == ' ':
+                dfs(i, j-1, subgrid)
+            if j < len(subgrid)-1 and subgrid[i][j+1] == ' ':
+                dfs(i, j+1, subgrid)
+            
+        n = len(grid)
+        subgrid = [[' ' for i in range(n*3)] for j in range(n*3)]
+        for i in range(n):
+            for j in range(n):
+                if grid[i][j] == '/':
+                    subgrid[i*3][j*3+2] = 'x'
+                    subgrid[i*3+1][j*3+1] = 'x'
+                    subgrid[i*3+2][j*3] = 'x'
+                elif grid[i][j] == '\\':
+                    subgrid[i*3][j*3] = 'x'
+                    subgrid[i*3+1][j*3+1] = 'x'
+                    subgrid[i*3+2][j*3+2] = 'x'
+        total = 0
+        for i in range(n*3):
+            for j in range(n*3):
+                if subgrid[i][j] == 'x':
+                    continue
+                if subgrid[i][j] == 'v':
+                    continue
+                dfs(i, j, subgrid)
+                total += 1
+        return total
 ```
 
 ## 時間複雜度
-整個過程的時間複雜度是$O(N)$。尋找下降點$O(N)$、尋找被交換地點$O(log(N))$、反轉$O(N)$和交換$O(1)$都可以在線性時間內完成。
+
+因為我們要跑過所有切分過的小格子，所以時間複雜度為$O(3 \times 3 \times n \times n)=O(n^2)$
