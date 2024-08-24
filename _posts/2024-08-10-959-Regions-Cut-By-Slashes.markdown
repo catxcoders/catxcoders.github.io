@@ -10,10 +10,10 @@ excerpt_separator: <!--more-->
 
 ## 題目
 
-[959. Regions Cut By Slashes
-](https://leetcode.com/problems/regions-cut-by-slashes/)
+[959. Regions Cut By Slashes](https://leetcode.com/problems/regions-cut-by-slashes/)
 
 一個 n x n 的網格由 1 x 1 的方格組成，每個方格內包含 '/', '\\' 或空格 ' '，這些字符將方格劃分為連續的區域。給定表示為字符串數組的網格 grid，返回區域的數量。
+<!--more-->
 
 ## 解題思路
 
@@ -26,7 +26,7 @@ excerpt_separator: <!--more-->
 例子1
 ["/\\","\\/"]
 我們把它展開細分後3x3會變成
-```python
+```
 001100
 010010
 100001
@@ -38,7 +38,7 @@ excerpt_separator: <!--more-->
 例子2
 ["//","/ "]
 
-```python
+```
 001001
 010010
 100100
