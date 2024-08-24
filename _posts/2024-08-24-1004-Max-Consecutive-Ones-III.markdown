@@ -8,10 +8,10 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
-## 題目
-
 ## 題目描述
 [1004. Max Consecutive Ones III](https://leetcode.com/problems/max-consecutive-ones-iii/) 假設有一個由0和1組成的二進位陣列`nums`，還有一個整數`k`。你可以把陣列中的最多`k`個`0`翻轉成`1`。請問這樣做之後，陣列中可以得到的連續`1`的最大長度是多少？
+
+<!--more-->
 
 ## 解題思路
 這題我們可以換成***找一個最大的區間，裡面包含不超過k個0***。
