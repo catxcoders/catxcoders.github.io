@@ -2,7 +2,7 @@
 layout: article_post
 title:  "[Leetcode解題]  10. Regular Expression Matching - DP解"
 description:  "[Leetcode解題]  10. Regular Expression Matching - DP解"
-categories: medium
+categories: hard
 tags: dp
 langs: python
 excerpt_separator: <!--more-->
