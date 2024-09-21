@@ -8,8 +8,6 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
-# 380. Insert Delete GetRandom O(1)
-
 ## 題目
 [380. Insert Delete GetRandom O(1)](https://leetcode.com/problems/insert-delete-getrandom-o1/)
 實作一個 `RandomizedSet` 類別，這個類別需要支援以下操作：

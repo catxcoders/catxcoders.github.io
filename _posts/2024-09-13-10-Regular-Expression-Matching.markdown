@@ -8,7 +8,6 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
-# 10. Regular Expression Matching
 
 ## 題目說明
 [10. Regular Expression Matching](https://leetcode.com/problems/regular-expression-matching/)
