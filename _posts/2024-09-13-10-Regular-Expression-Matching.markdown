@@ -2,13 +2,12 @@
 layout: article_post
 title:  "[Leetcode解題]  10. Regular Expression Matching - DP解"
 description:  "[Leetcode解題]  10. Regular Expression Matching - DP解"
-categories: medium
+categories: hard
 tags: dp
 langs: python
 excerpt_separator: <!--more-->
 ---
 
-# 10. Regular Expression Matching
 
 ## 題目說明
 [10. Regular Expression Matching](https://leetcode.com/problems/regular-expression-matching/)
