@@ -8,8 +8,6 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
-# 1302. Deepest Leaves Sum
-
 ## 題目
 
 [1302. Deepest Leaves Sum](https://leetcode.com/problems/deepest-leaves-sum/)
