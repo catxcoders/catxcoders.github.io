@@ -1,0 +1,71 @@
+---
+layout: article_post
+title:  "[Leetcode解題]  50. Pow(x, n)"
+description:  "50. Pow(x, n) - 用Divide and conquer解"
+categories: medium
+tags: recursion
+langs: python
+excerpt_separator: <!--more-->
+---
+
+## 題目描述
+[50. Pow(x, n)](https://leetcode.com/problems/powx-n/) 這題要實作一個指數計算函數 `pow(x, n)`，這個函數會計算並回傳 `x` 的 `n` 次方，也就是 $x^n$。`n` 可以是正數、零、或負數，並且 `x` 可能是小數（例如 2.5）。
+<!--more-->
+
+## 解題思路
+
+這題的重點是效率，如果只是簡單地重複相乘，當 `n` 很大時，計算會變得非常慢。因此我們可以使用 **Divide and conquer**來加速計算。
+
+**Divide and conquer的核心思路**是利用指數的特性來把計算「拆解」：
+1. **當 `n` 是偶數**時，將問題拆成兩個一樣的子問題：
+   $x^n = (x^{n/2}) \times (x^{n/2})$
+2. **當 `n` 是奇數**時，則要多乘上一個 `x`：
+   $x^n = x \times (x^{(n-1)/2}) \times (x^{(n-1)/2})$
+3. **當 `n` 是負數**時，只要計算 $x^{-n}$ 再取倒數就可以了，因為 $x^{-n} = \frac{1}{x^n}$。
+
+這樣的做法讓我們可以把問題逐步地對半切割，讓時間複雜度從 `O(n)` 降低到 `O(log n)`。
+
+## Python 實作
+
+以下是 Python 的解法，使用遞迴來實作：
+
+```python
+class Solution:
+    def myPow(self, x: float, n: int) -> float:
+        if n == 0:
+            return 1
+        if n < 0:
+            x = 1 / x
+            n = -n
+        
+        half = self.myPow(x, n // 2)
+        if n % 2 == 0:
+            return half * half
+        else:
+            return half * half * x
+```
+
+## C++ 實作
+
+C++ 的解法跟 Python 類似，也使用遞迴，程式碼如下：
+
+
+> **INT_MIN 時可能發生的溢位問題**
+> 在 C++ 中，`int` 的範圍是 $[-2^{31}, 2^{31}-1]$，所以當 `n` 等於 `INT_MIN`（即 $-2^{31}$）時，取相反數會超出 `int` 的範圍，因為 $(-(-2^{31})$ 並不在 `int` 的可表示範圍內，會造成溢位問題。
+因此當我們要計算 $\frac{1}{x^n}$，我們先計算 $\frac{1}{x^{(-n+1)}}$ (就是`1 / myPow(x, -(n+1))`)，然後再額外除以 `x` 來補上「少算」的一次乘積（即 `x` 的額外一次倒數）。
+```cpp
+class Solution {
+public:
+    double myPow(double x, int n) {
+        if (n==0) return 1;
+        if (n<0) return 1/ myPow(x, -(n+1)) / x;
+        double t = myPow(x, n/2);
+        if (n%2) return t*t*x;
+        else return t*t;
+    }
+};
+```
+
+## 時間複雜度分析
+
+這個解法的時間複雜度是 $O(log n)$。原因是我們每次都將指數 `n` 對半縮小，讓計算量隨著指數的減小而成指數級地減少。
