@@ -1,0 +1,85 @@
+---
+layout: article_post
+title:  "[Leetcode解題]  75. Sort Colors"
+description:  "75. Sort Colors - 用Two Pointers解"
+categories: medium
+tags: two-pointers
+langs: python
+excerpt_separator: <!--more-->
+---
+
+# 75. Sort Colors
+## 題目
+[75. Sort Colors](https://leetcode.com/problems/sort-colors/description/)
+給定一個長度為 $n$ 的整數陣列 `nums`，其中每個數字表示一種顏色：`0` 表示紅色，`1` 表示白色，`2` 表示藍色。請將陣列中的顏色進行原地排序，使得相同顏色的物件彼此相鄰，並且排列順序依次為紅色、白色和藍色。
+
+注意：不能使用內建的`sort`函數來解決此問題。
+
+## 解題思路
+我們可以使用雙指針法（Two Pointer Approach）來解決這個問題，具體步驟如下：
+
+1. **初始化三個指針**：
+   - `zero` 指向紅色區域的邊界（初始設為 `0`）。
+   - `two` 指向藍色區域的邊界（初始設為 `nums.size() - 1`）。
+   - `i` 從左到右遍歷整個陣列，將元素分類到適當的區域。
+
+2. **遍歷陣列並分類**：
+   - 當 `i` 指向 `0`（紅色）時，與 `zero` 位置的元素交換，並將 `zero` 和 `i` 分別向右移動一格。
+   - 當 `i` 指向 `2`（藍色）時，與 `two` 位置的元素交換，並將 `two` 向左移動一格。此時不移動 `i`，因為交換過來的數值可能還需要分類。
+   - 當 `i` 指向 `1`（白色）時，不需要交換，直接將 `i` 向右移動一格。
+   
+3. **停止條件**：
+   - 當 `i` 超過 `two` 時，排序完成。
+
+這樣的方式保證了原地排序，且不需要額外的空間。
+
+## Python 實作
+
+```python
+class Solution(object):
+    def sortColors(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: None Do not return anything, modify nums in-place instead.
+        """
+        zero = 0  # 紅色區域的邊界
+        two = len(nums) - 1  # 藍色區域的邊界
+        i = 0  # 當前指針位置
+
+        while i <= two:
+            if nums[i] == 0:  # 如果當前元素為紅色
+                nums[i], nums[zero] = nums[zero], nums[i]
+                zero += 1
+                i += 1
+            elif nums[i] == 2:  # 如果當前元素為藍色
+                nums[i], nums[two] = nums[two], nums[i]
+                two -= 1
+            else:  # 如果當前元素為白色
+                i += 1
+```
+## C++ 實作
+```cpp
+class Solution {
+public:
+    void sortColors(vector<int>& nums) {
+        int zero = 0;
+        int two = nums.size()-1;
+        while(two>=0 && nums[two]==2) two--;
+        while(zero<nums.size() && nums[zero]==0) zero++;      
+        for(int i=zero; i<=two; i++){
+            if (nums[i] == 2){
+                swap(nums[i--], nums[two--]);
+            }else if (nums[i]==0){
+                swap(nums[i], nums[zero++]);
+            }
+        }
+    }
+};
+```
+
+## 時間複雜度
+- **時間複雜度**：$O(n)$，其中 `n` 是 `nums` 的長度。由於每個元素最多只會被處理一次，所以整體時間複雜度為線性。
+- **空間複雜度**：$O(1)$，我們僅使用了常數空間來存儲指針 `zero`、`two` 和 `i`。
+
+## 總結
+這個算法使用雙指針的方式將陣列分為三部分，分別對應三種顏色。通過遍歷一次陣列，我們可以在$O(n)$ 時間內完成顏色的排序，並且不需要額外的空間，非常高效。
