@@ -1,0 +1,144 @@
+---
+layout: article_post
+title:  "[Leetcode解題]  2055. Plates Between Candles"
+description:  "2055. Plates Between Candles"
+categories: medium
+tags: presum
+langs: python
+excerpt_separator: <!--more-->
+---
+
+## 題目
+
+[2055. Plates Between Candles](https://leetcode.com/problems/plates-between-candles/)
+
+有一張長桌，上面擺了一排盤子和蠟燭。用一個由 `'*'`（代表盤子）和 `'|'`（代表蠟燭）組成的字串 `s` 來描述桌上的擺設。另外會給你一組查詢 `queries`，裡面每筆查詢是 `[left, right]`，代表要檢查子字串 `s[left...right]` 之間的盤子數量。
+
+條件是，這些盤子**必須同時有蠟燭在左邊和右邊**才算數。  
+比如說：  
+- `s = "||**||**|*"`, 查詢 `[3, 8]` 的子字串是 `"*||**|"`，只有兩個盤子符合條件，因為兩邊都有蠟燭。
+<!--more-->
+
+## 解題思路
+
+這題其實就是要用一些巧妙的**預處理**來加速查詢。因為如果每次都直接遍歷子字串去數盤子會太慢，所以我們可以先計算出一些有用的資訊，像這樣：
+
+1. **計算累積盤子數量：**
+   - 我們用一個陣列記錄每個位置之前的盤子數量(盤子數量的preSum)，這樣要算某段範圍內的盤子數就可以直接用減法搞定。
+
+2. **找到最近的蠟燭：**
+   - 我們要知道每個位置的左右最近蠟燭在哪，這樣才能確定盤子的有效範圍（盤子必須在蠟燭之間才算數）。
+   - 用兩次遍歷就可以完成，一次從左到右，一次從右到左。
+
+3. **處理查詢：**
+   - 每個查詢只要用上面預處理的資訊，就能快速算出答案。
+   - 每次查詢都找出蠟燭的範圍，再用 ***盤子數量的preSum*** 算出範圍內的盤子數量。
+
+
+
+## Python 實作
+```python
+class Solution:
+    def platesBetweenCandles(self, s: str, queries: List[List[int]]) -> List[int]:
+        n = len(s)
+        
+        # Step 1: Precompute cumulative plate counts
+        plate_count = [0] * n
+        count = 0
+        for i, char in enumerate(s):
+            if char == '*':
+                count += 1
+            plate_count[i] = count
+
+        # Step 2: Find nearest left and right candles
+        left_candle = [-1] * n
+        right_candle = [-1] * n
+        nearest = -1
+        for i in range(n):
+            if s[i] == '|':
+                nearest = i
+            left_candle[i] = nearest
+
+        nearest = -1
+        for i in range(n - 1, -1, -1):
+            if s[i] == '|':
+                nearest = i
+            right_candle[i] = nearest
+
+        # Step 3: Process each query
+        result = []
+        for left, right in queries:
+            l = right_candle[left]
+            r = left_candle[right]
+            if l != -1 and r != -1 and l < r:
+                result.append(plate_count[r] - plate_count[l])
+            else:
+                result.append(0)
+
+        return result
+```
+
+## C++ 實作
+```cpp
+class Solution {
+public:
+    vector<int> platesBetweenCandles(string s, vector<vector<int>>& queries) {
+        int n = s.size();
+
+        // Step 1: Precompute cumulative plate counts
+        vector<int> plateCount(n, 0);
+        int count = 0;
+        for (int i = 0; i < n; ++i) {
+            if (s[i] == '*') {
+                count++;
+            }
+            plateCount[i] = count;
+        }
+
+        // Step 2: Find nearest left and right candles
+        vector<int> leftCandle(n, -1), rightCandle(n, -1);
+        int nearest = -1;
+
+        // Compute left nearest candle
+        for (int i = 0; i < n; ++i) {
+            if (s[i] == '|') {
+                nearest = i;
+            }
+            leftCandle[i] = nearest;
+        }
+
+        // Compute right nearest candle
+        nearest = -1;
+        for (int i = n - 1; i >= 0; --i) {
+            if (s[i] == '|') {
+                nearest = i;
+            }
+            rightCandle[i] = nearest;
+        }
+
+        // Step 3: Process each query
+        vector<int> result;
+        for (const auto& query : queries) {
+            int left = query[0];
+            int right = query[1];
+
+            int l = rightCandle[left];  // First candle on the right of `left`
+            int r = leftCandle[right]; // Last candle on the left of `right`
+
+            if (l != -1 && r != -1 && l < r) {
+                result.push_back(plateCount[r] - plateCount[l]);
+            } else {
+                result.push_back(0);
+            }
+        }
+
+        return result;
+
+    }
+};
+```
+
+## 時間複雜度
+- **預處理階段**是 $O(n)$
+- **查詢階段**每筆是 $O(1)$，所以總共是 $O(m)$。  
+- **整體時間複雜度**是 $O(n + m)$。
