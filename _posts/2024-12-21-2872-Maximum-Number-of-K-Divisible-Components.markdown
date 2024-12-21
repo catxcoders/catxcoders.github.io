@@ -2,7 +2,7 @@
 layout: article_post
 title:  "[Leetcode解題] 2872. Maximum Number of K-Divisible Components"
 description:  "2872. Maximum Number of K-Divisible Components"
-categories: medium
+categories: hard
 tags: dfs 
 langs: python
 excerpt_separator: <!--more-->
