@@ -1,0 +1,775 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="https://www.catxcoder.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.catxcoder.com/" rel="alternate" type="text/html" /><updated>2025-01-04T04:24:57+00:00</updated><id>https://www.catxcoder.com/feed.xml</id><entry><title type="html">[Leetcode解題] 1702. Maximum Binary String After Change</title><link href="https://www.catxcoder.com/medium/2024/12/28/1702-Maximum-Binary-String-After-Change.html" rel="alternate" type="text/html" title="[Leetcode解題] 1702. Maximum Binary String After Change" /><published>2024-12-28T00:00:00+00:00</published><updated>2024-12-28T00:00:00+00:00</updated><id>https://www.catxcoder.com/medium/2024/12/28/1702-Maximum-Binary-String-After-Change</id><content type="html" xml:base="https://www.catxcoder.com/medium/2024/12/28/1702-Maximum-Binary-String-After-Change.html"><![CDATA[<h1 id="題目">題目</h1>
+
+<p><a href="https://leetcode.com/problems/maximum-binary-string-after-change/description/">1702. Maximum Binary String After Change</a></p>
+
+<p>這題給一個binary字串，並有兩種操作可以進行：</p>
+
+<ol>
+  <li>將<code class="language-plaintext highlighter-rouge">00</code>轉成<code class="language-plaintext highlighter-rouge">10</code></li>
+  <li>將<code class="language-plaintext highlighter-rouge">10</code>轉成<code class="language-plaintext highlighter-rouge">01</code></li>
+</ol>
+
+<p>操作次數不限，問我們可以得到的最大字串為何</p>
+
+<!--more-->
+
+<h1 id="解題思路">解題思路</h1>
+
+<p>我們可以先想一下在以0為開頭的任意字串</p>
+
+<p><code class="language-plaintext highlighter-rouge">0000101110101</code></p>
+
+<p>如果要將此字串變更大，我們可以通過數次操作，把所有1往右邊推</p>
+
+<p><code class="language-plaintext highlighter-rouge">0000101110101</code>
+<code class="language-plaintext highlighter-rouge">0000011110011</code>
+<code class="language-plaintext highlighter-rouge">0000011111011</code>
+<code class="language-plaintext highlighter-rouge">0000011110111</code>
+<code class="language-plaintext highlighter-rouge">0000011101111</code>
+<code class="language-plaintext highlighter-rouge">0000011011111</code>
+<code class="language-plaintext highlighter-rouge">0000010111111</code>
+<code class="language-plaintext highlighter-rouge">0000001111111</code></p>
+
+<p>然後再開頭的00轉成10，獲得最多的1</p>
+
+<p><code class="language-plaintext highlighter-rouge">0000001111111</code>
+<code class="language-plaintext highlighter-rouge">1111101111111</code></p>
+
+<p>這樣一來我們其實只要數有幾個0，然後就可以建構出最後的答案了，假設0的數量為k，最終字串為</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>s = '1' * (k-1) + '0' + '1' * (n-k)
+</code></pre></div></div>
+
+<p>但是我們仍須考慮開頭為1的狀況</p>
+
+<p><code class="language-plaintext highlighter-rouge">1100</code></p>
+
+<p>如果按照我們上面的作法把1都推到右邊再進行轉換，會得到：</p>
+
+<p><code class="language-plaintext highlighter-rouge">1011</code></p>
+
+<p>但這甚至比原本的字串小，而正確的作法應該是要直接轉後面的00</p>
+
+<p><code class="language-plaintext highlighter-rouge">1110</code></p>
+
+<p>所以我們如果遇到開頭是1的情況，就要跳過，直接從0開頭的地方開始，因為開頭是1已經是最優，沒有可能再透過任何轉換變得更大。</p>
+
+<h1 id="程式碼">程式碼</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">maximumBinaryString</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">binary</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">binary</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="s">"0"</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">p</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">binary</span>
+        <span class="n">k</span> <span class="o">=</span> <span class="n">binary</span><span class="p">.</span><span class="n">count</span><span class="p">(</span><span class="s">"0"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s">"1"</span> <span class="o">*</span> <span class="p">(</span><span class="n">p</span> <span class="o">+</span> <span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="s">"0"</span> <span class="o">+</span> <span class="s">"1"</span> <span class="o">*</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">binary</span><span class="p">)</span> <span class="o">-</span> <span class="n">k</span>  <span class="o">-</span> <span class="n">p</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h1 id="時間複雜度">時間複雜度</h1>
+
+<p>理論上只要看過一次字串即可，複雜度為$O(n)$</p>]]></content><author><name></name></author><category term="medium" /><category term="string" /><category term="greedy" /><summary type="html"><![CDATA[1702. Maximum Binary String After Change]]></summary></entry><entry><title type="html">[Leetcode解題] 62. Unique Paths</title><link href="https://www.catxcoder.com/medium/2024/12/28/62-Unique-Paths.html" rel="alternate" type="text/html" title="[Leetcode解題] 62. Unique Paths" /><published>2024-12-28T00:00:00+00:00</published><updated>2024-12-28T00:00:00+00:00</updated><id>https://www.catxcoder.com/medium/2024/12/28/62-Unique-Paths</id><content type="html" xml:base="https://www.catxcoder.com/medium/2024/12/28/62-Unique-Paths.html"><![CDATA[<h2 id="題目">題目</h2>
+<p><a href="https://leetcode.com/problems/unique-paths/">62. Unique Paths</a>
+一個機器人位於 $m \times n$ 的網格的左上角（即 $\text{grid}[0][0]$）。機器人嘗試移動到網格的右下角（即 $\text{grid}[m - 1][n - 1]$）。在任意時刻，機器人只能向下或向右移動。</p>
+
+<p>給定兩個整數 $m$ 和 $n$，返回機器人從左上角移動到右下角的所有<strong>唯一路徑</strong>的數量。</p>
+
+<p><strong>約束條件</strong>：<br />
+測試數據保證答案小於等於 $2 \times 10^9$。
+<!--more--></p>
+
+<h2 id="解題思路">解題思路</h2>
+
+<p>這是一道典型的動態規劃（Dynamic Programming）問題，也可以用數學組合的方法解決。以下分別介紹兩種解法：</p>
+
+<h3 id="方法一動態規劃-dynamic-programming">方法一：動態規劃 (Dynamic Programming)</h3>
+<ol>
+  <li>定義一個 $dp$ 二維陣列，$dp[i][j]$ 表示從左上角移動到 $(i, j)$ 的唯一路徑數量。</li>
+  <li>初始化：
+    <ul>
+      <li>$dp[0][0] = 1$（起始位置）。</li>
+      <li>第一列 $dp[i][0] = 1$，因為從 $(0, 0)$ 移到任意位置 $(i, 0)$ 都只能向下移動。</li>
+      <li>第一行 $dp[0][j] = 1$，因為從 $(0, 0)$ 移到任意位置 $(0, j)$ 都只能向右移動。</li>
+    </ul>
+  </li>
+  <li>狀態轉移方程：<br />
+$dp[i][j] = dp[i-1][j] + dp[i][j-1]$<br />
+即到達 $(i, j)$ 的路徑數為從上方 $(i-1, j)$ 到達的路徑數加上從左側 $(i, j-1)$ 到達的路徑數。</li>
+  <li>最終結果為 $dp[m-1][n-1]$。</li>
+</ol>
+
+<h3 id="方法二數學組合">方法二：數學組合</h3>
+<p>機器人從左上角移動到右下角，需要總共移動 $m-1$ 步向下，和 $n-1$ 步向右，共 $m+n-2$ 步。從這些步數中選出 $m-1$ 步向下或 $n-1$ 步向右的組合數為答案：
+$\text{C}(m+n-2, m-1) = \frac{(m+n-2)!}{(m-1)!(n-1)!}$</p>
+
+<p>這種方法利用排列組合公式，計算速度快且不需要額外空間。</p>
+
+<h2 id="python-實作">Python 實作</h2>
+
+<h3 id="動態規劃解法">動態規劃解法</h3>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">uniquePaths</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">m</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="c1"># 初始化 dp 陣列
+</span>        <span class="n">dp</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">)]</span>
+        
+        <span class="c1"># 填充 dp 陣列
+</span>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+                <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+        
+        <span class="k">return</span> <span class="n">dp</span><span class="p">[</span><span class="n">m</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+
+</code></pre></div></div>
+
+<h3 id="數學組合解法">數學組合解法</h3>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">uniquePaths</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">m</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">math</span><span class="p">.</span><span class="n">comb</span><span class="p">(</span><span class="n">m</span> <span class="o">+</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">2</span><span class="p">,</span> <span class="n">m</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="時間與空間複雜度分析">時間與空間複雜度分析</h2>
+
+<h3 id="動態規劃">動態規劃</h3>
+<ul>
+  <li><strong>時間複雜度</strong>：$O(m \times n)$，需要填滿 $m \times n$ 的 dp 表格。</li>
+  <li><strong>空間複雜度</strong>：
+    <ul>
+      <li>$O(m \times n)$，需要存儲 dp 表格。</li>
+      <li>如果優化為一維陣列(使用滾動陣列)，空間複雜度可降為 $O(n)$。</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="數學組合">數學組合</h3>
+<ul>
+  <li><strong>時間複雜度</strong>：$O(\min(m, n))$，$(m−1)$ 和 $(n−1)$ 中較小的那一項，決定了需要計算多少步。
+    <ul>
+      <li>組合數公式為：$C(m+n-2, m-1) = \frac{(m+n-2)!}{(m-1)! \cdot (n-1)!}$。計算這個公式時，實際上只需要計算部分階乘，而不需要完整地展開所有階乘。</li>
+      <li>如果 $m≤n$, 計算為: $C(m+n-2, m-1) = \frac{(m+n-2) \cdot (m+n-3) \cdot \dots \cdot n}{(m-1)!}$</li>
+      <li>如果 $n≤m$, 計算為: $C(m+n-2, n-1) = \frac{(m+n-2) \cdot (m+n-3) \cdot \dots \cdot m}{(n-1)!}$</li>
+    </ul>
+  </li>
+  <li><strong>空間複雜度</strong>：$O(1)$，僅用常數空間。</li>
+</ul>]]></content><author><name></name></author><category term="medium" /><category term="dp" /><summary type="html"><![CDATA[62. Unique Paths]]></summary></entry><entry><title type="html">[Leetcode解題] 150. Evaluate Reverse Polish Notation</title><link href="https://www.catxcoder.com/medium/2024/12/21/150-Evaluate-Reverse-Polish-Notation.html" rel="alternate" type="text/html" title="[Leetcode解題] 150. Evaluate Reverse Polish Notation" /><published>2024-12-21T00:00:00+00:00</published><updated>2024-12-21T00:00:00+00:00</updated><id>https://www.catxcoder.com/medium/2024/12/21/150-Evaluate-Reverse-Polish-Notation</id><content type="html" xml:base="https://www.catxcoder.com/medium/2024/12/21/150-Evaluate-Reverse-Polish-Notation.html"><![CDATA[<h1 id="150-evaluate-reverse-polish-notation">150. Evaluate Reverse Polish Notation</h1>
+<h2 id="題目">題目</h2>
+<p><a href="https://leetcode.com/problems/evaluate-reverse-polish-notation/">150. Evaluate Reverse Polish Notation</a>
+給你一個以 <strong>逆波蘭表示法（Reverse Polish Notation, RPN）</strong> 表示的算術運算式，<code class="language-plaintext highlighter-rouge">tokens</code> 是一個字串陣列，代表這個算術表達式。請你計算並回傳該運算式的結果，保證結果和中間運算過程中的所有數字都可以用 32 位元整數表示。
+<!--more--></p>
+
+<h2 id="解題思路">解題思路：</h2>
+<ol>
+  <li><strong>理解逆波蘭表示法</strong>：
+    <ul>
+      <li>它是一種後序表示法，操作數先出現，接著是操作符。</li>
+      <li>舉例：表達式 <code class="language-plaintext highlighter-rouge">(3 + 4) * 5</code> 在 RPN 表示為 <code class="language-plaintext highlighter-rouge">["3", "4", "+", "5", "*"]</code>。</li>
+    </ul>
+  </li>
+  <li><strong>計算方式</strong>：
+    <ul>
+      <li>使用一個<strong>堆疊</strong>（<code class="language-plaintext highlighter-rouge">stack</code>）來儲存數字：
+        <ul>
+          <li>如果是數字，就放進<code class="language-plaintext highlighter-rouge">sack</code>。</li>
+          <li>如果是運算符號，就從<code class="language-plaintext highlighter-rouge">stack</code>中取出兩個數字進行計算，並將結果放回<code class="language-plaintext highlighter-rouge">stack</code>。</li>
+        </ul>
+      </li>
+      <li>繼續以上步驟，直到處理完整個陣列，最後<code class="language-plaintext highlighter-rouge">stack</code>的唯一值即為結果。</li>
+    </ul>
+  </li>
+  <li><strong>處理運算符</strong>：
+    <ul>
+      <li>支援四種運算：<code class="language-plaintext highlighter-rouge">+</code>、<code class="language-plaintext highlighter-rouge">-</code>、<code class="language-plaintext highlighter-rouge">*</code>、<code class="language-plaintext highlighter-rouge">/</code>。</li>
+      <li>特別注意：
+        <ul>
+          <li>整數除法向 0 截斷（例如：<code class="language-plaintext highlighter-rouge">-7 / 3 = -2</code>）。</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<h2 id="python-實作">Python 實作：</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">evalRPN</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tokens</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="n">stack</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">tokens</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">token</span> <span class="ow">in</span> <span class="s">"+-*/"</span><span class="p">:</span>  <span class="c1"># 檢查是否為運算符
+</span>                <span class="n">b</span> <span class="o">=</span> <span class="n">stack</span><span class="p">.</span><span class="n">pop</span><span class="p">()</span>  <span class="c1"># 先彈出的是第二個操作數
+</span>                <span class="n">a</span> <span class="o">=</span> <span class="n">stack</span><span class="p">.</span><span class="n">pop</span><span class="p">()</span>  <span class="c1"># 再彈出的是第一個操作數
+</span>                <span class="k">if</span> <span class="n">token</span> <span class="o">==</span> <span class="s">"+"</span><span class="p">:</span>
+                    <span class="n">stack</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">token</span> <span class="o">==</span> <span class="s">"-"</span><span class="p">:</span>
+                    <span class="n">stack</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">token</span> <span class="o">==</span> <span class="s">"*"</span><span class="p">:</span>
+                    <span class="n">stack</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">a</span> <span class="o">*</span> <span class="n">b</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">token</span> <span class="o">==</span> <span class="s">"/"</span><span class="p">:</span>
+                    <span class="c1"># 注意 Python 的整數除法向零截斷需要用 int()
+</span>                    <span class="c1"># //（整數除法運算operator），計算結果是向下取整（floor division）
+</span>                    <span class="n">stack</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">a</span> <span class="o">/</span> <span class="n">b</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># 將數字轉型並推入堆疊
+</span>                <span class="n">stack</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">token</span><span class="p">))</span>
+        
+        <span class="c1"># 堆疊的最後一個值即為結果
+</span>        <span class="k">return</span> <span class="n">stack</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</code></pre></div></div>
+
+<h2 id="c實作">C++實作</h2>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="nl">public:</span>
+    <span class="kt">int</span> <span class="n">evalRPN</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;&amp;</span> <span class="n">tokens</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">nums</span><span class="p">;</span>
+
+        <span class="k">auto</span> <span class="n">isOps</span> <span class="o">=</span> <span class="p">[](</span><span class="k">const</span> <span class="n">string</span> <span class="o">&amp;</span><span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="p">(</span><span class="n">s</span> <span class="o">==</span> <span class="s">"+"</span> <span class="o">||</span><span class="n">s</span> <span class="o">==</span> <span class="s">"-"</span><span class="o">||</span><span class="n">s</span> <span class="o">==</span> <span class="s">"*"</span><span class="o">||</span><span class="n">s</span> <span class="o">==</span> <span class="s">"/"</span><span class="p">);</span>
+        <span class="p">};</span>
+
+        <span class="k">auto</span> <span class="n">cal</span> <span class="o">=</span> <span class="p">[](</span><span class="kt">int</span> <span class="o">&amp;</span><span class="n">a</span> <span class="p">,</span> <span class="k">const</span> <span class="kt">int</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">,</span> <span class="k">const</span> <span class="n">string</span> <span class="o">&amp;</span><span class="n">op</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">op</span><span class="o">==</span><span class="s">"+"</span><span class="p">)</span> <span class="n">a</span><span class="o">+=</span><span class="n">b</span><span class="p">;</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">op</span><span class="o">==</span><span class="s">"-"</span><span class="p">)</span> <span class="n">a</span><span class="o">-=</span><span class="n">b</span><span class="p">;</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">op</span><span class="o">==</span><span class="s">"*"</span><span class="p">)</span> <span class="n">a</span><span class="o">*=</span><span class="n">b</span><span class="p">;</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">op</span><span class="o">==</span><span class="s">"/"</span><span class="p">)</span> <span class="n">a</span><span class="o">/=</span><span class="n">b</span><span class="p">;</span>
+        <span class="p">};</span>
+
+        <span class="k">for</span><span class="p">(</span><span class="k">const</span> <span class="k">auto</span> <span class="o">&amp;</span><span class="n">token</span><span class="o">:</span> <span class="n">tokens</span><span class="p">){</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">isOps</span><span class="p">(</span><span class="n">token</span><span class="p">)){</span>
+                <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="n">nums</span><span class="p">.</span><span class="n">back</span><span class="p">();</span>
+                <span class="n">nums</span><span class="p">.</span><span class="n">pop_back</span><span class="p">();</span>
+                <span class="n">cal</span><span class="p">(</span><span class="n">nums</span><span class="p">.</span><span class="n">back</span><span class="p">(),</span> <span class="n">a</span><span class="p">,</span> <span class="n">token</span><span class="p">);</span>
+            <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+                <span class="n">nums</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">(</span><span class="n">stoi</span><span class="p">(</span><span class="n">token</span><span class="p">));</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">nums</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<h2 id="時間與空間複雜度">時間與空間複雜度：</h2>
+<ul>
+  <li>時間複雜度：$O(n)$，其中 $n$ 是 <code class="language-plaintext highlighter-rouge">tokens</code> 的長度，每個元素最多操作一次。</li>
+  <li>空間複雜度：$O(n)$，因為<code class="language-plaintext highlighter-rouge">stack</code>最多存儲 $n$ 個數字。</li>
+</ul>]]></content><author><name></name></author><category term="medium" /><category term="stack" /><summary type="html"><![CDATA[150. Evaluate Reverse Polish Notation]]></summary></entry><entry><title type="html">[Leetcode解題] 2872. Maximum Number of K-Divisible Components</title><link href="https://www.catxcoder.com/hard/2024/12/21/2872-Maximum-Number-of-K-Divisible-Components.html" rel="alternate" type="text/html" title="[Leetcode解題] 2872. Maximum Number of K-Divisible Components" /><published>2024-12-21T00:00:00+00:00</published><updated>2024-12-21T00:00:00+00:00</updated><id>https://www.catxcoder.com/hard/2024/12/21/2872-Maximum-Number-of-K-Divisible-Components</id><content type="html" xml:base="https://www.catxcoder.com/hard/2024/12/21/2872-Maximum-Number-of-K-Divisible-Components.html"><![CDATA[<h1 id="題目">題目</h1>
+
+<p><a href="https://leetcode.com/problems/maximum-number-of-k-divisible-components/">2872. Maximum Number of K-Divisible Components</a></p>
+
+<p>這題給定一棵樹，包含從0到n-1的點，另外給定一個矩陣edges表示相連的點，以及一個values表示各點上的值。</p>
+
+<p>題目另外給定一個數k，求我們最多可以把這棵樹切成幾個connected graph，並且每個graph上點的值(values)和可以被k整除。</p>
+
+<p>這題題目較難理解，可以搭配題目網址的圖看。</p>
+
+<!--more-->
+
+<h1 id="解題方式">解題方式</h1>
+
+<p>首先我們要注意到給定的一定是一棵樹，所以會是一個單獨的connected component，並且不會有loop</p>
+
+<p>我們可以使用DFS，從樹的底端開始進行，往上慢慢算總和，到每個點的時候，會計算包含該點以下所有點總和的值。</p>
+
+<p>所以從Leaves開始，如果該點的值可以被k整除，那麼我們理論上就可以斷開連結。</p>
+
+<p>我們在計算每個點的總和值的時候，只需要計算除以k餘數的部分，想像如果我有一個點A並且連結到左點B以及右點C。</p>
+
+<p>如果右點C的值已經是整除k了，那麼我可以直接斷開他</p>
+
+<p>如果左點B的值帶有餘數1，那這個值會被往上貢獻回A（因為他們還是連接的狀態）</p>
+
+<h1 id="程式碼">程式碼</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    
+    <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+    
+    <span class="k">def</span> <span class="nf">maxKDivisibleComponents</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">edges</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span> <span class="n">values</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        
+        <span class="k">def</span> <span class="nf">dfs</span><span class="p">(</span><span class="n">cur</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">graph</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+            <span class="n">sum_values</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">for</span> <span class="n">neighbor</span> <span class="ow">in</span> <span class="n">graph</span><span class="p">[</span><span class="n">cur</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="n">neighbor</span> <span class="o">!=</span> <span class="n">parent</span><span class="p">:</span>
+                    <span class="n">sum_values</span> <span class="o">+=</span> <span class="n">dfs</span><span class="p">(</span><span class="n">neighbor</span><span class="p">,</span> <span class="n">cur</span><span class="p">,</span> <span class="n">graph</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+                    <span class="n">sum_values</span> <span class="o">%=</span> <span class="n">k</span>
+            
+            <span class="n">sum_values</span> <span class="o">+=</span> <span class="n">values</span><span class="p">[</span><span class="n">cur</span><span class="p">]</span>
+            <span class="n">sum_values</span> <span class="o">%=</span> <span class="n">k</span>
+            
+            <span class="k">if</span> <span class="n">sum_values</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="p">.</span><span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">return</span> <span class="n">sum_values</span>     
+        
+        <span class="n">graph</span> <span class="o">=</span> <span class="p">[[]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
+        <span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="n">edges</span><span class="p">:</span>
+            <span class="n">graph</span><span class="p">[</span><span class="n">edge</span><span class="p">[</span><span class="mi">0</span><span class="p">]].</span><span class="n">append</span><span class="p">(</span><span class="n">edge</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="n">graph</span><span class="p">[</span><span class="n">edge</span><span class="p">[</span><span class="mi">1</span><span class="p">]].</span><span class="n">append</span><span class="p">(</span><span class="n">edge</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        
+        <span class="n">dfs</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">graph</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">count</span>
+</code></pre></div></div>
+
+<h1 id="時間複雜度">時間複雜度</h1>
+
+<p>因為我們我們要走過所有nodes跟所有edges，所以複雜度為 $O(n+m)$</p>
+
+<p>但要注意的是，因為這一定是樹，所以edges的數量為n-1（題目的constraints部分也有註記）</p>]]></content><author><name></name></author><category term="hard" /><category term="dfs" /><summary type="html"><![CDATA[2872. Maximum Number of K-Divisible Components]]></summary></entry><entry><title type="html">[Leetcode解題] 2055. Plates Between Candles</title><link href="https://www.catxcoder.com/medium/2024/12/06/2055.-Plates-Between-Candles.html" rel="alternate" type="text/html" title="[Leetcode解題] 2055. Plates Between Candles" /><published>2024-12-06T00:00:00+00:00</published><updated>2024-12-06T00:00:00+00:00</updated><id>https://www.catxcoder.com/medium/2024/12/06/2055.%20Plates%20Between%20Candles</id><content type="html" xml:base="https://www.catxcoder.com/medium/2024/12/06/2055.-Plates-Between-Candles.html"><![CDATA[<h2 id="題目">題目</h2>
+
+<p><a href="https://leetcode.com/problems/plates-between-candles/">2055. Plates Between Candles</a></p>
+
+<p>有一張長桌，上面擺了一排盤子和蠟燭。用一個由 <code class="language-plaintext highlighter-rouge">'*'</code>（代表盤子）和 <code class="language-plaintext highlighter-rouge">'|'</code>（代表蠟燭）組成的字串 <code class="language-plaintext highlighter-rouge">s</code> 來描述桌上的擺設。另外會給你一組查詢 <code class="language-plaintext highlighter-rouge">queries</code>，裡面每筆查詢是 <code class="language-plaintext highlighter-rouge">[left, right]</code>，代表要檢查子字串 <code class="language-plaintext highlighter-rouge">s[left...right]</code> 之間的盤子數量。</p>
+
+<p>條件是，這些盤子<strong>必須同時有蠟燭在左邊和右邊</strong>才算數。<br />
+比如說：</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">s = "||**||**|*"</code>, 查詢 <code class="language-plaintext highlighter-rouge">[3, 8]</code> 的子字串是 <code class="language-plaintext highlighter-rouge">"*||**|"</code>，只有兩個盤子符合條件，因為兩邊都有蠟燭。
+<!--more--></li>
+</ul>
+
+<h2 id="解題思路">解題思路</h2>
+
+<p>這題其實就是要用一些巧妙的<strong>預處理</strong>來加速查詢。因為如果每次都直接遍歷子字串去數盤子會太慢，所以我們可以先計算出一些有用的資訊，像這樣：</p>
+
+<ol>
+  <li><strong>計算累積盤子數量：</strong>
+    <ul>
+      <li>我們用一個陣列記錄每個位置之前的盤子數量(盤子數量的preSum)，這樣要算某段範圍內的盤子數就可以直接用減法搞定。</li>
+    </ul>
+  </li>
+  <li><strong>找到最近的蠟燭：</strong>
+    <ul>
+      <li>我們要知道每個位置的左右最近蠟燭在哪，這樣才能確定盤子的有效範圍（盤子必須在蠟燭之間才算數）。</li>
+      <li>用兩次遍歷就可以完成，一次從左到右，一次從右到左。</li>
+    </ul>
+  </li>
+  <li><strong>處理查詢：</strong>
+    <ul>
+      <li>每個查詢只要用上面預處理的資訊，就能快速算出答案。</li>
+      <li>每次查詢都找出蠟燭的範圍，再用 <strong><em>盤子數量的preSum</em></strong> 算出範圍內的盤子數量。</li>
+    </ul>
+  </li>
+</ol>
+
+<h2 id="python-實作">Python 實作</h2>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">platesBetweenCandles</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">queries</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+        
+        <span class="c1"># Step 1: Precompute cumulative plate counts
+</span>        <span class="n">plate_count</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
+        <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">char</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">char</span> <span class="o">==</span> <span class="s">'*'</span><span class="p">:</span>
+                <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">plate_count</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">count</span>
+
+        <span class="c1"># Step 2: Find nearest left and right candles
+</span>        <span class="n">left_candle</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
+        <span class="n">right_candle</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
+        <span class="n">nearest</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="s">'|'</span><span class="p">:</span>
+                <span class="n">nearest</span> <span class="o">=</span> <span class="n">i</span>
+            <span class="n">left_candle</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">nearest</span>
+
+        <span class="n">nearest</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="s">'|'</span><span class="p">:</span>
+                <span class="n">nearest</span> <span class="o">=</span> <span class="n">i</span>
+            <span class="n">right_candle</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">nearest</span>
+
+        <span class="c1"># Step 3: Process each query
+</span>        <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="ow">in</span> <span class="n">queries</span><span class="p">:</span>
+            <span class="n">l</span> <span class="o">=</span> <span class="n">right_candle</span><span class="p">[</span><span class="n">left</span><span class="p">]</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">left_candle</span><span class="p">[</span><span class="n">right</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">l</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span> <span class="ow">and</span> <span class="n">r</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span> <span class="ow">and</span> <span class="n">l</span> <span class="o">&lt;</span> <span class="n">r</span><span class="p">:</span>
+                <span class="n">result</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">plate_count</span><span class="p">[</span><span class="n">r</span><span class="p">]</span> <span class="o">-</span> <span class="n">plate_count</span><span class="p">[</span><span class="n">l</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">result</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">result</span>
+</code></pre></div></div>
+
+<h2 id="c-實作">C++ 實作</h2>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="nl">public:</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">platesBetweenCandles</span><span class="p">(</span><span class="n">string</span> <span class="n">s</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;&amp;</span> <span class="n">queries</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+
+        <span class="c1">// Step 1: Precompute cumulative plate counts</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">plateCount</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+        <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="sc">'*'</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">count</span><span class="o">++</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="n">plateCount</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">count</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="c1">// Step 2: Find nearest left and right candles</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">leftCandle</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">rightCandle</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+        <span class="kt">int</span> <span class="n">nearest</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+
+        <span class="c1">// Compute left nearest candle</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="sc">'|'</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">nearest</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="n">leftCandle</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">nearest</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="c1">// Compute right nearest candle</span>
+        <span class="n">nearest</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">;</span> <span class="o">--</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="sc">'|'</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">nearest</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="n">rightCandle</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">nearest</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="c1">// Step 3: Process each query</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">result</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="n">query</span> <span class="o">:</span> <span class="n">queries</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kt">int</span> <span class="n">left</span> <span class="o">=</span> <span class="n">query</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+            <span class="kt">int</span> <span class="n">right</span> <span class="o">=</span> <span class="n">query</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+
+            <span class="kt">int</span> <span class="n">l</span> <span class="o">=</span> <span class="n">rightCandle</span><span class="p">[</span><span class="n">left</span><span class="p">];</span>  <span class="c1">// First candle on the right of `left`</span>
+            <span class="kt">int</span> <span class="n">r</span> <span class="o">=</span> <span class="n">leftCandle</span><span class="p">[</span><span class="n">right</span><span class="p">];</span> <span class="c1">// Last candle on the left of `right`</span>
+
+            <span class="k">if</span> <span class="p">(</span><span class="n">l</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">r</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">l</span> <span class="o">&lt;</span> <span class="n">r</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">result</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">plateCount</span><span class="p">[</span><span class="n">r</span><span class="p">]</span> <span class="o">-</span> <span class="n">plateCount</span><span class="p">[</span><span class="n">l</span><span class="p">]);</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="n">result</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<h2 id="時間複雜度">時間複雜度</h2>
+<ul>
+  <li><strong>預處理階段</strong>是 $O(n)$</li>
+  <li><strong>查詢階段</strong>每筆是 $O(1)$，所以總共是 $O(m)$。</li>
+  <li><strong>整體時間複雜度</strong>是 $O(n + m)$。</li>
+</ul>]]></content><author><name></name></author><category term="medium" /><category term="presum" /><summary type="html"><![CDATA[2055. Plates Between Candles]]></summary></entry><entry><title type="html">[Leetcode解題] 2554. Maximum Number of Integers to Choose From a Range I</title><link href="https://www.catxcoder.com/medium/2024/12/06/2554-Maximum-Number-of-Integers-to-Choose-From-a-Range-I.html" rel="alternate" type="text/html" title="[Leetcode解題] 2554. Maximum Number of Integers to Choose From a Range I" /><published>2024-12-06T00:00:00+00:00</published><updated>2024-12-06T00:00:00+00:00</updated><id>https://www.catxcoder.com/medium/2024/12/06/2554-Maximum-Number-of-Integers-to-Choose-From-a-Range-I</id><content type="html" xml:base="https://www.catxcoder.com/medium/2024/12/06/2554-Maximum-Number-of-Integers-to-Choose-From-a-Range-I.html"><![CDATA[<h1 id="題目">題目</h1>
+
+<p><a href="https://leetcode.com/problems/maximum-number-of-integers-to-choose-from-a-range-i/">2554. Maximum Number of Integers to Choose From a Range I</a></p>
+
+<p>給定一個陣列<code class="language-plaintext highlighter-rouge">banned</code>，以及兩個正整數<code class="language-plaintext highlighter-rouge">n</code>以及<code class="language-plaintext highlighter-rouge">maxSum</code>，我們可以從1到n之間挑選盡可能多的正整數，除了<code class="language-plaintext highlighter-rouge">banned</code>裡面的正整數不能選以外，而這些被挑選的正整數和不能超過<code class="language-plaintext highlighter-rouge">maxSum</code>，問最多能挑選幾個數字。</p>
+
+<!--more-->
+
+<h1 id="解題思路">解題思路</h1>
+
+<p>這題我們想到使用<code class="language-plaintext highlighter-rouge">Greedy</code>的方法解，因為我們一定是要先從小的數字開始挑慢慢挑到大，才能在<code class="language-plaintext highlighter-rouge">maxSum</code>的限制中挑選到最多的數字。</p>
+
+<p>另外我們要能很快的辨別數字是不是有被禁止，可以使用一個hashtable來存，如果該數字被禁止，就把該數字當作索引的值設為<code class="language-plaintext highlighter-rouge">False</code>。</p>
+
+<p>而我們只要從1到n遍歷一次就能計算出答案。</p>
+
+<h1 id="程式碼">程式碼</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">maxCount</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">banned</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">maxSum</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="n">isBanned</span> <span class="o">=</span> <span class="p">[</span><span class="bp">False</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">banned</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">b</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">:</span>
+                <span class="n">isBanned</span><span class="p">[</span><span class="n">b</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="n">curSum</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">curCnt</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">isBanned</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                <span class="k">continue</span>
+            <span class="n">curSum</span> <span class="o">+=</span> <span class="n">i</span>
+            <span class="k">if</span> <span class="n">curSum</span> <span class="o">&gt;</span> <span class="n">maxSum</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">curCnt</span>
+            <span class="n">curCnt</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">curCnt</span>
+</code></pre></div></div>
+
+<h1 id="時間複雜度">時間複雜度</h1>
+
+<p>$O(n)$</p>]]></content><author><name></name></author><category term="medium" /><category term="array" /><category term="greedy" /><summary type="html"><![CDATA[2554. Maximum Number of Integers to Choose From a Range I]]></summary></entry><entry><title type="html">[Leetcode解題] 3254. Find the Power of K-Size Subarrays I</title><link href="https://www.catxcoder.com/medium/2024/11/02/3254-Find-the-Power-of-k-Size-Subarrays-i.html" rel="alternate" type="text/html" title="[Leetcode解題] 3254. Find the Power of K-Size Subarrays I" /><published>2024-11-02T00:00:00+00:00</published><updated>2024-11-02T00:00:00+00:00</updated><id>https://www.catxcoder.com/medium/2024/11/02/3254-Find-the-Power-of-k-Size-Subarrays-i</id><content type="html" xml:base="https://www.catxcoder.com/medium/2024/11/02/3254-Find-the-Power-of-k-Size-Subarrays-i.html"><![CDATA[<h1 id="題目">題目</h1>
+
+<p><a href="https://leetcode.com/problems/find-the-power-of-k-size-subarrays-i/">3254. Find the Power of K-Size Subarrays I</a></p>
+
+<p>這題要求找到長度為 $𝑘$ 的所有子陣列的「power」</p>
+
+<p>陣列的「power」定義為：如果這個子陣列的元素是連續遞增的，則返回其最大元素；否則返回 -1。我們需要遍歷所有長度為 $k$ 的子陣列，並返回一個結果陣列，其中每個元素是對應子陣列的「power」。</p>
+
+<p><!--more--></p>
+
+<h1 id="解題思路">解題思路</h1>
+
+<ol>
+  <li>處理特殊情況：</li>
+</ol>
+
+<p>如果 k 為 1，直接返回 nums，因為單個數字本身即為連續序列。</p>
+
+<ol>
+  <li>初始化變量：</li>
+</ol>
+
+<p>m 用來記錄當前連續遞增數字的長度，初始化為 1。
+ans 是結果列表，用來存儲最終結果。</p>
+
+<ol>
+  <li>遍歷數組並檢查連續序列：</li>
+</ol>
+
+<p>從第二個數字開始遍歷 nums（索引從 1 開始）。
+如果當前數字 nums[i] 與前一個數字 nums[i-1] 的差為 1，表示兩者連續，則將 m 加 1。
+如果不是連續的數字，將 m 重置為 1。</p>
+
+<ol>
+  <li>檢查連續序列的長度：</li>
+</ol>
+
+<p>當索引 i 大於或等於 k-1 時，即已遍歷至少 k 個數字，可以開始檢查連續序列。
+如果 m == k，表示出現了長度為 k 的連續遞增序列，將當前數字 nums[i] 加入 ans，並將 m 減 1（繼續保持剩下的序列長度）。
+否則，表示未達到連續的長度 k，在 ans 中加入 -1。</p>
+
+<ol>
+  <li>返回結果：</li>
+</ol>
+
+<p>最後返回 ans，其中每個元素代表以當前位置結束的長度為 k 的連續遞增序列的結尾數字（若沒有，則為 -1）。</p>
+
+<h1 id="程式碼">程式碼</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">resultsArray</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nums</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">k</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">nums</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">ans</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span>
+                <span class="n">m</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">m</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">m</span> <span class="o">==</span> <span class="n">k</span><span class="p">:</span>
+                    <span class="n">ans</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                    <span class="n">m</span> <span class="o">-=</span> <span class="mi">1</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">ans</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ans</span>
+</code></pre></div></div>
+
+<h1 id="時間複雜度">時間複雜度</h1>
+
+<p>我們檢查一次陣列，所以複雜度為 $O(n)$</p>]]></content><author><name></name></author><category term="medium" /><category term="array" /><summary type="html"><![CDATA[3254. Find the Power of K-Size Subarrays I]]></summary></entry><entry><title type="html">[Leetcode解題] 75. Sort Colors</title><link href="https://www.catxcoder.com/medium/2024/11/01/75.-Sort-Colors.html" rel="alternate" type="text/html" title="[Leetcode解題] 75. Sort Colors" /><published>2024-11-01T00:00:00+00:00</published><updated>2024-11-01T00:00:00+00:00</updated><id>https://www.catxcoder.com/medium/2024/11/01/75.%20Sort%20Colors</id><content type="html" xml:base="https://www.catxcoder.com/medium/2024/11/01/75.-Sort-Colors.html"><![CDATA[<h1 id="75-sort-colors">75. Sort Colors</h1>
+<h2 id="題目">題目</h2>
+<p><a href="https://leetcode.com/problems/sort-colors/description/">75. Sort Colors</a>
+給定一個長度為 $n$ 的整數陣列 <code class="language-plaintext highlighter-rouge">nums</code>，其中每個數字表示一種顏色：<code class="language-plaintext highlighter-rouge">0</code> 表示紅色，<code class="language-plaintext highlighter-rouge">1</code> 表示白色，<code class="language-plaintext highlighter-rouge">2</code> 表示藍色。請將陣列中的顏色進行原地排序，使得相同顏色的物件彼此相鄰，並且排列順序依次為紅色、白色和藍色。</p>
+
+<p>注意：不能使用內建的<code class="language-plaintext highlighter-rouge">sort</code>函數來解決此問題。</p>
+
+<h2 id="解題思路">解題思路</h2>
+<p>我們可以使用雙指針法（Two Pointer Approach）來解決這個問題，具體步驟如下：</p>
+
+<ol>
+  <li><strong>初始化三個指針</strong>：
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">zero</code> 指向紅色區域的邊界（初始設為 <code class="language-plaintext highlighter-rouge">0</code>）。</li>
+      <li><code class="language-plaintext highlighter-rouge">two</code> 指向藍色區域的邊界（初始設為 <code class="language-plaintext highlighter-rouge">nums.size() - 1</code>）。</li>
+      <li><code class="language-plaintext highlighter-rouge">i</code> 從左到右遍歷整個陣列，將元素分類到適當的區域。</li>
+    </ul>
+  </li>
+  <li><strong>遍歷陣列並分類</strong>：
+    <ul>
+      <li>當 <code class="language-plaintext highlighter-rouge">i</code> 指向 <code class="language-plaintext highlighter-rouge">0</code>（紅色）時，與 <code class="language-plaintext highlighter-rouge">zero</code> 位置的元素交換，並將 <code class="language-plaintext highlighter-rouge">zero</code> 和 <code class="language-plaintext highlighter-rouge">i</code> 分別向右移動一格。</li>
+      <li>當 <code class="language-plaintext highlighter-rouge">i</code> 指向 <code class="language-plaintext highlighter-rouge">2</code>（藍色）時，與 <code class="language-plaintext highlighter-rouge">two</code> 位置的元素交換，並將 <code class="language-plaintext highlighter-rouge">two</code> 向左移動一格。此時不移動 <code class="language-plaintext highlighter-rouge">i</code>，因為交換過來的數值可能還需要分類。</li>
+      <li>當 <code class="language-plaintext highlighter-rouge">i</code> 指向 <code class="language-plaintext highlighter-rouge">1</code>（白色）時，不需要交換，直接將 <code class="language-plaintext highlighter-rouge">i</code> 向右移動一格。</li>
+    </ul>
+  </li>
+  <li><strong>停止條件</strong>：
+    <ul>
+      <li>當 <code class="language-plaintext highlighter-rouge">i</code> 超過 <code class="language-plaintext highlighter-rouge">two</code> 時，排序完成。</li>
+    </ul>
+  </li>
+</ol>
+
+<p>這樣的方式保證了原地排序，且不需要額外的空間。</p>
+
+<h2 id="python-實作">Python 實作</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">sortColors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nums</span><span class="p">):</span>
+        <span class="s">"""
+        :type nums: List[int]
+        :rtype: None Do not return anything, modify nums in-place instead.
+        """</span>
+        <span class="n">zero</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># 紅色區域的邊界
+</span>        <span class="n">two</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>  <span class="c1"># 藍色區域的邊界
+</span>        <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># 當前指針位置
+</span>
+        <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">two</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># 如果當前元素為紅色
+</span>                <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">nums</span><span class="p">[</span><span class="n">zero</span><span class="p">]</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="n">zero</span><span class="p">],</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">zero</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">elif</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>  <span class="c1"># 如果當前元素為藍色
+</span>                <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">nums</span><span class="p">[</span><span class="n">two</span><span class="p">]</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="n">two</span><span class="p">],</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">two</span> <span class="o">-=</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>  <span class="c1"># 如果當前元素為白色
+</span>                <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+</code></pre></div></div>
+<h2 id="c-實作">C++ 實作</h2>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="nl">public:</span>
+    <span class="kt">void</span> <span class="n">sortColors</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">nums</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">zero</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">two</span> <span class="o">=</span> <span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">two</span><span class="o">&gt;=</span><span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">nums</span><span class="p">[</span><span class="n">two</span><span class="p">]</span><span class="o">==</span><span class="mi">2</span><span class="p">)</span> <span class="n">two</span><span class="o">--</span><span class="p">;</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">zero</span><span class="o">&lt;</span><span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="n">nums</span><span class="p">[</span><span class="n">zero</span><span class="p">]</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span> <span class="n">zero</span><span class="o">++</span><span class="p">;</span>      
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="n">zero</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;=</span><span class="n">two</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">){</span>
+                <span class="n">swap</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="o">--</span><span class="p">],</span> <span class="n">nums</span><span class="p">[</span><span class="n">two</span><span class="o">--</span><span class="p">]);</span>
+            <span class="p">}</span><span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">==</span><span class="mi">0</span><span class="p">){</span>
+                <span class="n">swap</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">nums</span><span class="p">[</span><span class="n">zero</span><span class="o">++</span><span class="p">]);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<h2 id="時間複雜度">時間複雜度</h2>
+<ul>
+  <li><strong>時間複雜度</strong>：$O(n)$，其中 <code class="language-plaintext highlighter-rouge">n</code> 是 <code class="language-plaintext highlighter-rouge">nums</code> 的長度。由於每個元素最多只會被處理一次，所以整體時間複雜度為線性。</li>
+  <li><strong>空間複雜度</strong>：$O(1)$，我們僅使用了常數空間來存儲指針 <code class="language-plaintext highlighter-rouge">zero</code>、<code class="language-plaintext highlighter-rouge">two</code> 和 <code class="language-plaintext highlighter-rouge">i</code>。</li>
+</ul>
+
+<h2 id="總結">總結</h2>
+<p>這個算法使用雙指針的方式將陣列分為三部分，分別對應三種顏色。通過遍歷一次陣列，我們可以在$O(n)$ 時間內完成顏色的排序，並且不需要額外的空間，非常高效。</p>]]></content><author><name></name></author><category term="medium" /><category term="two-pointers" /><summary type="html"><![CDATA[75. Sort Colors - 用Two Pointers解]]></summary></entry><entry><title type="html">[Leetcode解題] 2458. Height of Binary Tree After Subtree Removal Queries</title><link href="https://www.catxcoder.com/hard/2024/10/27/2458-Height-of-Binary-Tree-After-Subtree-Removal-Queries.html" rel="alternate" type="text/html" title="[Leetcode解題] 2458. Height of Binary Tree After Subtree Removal Queries" /><published>2024-10-27T00:00:00+00:00</published><updated>2024-10-27T00:00:00+00:00</updated><id>https://www.catxcoder.com/hard/2024/10/27/2458-Height-of-Binary-Tree-After-Subtree-Removal-Queries</id><content type="html" xml:base="https://www.catxcoder.com/hard/2024/10/27/2458-Height-of-Binary-Tree-After-Subtree-Removal-Queries.html"><![CDATA[<h1 id="題目">題目</h1>
+
+<p><a href="https://leetcode.com/problems/height-of-binary-tree-after-subtree-removal-queries/">2458. Height of Binary Tree After Subtree Removal Queries</a></p>
+
+<p>給一個<code class="language-plaintext highlighter-rouge">Binary Tree</code>，以及一串<code class="language-plaintext highlighter-rouge">Queries</code>，<code class="language-plaintext highlighter-rouge">Queries</code>表示要移除的點，此題要回傳移除該點後該樹的高度(heights)為多少，並且每個<code class="language-plaintext highlighter-rouge">Query</code>之間是獨立的。</p>
+
+<!--more-->
+
+<h1 id="解題思路">解題思路</h1>
+
+<p>這題我一開始沒什麼想法，最直接的是直接暴力，每次都移除掉該點後，然後DFS計算該樹的高度。</p>
+
+<p>但這麼做的話，複雜度會是$O(mn)$，$m$為queries的數量，$n$為樹節點的數量。</p>
+
+<p>根據題目給的範圍，這樣會達到$10^9$有TLE的可能，所以我們必須更優化算法。</p>
+
+<p>我們可以透過<code class="language-plaintext highlighter-rouge">preorder</code>的順序來遍歷這棵樹，然後可以得到一個矩陣，矩陣表示的是如果我還沒有走道該點時，樹的高度為何。</p>
+
+<p>我們要透過兩種不同走法的<code class="language-plaintext highlighter-rouge">preorder</code></p>
+
+<ol>
+  <li>標準的走法：中左右</li>
+  <li>Reverse: 中右左</li>
+</ol>
+
+<p>這樣一來，如果最長的路徑在左樹，我們移除右樹的點的話，會在<code class="language-plaintext highlighter-rouge">1</code>的情況能夠判別，因為走到右樹的時候，我已經走完左樹，並知道樹的Height了。</p>
+
+<p>反之，如果最長在右樹，我們移除左樹的點的話，能在<code class="language-plaintext highlighter-rouge">2</code>的走法得知樹的Height。</p>
+
+<h1 id="程式碼">程式碼</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+</span><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">treeQueries</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">TreeNode</span><span class="p">],</span> <span class="n">queries</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+        <span class="n">heights</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="nb">pow</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">max_height</span> <span class="o">=</span> <span class="mi">0</span>
+        
+        <span class="k">def</span> <span class="nf">traverse_from_left_to_right</span><span class="p">(</span><span class="n">node</span><span class="p">:</span> <span class="n">TreeNode</span><span class="p">,</span> <span class="n">height</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">node</span><span class="p">:</span>
+                <span class="k">return</span>
+            <span class="n">heights</span><span class="p">[</span><span class="n">node</span><span class="p">.</span><span class="n">val</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">max_height</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">max_height</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">max_height</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span>
+            <span class="n">traverse_from_left_to_right</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="n">left</span><span class="p">,</span> <span class="n">height</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">traverse_from_left_to_right</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="n">right</span><span class="p">,</span> <span class="n">height</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+        
+        <span class="k">def</span> <span class="nf">traverse_from_right_to_left</span><span class="p">(</span><span class="n">node</span><span class="p">:</span> <span class="n">TreeNode</span><span class="p">,</span> <span class="n">height</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">node</span><span class="p">:</span>
+                <span class="k">return</span>
+            <span class="n">heights</span><span class="p">[</span><span class="n">node</span><span class="p">.</span><span class="n">val</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">heights</span><span class="p">[</span><span class="n">node</span><span class="p">.</span><span class="n">val</span><span class="p">],</span> <span class="bp">self</span><span class="p">.</span><span class="n">max_height</span><span class="p">)</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">max_height</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">max_height</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span>
+            <span class="n">traverse_from_right_to_left</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="n">right</span><span class="p">,</span> <span class="n">height</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">traverse_from_right_to_left</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="n">left</span><span class="p">,</span> <span class="n">height</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+            
+        <span class="c1"># pre-order
+</span>        <span class="n">traverse_from_left_to_right</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">max_height</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">traverse_from_right_to_left</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">heights</span><span class="p">[</span><span class="n">q</span><span class="p">]</span> <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">queries</span><span class="p">]</span>
+</code></pre></div></div>
+
+<h1 id="時間複雜度">時間複雜度</h1>
+
+<p>所以我們要走遍歷兩次樹，並且遍歷一次Query，所以時間複雜度為$O(m+n)$</p>]]></content><author><name></name></author><category term="hard" /><category term="preorder" /><category term="tree" /><category term="binary-tree" /><summary type="html"><![CDATA[2458. Height of Binary Tree After Subtree Removal Queries - Preorder解]]></summary></entry><entry><title type="html">[Leetcode解題] 50. Pow(x, n)</title><link href="https://www.catxcoder.com/medium/2024/10/26/50-Pow(x,-n).html" rel="alternate" type="text/html" title="[Leetcode解題] 50. Pow(x, n)" /><published>2024-10-26T00:00:00+00:00</published><updated>2024-10-26T00:00:00+00:00</updated><id>https://www.catxcoder.com/medium/2024/10/26/50-Pow(x,%20n)</id><content type="html" xml:base="https://www.catxcoder.com/medium/2024/10/26/50-Pow(x,-n).html"><![CDATA[<h2 id="題目描述">題目描述</h2>
+<p><a href="https://leetcode.com/problems/powx-n/">50. Pow(x, n)</a> 這題要實作一個指數計算函數 <code class="language-plaintext highlighter-rouge">pow(x, n)</code>，這個函數會計算並回傳 <code class="language-plaintext highlighter-rouge">x</code> 的 <code class="language-plaintext highlighter-rouge">n</code> 次方，也就是 $x^n$。<code class="language-plaintext highlighter-rouge">n</code> 可以是正數、零、或負數，並且 <code class="language-plaintext highlighter-rouge">x</code> 可能是小數（例如 2.5）。
+<!--more--></p>
+
+<h2 id="解題思路">解題思路</h2>
+
+<p>這題的重點是效率，如果只是簡單地重複相乘，當 <code class="language-plaintext highlighter-rouge">n</code> 很大時，計算會變得非常慢。因此我們可以使用 <strong>Divide and conquer</strong>來加速計算。</p>
+
+<p><strong>Divide and conquer的核心思路</strong>是利用指數的特性來把計算「拆解」：</p>
+<ol>
+  <li><strong>當 <code class="language-plaintext highlighter-rouge">n</code> 是偶數</strong>時，將問題拆成兩個一樣的子問題：
+$x^n = (x^{n/2}) \times (x^{n/2})$</li>
+  <li><strong>當 <code class="language-plaintext highlighter-rouge">n</code> 是奇數</strong>時，則要多乘上一個 <code class="language-plaintext highlighter-rouge">x</code>：
+$x^n = x \times (x^{(n-1)/2}) \times (x^{(n-1)/2})$</li>
+  <li><strong>當 <code class="language-plaintext highlighter-rouge">n</code> 是負數</strong>時，只要計算 $x^{-n}$ 再取倒數就可以了，因為 $x^{-n} = \frac{1}{x^n}$。</li>
+</ol>
+
+<p>這樣的做法讓我們可以把問題逐步地對半切割，讓時間複雜度從 <code class="language-plaintext highlighter-rouge">O(n)</code> 降低到 <code class="language-plaintext highlighter-rouge">O(log n)</code>。</p>
+
+<h2 id="python-實作">Python 實作</h2>
+
+<p>以下是 Python 的解法，使用遞迴來實作：</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">myPow</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">x</span>
+            <span class="n">n</span> <span class="o">=</span> <span class="o">-</span><span class="n">n</span>
+        
+        <span class="n">half</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">myPow</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">n</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">n</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">half</span> <span class="o">*</span> <span class="n">half</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">half</span> <span class="o">*</span> <span class="n">half</span> <span class="o">*</span> <span class="n">x</span>
+</code></pre></div></div>
+
+<h2 id="c-實作">C++ 實作</h2>
+
+<p>C++ 的解法跟 Python 類似，也使用遞迴，程式碼如下：</p>
+
+<blockquote>
+  <p><strong>INT_MIN 時可能發生的溢位問題</strong>
+在 C++ 中，<code class="language-plaintext highlighter-rouge">int</code> 的範圍是 $[-2^{31}, 2^{31}-1]$，所以當 <code class="language-plaintext highlighter-rouge">n</code> 等於 <code class="language-plaintext highlighter-rouge">INT_MIN</code>（即 $-2^{31}$）時，取相反數會超出 <code class="language-plaintext highlighter-rouge">int</code> 的範圍，因為 $(-(-2^{31})$ 並不在 <code class="language-plaintext highlighter-rouge">int</code> 的可表示範圍內，會造成溢位問題。
+因此當我們要計算 $\frac{1}{x^n}$，我們先計算 $\frac{1}{x^{(-n+1)}}$ (就是<code class="language-plaintext highlighter-rouge">1 / myPow(x, -(n+1))</code>)，然後再額外除以 <code class="language-plaintext highlighter-rouge">x</code> 來補上「少算」的一次乘積（即 <code class="language-plaintext highlighter-rouge">x</code> 的額外一次倒數）。</p>
+  <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="nl">public:</span>
+    <span class="kt">double</span> <span class="n">myPow</span><span class="p">(</span><span class="kt">double</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">n</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span> <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">n</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">)</span> <span class="k">return</span> <span class="mi">1</span><span class="o">/</span> <span class="n">myPow</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">-</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span> <span class="o">/</span> <span class="n">x</span><span class="p">;</span>
+        <span class="kt">double</span> <span class="n">t</span> <span class="o">=</span> <span class="n">myPow</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">n</span><span class="o">/</span><span class="mi">2</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">n</span><span class="o">%</span><span class="mi">2</span><span class="p">)</span> <span class="k">return</span> <span class="n">t</span><span class="o">*</span><span class="n">t</span><span class="o">*</span><span class="n">x</span><span class="p">;</span>
+        <span class="k">else</span> <span class="k">return</span> <span class="n">t</span><span class="o">*</span><span class="n">t</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>  </div>
+</blockquote>
+
+<h2 id="時間複雜度分析">時間複雜度分析</h2>
+
+<p>這個解法的時間複雜度是 $O(log n)$。原因是我們每次都將指數 <code class="language-plaintext highlighter-rouge">n</code> 對半縮小，讓計算量隨著指數的減小而成指數級地減少。</p>]]></content><author><name></name></author><category term="medium" /><category term="recursion" /><summary type="html"><![CDATA[50. Pow(x, n) - 用Divide and conquer解]]></summary></entry></feed>

@@ -1,0 +1,1306 @@
+<!-- OK -->
+
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="utf-8">
+	<link rel="icon" type="image/x-icon" href="/res/catxcoder.ico">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>[Leetcode解題] 1248. Count Number of Nice Subarrays - 使用presum+hashtable解</title>
+	<meta name="description" content="Count Number of Nice Subarrays" />
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<!-- My CSS -->
+<link href="/res/css/common.css" rel="stylesheet">
+
+	</head>
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-MHQH8LKZYV"></script>
+	<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+
+	gtag('config', 'G-MHQH8LKZYV');
+	</script>
+	<body>		
+				<!-- JQeury -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+    
+	<!-- Font Awesome -->
+	<!--<script defer src="https://use.fontawesome.com/releases/v6.4.2/js/all.js" integrity="	sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe" crossorigin="anonymous"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" integrity="sha512-uKQ39gEGiyUJl4AI6L+ekBdGKpGw4xJ55+xyJG7YFlJokPNYegn9KwQ3P8A7aFQAUtUsAQHep+d/lrGqrbPIDQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<!-- support MathJax -->
+	<style TYPE="text/css">
+	code.has-jax {font: inherit; font-size: 100%; background: inherit; border: inherit;}
+	</style>
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	    tex2jax: {
+	        inlineMath: [['$','$'], ['\\(','\\)']],
+	        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'] // removed 'code' entry
+	    }
+	});
+	MathJax.Hub.Queue(function() {
+	    var all = MathJax.Hub.getAllJax(), i;
+	    for(i = 0; i < all.length; i += 1) {
+	        all[i].SourceElement().parentNode.className += ' has-jax';
+	    }
+	});
+	</script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<!-- A patch to fix mathjax -->
+<!-- https://github.com/mathjax/MathJax/issues/1737 -->
+	<script type="text/x-mathjax-config">
+if (MathJax.Hub.Browser.isSafari && parseInt(MathJax.Hub.Browser.webkit) >= 603) {
+  MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready", function () {
+    var HTMLCSS = MathJax.OutputJax["HTML-CSS"];
+    var MML = MathJax.ElementJax.mml;
+    var toHTML = MML.mo.prototype.toHTML;
+    MML.mo.Augment({
+      toHTML: function (span) {
+        span = toHTML.call(this,span);
+        if (span.bbox.w === 0 && span.bbox.lw < 0 && span.firstChild) {
+          span.style.marginLeft = HTMLCSS.Em(span.bbox.lw);
+        }
+        return span;
+      }
+    });
+  });
+}
+</script>
+
+		<header>
+			<!-- OK -->
+
+<div class="container">
+  <nav class="navbar navbar-expand-lg navbar-default nav-color" >
+    <a href="/index.html">
+      <img src="/res/catxcoder.ico" class="img-fluid" style="width: 32px; margin-right: 10px;">
+    </a>
+    <a class="navbar-item" href="/index.html">
+      刷題貓
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span><i class="fas fa-bars" ></i></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <ul class="navbar-nav ml-auto navbar-right">
+          <li class="nav-item">
+             <a class="nav-link" href="/index.html">首頁</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/posts/categories">難度</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/posts/algorithms">演算法</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/works">主題式</a>
+          </li>
+        </ul>
+    </div>
+  </nav>
+</div>
+
+		</header>
+		<main>
+			<!-- OK -->
+
+<div class="container-fluid text-center bg-color">
+	<div class="row bg-icon">
+		<div class="col-md-2 col-sm-0">
+
+		</div>
+		<div class="view-home col-md-8 col-sm-12 post-home-color">
+			<div class="post-view-color post-view-window">
+	
+	<!-- title -->
+	<div class="post-view-title text-left" >
+		<p>[Leetcode解題] 1248. Count Number of Nice Subarrays - 使用presum+hashtable解</p>
+	</div>
+	
+	<!-- date -->
+	<div class="post-view-date">
+			22 June 2024
+	</div>
+
+	<!-- tags -->
+	<div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">presum</i>
+		
+		<i href="#" class="badge badge-dark">hash</i>
+		
+		<i href="#" class="badge badge-dark">hashtable</i>
+		
+	</div>
+	<hr>
+
+	<!-- excerpt -->
+	<div class="post-view-excerpt text-left">
+		<p>
+			<h2 id="題目">題目</h2>
+
+<p><a href="https://leetcode.com/problems/count-number-of-nice-subarrays/">1248. Count Number of Nice Subarrays</a></p>
+
+<p>給定一個整數矩陣<code class="language-plaintext highlighter-rouge">nums</code>和一個整數<code class="language-plaintext highlighter-rouge">k</code>。如果一個連續子陣列包含恰好<code class="language-plaintext highlighter-rouge">k</code>個奇數元素，則稱其為漂亮子陣列<code class="language-plaintext highlighter-rouge">nice sub-arrays</code>。求全部漂亮子陣列的數量。
+<!--more--></p>
+
+<h2 id="解題思路">解題思路</h2>
+
+<p>這題的思路跟<a href="https://www.catxcoder.com/medium/2024/05/18/523-Continuous-subarray-sum.html">523</a>蠻像的，我們都是要使用<code class="language-plaintext highlighter-rouge">presum</code>搭配<code class="language-plaintext highlighter-rouge">hashtable</code>來解題，這邊還有一些觀察，如果這邊的<code class="language-plaintext highlighter-rouge">presum</code>紀錄的是從開始到當前索引的奇數數字數量，那它會是一個遞增數列，舉例來說：</p>
+
+<p>原數列：[1,1,2,1,1,1]</p>
+
+<p>計算開始到當前索引的奇數個數：[1,2,2,3,4,5], k = 3</p>
+
+<p>當我們求出這個數列後，可以搭配<code class="language-plaintext highlighter-rouge">hashtable</code>來記錄，每個回合我們要去找<code class="language-plaintext highlighter-rouge">num - k</code>有沒有存在於<code class="language-plaintext highlighter-rouge">hashtable</code>中，如果有的話，代表可以形成<code class="language-plaintext highlighter-rouge">nice sub-arrays</code>，並且可以形成<code class="language-plaintext highlighter-rouge">hashtable[num-k]</code>個。</p>
+
+<p>以上面的例子舉例來說，在<code class="language-plaintext highlighter-rouge">idx=4, num=4</code>的那個點，若<code class="language-plaintext highlighter-rouge">k=3</code>，則要找<code class="language-plaintext highlighter-rouge">hashtable</code>中有沒有<code class="language-plaintext highlighter-rouge">1(4-3)</code>，有的話則代表有<code class="language-plaintext highlighter-rouge">hashtable[1]</code>個<code class="language-plaintext highlighter-rouge">nice sub-arrays</code>以4為結尾。</p>
+
+<h2 id="程式碼">程式碼</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">numberOfSubarrays</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nums</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+        <span class="s">"""
+        :type nums: List[int]
+        :type k: int
+        :rtype: int
+        """</span>
+        <span class="n">ht</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+        
+        <span class="n">num_nice_arr</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">cur</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="n">nums</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">num</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">cur</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">ht</span><span class="p">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">cur</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="n">ht</span><span class="p">[</span><span class="n">cur</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="n">cur</span> <span class="o">-</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">ht</span><span class="p">:</span>
+                <span class="n">num_nice_arr</span> <span class="o">+=</span> <span class="n">ht</span><span class="p">[</span><span class="n">cur</span><span class="o">-</span><span class="n">k</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">num_nice_arr</span>
+</code></pre></div></div>
+
+<h2 id="時間複雜度">時間複雜度</h2>
+
+<p>所以我們只需進行一次迴圈，時間複雜度為$O(n)$</p>
+
+		</p>
+	</div>		
+  <div style="text-align: left; padding: 25px;">
+  <h1>相關文章</h1>
+  
+  
+
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  <a href="/easy/2024/08/03/1460-Make-Two-Arrays-Equal-by-Reversing-Subarrays.html" class="badge badge-success">[Leetcode解題] 1460. Make Two Arrays Equal by Reversing Subarrays</a>
+  
+  
+  
+  <!--
+  <div>[Leetcode解題] 1460. Make Two Arrays Equal by Reversing Subarrays</div>
+  <div class="post-view-tags">
+		
+      
+		<a href="/posts/categories/easy/" class="badge badge-success">easy</a>
+  	  
+      
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">hashtable</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  
+  <a href="/hard/2024/07/13/2751-Robot-Collisions.html" class="badge badge-danger">[Leetcode解題] 2751. Robot Collisions - 使用stack解</a>
+  
+  <!--
+  <div>[Leetcode解題] 2751. Robot Collisions - 使用stack解</div>
+  <div class="post-view-tags">
+		
+      
+      
+      
+		<a href="/posts/categories/hard/" class="badge badge-danger">hard</a>
+  	  
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">stack</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/12/06/2554-Maximum-Number-of-Integers-to-Choose-From-a-Range-I.html" class="badge badge-warning">[Leetcode解題]  2554. Maximum Number of Integers to Choose From a Range I</a>
+  
+  
+  <!--
+  <div>[Leetcode解題]  2554. Maximum Number of Integers to Choose From a Range I</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">greedy</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/09/06/380-Insert-Delete-GetRandom-O(1).html" class="badge badge-warning">[Leetcode解題]  380. Insert Delete GetRandom O(1)</a>
+  
+  
+  <!--
+  <div>[Leetcode解題]  380. Insert Delete GetRandom O(1)</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">hashTable</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/08/03/3143-Maximum-Points-Inside-the-Square.html" class="badge badge-warning">[Leetcode解題] 3143. Maximum Points Inside the Square</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 3143. Maximum Points Inside the Square</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">sort</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/07/20/1605-Find-Valid-Matrix-Given-Row-and-Column-Sums.html" class="badge badge-warning">[Leetcode解題] 1605. Find Valid Matrix Given Row and Column Sums - 使用Greedy+雙指針解</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 1605. Find Valid Matrix Given Row and Column Sums - 使用Greedy+雙指針解</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">two-pointers</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/07/12/986-Interval-List-Intersections.html" class="badge badge-warning">[Leetcode解題] 986. Interval List Intersections - 雙指針解</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 986. Interval List Intersections - 雙指針解</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">two-pointers</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/06/30/187-Repeated-DNS-Sequences.html" class="badge badge-warning">[Leetcode解題] 187. Repeated DNA Sequences - 使用hashtable解+4進位</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 187. Repeated DNA Sequences - 使用hashtable解+4進位</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">hash</i>
+		
+		<i href="#" class="badge badge-dark">hashtable</i>
+		
+		<i href="#" class="badge badge-dark">bit</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/06/29/1438-Longest-Continuous-Subarray-With-Absolute-Diff-Less-Than-or-Equal-to-Limit.html" class="badge badge-warning">[Leetcode解題] 1438. Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit - 使用deque+ two pointer解</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 1438. Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit - 使用deque+ two pointer解</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">deque</i>
+		
+		<i href="#" class="badge badge-dark">sliding-window</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/06/22/1248-Count-Number-of-Nice-Subarrays.html" class="badge badge-warning">[Leetcode解題] 1248. Count Number of Nice Subarrays - 使用presum+hashtable解</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 1248. Count Number of Nice Subarrays - 使用presum+hashtable解</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">presum</i>
+		
+		<i href="#" class="badge badge-dark">hash</i>
+		
+		<i href="#" class="badge badge-dark">hashtable</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/05/18/523-Continuous-subarray-sum.html" class="badge badge-warning">[Leetcode解題] 523. Continuous Subarray Sum</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 523. Continuous Subarray Sum</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">presum</i>
+		
+		<i href="#" class="badge badge-dark">hash</i>
+		
+		<i href="#" class="badge badge-dark">hashtable</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/05/18/1423-Maximum-Points-You-Can-Obtain-from-Cards.html" class="badge badge-warning">[Leetcode解題] 1423. Maximum Points You Can Obtain from Cards</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 1423. Maximum Points You Can Obtain from Cards</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">presum</i>
+		
+		<i href="#" class="badge badge-dark">sliding-window</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/04/20/1146-Snapshot-Array.html" class="badge badge-warning">[Leetcode解題] 1146. Snapshot Array</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 1146. Snapshot Array</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">binary-search</i>
+		
+		<i href="#" class="badge badge-dark">bs</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2022/02/11/53-Maximum-Subarray.html" class="badge badge-warning">[Leetcode解題] Maximum Subarray - presum解</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] Maximum Subarray - presum解</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">dp</i>
+		
+		<i href="#" class="badge badge-dark">presum</i>
+		
+		<i href="#" class="badge badge-dark">apple</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+  </div>
+</div>
+		</div>
+		<div class="col-md-2 col-sm-0">
+		</div>
+	</div>
+</div>
+
+		</main>
+		<footer class="footer">
+			<!-- No -->
+
+<!--This is the footer of the website-->
+
+<div class="footer-window container-fluid footer-color">
+	<div class="row">
+		<div class="footer-view footer-left col-md-4 text-left">
+			<div class="footer-section">
+				<div class="account-box">
+			</div>
+			</div>
+		</div>
+		<div class="footer-view footer-center col-md-4 text-center">
+			<div class="footer-section">
+				<div class="footer-copyright">
+					解題愛好者
+					<br><br>
+					歡迎來到刷題貓！我們是兩位熱愛程式設計的工程師，在此分享Leetcode刷題心得以及整理主題式的文章
+					<br><br>
+					© 2023 CATXCODER All Rights Reserved
+				</div>
+				<div>
+				</div>
+			</div>
+		</div>
+		<div class="footer-view footer-right col-md-4 text-center">
+			<div class="footer-section">
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--
+log
+<p>Version 0.0.2</p>
+			<p>0.0.2 - 配色完成</p>
+			<p>0.0.2 - 基本模板完成</p>
+			<p>0.0.2 - 自我介紹新增打字效果</p>
+
+
+
+
+-->
+
+		</footer>
+		</div>
+	</body>
+</html>
+
+<script>
+$(".badge-info").hover(function(){
+    $(this).hide(1000);
+});
+
+
+</script>
