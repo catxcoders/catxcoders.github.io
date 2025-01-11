@@ -10,7 +10,7 @@ excerpt_separator: <!--more-->
 
 # 題目
 
-[1400. Construct K Palindrome Strings][(](https://leetcode.com/problems/construct-k-palindrome-strings/description/?envType=daily-question&envId=2025-01-11))
+[1400. Construct K Palindrome Strings](https://leetcode.com/problems/construct-k-palindrome-strings/description/?envType=daily-question&envId=2025-01-11)
 
 這題給定一個字串，以及一個數字k，求能不能將字串切成k組，並且各組皆為回文字串
 
