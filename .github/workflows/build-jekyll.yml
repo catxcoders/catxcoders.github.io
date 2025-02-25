@@ -13,6 +13,28 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.1' 
+          bundler-cache: true  
+
+      - name: Install Dependencies
+        run: sudo apt-get update && sudo apt-get install -y graphviz
+
+      - name: Build and Deploy Jekyll Site
+        uses: jeffreytse/jekyll-deploy-action@v0.4.0
+        with:
+          provider: 'github'
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: 'gh-pages'
+          jekyll_src: './'
+          jekyll_cfg: '_config.yml'
+          jekyll_baseurl: ''
+          bundler_ver: '2.4.20'
+          cname: ''
+          actor: ''
+
       # Use GitHub Actions' cache to cache dependencies on servers
       - uses: actions/cache@v3
         with:
