@@ -2,13 +2,11 @@
 layout: article_post
 title:  "[Leetcode解題] 1028. Recover a Tree From Preorder Traversal"
 description:  "1028. Recover a Tree From Preorder Traversal"
-categories: medium
+categories: hard
 tags: array
 langs: python
 excerpt_separator: <!--more-->
 ---
-
-# 1028. Recover a Tree From Preorder Traversal
 
 # 題目
 
