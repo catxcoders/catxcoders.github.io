@@ -16,7 +16,7 @@ jobs:
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.2' # Or any desired Ruby version
+          ruby-version: '3.3.0' # Or any desired Ruby version
 
 
       # Use GitHub Actions' cache to cache dependencies on servers
