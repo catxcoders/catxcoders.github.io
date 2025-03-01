@@ -13,6 +13,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3.0' # 你可以根據需要選擇 Ruby 版本
+          bundler-cache: true  # 自動安裝 Bundler 和依賴
+
       # Use GitHub Actions' cache to cache dependencies on servers
       - uses: actions/cache@v3
         with:
