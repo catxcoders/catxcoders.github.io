@@ -13,9 +13,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Ensure correct platform support
-        run: bundle lock --add-platform x86_64-linux
-
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
