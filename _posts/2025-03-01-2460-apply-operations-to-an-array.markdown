@@ -33,7 +33,7 @@ excerpt_separator: <!--more-->
 
 # 程式碼
 
-```python3
+```python
 class Solution:
     def applyOperations(self, nums: List[int]) -> List[int]:
         ptr1 = 0
