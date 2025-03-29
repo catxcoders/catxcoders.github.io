@@ -7,6 +7,7 @@ tags: linked-list
 langs: python
 excerpt_separator: <!--more-->
 ---
+
 ## 題目
 [92. Reverse Linked List II](https://leetcode.com/problems/reverse-linked-list-ii/)
 給定一個單向鏈表的頭節點 `head`，以及兩個整數 `left` 和 `right`，其中 `1 <= left <= right <= 鏈表長度`。請反轉從位置 `left` 到 `right` 的節點（從 1 開始計數），並返回**修改後的鏈表頭節點**。

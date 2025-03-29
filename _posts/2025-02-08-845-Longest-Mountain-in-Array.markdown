@@ -7,6 +7,7 @@ tags: two-pointer
 langs: python
 excerpt_separator: <!--more-->
 ---
+
 ## 題目
 [845. Longest Mountain in Array](https://leetcode.com/problems/longest-mountain-in-array)
 一個數列如果滿足 **山脈數列 (mountain array)**的條件，需要滿足下列條件：
