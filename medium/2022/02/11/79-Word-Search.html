@@ -1,0 +1,1367 @@
+<!-- OK -->
+
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="utf-8">
+	<link rel="icon" type="image/x-icon" href="/res/catxcoder.ico">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>[Leetcode解題] Word Search - bfs/dfs解</title>
+	<meta name="description" content="[Leetcode解題] Word Search - bfs/dfs解" />
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<!-- My CSS -->
+<link href="/res/css/common.css" rel="stylesheet">
+
+	</head>
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-MHQH8LKZYV"></script>
+	<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+
+	gtag('config', 'G-MHQH8LKZYV');
+	</script>
+	<body>		
+				<!-- JQeury -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+    
+	<!-- Font Awesome -->
+	<!--<script defer src="https://use.fontawesome.com/releases/v6.4.2/js/all.js" integrity="	sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe" crossorigin="anonymous"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" integrity="sha512-uKQ39gEGiyUJl4AI6L+ekBdGKpGw4xJ55+xyJG7YFlJokPNYegn9KwQ3P8A7aFQAUtUsAQHep+d/lrGqrbPIDQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<!-- support MathJax -->
+	<style TYPE="text/css">
+	code.has-jax {font: inherit; font-size: 100%; background: inherit; border: inherit;}
+	</style>
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	    tex2jax: {
+	        inlineMath: [['$','$'], ['\\(','\\)']],
+	        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'] // removed 'code' entry
+	    }
+	});
+	MathJax.Hub.Queue(function() {
+	    var all = MathJax.Hub.getAllJax(), i;
+	    for(i = 0; i < all.length; i += 1) {
+	        all[i].SourceElement().parentNode.className += ' has-jax';
+	    }
+	});
+	</script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<!-- A patch to fix mathjax -->
+<!-- https://github.com/mathjax/MathJax/issues/1737 -->
+	<script type="text/x-mathjax-config">
+if (MathJax.Hub.Browser.isSafari && parseInt(MathJax.Hub.Browser.webkit) >= 603) {
+  MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready", function () {
+    var HTMLCSS = MathJax.OutputJax["HTML-CSS"];
+    var MML = MathJax.ElementJax.mml;
+    var toHTML = MML.mo.prototype.toHTML;
+    MML.mo.Augment({
+      toHTML: function (span) {
+        span = toHTML.call(this,span);
+        if (span.bbox.w === 0 && span.bbox.lw < 0 && span.firstChild) {
+          span.style.marginLeft = HTMLCSS.Em(span.bbox.lw);
+        }
+        return span;
+      }
+    });
+  });
+}
+</script>
+
+		<header>
+			<!-- OK -->
+
+<div class="container">
+  <nav class="navbar navbar-expand-lg navbar-default nav-color" >
+    <a href="/index.html">
+      <img src="/res/catxcoder.ico" class="img-fluid" style="width: 32px; margin-right: 10px;">
+    </a>
+    <a class="navbar-item" href="/index.html">
+      刷題貓
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span><i class="fas fa-bars" ></i></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <ul class="navbar-nav ml-auto navbar-right">
+          <li class="nav-item">
+             <a class="nav-link" href="/index.html">首頁</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/posts/categories">難度</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/posts/algorithms">演算法</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/works">主題式</a>
+          </li>
+        </ul>
+    </div>
+  </nav>
+</div>
+
+		</header>
+		<main>
+			<!-- OK -->
+
+<div class="container-fluid text-center bg-color">
+	<div class="row bg-icon">
+		<div class="col-md-2 col-sm-0">
+
+		</div>
+		<div class="view-home col-md-8 col-sm-12 post-home-color">
+			<div class="post-view-color post-view-window">
+	
+	<!-- title -->
+	<div class="post-view-title text-left" >
+		<p>[Leetcode解題] Word Search - bfs/dfs解</p>
+	</div>
+	
+	<!-- date -->
+	<div class="post-view-date">
+			11 February 2022
+	</div>
+
+	<!-- tags -->
+	<div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">dp</i>
+		
+		<i href="#" class="badge badge-dark">dfs</i>
+		
+		<i href="#" class="badge badge-dark">bfs</i>
+		
+	</div>
+	<hr>
+
+	<!-- excerpt -->
+	<div class="post-view-excerpt text-left">
+		<p>
+			<h1 id="題目">題目</h1>
+<p><a href="https://leetcode.com/problems/word-search/">79. Word Search</a></p>
+
+<h1 id="解題思路">解題思路</h1>
+
+<p>這題我們很直接會想要用BFS/DFS的解法來解，以每個點為起點去做搜尋，這樣時間複雜度為$O(M N 3^L)$，$M, N$為棋盤的長寬，$L$為搜尋字串的長度，最差的情況來說，我們需要走訪$M \times N$個點作為起點，每個點又需要走過$L$個點做探索，每個位置可以往上下左右走，所以最壞有$4*3^{L-1}$種可能。</p>
+
+<!--more-->
+
+<h2 id="錯誤思路">錯誤思路</h2>
+
+<p>我們可以試著想一下有什麼地方是重複的計算，但先跟大家說下面的想法是錯的</p>
+
+<p>假設我們的棋盤是</p>
+
+<p>$ABEOK$
+$CAOLL$</p>
+
+<p>而我們要搜索的字串為$ABEOP$，假設我們是用DFS，可以看到我們從第一個$A (0,0)$出發後，會試過：</p>
+
+<p>$A\rightarrow B\rightarrow E\rightarrow O\rightarrow K\rightarrow Fail$</p>
+
+<p>$A\rightarrow B\rightarrow E\rightarrow O\rightarrow L \rightarrow Fail$</p>
+
+<p>之後我們到下一個$A(1,1)$，也會去搜尋：</p>
+
+<p>$A\rightarrow B\rightarrow E\rightarrow O\rightarrow K\rightarrow Fail$</p>
+
+<p>$A\rightarrow B\rightarrow E\rightarrow O\rightarrow L \rightarrow Fail$</p>
+
+<p>可以看到這兩個路徑通過同一個點$B(0,1)$，之後的路徑是一模一樣的，所以當我們第一次搜索知道後面已經找不到時，第二次搜索應該就可以直接停止：</p>
+
+<p>$A\rightarrow B\rightarrow Fail$</p>
+
+<p>$A\rightarrow B\rightarrow Fail$</p>
+
+<p>大家有發現這個想法錯誤在哪嗎？</p>
+
+<p>因為我們兩次走到同個點$B(0,1)$的時候，棋盤的走訪狀態並不同，所以第一次探索的結果，並不能直接用在第二次，舉一個例子，假設我們今天想要搜索的字串為$ABEOA$，這樣從$A(1,1)$出發，經過$B(0,1)$是False，但從$A (0,0)$出發，卻可以是True，所以這個方法並不能適用。</p>
+
+<h2 id="解題思路-1">解題思路</h2>
+
+<p>基本上的解法是採取DFS，除此之外我們要記錄棋盤是否走訪過的狀態，我們可以透過一個二維矩陣<code class="language-plaintext highlighter-rouge">visited</code>來紀錄，也可以直接將當前位置修改成一個非大寫字母的字元(因為題目有註明棋盤只會是大寫字母)。</p>
+
+<h1 id="實作">實作</h1>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">exist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">board</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]],</span> <span class="n">word</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">board</span><span class="p">)):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">board</span><span class="p">[</span><span class="mi">0</span><span class="p">])):</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="p">.</span><span class="n">dfs</span><span class="p">(</span><span class="n">board</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">word</span><span class="p">):</span>
+                    <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">return</span> <span class="bp">False</span>
+        
+    <span class="k">def</span> <span class="nf">dfs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">board</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">word</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">board</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="s">"#"</span> <span class="ow">or</span> <span class="n">board</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">!=</span> <span class="n">word</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="k">return</span> <span class="bp">False</span>
+        <span class="k">if</span> <span class="n">board</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="n">word</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">word</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">True</span>
+        
+        <span class="n">tmp</span> <span class="o">=</span> <span class="n">board</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span>
+        <span class="n">board</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="s">"#"</span>
+        <span class="k">if</span> <span class="n">i</span><span class="o">-</span><span class="mi">1</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="bp">self</span><span class="p">.</span><span class="n">dfs</span><span class="p">(</span><span class="n">board</span><span class="p">,</span> <span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">word</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
+            <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">if</span> <span class="n">j</span><span class="o">+</span><span class="mi">1</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">board</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="ow">and</span> <span class="bp">self</span><span class="p">.</span><span class="n">dfs</span><span class="p">(</span><span class="n">board</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">word</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
+            <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">if</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">board</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="p">.</span><span class="n">dfs</span><span class="p">(</span><span class="n">board</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">word</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
+            <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">if</span> <span class="n">j</span><span class="o">-</span><span class="mi">1</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="bp">self</span><span class="p">.</span><span class="n">dfs</span><span class="p">(</span><span class="n">board</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">word</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
+            <span class="k">return</span> <span class="bp">True</span>
+        <span class="n">board</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">tmp</span>
+        <span class="k">return</span> <span class="bp">False</span>
+</code></pre></div></div>
+
+		</p>
+	</div>		
+  <div style="text-align: left; padding: 25px;">
+  <h1>相關文章</h1>
+  
+  
+
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  
+  <a href="/hard/2024/03/23/140-Word-Break-II.html" class="badge badge-danger">[Leetcode解題] 140. Word Break II</a>
+  
+  <!--
+  <div>[Leetcode解題] 140. Word Break II</div>
+  <div class="post-view-tags">
+		
+      
+      
+      
+		<a href="/posts/categories/hard/" class="badge badge-danger">hard</a>
+  	  
+		
+		
+		<i href="#" class="badge badge-dark">dp</i>
+		
+		<i href="#" class="badge badge-dark">recursion</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  
+  <a href="/hard/2022/02/11/72-edit-distance.html" class="badge badge-danger">[Leetcode解題] Edit Distance - dp解</a>
+  
+  <!--
+  <div>[Leetcode解題] Edit Distance - dp解</div>
+  <div class="post-view-tags">
+		
+      
+      
+      
+		<a href="/posts/categories/hard/" class="badge badge-danger">hard</a>
+  	  
+		
+		
+		<i href="#" class="badge badge-dark">dp</i>
+		
+		<i href="#" class="badge badge-dark">string</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/10/05/1302-Deepest-Leaves-Sum.html" class="badge badge-warning">[Leetcode解題]  1302. Deepest Leaves Sum</a>
+  
+  
+  <!--
+  <div>[Leetcode解題]  1302. Deepest Leaves Sum</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">tree</i>
+		
+		<i href="#" class="badge badge-dark">binary-tree</i>
+		
+		<i href="#" class="badge badge-dark">bfs</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/09/07/841-Keys-and-Rooms.html" class="badge badge-warning">[Leetcode解題]  841. Keys and Rooms</a>
+  
+  
+  <!--
+  <div>[Leetcode解題]  841. Keys and Rooms</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">graph</i>
+		
+		<i href="#" class="badge badge-dark">dfs</i>
+		
+		<i href="#" class="badge badge-dark">bfs</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/03/23/309-Best-Time-to-Buy-and-Sell-Stock-with-Cooldown.html" class="badge badge-warning">[Leetcode解題] 309. Best Time to Buy and Sell Stock with Cooldown</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 309. Best Time to Buy and Sell Stock with Cooldown</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">dp</i>
+		
+		<i href="#" class="badge badge-dark">dynamic-programming</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/03/23/139-Word-Break.html" class="badge badge-warning">[Leetcode解題] 139. Word Break - 使用dp解</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 139. Word Break - 使用dp解</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">dp</i>
+		
+		<i href="#" class="badge badge-dark">recursion</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/02/18/199-Binary-Tree-Right-Side-View.html" class="badge badge-warning">[Leetcode解題] 199. Binary Tree Right Side View - BFS解</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 199. Binary Tree Right Side View - BFS解</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">dfs</i>
+		
+		<i href="#" class="badge badge-dark">bfs</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2023/06/03/1035-Uncrossed-Lines.html" class="badge badge-warning">[Leetcode解題] Uncrossed Lines - DP + scrolling array解</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] Uncrossed Lines - DP + scrolling array解</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">dp</i>
+		
+		<i href="#" class="badge badge-dark">scrolling-array</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2022/02/11/79-Word-Search.html" class="badge badge-warning">[Leetcode解題] Word Search - bfs/dfs解</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] Word Search - bfs/dfs解</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">dp</i>
+		
+		<i href="#" class="badge badge-dark">dfs</i>
+		
+		<i href="#" class="badge badge-dark">bfs</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2022/02/11/53-Maximum-Subarray.html" class="badge badge-warning">[Leetcode解題] Maximum Subarray - presum解</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] Maximum Subarray - presum解</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">dp</i>
+		
+		<i href="#" class="badge badge-dark">presum</i>
+		
+		<i href="#" class="badge badge-dark">apple</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2022/02/11/3-Longest-Substring-Without-Repeating-Characters.html" class="badge badge-warning">[Leetcode解題] Longest Substring Without Repeating Characters - 用暴力法、DP法和前後指針解決</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] Longest Substring Without Repeating Characters - 用暴力法、DP法和前後指針解決</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">dp</i>
+		
+		<i href="#" class="badge badge-dark">two-pointers</i>
+		
+		<i href="#" class="badge badge-dark">python</i>
+		
+		<i href="#" class="badge badge-dark">apple</i>
+		
+		<i href="#" class="badge badge-dark">amazon</i>
+		
+		<i href="#" class="badge badge-dark">microsoft</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/amazon/microsoft/apple/google/nvidia/2024/02/03/200-Number-of-Islands.html" class="badge badge-warning">[Leetcode解題] 200. Number of Islands - DFS解</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 200. Number of Islands - DFS解</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+      
+      
+      
+		
+      
+      
+      
+		
+      
+      
+      
+		
+      
+      
+      
+		
+      
+      
+      
+		
+		
+		<i href="#" class="badge badge-dark">dfs</i>
+		
+		<i href="#" class="badge badge-dark">bfs</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+  </div>
+</div>
+		</div>
+		<div class="col-md-2 col-sm-0">
+		</div>
+	</div>
+</div>
+
+		</main>
+		<footer class="footer">
+			<!-- No -->
+
+<!--This is the footer of the website-->
+
+<div class="footer-window container-fluid footer-color">
+	<div class="row">
+		<div class="footer-view footer-left col-md-4 text-left">
+			<div class="footer-section">
+				<div class="account-box">
+			</div>
+			</div>
+		</div>
+		<div class="footer-view footer-center col-md-4 text-center">
+			<div class="footer-section">
+				<div class="footer-copyright">
+					解題愛好者
+					<br><br>
+					歡迎來到刷題貓！我們是兩位熱愛程式設計的工程師，在此分享Leetcode刷題心得以及整理主題式的文章
+					<br><br>
+					© 2023 CATXCODER All Rights Reserved
+				</div>
+				<div>
+				</div>
+			</div>
+		</div>
+		<div class="footer-view footer-right col-md-4 text-center">
+			<div class="footer-section">
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--
+log
+<p>Version 0.0.2</p>
+			<p>0.0.2 - 配色完成</p>
+			<p>0.0.2 - 基本模板完成</p>
+			<p>0.0.2 - 自我介紹新增打字效果</p>
+
+
+
+
+-->
+
+		</footer>
+		</div>
+	</body>
+</html>
+
+<script>
+$(".badge-info").hover(function(){
+    $(this).hide(1000);
+});
+
+
+</script>

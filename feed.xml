@@ -1,0 +1,880 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="https://www.catxcoder.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.catxcoder.com/" rel="alternate" type="text/html" /><updated>2025-03-29T17:22:25+00:00</updated><id>https://www.catxcoder.com/feed.xml</id><entry><title type="html">[Leetcode解題] 206. Reverse Linked List</title><link href="https://www.catxcoder.com/easy/2025/03/21/206-Reverse-Linked-List.html" rel="alternate" type="text/html" title="[Leetcode解題] 206. Reverse Linked List" /><published>2025-03-21T00:00:00+00:00</published><updated>2025-03-21T00:00:00+00:00</updated><id>https://www.catxcoder.com/easy/2025/03/21/206-Reverse-Linked-List</id><content type="html" xml:base="https://www.catxcoder.com/easy/2025/03/21/206-Reverse-Linked-List.html"><![CDATA[<h2 id="題目">題目</h2>
+<p><a href="https://leetcode.com/problems/reverse-linked-list/">206. Reverse Linked List</a>
+給定一個單向鏈結串列的頭節點 <code class="language-plaintext highlighter-rouge">head</code>，請你將整個鏈結串列反轉，並回傳反轉後的頭節點。
+<!--more--></p>
+
+<h3 id="範例">範例</h3>
+<h4 id="範例-1"><strong>範例 1</strong></h4>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>輸入：head = [1,2,3,4,5]
+輸出：[5,4,3,2,1]
+</code></pre></div></div>
+<h4 id="範例-2"><strong>範例 2</strong></h4>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>輸入：head = [1,2]
+輸出：[2,1]
+</code></pre></div></div>
+<h4 id="範例-3"><strong>範例 3</strong></h4>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>輸入：head = []
+輸出：[]
+</code></pre></div></div>
+
+<h2 id="解題思路"><strong>解題思路</strong></h2>
+<p>我們可以使用 <strong>兩種方法</strong> 來解這題：</p>
+<ol>
+  <li><strong>迭代法 (Iterative Approach)</strong> → 使用三個指標 (<code class="language-plaintext highlighter-rouge">prev, curr, next</code>)</li>
+  <li><strong>遞迴法 (Recursive Approach)</strong> → 遞迴反轉每個節點</li>
+</ol>
+
+<h3 id="方法-1迭代法"><strong>方法 1：迭代法</strong></h3>
+<p>我們可以使用三個指標來處理：</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">prev</code> 指向已經反轉的部分 (初始為 <code class="language-plaintext highlighter-rouge">NULL</code>)</li>
+  <li><code class="language-plaintext highlighter-rouge">curr</code> 指向目前要處理的節點</li>
+  <li><code class="language-plaintext highlighter-rouge">next</code> 暫存 <code class="language-plaintext highlighter-rouge">curr</code> 的下一個節點，避免鏈結遺失</li>
+</ul>
+
+<p>反轉的步驟如下：</p>
+<ol>
+  <li>用 <code class="language-plaintext highlighter-rouge">next</code> 暫存 <code class="language-plaintext highlighter-rouge">curr-&gt;next</code></li>
+  <li>把 <code class="language-plaintext highlighter-rouge">curr-&gt;next</code> 指向 <code class="language-plaintext highlighter-rouge">prev</code></li>
+  <li><code class="language-plaintext highlighter-rouge">prev</code> 移動到 <code class="language-plaintext highlighter-rouge">curr</code></li>
+  <li><code class="language-plaintext highlighter-rouge">curr</code> 移動到 <code class="language-plaintext highlighter-rouge">next</code></li>
+  <li>直到 <code class="language-plaintext highlighter-rouge">curr</code> 變成 <code class="language-plaintext highlighter-rouge">NULL</code>，此時 <code class="language-plaintext highlighter-rouge">prev</code> 就是新的頭節點</li>
+</ol>
+
+<p><strong>時間複雜度</strong>：O(n)<br />
+<strong>空間複雜度</strong>：O(1) (只使用了額外的指標)</p>
+
+<h3 id="方法-2遞迴法"><strong>方法 2：遞迴法</strong></h3>
+<p>在遞迴方法中，每次反轉 <code class="language-plaintext highlighter-rouge">head-&gt;next</code>，然後將 <code class="language-plaintext highlighter-rouge">head-&gt;next-&gt;next = head</code> 來讓下一個節點指向自己，最後把 <code class="language-plaintext highlighter-rouge">head-&gt;next</code> 設為 <code class="language-plaintext highlighter-rouge">NULL</code>。</p>
+
+<p>遞迴的核心步驟：</p>
+<ol>
+  <li>如果 <code class="language-plaintext highlighter-rouge">head</code> 為空或 <code class="language-plaintext highlighter-rouge">head-&gt;next</code> 為空，直接回傳 <code class="language-plaintext highlighter-rouge">head</code> (表示只有一個節點)</li>
+  <li>遞迴處理 <code class="language-plaintext highlighter-rouge">head-&gt;next</code></li>
+  <li>反轉 <code class="language-plaintext highlighter-rouge">head-&gt;next-&gt;next = head</code></li>
+  <li><code class="language-plaintext highlighter-rouge">head-&gt;next = NULL</code></li>
+  <li>回傳新的頭節點</li>
+</ol>
+
+<p><strong>時間複雜度</strong>：O(n)<br />
+<strong>空間複雜度</strong>：O(n) (遞迴的堆疊佔用)</p>
+<h2 id="c-解法">C++ 解法</h2>
+<h3 id="方法-1迭代法-1"><strong>方法 1：迭代法</strong></h3>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */</span>
+<span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="nl">public:</span>
+    <span class="n">ListNode</span><span class="o">*</span> <span class="n">reverseList</span><span class="p">(</span><span class="n">ListNode</span><span class="o">*</span> <span class="n">head</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">ListNode</span><span class="o">*</span> <span class="n">prev</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+        <span class="n">ListNode</span><span class="o">*</span> <span class="n">curr</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
+        <span class="n">ListNode</span><span class="o">*</span> <span class="n">next</span><span class="p">;</span>
+
+        <span class="k">while</span> <span class="p">(</span><span class="n">curr</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">next</span> <span class="o">=</span> <span class="n">curr</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span> <span class="c1">// 暫存下一個節點</span>
+            <span class="n">curr</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">prev</span><span class="p">;</span> <span class="c1">// 反轉指標</span>
+            <span class="n">prev</span> <span class="o">=</span> <span class="n">curr</span><span class="p">;</span>       <span class="c1">// prev 前進</span>
+            <span class="n">curr</span> <span class="o">=</span> <span class="n">next</span><span class="p">;</span>       <span class="c1">// curr 前進</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">prev</span><span class="p">;</span> <span class="c1">// 最後 prev 會是新的頭</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<h3 id="方法-2遞迴法-1"><strong>方法 2：遞迴法</strong></h3>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="nl">public:</span>
+    <span class="n">ListNode</span><span class="o">*</span> <span class="n">reverseList</span><span class="p">(</span><span class="n">ListNode</span><span class="o">*</span> <span class="n">head</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">head</span> <span class="o">||</span> <span class="o">!</span><span class="n">head</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">)</span> <span class="k">return</span> <span class="n">head</span><span class="p">;</span> <span class="c1">// base case</span>
+
+        <span class="n">ListNode</span><span class="o">*</span> <span class="n">newHead</span> <span class="o">=</span> <span class="n">reverseList</span><span class="p">(</span><span class="n">head</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">);</span> <span class="c1">// 反轉剩下的部分</span>
+        <span class="n">head</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span> <span class="c1">// 讓下一個節點指向自己</span>
+        <span class="n">head</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span> <span class="c1">// 斷開原本的連結</span>
+        <span class="k">return</span> <span class="n">newHead</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<h2 id="python-解法"><strong>Python 解法</strong></h2>
+<h3 id="方法-1迭代法-2"><strong>方法 1：迭代法</strong></h3>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">reverseList</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">head</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ListNode</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ListNode</span><span class="p">]:</span>
+        <span class="n">prev</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="n">curr</span> <span class="o">=</span> <span class="n">head</span>
+        
+        <span class="k">while</span> <span class="n">curr</span><span class="p">:</span>
+            <span class="n">next_node</span> <span class="o">=</span> <span class="n">curr</span><span class="p">.</span><span class="nb">next</span>  <span class="c1"># 暫存下一個節點
+</span>            <span class="n">curr</span><span class="p">.</span><span class="nb">next</span> <span class="o">=</span> <span class="n">prev</span>       <span class="c1"># 反轉指標
+</span>            <span class="n">prev</span> <span class="o">=</span> <span class="n">curr</span>            <span class="c1"># prev 前進
+</span>            <span class="n">curr</span> <span class="o">=</span> <span class="n">next_node</span>       <span class="c1"># curr 前進
+</span>        
+        <span class="k">return</span> <span class="n">prev</span>  <span class="c1"># prev 變成新的頭節點
+</span></code></pre></div></div>
+
+<h3 id="方法-2遞迴法-2"><strong>方法 2：遞迴法</strong></h3>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">reverseList</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">head</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ListNode</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ListNode</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">head</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">head</span><span class="p">.</span><span class="nb">next</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">head</span>  <span class="c1"># base case
+</span>        
+        <span class="n">new_head</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">reverseList</span><span class="p">(</span><span class="n">head</span><span class="p">.</span><span class="nb">next</span><span class="p">)</span>  <span class="c1"># 反轉剩下的部分
+</span>        <span class="n">head</span><span class="p">.</span><span class="nb">next</span><span class="p">.</span><span class="nb">next</span> <span class="o">=</span> <span class="n">head</span>  <span class="c1"># 讓下一個節點指向自己
+</span>        <span class="n">head</span><span class="p">.</span><span class="nb">next</span> <span class="o">=</span> <span class="bp">None</span>  <span class="c1"># 斷開原本的連結
+</span>        <span class="k">return</span> <span class="n">new_head</span>
+</code></pre></div></div>
+
+<h2 id="時間與空間複雜度分析"><strong>時間與空間複雜度分析</strong></h2>
+<ul>
+  <li>迭代法: 時間複雜度$O(n)$, 空間複雜度$O(1)$</li>
+  <li>遞迴法: 時間複雜度$O(n)$, 空間複雜度$O(n)$ (遞迴堆疊)</li>
+</ul>
+
+<p>如果 <strong>記憶體有限</strong>，建議使用 <strong>迭代法</strong>，因為它只需要幾個指標變數，不會佔用額外的遞迴堆疊空間。</p>]]></content><author><name></name></author><category term="easy" /><category term="linked-list" /><summary type="html"><![CDATA[206. Reverse Linked List]]></summary></entry><entry><title type="html">[Leetcode解題] 92. Reverse Linked List II</title><link href="https://www.catxcoder.com/medium/2025/03/21/92-Reverse-Linked-List-II.html" rel="alternate" type="text/html" title="[Leetcode解題] 92. Reverse Linked List II" /><published>2025-03-21T00:00:00+00:00</published><updated>2025-03-21T00:00:00+00:00</updated><id>https://www.catxcoder.com/medium/2025/03/21/92-Reverse-Linked-List-II</id><content type="html" xml:base="https://www.catxcoder.com/medium/2025/03/21/92-Reverse-Linked-List-II.html"><![CDATA[<h2 id="題目">題目</h2>
+<p><a href="https://leetcode.com/problems/reverse-linked-list-ii/">92. Reverse Linked List II</a>
+給定一個單向鏈表的頭節點 <code class="language-plaintext highlighter-rouge">head</code>，以及兩個整數 <code class="language-plaintext highlighter-rouge">left</code> 和 <code class="language-plaintext highlighter-rouge">right</code>，其中 <code class="language-plaintext highlighter-rouge">1 &lt;= left &lt;= right &lt;= 鏈表長度</code>。請反轉從位置 <code class="language-plaintext highlighter-rouge">left</code> 到 <code class="language-plaintext highlighter-rouge">right</code> 的節點（從 1 開始計數），並返回<strong>修改後的鏈表頭節點</strong>。
+<!--more--></p>
+
+<h2 id="解題思路">解題思路</h2>
+<p>這題目是一個典型的鏈表操作問題，重點在於：</p>
+<ul>
+  <li>先走到 <code class="language-plaintext highlighter-rouge">left</code> 節點的<strong>前一個節點</strong>（<code class="language-plaintext highlighter-rouge">left - 1</code>）。</li>
+  <li>再找到 <code class="language-plaintext highlighter-rouge">right</code> 節點。</li>
+  <li>將這段區間的鏈表<strong>截斷並反轉</strong>。</li>
+  <li>最後<strong>接回原本的鏈表</strong>。</li>
+</ul>
+
+<p>步驟拆解如下：</p>
+<ol>
+  <li>使用 dummy node（虛擬頭節點）來簡化邊界條件（例如反轉從 head 開始的情況）。</li>
+  <li>走訪鏈表，找到反轉開始點前一節點 <code class="language-plaintext highlighter-rouge">s</code>（<code class="language-plaintext highlighter-rouge">left - 1</code>）和反轉結束點 <code class="language-plaintext highlighter-rouge">e</code>（<code class="language-plaintext highlighter-rouge">right</code>）。</li>
+  <li>暫時截斷這段子鏈表，並呼叫輔助函數反轉它。</li>
+  <li>再將反轉後的結果接回原來的鏈表。</li>
+</ol>
+
+<h2 id="python-實作">Python 實作</h2>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">ListNode</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">next</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">val</span>
+        <span class="bp">self</span><span class="p">.</span><span class="nb">next</span> <span class="o">=</span> <span class="nb">next</span>
+
+<span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">reverse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">head</span><span class="p">):</span>
+        <span class="n">prev</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="n">curr</span> <span class="o">=</span> <span class="n">head</span>
+        <span class="k">while</span> <span class="n">curr</span><span class="p">:</span>
+            <span class="n">nxt</span> <span class="o">=</span> <span class="n">curr</span><span class="p">.</span><span class="nb">next</span>
+            <span class="n">curr</span><span class="p">.</span><span class="nb">next</span> <span class="o">=</span> <span class="n">prev</span>
+            <span class="n">prev</span> <span class="o">=</span> <span class="n">curr</span>
+            <span class="n">curr</span> <span class="o">=</span> <span class="n">nxt</span>
+        <span class="k">return</span> <span class="n">prev</span>
+
+    <span class="k">def</span> <span class="nf">reverseBetween</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">head</span><span class="p">:</span> <span class="n">ListNode</span><span class="p">,</span> <span class="n">left</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">right</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ListNode</span><span class="p">:</span>
+        <span class="n">dummy</span> <span class="o">=</span> <span class="n">ListNode</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">dummy</span><span class="p">.</span><span class="nb">next</span> <span class="o">=</span> <span class="n">head</span>
+        <span class="n">prev</span> <span class="o">=</span> <span class="n">dummy</span>
+
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">left</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">prev</span> <span class="o">=</span> <span class="n">prev</span><span class="p">.</span><span class="nb">next</span>
+        
+        <span class="c1"># Reverse the segment
+</span>        <span class="n">start</span> <span class="o">=</span> <span class="n">prev</span><span class="p">.</span><span class="nb">next</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="n">start</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">right</span> <span class="o">-</span> <span class="n">left</span><span class="p">):</span>
+            <span class="n">end</span> <span class="o">=</span> <span class="n">end</span><span class="p">.</span><span class="nb">next</span>
+        <span class="n">next_segment</span> <span class="o">=</span> <span class="n">end</span><span class="p">.</span><span class="nb">next</span>
+        <span class="n">end</span><span class="p">.</span><span class="nb">next</span> <span class="o">=</span> <span class="bp">None</span>
+
+        <span class="c1"># Reverse and reconnect
+</span>        <span class="n">prev</span><span class="p">.</span><span class="nb">next</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">reverse</span><span class="p">(</span><span class="n">start</span><span class="p">)</span>
+        <span class="n">start</span><span class="p">.</span><span class="nb">next</span> <span class="o">=</span> <span class="n">next_segment</span>
+
+        <span class="k">return</span> <span class="n">dummy</span><span class="p">.</span><span class="nb">next</span>
+</code></pre></div></div>
+
+<h2 id="c-實作">C++ 實作</h2>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */</span>
+<span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="nl">public:</span>
+    <span class="c1">// 反轉整個鏈表（工具函式）</span>
+    <span class="n">ListNode</span><span class="o">*</span> <span class="n">reverseList</span><span class="p">(</span><span class="n">ListNode</span><span class="o">*</span> <span class="n">head</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">ListNode</span><span class="o">*</span> <span class="n">prev</span> <span class="o">=</span> <span class="nb">nullptr</span><span class="p">;</span>
+        <span class="n">ListNode</span><span class="o">*</span> <span class="n">curr</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
+
+        <span class="k">while</span> <span class="p">(</span><span class="n">curr</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">ListNode</span><span class="o">*</span> <span class="n">nextTemp</span> <span class="o">=</span> <span class="n">curr</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+            <span class="n">curr</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">prev</span><span class="p">;</span>
+            <span class="n">prev</span> <span class="o">=</span> <span class="n">curr</span><span class="p">;</span>
+            <span class="n">curr</span> <span class="o">=</span> <span class="n">nextTemp</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">prev</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">ListNode</span><span class="o">*</span> <span class="n">reverseBetween</span><span class="p">(</span><span class="n">ListNode</span><span class="o">*</span> <span class="n">head</span><span class="p">,</span> <span class="kt">int</span> <span class="n">left</span><span class="p">,</span> <span class="kt">int</span> <span class="n">right</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// 加入 dummy node，避免 head 就是要反轉的情況不好處理</span>
+        <span class="n">ListNode</span><span class="o">*</span> <span class="n">dummy</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ListNode</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+        <span class="n">dummy</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
+
+        <span class="c1">// 1. 找到 left 前一個節點 prev</span>
+        <span class="n">ListNode</span><span class="o">*</span> <span class="n">prev</span> <span class="o">=</span> <span class="n">dummy</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">left</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">prev</span> <span class="o">=</span> <span class="n">prev</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="c1">// 2. 找到要反轉的子鏈表的頭 start 和尾 end</span>
+        <span class="n">ListNode</span><span class="o">*</span> <span class="n">start</span> <span class="o">=</span> <span class="n">prev</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>      <span class="c1">// left 節點</span>
+        <span class="n">ListNode</span><span class="o">*</span> <span class="n">end</span> <span class="o">=</span> <span class="n">start</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">left</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">right</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">end</span> <span class="o">=</span> <span class="n">end</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="c1">// 3. 保存 end 後面的節點</span>
+        <span class="n">ListNode</span><span class="o">*</span> <span class="n">nextSegment</span> <span class="o">=</span> <span class="n">end</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+        <span class="n">end</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="nb">nullptr</span><span class="p">;</span>  <span class="c1">// 暫時切斷</span>
+
+        <span class="c1">// 4. 反轉 start 到 end</span>
+        <span class="n">prev</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">reverseList</span><span class="p">(</span><span class="n">start</span><span class="p">);</span>
+
+        <span class="c1">// 5. 接回後段</span>
+        <span class="n">start</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">nextSegment</span><span class="p">;</span>
+
+        <span class="k">return</span> <span class="n">dummy</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<h2 id="時間複雜度分析">時間複雜度分析</h2>
+<ul>
+  <li><strong>時間複雜度</strong>：<code class="language-plaintext highlighter-rouge">O(n)</code>
+    <ul>
+      <li>我們走訪了整個鏈表一次來定位 <code class="language-plaintext highlighter-rouge">left</code> 和 <code class="language-plaintext highlighter-rouge">right</code>，然後反轉中間的子鏈表（最多也是 <code class="language-plaintext highlighter-rouge">n</code> 長度），所以總體是線性時間。</li>
+    </ul>
+  </li>
+  <li><strong>空間複雜度</strong>：<code class="language-plaintext highlighter-rouge">O(1)</code>
+    <ul>
+      <li>只使用了常數個指標變數，沒有額外的空間開銷。</li>
+    </ul>
+  </li>
+</ul>]]></content><author><name></name></author><category term="medium" /><category term="linked-list" /><summary type="html"><![CDATA[92. Reverse Linked List II]]></summary></entry><entry><title type="html">[Leetcode解題] 2560. House Robber IV</title><link href="https://www.catxcoder.com/medium/2025/03/16/2560-house-robber-iv.html" rel="alternate" type="text/html" title="[Leetcode解題] 2560. House Robber IV" /><published>2025-03-16T00:00:00+00:00</published><updated>2025-03-16T00:00:00+00:00</updated><id>https://www.catxcoder.com/medium/2025/03/16/2560-house-robber-iv</id><content type="html" xml:base="https://www.catxcoder.com/medium/2025/03/16/2560-house-robber-iv.html"><![CDATA[<p><a href="https://leetcode.com/problems/house-robber-iv/description/">2560. House Robber IV</a></p>
+
+<!--more-->
+
+<h1 id="題目">題目</h1>
+
+<p>這題的題目非常繞，給定一個矩陣表示房屋內的金錢，小偷不能偷相鄰的房屋，而且至少要偷<code class="language-plaintext highlighter-rouge">k</code>間房屋</p>
+
+<p>小偷的<code class="language-plaintext highlighter-rouge">capability</code>表示小偷偷的房屋中最多錢的數目</p>
+
+<p>因為小偷在符合條件下，可以有多種不同的偷法，題目要求小偷最小的capacbility為何</p>
+
+<h1 id="解題心得">解題心得</h1>
+
+<p>這題我覺得有點難度，我們使用<code class="language-plaintext highlighter-rouge">Binary Search</code>搭配<code class="language-plaintext highlighter-rouge">Greedy</code>來解，我們要找偷k間房屋最小的報酬。</p>
+
+<p>這邊可以將題目轉化一下，如果目前的<code class="language-plaintext highlighter-rouge">capability</code>是<code class="language-plaintext highlighter-rouge">x</code>，那我是不是能找到符合的<code class="language-plaintext highlighter-rouge">k</code>間房屋（不相鄰）來偷</p>
+
+<p>那我們只要找到符合此條件下的最小的<code class="language-plaintext highlighter-rouge">x</code>，即是題目的解</p>
+
+<p>另外，我們在找符合的<code class="language-plaintext highlighter-rouge">k</code>間房屋的時候，可以透過<code class="language-plaintext highlighter-rouge">Greedy</code>來找，因為我們一定想選越靠左越好的</p>
+
+<h1 id="題目類型">題目類型</h1>
+
+<p>這類型的題目，我把他稱為「在答案值域內直接二分搜尋」類型的題目</p>
+
+<p>通常二分搜尋法，直覺會是在給定的矩陣內搜尋，但項是這題或相似類型的題目</p>
+
+<p>有一種是直接對可能的答案解中做搜尋，並且有判斷條件內移動二分搜尋的範圍</p>
+
+<p>所以有時候可能得往這種可能性去想，才不會困在題目框架中</p>
+
+<h1 id="程式碼">程式碼</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">minCapability</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nums</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="n">min_reward</span><span class="p">,</span> <span class="n">max_reward</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">nums</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
+
+        <span class="k">while</span> <span class="n">min_reward</span> <span class="o">&lt;</span> <span class="n">max_reward</span><span class="p">:</span>
+            <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">min_reward</span> <span class="o">+</span> <span class="n">max_reward</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+            <span class="n">possible_thefts</span> <span class="o">=</span> <span class="mi">0</span>
+
+            <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">mid</span><span class="p">:</span>
+                    <span class="n">possible_thefts</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="n">i</span> <span class="o">+=</span> <span class="mi">2</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="n">possible_thefts</span> <span class="o">&gt;=</span> <span class="n">k</span><span class="p">:</span>
+                <span class="n">max_reward</span> <span class="o">=</span> <span class="n">mid</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">min_reward</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">min_reward</span>
+
+</code></pre></div></div>
+
+<h1 id="時間複雜度">時間複雜度</h1>
+
+<p>假設最大報酬為m，做二分搜尋法為$O(log(m))$，每次搜尋要判斷又沒有符合條件要遍歷一次房屋矩陣為$O(n)$</p>
+
+<p>總時間複雜度為$O(nlog(m))$</p>]]></content><author><name></name></author><category term="medium" /><category term="array" /><category term="greedy" /><category term="binary-search" /><summary type="html"><![CDATA[2560. House Robber IV]]></summary></entry><entry><title type="html">[Leetcode解題] 2460. Apply Operations to an Array</title><link href="https://www.catxcoder.com/easy/2025/03/01/2460-apply-operations-to-an-array.html" rel="alternate" type="text/html" title="[Leetcode解題] 2460. Apply Operations to an Array" /><published>2025-03-01T00:00:00+00:00</published><updated>2025-03-01T00:00:00+00:00</updated><id>https://www.catxcoder.com/easy/2025/03/01/2460-apply-operations-to-an-array</id><content type="html" xml:base="https://www.catxcoder.com/easy/2025/03/01/2460-apply-operations-to-an-array.html"><![CDATA[<h1 id="題目">題目</h1>
+<p><a href="https://leetcode.com/problems/apply-operations-to-an-array/description">2460. Apply Operations to an Array</a>
+這題給定一個矩陣，要求做$n-1$次的操作，每次操作會判斷<code class="language-plaintext highlighter-rouge">nums[i]==nums[i+1]</code>，如果相等的話，就要進行<code class="language-plaintext highlighter-rouge">nums[i]*2, nums[i+1]=0</code>，並且最後回傳的矩陣，要把零都往後推。</p>
+
+<p>舉例來說，給定矩陣為<code class="language-plaintext highlighter-rouge">[1,2,2,1,1,0]</code>的話，最後要回傳<code class="language-plaintext highlighter-rouge">[1,4,2,0,0,0]</code>
+<!--more--></p>
+
+<h1 id="解題思路">解題思路</h1>
+
+<p>這題因為是Easy題，其實可以很簡單，就跑過一次矩陣判斷即可</p>
+
+<p>基本思路為另建一個<code class="language-plaintext highlighter-rouge">_nums</code>的矩陣，如果不符合條件，就將<code class="language-plaintext highlighter-rouge">nums[i]</code>加進去</p>
+
+<p>如果符合條件的話，就將<code class="language-plaintext highlighter-rouge">nums[i]*2</code>丟進去，並且從下一個非零的位置開始即可</p>
+
+<p>然後做完全部的判斷後，再將後面補零。</p>
+
+<p>只是這樣的話，我們要另創一個list，我們想有沒有可以inplace操作的方法，在同個矩陣上修改</p>
+
+<p>因為我們發現，每次條件成立時，會多出一個零，然後這個零之後要被推往後面</p>
+
+<p>所以我們可以使用兩個pointer來操作，一個用來記錄現在可以存值的位置在哪裡，一個用來traverse整個矩陣</p>
+
+<h1 id="程式碼">程式碼</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">applyOperations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nums</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+        <span class="n">ptr1</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">ptr2</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">while</span> <span class="n">ptr2</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">nums</span><span class="p">[</span><span class="n">ptr2</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">ptr2</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">continue</span>
+            <span class="k">if</span> <span class="n">ptr2</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">nums</span><span class="p">[</span><span class="n">ptr2</span><span class="p">]</span> <span class="o">==</span> <span class="n">nums</span><span class="p">[</span><span class="n">ptr2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]:</span>
+                <span class="n">nums</span><span class="p">[</span><span class="n">ptr1</span><span class="p">]</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="n">ptr2</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span>
+                <span class="n">nums</span><span class="p">[</span><span class="n">ptr2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">nums</span><span class="p">[</span><span class="n">ptr1</span><span class="p">]</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="n">ptr2</span><span class="p">]</span>
+            <span class="n">ptr1</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">ptr2</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">while</span> <span class="n">ptr1</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">):</span>
+            <span class="n">nums</span><span class="p">[</span><span class="n">ptr1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">ptr1</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">nums</span>
+</code></pre></div></div>
+
+<h1 id="複雜度">複雜度</h1>
+
+<p>時間複雜度為$O(n)$</p>]]></content><author><name></name></author><category term="easy" /><category term="array" /><summary type="html"><![CDATA[2460. Apply Operations to an Array]]></summary></entry><entry><title type="html">[Leetcode解題] 1028. Recover a Tree From Preorder Traversal</title><link href="https://www.catxcoder.com/hard/2025/02/22/1028-recover-a-tree-from-preorder-traversal.html" rel="alternate" type="text/html" title="[Leetcode解題] 1028. Recover a Tree From Preorder Traversal" /><published>2025-02-22T00:00:00+00:00</published><updated>2025-02-22T00:00:00+00:00</updated><id>https://www.catxcoder.com/hard/2025/02/22/1028-recover-a-tree-from-preorder-traversal</id><content type="html" xml:base="https://www.catxcoder.com/hard/2025/02/22/1028-recover-a-tree-from-preorder-traversal.html"><![CDATA[<h1 id="題目">題目</h1>
+
+<p><a href="https://leetcode.com/problems/recover-a-tree-from-preorder-traversal/description/?envType=daily-question&amp;envId=2025-02-22">1028. Recover a Tree From Preorder Traversal</a></p>
+
+<p>這題給定一個preorder DFS的樹，以字串表達，並且以<code class="language-plaintext highlighter-rouge">dash('-')</code> 表達深度，求我們還原成用資料結構表示的樹</p>
+
+<!--more-->
+
+<h1 id="解題思路">解題思路</h1>
+
+<p>這題的重點是，我們要如何紀錄下當時正確的<code class="language-plaintext highlighter-rouge">parent</code></p>
+
+<p>舉例來說，給定一個字串<code class="language-plaintext highlighter-rouge">"1-2--3--4-5--6--7"</code>，我可以知道，2因為深度增加，所以會是上一個點的子節點，但關鍵是我們要如何取得正確的父節點。</p>
+
+<p>我們可以透過一個stack，並且維持這個stack的長度不大於當前點的深度，這樣可以確保<code class="language-plaintext highlighter-rouge">stack.top()</code>就是該點的父節點。</p>
+
+<p>通常需要這種取得特殊位置值的情況，可以考慮<code class="language-plaintext highlighter-rouge">stack</code>或者<code class="language-plaintext highlighter-rouge">monotonic stack</code>來想</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">recoverFromPreorder</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">traversal</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">TreeNode</span><span class="p">]:</span>
+        <span class="n">stack</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">traversal</span><span class="p">):</span>
+            <span class="n">depth</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">traversal</span><span class="p">)</span> <span class="ow">and</span> <span class="n">traversal</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="s">'-'</span><span class="p">:</span>
+                <span class="n">depth</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+
+            <span class="n">num</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">traversal</span><span class="p">)</span> <span class="ow">and</span> <span class="n">traversal</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">isdigit</span><span class="p">():</span>
+                <span class="n">num</span> <span class="o">=</span> <span class="n">num</span> <span class="o">*</span> <span class="mi">10</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">traversal</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+
+            <span class="n">node</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="n">num</span><span class="p">)</span>
+
+            <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">stack</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">depth</span><span class="p">:</span>
+                <span class="n">stack</span><span class="p">.</span><span class="n">pop</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="n">stack</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">stack</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">].</span><span class="n">left</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                    <span class="n">stack</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">].</span><span class="n">left</span> <span class="o">=</span> <span class="n">node</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">stack</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">].</span><span class="n">right</span> <span class="o">=</span> <span class="n">node</span>
+
+            <span class="n">stack</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">stack</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</code></pre></div></div>
+
+<h1 id="時間複雜度">時間複雜度</h1>
+
+<p>要跑過一輪traversal字串，複雜度為$O(n)$, $n$為traversal字串的長度</p>]]></content><author><name></name></author><category term="hard" /><category term="array" /><summary type="html"><![CDATA[1028. Recover a Tree From Preorder Traversal]]></summary></entry><entry><title type="html">[Leetcode解題] 1894. Find the Student that Will Replace the Chalk</title><link href="https://www.catxcoder.com/medium/2025/02/21/1894-Find-the-Student-that-Will-Replace-the-Chalk.html" rel="alternate" type="text/html" title="[Leetcode解題] 1894. Find the Student that Will Replace the Chalk" /><published>2025-02-21T00:00:00+00:00</published><updated>2025-02-21T00:00:00+00:00</updated><id>https://www.catxcoder.com/medium/2025/02/21/1894-Find-the-Student-that-Will-Replace-the-Chalk</id><content type="html" xml:base="https://www.catxcoder.com/medium/2025/02/21/1894-Find-the-Student-that-Will-Replace-the-Chalk.html"><![CDATA[<h2 id="題目">題目</h2>
+<p>老師有一盒粉筆，一開始有 $k$ 支，會依照順序讓編號 $0$ 到 $n-1$ 的學生輪流解題，每個學生解一題會消耗不同數量的粉筆（由 <code class="language-plaintext highlighter-rouge">chalk</code> 陣列提供）。當某個學生發現粉筆數量不足，這個學生就要去補充粉筆，我們要找出這位學生的索引。
+<!--more--></p>
+
+<h2 id="解題思路">解題思路</h2>
+<h3 id="step-1-計算總粉筆消耗">Step 1: 計算總粉筆消耗</h3>
+<p>假設 <code class="language-plaintext highlighter-rouge">chalk = [5,1,3]</code>，表示：</p>
+<ul>
+  <li>學生 0 需要 5 支</li>
+  <li>學生 1 需要 1 支</li>
+  <li>學生 2 需要 3 支</li>
+</ul>
+
+<p>如果總共有 22 支粉筆，消耗循環如下：</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[5, 1, 3] → [5, 1, 3] → [5, 1, 3] → ...
+</code></pre></div></div>
+<p>總共消耗 <code class="language-plaintext highlighter-rouge">5 + 1 + 3 = 9</code> 支粉筆一輪，那我們就可以先讓 <code class="language-plaintext highlighter-rouge">k</code> 取餘數，找到最終剩下的粉筆數：</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>k = k % 總消耗量
+</code></pre></div></div>
+<p>這樣可以快速排除完整輪次，節省時間。</p>
+
+<h3 id="step-2-找出第一個粉筆不足的學生">Step 2: 找出第一個粉筆不足的學生</h3>
+<p>現在我們剩下的 <code class="language-plaintext highlighter-rouge">k</code>，直接從頭開始扣除學生所需的粉筆，直到遇到 <strong>粉筆不夠</strong> 的學生，就直接回傳他的索引。</p>
+
+<h2 id="python-實作">Python 實作</h2>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">chalkReplacer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">chalk</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="n">total</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">chalk</span><span class="p">)</span>  <span class="c1"># 計算總粉筆消耗
+</span>        <span class="n">k</span> <span class="o">%=</span> <span class="n">total</span>  <span class="c1"># 取餘數，跳過完整循環
+</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">chalk</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">c</span><span class="p">:</span>  <span class="c1"># 粉筆不夠了，這個學生要補充
+</span>                <span class="k">return</span> <span class="n">i</span>
+            <span class="n">k</span> <span class="o">-=</span> <span class="n">c</span>  <span class="c1"># 扣除目前學生的粉筆數
+</span></code></pre></div></div>
+<h3 id="時間複雜度">時間複雜度</h3>
+<ul>
+  <li>計算總消耗量 <code class="language-plaintext highlighter-rouge">sum(chalk)</code>：$O(n)$</li>
+  <li>取餘數 <code class="language-plaintext highlighter-rouge">k % total</code>：$O(1)$</li>
+  <li>找到需要補充粉筆的學生：$O(n)$</li>
+  <li>總共：$O(n)$</li>
+</ul>
+
+<h2 id="c-實作">C++ 實作</h2>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="nl">public:</span>
+    <span class="kt">int</span> <span class="n">chalkReplacer</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">chalk</span><span class="p">,</span> <span class="kt">int</span> <span class="n">k</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">long</span> <span class="kt">long</span> <span class="n">total</span> <span class="o">=</span> <span class="n">accumulate</span><span class="p">(</span><span class="n">chalk</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">chalk</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="mi">0LL</span><span class="p">);</span> <span class="c1">// 計算總粉筆消耗</span>
+        <span class="n">k</span> <span class="o">%=</span> <span class="n">total</span><span class="p">;</span> <span class="c1">// 取餘數，跳過完整循環</span>
+
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">chalk</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">k</span> <span class="o">&lt;</span> <span class="n">chalk</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">return</span> <span class="n">i</span><span class="p">;</span> <span class="c1">// 粉筆不夠了，這個學生要補充</span>
+            <span class="n">k</span> <span class="o">-=</span> <span class="n">chalk</span><span class="p">[</span><span class="n">i</span><span class="p">];</span> <span class="c1">// 扣除目前學生的粉筆數</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="c1">// 不會執行到這裡</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div></div>
+<h3 id="時間複雜度-1">時間複雜度</h3>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">accumulate</code> 計算總和：$O(n)$</li>
+  <li><code class="language-plaintext highlighter-rouge">k % total</code>：$O(1)$</li>
+  <li>遍歷找出補充者：$O(n)$</li>
+  <li>總共：$O(n)$</li>
+</ul>
+
+<h2 id="優化前綴和--二分搜尋">優化：前綴和 + 二分搜尋</h2>
+<p>如果 <code class="language-plaintext highlighter-rouge">n</code> 很大，想要更快找到補充粉筆的學生，可以先計算<strong>前綴和</strong>，用 <code class="language-plaintext highlighter-rouge">upper_bound</code> 二分搜尋。</p>
+
+<h3 id="c-優化版">C++ 優化版</h3>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="nl">public:</span>
+    <span class="kt">int</span> <span class="n">chalkReplacer</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">chalk</span><span class="p">,</span> <span class="kt">int</span> <span class="n">k</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">chalk</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+
+        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">long</span><span class="o">&gt;</span> <span class="n">prefixSum</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+        <span class="n">prefixSum</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">chalk</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+            <span class="n">prefixSum</span> <span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">prefixSum</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">chalk</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+        <span class="p">}</span>
+
+        <span class="n">k</span> <span class="o">=</span> <span class="n">k</span><span class="o">%</span><span class="n">prefixSum</span><span class="p">[</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">];</span>
+        <span class="k">return</span> <span class="n">upper_bound</span><span class="p">(</span><span class="n">prefixSum</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">prefixSum</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">k</span><span class="p">)</span><span class="o">-</span><span class="n">prefixSum</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<h3 id="python-優化版"><strong>Python 優化版</strong></h3>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">chalkReplacer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">chalk</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="c1"># 計算前綴和
+</span>        <span class="n">prefix_sum</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">itertools</span><span class="p">.</span><span class="n">accumulate</span><span class="p">(</span><span class="n">chalk</span><span class="p">))</span>  
+        
+        <span class="c1"># 取餘數，去掉完整循環
+</span>        <span class="n">k</span> <span class="o">%=</span> <span class="n">prefix_sum</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        
+        <span class="c1"># 使用 bisect 進行二分搜尋，找第一個 &gt; k 的索引
+</span>        <span class="k">return</span> <span class="n">bisect</span><span class="p">.</span><span class="n">bisect_right</span><span class="p">(</span><span class="n">prefix_sum</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="時間複雜度-2"><strong>時間複雜度</strong></h3>
+<ul>
+  <li><strong>前綴和計算：</strong> $O(n)$</li>
+  <li><strong>取餘數：</strong> $O(1)$</li>
+  <li><strong>二分搜尋：</strong> $O(\log n)$</li>
+  <li><strong>總共：</strong> $O(n + \log n)$</li>
+</ul>
+
+<p>當 <code class="language-plaintext highlighter-rouge">n</code> 很大時，這個方法比原本的 $O(n)$ 遍歷快！</p>
+
+<h2 id="總結">總結</h2>
+<p>如果 <code class="language-plaintext highlighter-rouge">n</code> 不大，用 Python 的方法即可；如果 <code class="language-plaintext highlighter-rouge">n</code> 很大，C++ 版的前綴和 + 二分搜尋會更快！</p>]]></content><author><name></name></author><category term="medium" /><category term="array" /><summary type="html"><![CDATA[1894. Find the Student that Will Replace the Chalk]]></summary></entry><entry><title type="html">[Leetcode解題] 2364. Count Number of Bad Pairs</title><link href="https://www.catxcoder.com/medium/2025/02/09/2364-count-number-of-bad-pairs.html" rel="alternate" type="text/html" title="[Leetcode解題] 2364. Count Number of Bad Pairs" /><published>2025-02-09T00:00:00+00:00</published><updated>2025-02-09T00:00:00+00:00</updated><id>https://www.catxcoder.com/medium/2025/02/09/2364-count-number-of-bad-pairs</id><content type="html" xml:base="https://www.catxcoder.com/medium/2025/02/09/2364-count-number-of-bad-pairs.html"><![CDATA[<h1 id="題目">題目</h1>
+
+<p><a href="https://leetcode.com/problems/count-number-of-bad-pairs/description/?envType=daily-question&amp;envId=2025-02-09">2364. Count Number of Bad Pairs</a></p>
+
+<p>給定一個矩陣，如果矩陣內有符合以下條件的情況，則為一組bad pairs</p>
+
+<p><code class="language-plaintext highlighter-rouge">j - i != nums[j] - nums[i]</code></p>
+
+<p>求總共有幾組bad pairs</p>
+
+<p><!--more--></p>
+
+<h1 id="解題心得">解題心得</h1>
+
+<p>這題我覺得不好想，一開始會覺得，如果要判斷所有的可能並且計數，就不可避免的需要判斷$O(n^2)$次</p>
+
+<p>但如果直接暴力解，會TLE，解法如下：</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">countBadPairs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nums</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="n">j</span> <span class="o">-</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">nums</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">-</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                    <span class="n">cnt</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">if</span> <span class="n">j</span> <span class="o">-</span> <span class="n">nums</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="n">i</span> <span class="o">-</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="n">cnt</span>
+</code></pre></div></div>
+
+<p>我們這邊可以再回顧一下<code class="language-plaintext highlighter-rouge">bad_pairs</code>的算式</p>
+
+<p><code class="language-plaintext highlighter-rouge">j - i != nums[j] - nums[i]</code> 為 bad pairs</p>
+
+<p>換句話說：</p>
+
+<p><code class="language-plaintext highlighter-rouge">j - i == nums[j] - nums[i]</code> 為 good pairs</p>
+
+<p>我們能計算所有可能pairs數為 $C^n_2$，扣除後即可得bad pairs</p>
+
+<p>那這個算式，可以再稍作移項為：</p>
+
+<p><code class="language-plaintext highlighter-rouge">nums[j] - j == nums[i] - i</code></p>
+
+<p>有沒有發現！我們只要將矩陣每一項減去自己的索引，之後判斷哪些值相等，他們即能產生一對good pairs</p>
+
+<p>舉例來說</p>
+
+<p>nums = [4,1,3,3]
+_nums = [4, 0, 2, 0]</p>
+
+<p>經過處理後，我們會發現 <code class="language-plaintext highlighter-rouge">_nums[1] == _nums[3]</code>，可以產生一對good pairs</p>
+
+<p>所以，我們只需要經過一次$O(n)$配合一個<code class="language-plaintext highlighter-rouge">hashmap</code>去計數每個值，如果出現次數大於一次，即可以產生good pairs，產生的數目也可以透過$C^k_2$得到，$k$為出現次數。</p>
+
+<h1 id="程式碼">程式碼</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">countBadPairs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nums</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="n">num_pairs</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)):</span>
+            <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">i</span>
+        
+        <span class="n">counter</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)):</span>
+            <span class="n">counter</span><span class="p">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="n">counter</span><span class="p">[</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">+=</span> <span class="mi">1</span>
+        
+        <span class="n">num_good_pairs</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">counter</span><span class="p">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">v</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">num_good_pairs</span> <span class="o">+=</span> <span class="n">v</span> <span class="o">*</span> <span class="p">(</span><span class="n">v</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+        
+        <span class="k">return</span> <span class="n">num_pairs</span> <span class="o">-</span> <span class="n">num_good_pairs</span>
+</code></pre></div></div>
+
+<h1 id="時間複雜度">時間複雜度</h1>
+
+<p>需後處理一次矩陣$O(n)$，並且計數$O(n)$，以及計算good_pairs$O(n)$</p>
+
+<p>總時間複雜度為$O(n)$</p>]]></content><author><name></name></author><category term="medium" /><category term="array" /><summary type="html"><![CDATA[2364. Count Number of Bad Pairs]]></summary></entry><entry><title type="html">[Leetcode解題] 845. Longest Mountain in Array</title><link href="https://www.catxcoder.com/medium/2025/02/08/845-Longest-Mountain-in-Array.html" rel="alternate" type="text/html" title="[Leetcode解題] 845. Longest Mountain in Array" /><published>2025-02-08T00:00:00+00:00</published><updated>2025-02-08T00:00:00+00:00</updated><id>https://www.catxcoder.com/medium/2025/02/08/845-Longest-Mountain-in-Array</id><content type="html" xml:base="https://www.catxcoder.com/medium/2025/02/08/845-Longest-Mountain-in-Array.html"><![CDATA[<h2 id="題目">題目</h2>
+<p><a href="https://leetcode.com/problems/longest-mountain-in-array">845. Longest Mountain in Array</a>
+一個數列如果滿足 <strong>山脈數列 (mountain array)</strong>的條件，需要滿足下列條件：</p>
+
+<ol>
+  <li>數列長度至少是 3： <code class="language-plaintext highlighter-rouge">arr.length &gt;= 3</code></li>
+  <li>存在一個索引 <code class="language-plaintext highlighter-rouge">i</code> (以 0 為基準，<code class="language-plaintext highlighter-rouge">0 &lt; i &lt; arr.length - 1</code>)，使得：
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">arr[0] &lt; arr[1] &lt; ... &lt; arr[i - 1] &lt; arr[i]</code></li>
+      <li><code class="language-plaintext highlighter-rouge">arr[i] &gt; arr[i + 1] &gt; ... &gt; arr[arr.length - 1]</code></li>
+    </ul>
+  </li>
+</ol>
+
+<p>現在，給你一個數列 <code class="language-plaintext highlighter-rouge">arr</code>，請返回最長山脈子數列的長度。如果沒有山脈子數列，則返回 <code class="language-plaintext highlighter-rouge">0</code>。
+<!--more--></p>
+
+<h2 id="解題思路">解題思路</h2>
+<ol>
+  <li>
+    <p><strong>定義山脈條件</strong>
+要構成一個合法的「山脈」，需要先遞增，然後在達到高峰後遞減。因此我們需要在陣列中找到符合此模式的子區間。</p>
+  </li>
+  <li><strong>雙指針遍歷法</strong>
+使用左右指針進行遍歷，其中：
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">l</code> 指向目前正在考察的山脈的左邊界。</li>
+      <li><code class="language-plaintext highlighter-rouge">dir</code> 記錄方向，0 代表正在遞增，1 代表正在遞減。</li>
+      <li>當前的區間長度則是右指針 <code class="language-plaintext highlighter-rouge">r</code> 與左指針 <code class="language-plaintext highlighter-rouge">l</code> 的差值。</li>
+    </ul>
+  </li>
+  <li>**重置條件
+在以下情況下需要重新重置左邊界指針 <code class="language-plaintext highlighter-rouge">l</code>：
+    <ul>
+      <li>當兩個相鄰元素相等時，無法構成山脈，直接重置。</li>
+      <li>當遞增段沒有接上遞減段時，則需要將左邊界移動到當前位置，繼續搜索。</li>
+    </ul>
+  </li>
+  <li><strong>更新最長山脈長度</strong>
+在找到合法山脈區間後，更新最大長度。</li>
+</ol>
+
+<h2 id="python-實作"><strong>Python 實作</strong></h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">longestMountain</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arr</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="n">l</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># 左邊界指針
+</span>        <span class="nb">dir</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># 方向 0: 遞增中, 1: 遞減中
+</span>        <span class="n">max_len</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># 紀錄最長山脈長度
+</span>
+        <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="n">idx</span><span class="p">):</span>
+            <span class="k">nonlocal</span> <span class="n">l</span><span class="p">,</span> <span class="nb">dir</span>
+            <span class="n">l</span> <span class="o">=</span> <span class="n">idx</span>
+            <span class="nb">dir</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># 重置方向為遞增
+</span>
+        <span class="c1"># 開始遍歷陣列
+</span>        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">arr</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">arr</span><span class="p">[</span><span class="n">r</span><span class="p">]</span> <span class="o">==</span> <span class="n">arr</span><span class="p">[</span><span class="n">r</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]:</span>  <span class="c1"># 相鄰元素相等，無法構成山脈
+</span>                <span class="n">reset</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">l</span> <span class="o">==</span> <span class="n">r</span> <span class="o">-</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">arr</span><span class="p">[</span><span class="n">r</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">arr</span><span class="p">[</span><span class="n">r</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]:</span>  <span class="c1"># 一開始就遞減，不算山脈
+</span>                <span class="n">reset</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">dir</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">arr</span><span class="p">[</span><span class="n">r</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">arr</span><span class="p">[</span><span class="n">r</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]:</span>  <span class="c1"># 進入遞減段
+</span>                <span class="nb">dir</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="k">elif</span> <span class="nb">dir</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">arr</span><span class="p">[</span><span class="n">r</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">arr</span><span class="p">[</span><span class="n">r</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]:</span>  <span class="c1"># 遞減後又遞增，無法構成山脈
+</span>                <span class="n">reset</span><span class="p">(</span><span class="n">r</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+            
+            <span class="k">if</span> <span class="nb">dir</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>  <span class="c1"># 如果正在遞減段，計算山脈長度
+</span>                <span class="n">max_len</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">max_len</span><span class="p">,</span> <span class="n">r</span> <span class="o">-</span> <span class="n">l</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">max_len</span>
+</code></pre></div></div>
+
+<h2 id="c實作">C++實作</h2>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="nl">public:</span>
+    <span class="kt">int</span> <span class="n">longestMountain</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">arr</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">l</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">dir</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>  <span class="c1">// 0 表示上升階段，1 表示下降階段</span>
+        <span class="k">auto</span> <span class="n">reset</span> <span class="o">=</span> <span class="p">[</span><span class="o">&amp;</span><span class="p">](</span><span class="kt">int</span> <span class="n">idx</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">dir</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>  <span class="c1">// 重置為上升階段</span>
+            <span class="n">l</span> <span class="o">=</span> <span class="n">idx</span><span class="p">;</span>  <span class="c1">// 更新左邊界</span>
+        <span class="p">};</span>
+
+        <span class="kt">int</span> <span class="n">len</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">r</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">r</span> <span class="o">&lt;</span> <span class="n">arr</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">r</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="n">r</span><span class="p">]</span> <span class="o">==</span> <span class="n">arr</span><span class="p">[</span><span class="n">r</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>  <span class="c1">// 平坦區域，重置起點</span>
+                <span class="n">reset</span><span class="p">(</span><span class="n">r</span><span class="p">);</span>
+            <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">l</span> <span class="o">==</span> <span class="n">r</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">arr</span><span class="p">[</span><span class="n">r</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">arr</span><span class="p">[</span><span class="n">r</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>  <span class="c1">// 一開始就下降，重置</span>
+                <span class="n">reset</span><span class="p">(</span><span class="n">r</span><span class="p">);</span>
+            <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">dir</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">arr</span><span class="p">[</span><span class="n">r</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">arr</span><span class="p">[</span><span class="n">r</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>  <span class="c1">// 開始下降</span>
+                <span class="n">dir</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+            <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">dir</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">arr</span><span class="p">[</span><span class="n">r</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">arr</span><span class="p">[</span><span class="n">r</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>  <span class="c1">// 在下降後又上升，重置</span>
+                <span class="n">reset</span><span class="p">(</span><span class="n">r</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+
+            <span class="k">if</span> <span class="p">(</span><span class="n">dir</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1">// 如果處於下降階段，計算山型長度</span>
+                <span class="n">len</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">len</span><span class="p">,</span> <span class="n">r</span> <span class="o">-</span> <span class="n">l</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="n">len</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<h2 id="時間複雜度分析"><strong>時間複雜度分析</strong></h2>
+<ul>
+  <li><strong>時間複雜度：$O(n)$</strong>
+    <ul>
+      <li>每個元素僅被遍歷一次，因此時間複雜度為 $O(n)$，其中 $n$ 是陣列的長度。</li>
+    </ul>
+  </li>
+  <li><strong>空間複雜度：$O(1)$</strong>
+    <ul>
+      <li>只使用常數倍外空間來儲存變數，因此空間複雜度為$O(1)$。</li>
+    </ul>
+  </li>
+</ul>]]></content><author><name></name></author><category term="medium" /><category term="two-pointer" /><summary type="html"><![CDATA[845. Longest Mountain in Array]]></summary></entry><entry><title type="html">[Leetcode解題] 1400. Construct K Palindrome Strings</title><link href="https://www.catxcoder.com/medium/2025/01/11/1400-construct-k-palindrome-strings.html" rel="alternate" type="text/html" title="[Leetcode解題] 1400. Construct K Palindrome Strings" /><published>2025-01-11T00:00:00+00:00</published><updated>2025-01-11T00:00:00+00:00</updated><id>https://www.catxcoder.com/medium/2025/01/11/1400-construct-k-palindrome-strings</id><content type="html" xml:base="https://www.catxcoder.com/medium/2025/01/11/1400-construct-k-palindrome-strings.html"><![CDATA[<h1 id="題目">題目</h1>
+
+<p><a href="https://leetcode.com/problems/construct-k-palindrome-strings/description/?envType=daily-question&amp;envId=2025-01-11">1400. Construct K Palindrome Strings</a></p>
+
+<p>這題給定一個字串，以及一個數字k，求能不能將字串切成k組，並且各組皆為回文字串</p>
+
+<!--more-->
+
+<h1 id="解題思路">解題思路</h1>
+
+<p>這題我們可以數每個字元出現的次數，因為我們要特別注意的只有出現奇數次的狀況，如果出現奇數次字母的次數大於k的話，那麼一定無法滿足需求。</p>
+
+<p>另外，如果k比字串長度大的話，也無法滿足需求，這兩個狀況都相當直覺。</p>
+
+<p>那我們來想反面，為什麼只要奇數次字母的次數小於等於k的話，就一定能找到相符的組合。</p>
+
+<p>首先，我們先考慮等於的狀況，等於的狀況，其實就是將每個字母單獨拆開，所以必定可以。</p>
+
+<p>而小於的狀況，我們可以先把所有奇數次的字母，假設有m個，單獨拆開為一組，而剩下所有為出現偶數次的字母，可以以任意方式組成剩下(k-m)個回文字串。</p>
+
+<h1 id="程式碼">程式碼</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">canConstruct</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">k</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">False</span>
+        <span class="n">count</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">s</span><span class="p">:</span>
+            <span class="n">count</span><span class="p">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="n">count</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="n">num_of_odds</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">count</span><span class="p">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">v</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">num_of_odds</span> <span class="o">+=</span> <span class="mi">1</span>
+        
+        <span class="k">if</span> <span class="n">num_of_odds</span> <span class="o">&lt;=</span> <span class="n">k</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">return</span> <span class="bp">False</span>
+</code></pre></div></div>
+
+<h1 id="時間複雜度">時間複雜度</h1>
+
+<p>$O(n)$</p>]]></content><author><name></name></author><category term="medium" /><category term="string" /><category term="greedy" /><category term="hashmap" /><summary type="html"><![CDATA[1400. Construct K Palindrome Strings]]></summary></entry><entry><title type="html">[Leetcode解題] 278. First Bad Version</title><link href="https://www.catxcoder.com/easy/2025/01/11/278-First-Bad-Version.html" rel="alternate" type="text/html" title="[Leetcode解題] 278. First Bad Version" /><published>2025-01-11T00:00:00+00:00</published><updated>2025-01-11T00:00:00+00:00</updated><id>https://www.catxcoder.com/easy/2025/01/11/278-First%20Bad%20Version</id><content type="html" xml:base="https://www.catxcoder.com/easy/2025/01/11/278-First-Bad-Version.html"><![CDATA[<h2 id="題目">題目</h2>
+<p><a href="https://leetcode.com/problems/first-bad-version/">278. First Bad Version</a>
+你是一名產品經理，正在帶領一個團隊開發新產品。不幸的是，最新版本的產品在質量檢查中失敗了。由於每一個版本都是基於上一個版本開發的，因此所有之後的版本也都是壞的。</p>
+
+<p>提供一個統一的 API <code class="language-plaintext highlighter-rouge">bool isBadVersion(version)</code>，該函數會判斷指定版本是否是壞的。</p>
+
+<p>請寫一個函數，用來找出第一個壞的版本，以保證呼叫 API 的次數最少。
+<!--more--></p>
+
+<h2 id="解題思路">解題思路</h2>
+<p>這題其實就是個經典的 <strong>二分搜尋</strong> 問題。因為題目已經告訴我們壞版本有個「一旦壞了後面都壞」的特性，所以我們可以用二分搜尋的方式快速解決。</p>
+
+<ol>
+  <li>
+    <p>初始化範圍：</p>
+
+    <ul>
+      <li>我們用 <code class="language-plaintext highlighter-rouge">l</code> 表示最小的版本，<code class="language-plaintext highlighter-rouge">r</code> 表示最大的版本。</li>
+    </ul>
+  </li>
+  <li>
+    <p>二分搜尋邏輯：</p>
+
+    <ul>
+      <li>
+        <p>計算中間值 <code class="language-plaintext highlighter-rouge">mid = l + (r - l) / 2</code>。</p>
+      </li>
+      <li>
+        <p>用 <code class="language-plaintext highlighter-rouge">isBadVersion(mid)</code> 判斷是不是壞版本：</p>
+
+        <ul>
+          <li>
+            <p>如果是壞的，那說明壞版本可能在更左邊，所以把右邊界調整到 mid。</p>
+          </li>
+          <li>
+            <p>如果不是壞的，那就去右邊找，把左邊界調整到 <code class="language-plaintext highlighter-rouge">mid + 1</code>。</p>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>結束條件</strong>:</p>
+    <ul>
+      <li>當 <code class="language-plaintext highlighter-rouge">l == r</code> 時，就是第一個壞版本。</li>
+    </ul>
+  </li>
+</ol>
+
+<h2 id="python-實作">Python 實作</h2>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># The API isBadVersion is defined for you.
+# def isBadVersion(version: int) -&gt; bool
+</span>
+<span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">firstBadVersion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="n">l</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n</span>
+        <span class="k">while</span> <span class="n">l</span> <span class="o">&lt;</span> <span class="n">r</span><span class="p">:</span>
+            <span class="n">mid</span> <span class="o">=</span> <span class="n">l</span> <span class="o">+</span> <span class="p">(</span><span class="n">r</span> <span class="o">-</span> <span class="n">l</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+            <span class="k">if</span> <span class="n">isBadVersion</span><span class="p">(</span><span class="n">mid</span><span class="p">):</span>
+                <span class="n">r</span> <span class="o">=</span> <span class="n">mid</span>  <span class="c1"># 壞版本在左半部分
+</span>            <span class="k">else</span><span class="p">:</span>
+                <span class="n">l</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span>  <span class="c1"># 壞版本在右半部分
+</span>        <span class="k">return</span> <span class="n">l</span>
+</code></pre></div></div>
+
+<h2 id="c-實作">C++ 實作</h2>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// The API isBadVersion is defined for you.</span>
+<span class="c1">// bool isBadVersion(int version);</span>
+
+<span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="nl">public:</span>
+    <span class="kt">int</span> <span class="n">firstBadVersion</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">l</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">len</span> <span class="o">=</span> <span class="n">n</span><span class="p">;</span>
+
+        <span class="c1">//lower_bound</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">len</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">){</span>
+            <span class="kt">int</span> <span class="n">step</span> <span class="o">=</span> <span class="n">len</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span>
+            <span class="kt">int</span> <span class="n">mid</span> <span class="o">=</span> <span class="n">l</span><span class="o">+</span> <span class="n">step</span><span class="p">;</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">isBadVersion</span><span class="p">(</span><span class="n">mid</span><span class="p">))</span> <span class="n">len</span> <span class="o">=</span> <span class="n">step</span><span class="p">;</span>
+            <span class="k">else</span> <span class="p">{</span> <span class="n">l</span> <span class="o">=</span> <span class="n">mid</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span> <span class="n">len</span> <span class="o">-=</span> <span class="n">step</span><span class="o">+</span><span class="mi">1</span><span class="p">;}</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">l</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<h2 id="計算複雜度">計算複雜度</h2>
+<ul>
+  <li><strong>時間複雜度</strong>: $O(log(n))$
+    <ul>
+      <li>每次搜尋都把範圍縮小一半，所以是對數級別的。</li>
+    </ul>
+  </li>
+  <li><strong>空間複雜度</strong>: $O(1)$
+    <ul>
+      <li>我們只用了幾個變數來記錄範圍，沒有額外開什麼資料結構。</li>
+    </ul>
+  </li>
+</ul>]]></content><author><name></name></author><category term="easy" /><category term="binary-search" /><summary type="html"><![CDATA[278. First Bad Version]]></summary></entry></feed>
