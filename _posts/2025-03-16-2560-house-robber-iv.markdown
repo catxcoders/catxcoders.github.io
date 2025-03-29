@@ -8,8 +8,6 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
-# 2560. House Robber IV
-
 [2560. House Robber IV](https://leetcode.com/problems/house-robber-iv/description/)
 
 <!--more-->
