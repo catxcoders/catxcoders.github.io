@@ -15,7 +15,7 @@ excerpt_separator: <!--more-->
 給你兩個長度相同的整數矩陣`target`和`arr`。在一步操作中，你可以選擇`arr`的任意非空子矩陣(non-empty subarry)並將其反轉。你可以進行任意次數的操作。
 
 如果你能使`arr`變得與`target`相等，返回`true`否則返回`false`。
-
+<!--more-->
 ## 解題思路
 
 其實我們只需要使用一個dict來記錄所有元素及其數量，只要兩個矩陣元素及元素數量相等，就會是True，但前提是，能透過`reverse subarray`來移動任意元素到正確位置。
