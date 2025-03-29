@@ -13,7 +13,8 @@ excerpt_separator: <!--more-->
 [641. Design Circular Deque](https://leetcode.com/problems/design-circular-deque/)
 
 這題應該就是要我們設計一個deque，注意每個operation都要是 $O(1)$
-
+ <!--more-->
+ 
 # 解題思路
 
 這題我們使用雙指針來記錄，一個head一個tail，當我們往前插入，head就往左移動一格，往後插入，tail。
