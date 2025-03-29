@@ -8,13 +8,12 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
-[2460. Apply Operations to an Array](https://leetcode.com/problems/apply-operations-to-an-array/description)
-
 # 題目
-
+[2460. Apply Operations to an Array](https://leetcode.com/problems/apply-operations-to-an-array/description)
 這題給定一個矩陣，要求做$n-1$次的操作，每次操作會判斷`nums[i]==nums[i+1]`，如果相等的話，就要進行`nums[i]*2, nums[i+1]=0`，並且最後回傳的矩陣，要把零都往後推。
 
 舉例來說，給定矩陣為`[1,2,2,1,1,0]`的話，最後要回傳`[1,4,2,0,0,0]`
+<!--more-->
 
 # 解題思路
 
