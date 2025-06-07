@@ -1,9 +1,9 @@
 ---
 layout: article_post
-title:  "[Leetcode解題] 2302. Count Subarrays With Score Less Than K"
-description:  "2302. Count Subarrays With Score Less Than K"
-categories: hard
-tags: two-pointer
+title:  "[Leetcode解題] 3309. Maximum Possible Number by Binary Concatenation"
+description:  "3309. Maximum Possible Number by Binary Concatenation"
+categories: medium
+tags: bit-manipulation
 langs: python
 excerpt_separator: <!--more-->
 ---
