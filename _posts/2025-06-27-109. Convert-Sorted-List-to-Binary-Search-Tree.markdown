@@ -1,0 +1,86 @@
+---
+layout: article_post
+title:  "[Leetcode解題] 109. Convert Sorted List to Binary Search Tree"
+description:  "109. Convert Sorted List to Binary Search Tree"
+categories: medium
+tags: binary-search-tree
+langs: python
+excerpt_separator: <!--more-->
+---
+
+## 題目
+[109. Convert Sorted List to Binary Search Tree](https://leetcode.com/problems/convert-sorted-list-to-binary-search-tree/)
+給定一個**升序排列**的**單向鏈結串列**，請將其轉換成一棵**高度平衡的二元搜尋樹（BST）**。
+
+* 高度平衡：每個節點的左右子樹高度差最多為 1。
+* 每個節點的值要保持 BST 的性質，即左小右大。
+<!--more-->
+
+## 解題思路
+
+這題的核心是：**利用快慢指標（Fast & Slow Pointers）尋找中間節點**，作為子樹的根節點。
+
+### 步驟如下：
+
+1. **使用快慢指標找中間節點**：
+   * `slow` 每次走一步，`fast` 每次走兩步。
+   * 當 `fast` 或 `fast->next` 為空時，`slow` 剛好在中間。
+   * 中間節點作為當前 BST 子樹的根節點。
+
+2. **遞迴地對左右子串進行建樹**：
+   * 把中間節點之前的鏈結視為左子樹。
+   * 中間節點之後的鏈結視為右子樹。
+
+3. **特別處理斷開鏈結**：
+   * 需要在中間節點前一個節點將 `next` 設為 `None`，避免遞迴時重複使用。
+
+## Python 實作
+
+```python
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def sortedListToBST(self, head: Optional[ListNode]) -> Optional[TreeNode]:
+        if not head:
+            return None
+        if not head.next:
+            return TreeNode(head.val)
+
+        # 使用快慢指標找中間節點
+        slow = head
+        fast = head
+        prev = None  # 用來記錄 slow 的前一個節點
+
+        while fast and fast.next:
+            prev = slow
+            slow = slow.next
+            fast = fast.next.next
+
+        prev.next = None
+
+        # slow 是中間節點
+        root = TreeNode(slow.val)
+        root.left = self.sortedListToBST(head)
+        root.right = self.sortedListToBST(slow.next)
+
+        return root
+```
+
+## 時間與空間複雜度分析
+
+### 時間複雜度：$O(n log n)$
+* 每層遞迴需掃過 $O(n)$ 節點來找中間節點。
+* 遞迴深度為 $O(log(n))$，因為每次都取中間。
+* 所以總時間為 $O(n log(n))$。
+
+### 空間複雜度：$O(log(n))$
+* 呼叫stack最深為 $log(n)$ 層（平衡二元樹的高度）。
