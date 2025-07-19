@@ -3,14 +3,12 @@ layout: article_post
 title:  "[Leetcode解題] 138. Copy List with Random Pointer"
 description:  "138. Copy List with Random Pointer"
 categories: medium
-tags: hashTable
+tags: hashmap linked-list
 langs: python
 excerpt_separator: <!--more-->
 ---
 
-## 138. Copy List with Random Pointer
-
-### 題目
+## 題目
 [138. Copy List with Random Pointer](https://leetcode.com/problems/copy-list-with-random-pointer/)
 給你一個 **含有 random 指標的鏈結串列 (Linked List)**，每個節點除了 `next` 還多了一個 `random`，可以指到串列裡的任意節點，或者是 `null`。
 
@@ -21,7 +19,7 @@ excerpt_separator: <!--more-->
 * 絕對不能讓新串列的指標指到舊串列的節點。
 
 
-### 解題思路
+## 解題思路
 
 這題有兩種常見做法：
 
@@ -41,7 +39,7 @@ excerpt_separator: <!--more-->
 空間省，但比較不好懂。
 
 
-### **Hash Map 版本** C++ 實作
+## **Hash Map 版本** C++ 實作
 ```cpp
 /*
 // Definition for a Node.
@@ -87,7 +85,7 @@ public:
 ```
 
 
-### **Hash Map 版本** Python 實作
+## **Hash Map 版本** Python 實作
 ```python
 """
 # Definition for a Node.
@@ -122,7 +120,7 @@ class Solution:
 ```
 
 
-### 新舊穿插的 C++ 做法
+## 新舊穿插的 C++ 做法
 
 ```cpp
 /*
@@ -179,7 +177,7 @@ public:
 };
 ```
 
-### 新舊穿插的 Python 做法
+## 新舊穿插的 Python 做法
 ```python
 """
 # Definition for a Node.
@@ -222,12 +220,12 @@ class Solution:
         return new_head
 ```
 
-### 複雜度分析
+## 複雜度分析
 
-#### Hash Map 版本
+### Hash Map 版本
 * 時間：$O(n)$
 * 空間：$O(n)$ （Hash Map 存對應關係）
 
-#### 新舊穿插的做法
+### 新舊穿插的做法
 * 時間：$O(n)$ （還是走兩遍）
 * 空間：$O(1)$ （沒額外用 Map）
