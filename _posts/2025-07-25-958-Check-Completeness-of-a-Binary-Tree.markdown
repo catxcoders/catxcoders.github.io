@@ -8,7 +8,7 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
-## 題目說明
+## 題目
 [958. Check Completeness of a Binary Tree](https://leetcode.com/problems/check-completeness-of-a-binary-tree/)
 給定一個二元樹的根節點 `root`，判斷這棵樹是否為**完全二元樹** (Complete Binary Tree)。
 <!--more-->
