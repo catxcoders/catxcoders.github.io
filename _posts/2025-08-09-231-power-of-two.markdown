@@ -1,0 +1,79 @@
+---
+layout: article_post
+title:  "[Leetcode解題] 231. Power of Two"
+description:  "231. Power of Two"
+categories: medium
+tags: resursion bit-operation 
+langs: python
+excerpt_separator: <!--more-->
+---
+
+# 231. Power of Two
+
+## 題目
+
+[231. Power of Two](https://leetcode.com/problems/power-of-two/description/?envType=daily-question&envId=2025-08-09)，給定一個int，判定它是不是2的次方數
+
+ <!--more-->
+
+## 解題思路
+
+這題看似一個很簡單的題目，但我們卻可以複習到蠻多觀念的，大家看下去之前，可以先一起思考有哪些可能的方法
+
+### 遞迴
+
+最直覺的方法，就是使用遞迴，我們只要不斷的判斷餘數，如果餘數不為0且不等於1的情況，就代表非2的次方數
+
+```python
+class Solution:
+    def isPowerOfTwo(self, n: int) -> bool:
+        if n < 1:
+            return False
+        while n % 2 == 0:
+            n = n / 2
+        return n == 1
+```
+
+所以我們只需用一個while迴圈，不斷判斷並/2，如果最後不是1，就是False
+
+### bit operation
+
+我們發現，其實我們要找到2平方數，它一定是只有一個bit是1其餘為0的狀況
+
+所以如果我們能判斷這種特殊狀況，就可以快速得解
+
+我們可以透過判斷 x & (x-1)，如果 == 0就代表是2的平方數，反之則不是
+
+為什麼呢？
+
+比如8，二進位表示是`1000`，-1之後為`0111`，所以做完AND操作後為`0000`
+
+如果今天是一個非2的平方數比如7，二進位表示是`0111`，-1之後為`0110`，所以做完AND操作後為`0110`
+
+只有在剛好一個1的情況下才會是0
+
+
+```python
+class Solution:
+    def isPowerOfTwo(self, n: int) -> bool:
+        if n < 1:
+            return False
+        return n & n-1 == 0
+```
+
+### pop_count
+
+我們後來發現，其實CPU底層有一種特殊的operation，就是在計算bit的數量，所以這樣做會更快
+
+```python
+class Solution:
+    def isPowerOfTwo(self, n: int) -> bool:
+        if n < 1:
+            return False
+        return n.bit_count() == 1 
+```
+
+
+## 時間複雜度
+
+如果是透過pop_count跟bit operation，時間複雜度為$O(1)$
