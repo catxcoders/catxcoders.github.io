@@ -1,0 +1,96 @@
+---
+layout: article_post
+title:  "[Leetcode解題] 155. Min Stack"
+description:  "155. Min Stack"
+categories: medium
+tags: stack
+langs: python
+excerpt_separator: <!--more-->
+---
+
+## 題目說明
+[155. Min Stack](https://leetcode.com/problems/min-stack/)
+設計一個支援以下操作且**每個操作皆為 O(1)** 的stack：
+
+* `push(x)`: 把元素 `x` 推入stack
+* `pop()`: 移除stack頂端元素
+* `top()`: 回傳stack頂端元素
+* `getMin()`: 取得目前stack中的**最小值**
+ <!--more-->
+
+## 解題思路（兩個stack）
+
+核心想法：除了主stack `st` 存放所有元素外，再維護一個**最小值輔助stack** `minSt`。
+
+* `push(val)`:
+
+  * 將 `val` 推入 `st`
+  * 若 `minSt` 為空或 `val <= minSt.top()`，也把 `val` 推入 `minSt`
+* `pop()`:
+
+  * 若 `st.top() == minSt.top()`，同步從 `minSt` pop
+  * 再從 `st` pop
+* `top()`: 回傳 `st.top()`
+* `getMin()`: 回傳 `minSt.top()`（即當前最小值）
+
+`minSt` 只在「遇到新的更小或相等的值」時紀錄一次；當該最小值被彈出時，`minSt` 也同步彈出，故 `minSt.top()` 永遠是目前stack內的最小值。
+
+> 小提醒：推入時用 `<=`（而非 `<`），可正確處理**重複最小值**的計數與出棧同步。
+
+
+## Python 實作
+```python
+class MinStack:
+    def __init__(self):
+        self.st = []
+        self.minSt = []
+
+    def push(self, val: int) -> None:
+        self.st.append(val)
+        if not self.minSt or val <= self.minSt[-1]:
+            self.minSt.append(val)
+
+    def pop(self) -> None:
+        if self.st and self.st[-1] == self.minSt[-1]:
+            self.minSt.pop()
+        self.st.pop()
+
+    def top(self) -> int:
+        return self.st[-1]
+
+    def getMin(self) -> int:
+        return self.minSt[-1]
+```
+
+## C++ 實作
+```cpp
+class MinStack {
+public:
+    MinStack() {}
+
+    void push(int val) {
+        st.push(val);
+        if (minSt.empty() || val <= minSt.top()) minSt.push(val);
+    }
+
+    void pop() {
+        if (st.top() == minSt.top()) minSt.pop();
+        st.pop();
+    }
+
+    int top() {
+        return st.top();
+    }
+
+    int getMin() {
+        return minSt.top();
+    }
+
+private:
+    stack<int> st, minSt;
+};
+```
+
+## 複雜度分析
+* **時間複雜度**：`push` / `pop` / `top` / `getMin` 皆為 **O(1)**
+* **空間複雜度**：最壞情況（嚴格遞減推入）`minSt` 會存放每個元素，所以是 **O(n)**
