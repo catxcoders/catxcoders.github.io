@@ -3,7 +3,7 @@ layout: article_post
 title:  "[Leetcode解題] 1895. Largest Magic Square"
 description:  "1895. Largest Magic Square"
 categories: medium
-tags: array
+tags: array preSum
 langs: python
 excerpt_separator: <!--more-->
 ---
