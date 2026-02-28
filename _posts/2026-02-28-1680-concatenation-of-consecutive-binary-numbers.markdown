@@ -8,7 +8,7 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
-# 911. Online Election
+# 1680. Concatenation of Consecutive Binary Numbers
 
 ## 題目
 [1680. Concatenation of Consecutive Binary Numbers](https://leetcode.com/problems/concatenation-of-consecutive-binary-numbers/description/)
