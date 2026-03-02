@@ -1,0 +1,1506 @@
+<!-- OK -->
+
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="utf-8">
+	<link rel="icon" type="image/x-icon" href="/res/catxcoder.ico">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<meta name="description" content="" />
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<!-- My CSS -->
+<link href="/res/css/common.css" rel="stylesheet">
+
+	</head>
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-MHQH8LKZYV"></script>
+	<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+
+	gtag('config', 'G-MHQH8LKZYV');
+	</script>
+	<body>		
+				<!-- JQeury -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+    
+	<!-- Font Awesome -->
+	<!--<script defer src="https://use.fontawesome.com/releases/v6.4.2/js/all.js" integrity="	sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe" crossorigin="anonymous"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" integrity="sha512-uKQ39gEGiyUJl4AI6L+ekBdGKpGw4xJ55+xyJG7YFlJokPNYegn9KwQ3P8A7aFQAUtUsAQHep+d/lrGqrbPIDQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<!-- support MathJax -->
+	<style TYPE="text/css">
+	code.has-jax {font: inherit; font-size: 100%; background: inherit; border: inherit;}
+	</style>
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	    tex2jax: {
+	        inlineMath: [['$','$'], ['\\(','\\)']],
+	        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'] // removed 'code' entry
+	    }
+	});
+	MathJax.Hub.Queue(function() {
+	    var all = MathJax.Hub.getAllJax(), i;
+	    for(i = 0; i < all.length; i += 1) {
+	        all[i].SourceElement().parentNode.className += ' has-jax';
+	    }
+	});
+	</script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<!-- A patch to fix mathjax -->
+<!-- https://github.com/mathjax/MathJax/issues/1737 -->
+	<script type="text/x-mathjax-config">
+if (MathJax.Hub.Browser.isSafari && parseInt(MathJax.Hub.Browser.webkit) >= 603) {
+  MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready", function () {
+    var HTMLCSS = MathJax.OutputJax["HTML-CSS"];
+    var MML = MathJax.ElementJax.mml;
+    var toHTML = MML.mo.prototype.toHTML;
+    MML.mo.Augment({
+      toHTML: function (span) {
+        span = toHTML.call(this,span);
+        if (span.bbox.w === 0 && span.bbox.lw < 0 && span.firstChild) {
+          span.style.marginLeft = HTMLCSS.Em(span.bbox.lw);
+        }
+        return span;
+      }
+    });
+  });
+}
+</script>
+
+		<header>
+			<!-- OK -->
+
+<div class="container">
+  <nav class="navbar navbar-expand-lg navbar-default nav-color" >
+    <a href="/index.html">
+      <img src="/res/catxcoder.ico" class="img-fluid" style="width: 32px; margin-right: 10px;">
+    </a>
+    <a class="navbar-item" href="/index.html">
+      刷題貓
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span><i class="fas fa-bars" ></i></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <ul class="navbar-nav ml-auto navbar-right">
+          <li class="nav-item">
+             <a class="nav-link" href="/index.html">首頁</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/posts/categories">難度</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/posts/algorithms">演算法</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/works">主題式</a>
+          </li>
+        </ul>
+    </div>
+  </nav>
+</div>
+
+		</header>
+		<main>
+			<!-- OK -->
+
+<div class="container-fluid text-center bg-color">
+	<div class="row bg-icon">
+		<div class="col-md-2 col-sm-0">
+
+		</div>
+		<div class="view-home col-md-8 col-sm-12 post-home-color">
+			
+	<!-- OK -->
+
+<div class="post-view-color post-view-window">
+	<!-- title -->
+	<a href="/hard/2025/10/17/330-Patching-Array.html">
+	<div class="post-view-title text-left" >
+		<p>[Leetcode解題] 330. Patching Array</p>
+	</div>
+	
+	<!-- date -->
+	<div class="post-view-date">
+			17 October 2025
+	</div>
+	</a>
+
+	<!-- tags -->
+	<div class="post-view-tags">
+    
+		
+	</div>
+	<hr>
+
+	<!-- excerpt -->
+	<div class="post-view-excerpt text-left">
+		<p>
+			<h2 id="題目">題目</h2>
+<p><a href="https://leetcode.com/problems/patching-array">330. Patching Array</a>
+給定一個已排序的整數陣列 nums 與一個整數 n。你可以在陣列中新增（patch）一些正整數，使得區間 [1, n] 內的每個數都能被陣列中某些元素的和表示。
+請回傳最少需要新增的元素個數。</p>
+
+		</p>
+	</div>		
+	<hr>
+
+	<!-- Read Button -->
+	<a href="/hard/2025/10/17/330-Patching-Array.html">
+	<div class="post-view-readmore text-center">
+		<i class="fab fa-readme fa-2x"></i>
+	</div>
+	</a>
+</div>
+
+
+	<!-- OK -->
+
+<div class="post-view-color post-view-window">
+	<!-- title -->
+	<a href="/hard/2025/07/27/3480-maximize-subarrays-after-removing-one-conflicting-pair.html">
+	<div class="post-view-title text-left" >
+		<p>[Leetcode解題] 3480. Maximize Subarrays After Removing One Conflicting Pair</p>
+	</div>
+	
+	<!-- date -->
+	<div class="post-view-date">
+			27 July 2025
+	</div>
+	</a>
+
+	<!-- tags -->
+	<div class="post-view-tags">
+    
+		
+	</div>
+	<hr>
+
+	<!-- excerpt -->
+	<div class="post-view-excerpt text-left">
+		<p>
+			<h2 id="題目">題目</h2>
+<p><a href="https://leetcode.com/problems/maximize-subarrays-after-removing-one-conflicting-pair/description/?envType=daily-question&amp;envId=2025-07-26">3480. Maximize Subarrays After Removing One Conflicting Pair</a></p>
+
+<p>給定一個正整數n，表示一個從1到n的數列，另給一個conflictingPairs，裡面每個元素包含兩個數字a_i跟b_i，題目所求的subarray不能同時包含a_i跟b_i對於任意的i</p>
+
+<p>另外，題目所求的是，今天若刪除conflictingPairs中的某一個pair，能得到的最多的subarray為何？</p>
+
+
+		</p>
+	</div>		
+	<hr>
+
+	<!-- Read Button -->
+	<a href="/hard/2025/07/27/3480-maximize-subarrays-after-removing-one-conflicting-pair.html">
+	<div class="post-view-readmore text-center">
+		<i class="fab fa-readme fa-2x"></i>
+	</div>
+	</a>
+</div>
+
+
+	<!-- OK -->
+
+<div class="post-view-color post-view-window">
+	<!-- title -->
+	<a href="/hard/2025/07/13/1990-the-earliest-and-latest-rounds-where-players-compete.html">
+	<div class="post-view-title text-left" >
+		<p>[Leetcode解題] 1900. The Earliest and Latest Rounds Where Players Compete</p>
+	</div>
+	
+	<!-- date -->
+	<div class="post-view-date">
+			13 July 2025
+	</div>
+	</a>
+
+	<!-- tags -->
+	<div class="post-view-tags">
+    
+		
+	</div>
+	<hr>
+
+	<!-- excerpt -->
+	<div class="post-view-excerpt text-left">
+		<p>
+			<h2 id="題目">題目</h2>
+<p><a href="https://leetcode.com/problems/the-earliest-and-latest-rounds-where-players-compete/">1900. The Earliest and Latest Rounds Where Players Compete</a></p>
+
+<p>這是一個有 n 個玩家的淘汰賽。玩家們一開始會排成一列，編號從 1 到 n。每回合的比賽方式是：隊伍最前面的玩家會和隊伍最後面的玩家對戰，第二個玩家和倒數第二個玩家對戰，以此類推。如果玩家數量是奇數，中間的玩家會自動晉級到下一回合。每回合結束後，晉級的玩家會依照他們最初的編號順序重新排好。</p>
+
+<p>題目中說，firstPlayer 和 secondPlayer 是最強的玩家，他們能擊敗其他所有玩家，直到他們兩個互相對戰。而其他玩家之間的對戰結果，你可以自由決定。</p>
+
+<p>現在，給你總玩家數 n，firstPlayer 和 secondPlayer 的編號，請回傳一個包含兩個數字的陣列，分別代表這兩位最強玩家「最早」和「最晚」可能在哪個回合中對戰。</p>
+
+
+		</p>
+	</div>		
+	<hr>
+
+	<!-- Read Button -->
+	<a href="/hard/2025/07/13/1990-the-earliest-and-latest-rounds-where-players-compete.html">
+	<div class="post-view-readmore text-center">
+		<i class="fab fa-readme fa-2x"></i>
+	</div>
+	</a>
+</div>
+
+
+	<!-- OK -->
+
+<div class="post-view-color post-view-window">
+	<!-- title -->
+	<a href="/hard/2025/05/30/2302-Count-Subarrays-With-Score-Less-Than-K.html">
+	<div class="post-view-title text-left" >
+		<p>[Leetcode解題] 2302. Count Subarrays With Score Less Than K</p>
+	</div>
+	
+	<!-- date -->
+	<div class="post-view-date">
+			30 May 2025
+	</div>
+	</a>
+
+	<!-- tags -->
+	<div class="post-view-tags">
+    
+		
+	</div>
+	<hr>
+
+	<!-- excerpt -->
+	<div class="post-view-excerpt text-left">
+		<p>
+			<h2 id="題目說明">題目說明：</h2>
+<p><a href="https://leetcode.com/problems/count-subarrays-with-score-less-than-k">2302. Count Subarrays With Score Less Than K</a>
+給你一個正整數陣列 <code class="language-plaintext highlighter-rouge">nums</code>，還有一個整數 <code class="language-plaintext highlighter-rouge">k</code>。
+<strong>一個子陣列的「分數」定義為：其總和 <code class="language-plaintext highlighter-rouge">sum</code> × 長度 <code class="language-plaintext highlighter-rouge">length</code></strong>。</p>
+
+<p>舉個例子：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nums = [1, 2, 3]
+子陣列 [2,3] 的 sum = 5，length = 2，所以 score = 5×2 = 10  
+</code></pre></div></div>
+
+<p>請你回傳：<strong>有多少個「非空的子陣列」其 score 小於 <code class="language-plaintext highlighter-rouge">k</code></strong></p>
+
+		</p>
+	</div>		
+	<hr>
+
+	<!-- Read Button -->
+	<a href="/hard/2025/05/30/2302-Count-Subarrays-With-Score-Less-Than-K.html">
+	<div class="post-view-readmore text-center">
+		<i class="fab fa-readme fa-2x"></i>
+	</div>
+	</a>
+</div>
+
+
+	<!-- OK -->
+
+<div class="post-view-color post-view-window">
+	<!-- title -->
+	<a href="/hard/2025/04/18/391-Perfect-Rectangle.html">
+	<div class="post-view-title text-left" >
+		<p>[Leetcode解題] 391. Perfect Rectangle</p>
+	</div>
+	
+	<!-- date -->
+	<div class="post-view-date">
+			18 April 2025
+	</div>
+	</a>
+
+	<!-- tags -->
+	<div class="post-view-tags">
+    
+		
+	</div>
+	<hr>
+
+	<!-- excerpt -->
+	<div class="post-view-excerpt text-left">
+		<p>
+			<h1 id="題目">題目</h1>
+<p><a href="https://leetcode.com/problems/perfect-rectangle/description/">391. Perfect Rectangle</a>
+給定一組 axis-aligned（軸對齊）矩形，每個矩形由 <code class="language-plaintext highlighter-rouge">[x1, y1, x2, y2]</code> 定義其左下角和右上角座標。請判斷這些矩形是否能完美拼成一個沒有重疊、沒有缺口的矩形區域。</p>
+
+<p>每個矩形都用 <code class="language-plaintext highlighter-rouge">rectangles[i] = [xi, yi, ai, bi]</code> 表示，底部左側是 <code class="language-plaintext highlighter-rouge">(xi, yi)</code>，右上角是 <code class="language-plaintext highlighter-rouge">(ai, bi)</code>。</p>
+
+		</p>
+	</div>		
+	<hr>
+
+	<!-- Read Button -->
+	<a href="/hard/2025/04/18/391-Perfect-Rectangle.html">
+	<div class="post-view-readmore text-center">
+		<i class="fab fa-readme fa-2x"></i>
+	</div>
+	</a>
+</div>
+
+
+	<!-- OK -->
+
+<div class="post-view-color post-view-window">
+	<!-- title -->
+	<a href="/hard/2025/04/11/2818-Apply-Operations-to-Maximize-Score.html">
+	<div class="post-view-title text-left" >
+		<p>[Leetcode解題] 2818. Apply Operations to Maximize Score</p>
+	</div>
+	
+	<!-- date -->
+	<div class="post-view-date">
+			11 April 2025
+	</div>
+	</a>
+
+	<!-- tags -->
+	<div class="post-view-tags">
+    
+		
+	</div>
+	<hr>
+
+	<!-- excerpt -->
+	<div class="post-view-excerpt text-left">
+		<p>
+			<h1 id="題目">題目</h1>
+<p><a href="https://leetcode.com/problems/apply-operations-to-maximize-score">2818. Apply Operations to Maximize Score</a>
+你有一個長度為 <code class="language-plaintext highlighter-rouge">n</code> 的正整數陣列 <code class="language-plaintext highlighter-rouge">nums</code>，以及一個整數 <code class="language-plaintext highlighter-rouge">k</code>。
+你初始分數為 <code class="language-plaintext highlighter-rouge">1</code>，可以最多進行 <code class="language-plaintext highlighter-rouge">k</code> 次以下操作來最大化你的分數：</p>
+
+<ol>
+  <li><strong>選擇一段未被選過的子陣列 <code class="language-plaintext highlighter-rouge">nums[l, ..., r]</code>。</strong></li>
+  <li><strong>在這段子陣列中，選擇一個具有</strong>「最高質因數個數 (prime score)」<strong>的元素 <code class="language-plaintext highlighter-rouge">x</code>：</strong>
+    <ul>
+      <li>若有多個數有同樣的質因數個數，選擇<strong>最左邊的那一個</strong>。</li>
+    </ul>
+  </li>
+  <li><strong>將當前分數乘上 <code class="language-plaintext highlighter-rouge">x</code>。</strong></li>
+</ol>
+
+<p>質因數個數的定義：一個整數有多少<strong>不同的質因數</strong>。
+例如：300 = 2² × 3 × 5²，因此它的質因數個數是 3（分別為 2, 3, 5）。</p>
+
+<p>請回傳最大可能的分數，結果請對 <code class="language-plaintext highlighter-rouge">10^9 + 7</code> 取模。</p>
+
+		</p>
+	</div>		
+	<hr>
+
+	<!-- Read Button -->
+	<a href="/hard/2025/04/11/2818-Apply-Operations-to-Maximize-Score.html">
+	<div class="post-view-readmore text-center">
+		<i class="fab fa-readme fa-2x"></i>
+	</div>
+	</a>
+</div>
+
+
+	<!-- OK -->
+
+<div class="post-view-color post-view-window">
+	<!-- title -->
+	<a href="/hard/2025/02/22/1028-recover-a-tree-from-preorder-traversal.html">
+	<div class="post-view-title text-left" >
+		<p>[Leetcode解題] 1028. Recover a Tree From Preorder Traversal</p>
+	</div>
+	
+	<!-- date -->
+	<div class="post-view-date">
+			22 February 2025
+	</div>
+	</a>
+
+	<!-- tags -->
+	<div class="post-view-tags">
+    
+		
+	</div>
+	<hr>
+
+	<!-- excerpt -->
+	<div class="post-view-excerpt text-left">
+		<p>
+			<h1 id="題目">題目</h1>
+
+<p><a href="https://leetcode.com/problems/recover-a-tree-from-preorder-traversal/description/?envType=daily-question&amp;envId=2025-02-22">1028. Recover a Tree From Preorder Traversal</a></p>
+
+<p>這題給定一個preorder DFS的樹，以字串表達，並且以<code class="language-plaintext highlighter-rouge">dash('-')</code> 表達深度，求我們還原成用資料結構表示的樹</p>
+
+
+		</p>
+	</div>		
+	<hr>
+
+	<!-- Read Button -->
+	<a href="/hard/2025/02/22/1028-recover-a-tree-from-preorder-traversal.html">
+	<div class="post-view-readmore text-center">
+		<i class="fab fa-readme fa-2x"></i>
+	</div>
+	</a>
+</div>
+
+
+	<!-- OK -->
+
+<div class="post-view-color post-view-window">
+	<!-- title -->
+	<a href="/hard/2024/12/21/2872-Maximum-Number-of-K-Divisible-Components.html">
+	<div class="post-view-title text-left" >
+		<p>[Leetcode解題] 2872. Maximum Number of K-Divisible Components</p>
+	</div>
+	
+	<!-- date -->
+	<div class="post-view-date">
+			21 December 2024
+	</div>
+	</a>
+
+	<!-- tags -->
+	<div class="post-view-tags">
+    
+		
+	</div>
+	<hr>
+
+	<!-- excerpt -->
+	<div class="post-view-excerpt text-left">
+		<p>
+			<h1 id="題目">題目</h1>
+
+<p><a href="https://leetcode.com/problems/maximum-number-of-k-divisible-components/">2872. Maximum Number of K-Divisible Components</a></p>
+
+<p>這題給定一棵樹，包含從0到n-1的點，另外給定一個矩陣edges表示相連的點，以及一個values表示各點上的值。</p>
+
+<p>題目另外給定一個數k，求我們最多可以把這棵樹切成幾個connected graph，並且每個graph上點的值(values)和可以被k整除。</p>
+
+<p>這題題目較難理解，可以搭配題目網址的圖看。</p>
+
+
+		</p>
+	</div>		
+	<hr>
+
+	<!-- Read Button -->
+	<a href="/hard/2024/12/21/2872-Maximum-Number-of-K-Divisible-Components.html">
+	<div class="post-view-readmore text-center">
+		<i class="fab fa-readme fa-2x"></i>
+	</div>
+	</a>
+</div>
+
+
+	<!-- OK -->
+
+<div class="post-view-color post-view-window">
+	<!-- title -->
+	<a href="/hard/2024/10/27/2458-Height-of-Binary-Tree-After-Subtree-Removal-Queries.html">
+	<div class="post-view-title text-left" >
+		<p>[Leetcode解題]  2458. Height of Binary Tree After Subtree Removal Queries</p>
+	</div>
+	
+	<!-- date -->
+	<div class="post-view-date">
+			27 October 2024
+	</div>
+	</a>
+
+	<!-- tags -->
+	<div class="post-view-tags">
+    
+		
+	</div>
+	<hr>
+
+	<!-- excerpt -->
+	<div class="post-view-excerpt text-left">
+		<p>
+			<h1 id="題目">題目</h1>
+
+<p><a href="https://leetcode.com/problems/height-of-binary-tree-after-subtree-removal-queries/">2458. Height of Binary Tree After Subtree Removal Queries</a></p>
+
+<p>給一個<code class="language-plaintext highlighter-rouge">Binary Tree</code>，以及一串<code class="language-plaintext highlighter-rouge">Queries</code>，<code class="language-plaintext highlighter-rouge">Queries</code>表示要移除的點，此題要回傳移除該點後該樹的高度(heights)為多少，並且每個<code class="language-plaintext highlighter-rouge">Query</code>之間是獨立的。</p>
+
+
+		</p>
+	</div>		
+	<hr>
+
+	<!-- Read Button -->
+	<a href="/hard/2024/10/27/2458-Height-of-Binary-Tree-After-Subtree-Removal-Queries.html">
+	<div class="post-view-readmore text-center">
+		<i class="fab fa-readme fa-2x"></i>
+	</div>
+	</a>
+</div>
+
+
+	<!-- OK -->
+
+<div class="post-view-color post-view-window">
+	<!-- title -->
+	<a href="/hard/2024/10/19/1106-Parsing-A-Boolean-Expression.html">
+	<div class="post-view-title text-left" >
+		<p>[Leetcode解題]  1106. Parsing A Boolean Expression</p>
+	</div>
+	
+	<!-- date -->
+	<div class="post-view-date">
+			19 October 2024
+	</div>
+	</a>
+
+	<!-- tags -->
+	<div class="post-view-tags">
+    
+		
+	</div>
+	<hr>
+
+	<!-- excerpt -->
+	<div class="post-view-excerpt text-left">
+		<p>
+			<h1 id="1106-parsing-a-boolean-expression">1106. Parsing A Boolean Expression</h1>
+
+<h1 id="題目">題目</h1>
+
+<p><a href="https://leetcode.com/problems/parsing-a-boolean-expression/">1106. Parsing A Boolean Expression
+</a></p>
+
+<p>這題我們給一個<code class="language-plaintext highlighter-rouge">boolean expression</code>，然後要判斷最後的結果，有可能的<code class="language-plaintext highlighter-rouge">operation</code>有<code class="language-plaintext highlighter-rouge">!</code>, <code class="language-plaintext highlighter-rouge">&amp;</code>, <code class="language-plaintext highlighter-rouge">|</code>，這邊題目給的字串一定符合規則。</p>
+
+
+		</p>
+	</div>		
+	<hr>
+
+	<!-- Read Button -->
+	<a href="/hard/2024/10/19/1106-Parsing-A-Boolean-Expression.html">
+	<div class="post-view-readmore text-center">
+		<i class="fab fa-readme fa-2x"></i>
+	</div>
+	</a>
+</div>
+
+
+	<!-- OK -->
+
+<div class="post-view-color post-view-window">
+	<!-- title -->
+	<a href="/hard/2024/09/13/10-Regular-Expression-Matching.html">
+	<div class="post-view-title text-left" >
+		<p>[Leetcode解題]  10. Regular Expression Matching - DP解</p>
+	</div>
+	
+	<!-- date -->
+	<div class="post-view-date">
+			13 September 2024
+	</div>
+	</a>
+
+	<!-- tags -->
+	<div class="post-view-tags">
+    
+		
+	</div>
+	<hr>
+
+	<!-- excerpt -->
+	<div class="post-view-excerpt text-left">
+		<p>
+			<h2 id="題目說明">題目說明</h2>
+<p><a href="https://leetcode.com/problems/regular-expression-matching/">10. Regular Expression Matching</a>
+給定一個輸入字串 <code class="language-plaintext highlighter-rouge">s</code> 和一個模式 <code class="language-plaintext highlighter-rouge">p</code>，實作正則表達式匹配，支援以下兩種特殊符號：</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">.</code> 可以匹配任意單一字元。</li>
+  <li><code class="language-plaintext highlighter-rouge">*</code> 可以匹配零個或多個它前一個字元。</li>
+</ul>
+
+<p>匹配必須覆蓋整個輸入字串，不能只匹配部分字串。</p>
+
+		</p>
+	</div>		
+	<hr>
+
+	<!-- Read Button -->
+	<a href="/hard/2024/09/13/10-Regular-Expression-Matching.html">
+	<div class="post-view-readmore text-center">
+		<i class="fab fa-readme fa-2x"></i>
+	</div>
+	</a>
+</div>
+
+
+	<!-- OK -->
+
+<div class="post-view-color post-view-window">
+	<!-- title -->
+	<a href="/hard/2024/07/13/2751-Robot-Collisions.html">
+	<div class="post-view-title text-left" >
+		<p>[Leetcode解題] 2751. Robot Collisions - 使用stack解</p>
+	</div>
+	
+	<!-- date -->
+	<div class="post-view-date">
+			13 July 2024
+	</div>
+	</a>
+
+	<!-- tags -->
+	<div class="post-view-tags">
+    
+		
+	</div>
+	<hr>
+
+	<!-- excerpt -->
+	<div class="post-view-excerpt text-left">
+		<p>
+			<h2 id="題目">題目</h2>
+
+<p><a href="https://leetcode.com/problems/robot-collisions/">2751. Robot Collisions</a></p>
+
+<p>有n個機器人，每個機器人都有其位置、健康值和移動方向。</p>
+
+<p>給定三個0索引的整數數組：positions（位置）、healths（健康值），以及一個字符串directions（directions[i] 可能是 ‘L’ 表示向左，或是 ‘R’ 表示向右）。所有positions中的整數是唯一的。</p>
+
+<p>所有機器人會同時開始以相同的速度沿著他們給定的方向移動。如果兩個機器人在移動過程中碰撞到同一個位置，他們就會發生碰撞。</p>
+
+<p>如果兩個機器人發生碰撞，健康值較低的機器人會被移除，而另一個機器人的健康值會減少1。存活的機器人繼續沿著它原本的方向移動。如果兩個機器人的健康值相同，那麼它們都會被移除。</p>
+
+<p>求存活下來的機器人的健康值（按照原本給定的順序）</p>
+
+<h2 id="解題思路">解題思路</h2>
+
+<ol>
+  <li>初始化與排序：</li>
+</ol>
+
+<p>我們需要對機器人的位置做排序以便移動機器人，並且需要存下索引來拿到健康值跟移動方向。</p>
+
+<p>首先，將每個機器人的索引和位置結合成元組，並將這些元組放入一個列表 <code class="language-plaintext highlighter-rouge">pos_w_idx</code>中。</p>
+
+<p>根據機器人的位置對<code class="language-plaintext highlighter-rouge">pos_w_idx</code>進行排序，以便按位置模擬機器人的移動。</p>
+
+<ol>
+  <li>模擬移動與碰撞：</li>
+</ol>
+
+<p>使用一個<code class="language-plaintext highlighter-rouge">stack</code>來處理碰撞情況，棧中存放的是向右移動（’R’）的機器人索引。</p>
+
+<p>遍歷排序後的機器人列表 pos_w_idx，根據機器人的方向進行處理：
+如果機器人向右移動（’R’），將其索引推入<code class="language-plaintext highlighter-rouge">stack</code>中。</p>
+
+<p>如果機器人向左移動（’L’），需要檢查棧頂<code class="language-plaintext highlighter-rouge">stack.top()</code>的機器人是否會發生碰撞。</p>
+
+<ol>
+  <li>處理碰撞邏輯：</li>
+</ol>
+
+<p>我們發現，只有當一個左邊的機器人向右，另一個右邊的機器人向左的時候才會發生碰撞。</p>
+
+<p>如果棧頂機器人的健康值大於當前機器人的健康值，則當前機器人被移除，棧頂機器人的健康值減少1。</p>
+
+<p>如果棧頂機器人的健康值小於當前機器人的健康值，則棧頂機器人被移除，當前機器人的健康值減少1並繼續進行碰撞檢查。</p>
+
+<p>如果棧頂機器人的健康值等於當前機器人的健康值，則兩者都被移除。</p>
+
+<ol>
+  <li>收集結果：</li>
+</ol>
+
+<p>在處理完所有機器人後，檢查健康值數組 healths，將健康值不為零的機器人健康值加入結果列表<code class="language-plaintext highlighter-rouge">ans</code>中。</p>
+
+<p>返回結果列表<code class="language-plaintext highlighter-rouge">ans</code>，即最終存活的機器人的健康值。</p>
+
+<h2 id="程式碼">程式碼</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">survivedRobotsHealths</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">positions</span><span class="p">,</span> <span class="n">healths</span><span class="p">,</span> <span class="n">directions</span><span class="p">):</span>
+        <span class="s">"""
+        :type positions: List[int]
+        :type healths: List[int]
+        :type directions: str
+        :rtype: List[int]
+        """</span>
+        <span class="n">pos_w_idx</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">position</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">positions</span><span class="p">):</span>
+            <span class="n">pos_w_idx</span><span class="p">.</span><span class="n">append</span><span class="p">((</span><span class="n">idx</span><span class="p">,</span> <span class="n">position</span><span class="p">))</span>
+        
+        <span class="n">pos_w_idx</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">pos_w_idx</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        
+        <span class="n">stack</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">pos</span> <span class="ow">in</span> <span class="n">pos_w_idx</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">directions</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">==</span> <span class="s">'R'</span><span class="p">:</span>
+                <span class="n">stack</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span>
+                <span class="k">continue</span>
+            <span class="k">if</span> <span class="n">directions</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">==</span> <span class="s">'L'</span><span class="p">:</span>
+                <span class="k">while</span> <span class="n">stack</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">healths</span><span class="p">[</span><span class="n">stack</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span> <span class="o">&gt;</span> <span class="n">healths</span><span class="p">[</span><span class="n">idx</span><span class="p">]:</span>
+                        <span class="c1"># Collision, R wins
+</span>                        <span class="n">healths</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+                        <span class="n">healths</span><span class="p">[</span><span class="n">stack</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span> <span class="o">-=</span> <span class="mi">1</span>
+                        <span class="k">break</span>
+                    <span class="k">elif</span> <span class="n">healths</span><span class="p">[</span><span class="n">stack</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span> <span class="o">&lt;</span> <span class="n">healths</span><span class="p">[</span><span class="n">idx</span><span class="p">]:</span>
+                        <span class="c1"># Collision, L wins
+</span>                        <span class="n">healths</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">1</span>
+                        <span class="n">healths</span><span class="p">[</span><span class="n">stack</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">0</span>
+                        <span class="n">stack</span><span class="p">.</span><span class="n">pop</span><span class="p">()</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="c1"># Collision, tie
+</span>                        <span class="n">healths</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+                        <span class="n">healths</span><span class="p">[</span><span class="n">stack</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">0</span>
+                        <span class="n">stack</span><span class="p">.</span><span class="n">pop</span><span class="p">()</span>
+                        <span class="k">break</span>
+        
+        <span class="n">ans</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">health</span> <span class="ow">in</span> <span class="n">healths</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">health</span><span class="p">:</span>
+                <span class="n">ans</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">health</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ans</span>
+
+</code></pre></div></div>
+
+<h2 id="時間複雜度">時間複雜度</h2>
+
+<p>Bottleneck在於做排序的部分，所以時間複雜度為$O(nlogn)$</p>
+
+		</p>
+	</div>		
+	<hr>
+
+	<!-- Read Button -->
+	<a href="/hard/2024/07/13/2751-Robot-Collisions.html">
+	<div class="post-view-readmore text-center">
+		<i class="fab fa-readme fa-2x"></i>
+	</div>
+	</a>
+</div>
+
+
+	<!-- OK -->
+
+<div class="post-view-color post-view-window">
+	<!-- title -->
+	<a href="/hard/2024/06/08/84.-Largest-Rectangle-in-Histogram.html">
+	<div class="post-view-title text-left" >
+		<p>[Leetcode解題] 84. Largest Rectangle in Histogram - monotonic-stack解</p>
+	</div>
+	
+	<!-- date -->
+	<div class="post-view-date">
+			8 June 2024
+	</div>
+	</a>
+
+	<!-- tags -->
+	<div class="post-view-tags">
+    
+		
+	</div>
+	<hr>
+
+	<!-- excerpt -->
+	<div class="post-view-excerpt text-left">
+		<p>
+			<h1 id="84-largest-rectangle-in-histogram">84. Largest Rectangle in Histogram</h1>
+
+<h2 id="題目">題目</h2>
+<p><a href="https://leetcode.com/problems/largest-rectangle-in-histogram/">84. Largest Rectangle in Histogram</a>
+給定一個由整數組成的數組 <code class="language-plaintext highlighter-rouge">heights</code>，這個數組代表直方圖的柱子高度，其中每個柱子的寬度為 1。請返回直方圖中最大矩形的面積。</p>
+
+
+		</p>
+	</div>		
+	<hr>
+
+	<!-- Read Button -->
+	<a href="/hard/2024/06/08/84.-Largest-Rectangle-in-Histogram.html">
+	<div class="post-view-readmore text-center">
+		<i class="fab fa-readme fa-2x"></i>
+	</div>
+	</a>
+</div>
+
+
+	<!-- OK -->
+
+<div class="post-view-color post-view-window">
+	<!-- title -->
+	<a href="/hard/2024/05/03/514-freedom-trail.html">
+	<div class="post-view-title text-left" >
+		<p>[Leetcode解題] 514. Freedom Trail - 用DP結合BFS解</p>
+	</div>
+	
+	<!-- date -->
+	<div class="post-view-date">
+			3 May 2024
+	</div>
+	</a>
+
+	<!-- tags -->
+	<div class="post-view-tags">
+    
+		
+	</div>
+	<hr>
+
+	<!-- excerpt -->
+	<div class="post-view-excerpt text-left">
+		<p>
+			<h1 id="514-freedom-trail">514. Freedom Trail</h1>
+
+<h1 id="題目">題目</h1>
+
+<p><a href="https://leetcode.com/problems/freedom-trail/">514. Freedom Trail</a></p>
+
+<p>給定一個圓形的轉盤，上面有N個英文字母，中間有一個按鈕可以輸入該字母，每往右或往左轉動一個字母，計算為一步，按下按鈕也計算為一步。</p>
+
+<p>當給定一個字串<code class="language-plaintext highlighter-rouge">key</code>，題目問要經過多少步才能輸入完整個字串。</p>
+
+
+		</p>
+	</div>		
+	<hr>
+
+	<!-- Read Button -->
+	<a href="/hard/2024/05/03/514-freedom-trail.html">
+	<div class="post-view-readmore text-center">
+		<i class="fab fa-readme fa-2x"></i>
+	</div>
+	</a>
+</div>
+
+
+	<!-- OK -->
+
+<div class="post-view-color post-view-window">
+	<!-- title -->
+	<a href="/hard/2024/04/14/992-Subarrays-with-K-Different-Integers.html">
+	<div class="post-view-title text-left" >
+		<p>[Leetcode解題] 992. Subarrays with K Different Integers</p>
+	</div>
+	
+	<!-- date -->
+	<div class="post-view-date">
+			14 April 2024
+	</div>
+	</a>
+
+	<!-- tags -->
+	<div class="post-view-tags">
+    
+		
+	</div>
+	<hr>
+
+	<!-- excerpt -->
+	<div class="post-view-excerpt text-left">
+		<p>
+			<h1 id="題目">題目</h1>
+
+<p><a href="https://leetcode.com/problems/subarrays-with-k-different-integers">992. Subarrays with K Different Integers</a>
+給定一個整數陣列nums和一個整數k，返回nums中好的子陣列的數量。</p>
+
+<p>好的陣列是一個陣列，其中不同整數的數量正好是k。</p>
+
+<p>例如，[1,2,3,1,2]有3個不同的整數：1、2和3。
+子陣列是陣列的連續部分。</p>
+
+		</p>
+	</div>		
+	<hr>
+
+	<!-- Read Button -->
+	<a href="/hard/2024/04/14/992-Subarrays-with-K-Different-Integers.html">
+	<div class="post-view-readmore text-center">
+		<i class="fab fa-readme fa-2x"></i>
+	</div>
+	</a>
+</div>
+
+
+	<!-- OK -->
+
+<div class="post-view-color post-view-window">
+	<!-- title -->
+	<a href="/hard/2024/04/05/41-First-Missing-Positive.html">
+	<div class="post-view-title text-left" >
+		<p>[Leetcode解題] 41. First Missing Positive</p>
+	</div>
+	
+	<!-- date -->
+	<div class="post-view-date">
+			5 April 2024
+	</div>
+	</a>
+
+	<!-- tags -->
+	<div class="post-view-tags">
+    
+		
+	</div>
+	<hr>
+
+	<!-- excerpt -->
+	<div class="post-view-excerpt text-left">
+		<p>
+			<h2 id="題目">題目：</h2>
+<p><a href="https://leetcode.com/problems/first-missing-positive/">41. First Missing Positive</a>
+給定一個未排序的整數陣列 nums。返回未出現在 nums 中的最小正整數。</p>
+
+<p><em>你必須實現一個時間複雜度為 $O(n)$，額外空間複雜度為 $O(1)$ 的算法。</em></p>
+
+		</p>
+	</div>		
+	<hr>
+
+	<!-- Read Button -->
+	<a href="/hard/2024/04/05/41-First-Missing-Positive.html">
+	<div class="post-view-readmore text-center">
+		<i class="fab fa-readme fa-2x"></i>
+	</div>
+	</a>
+</div>
+
+
+	<!-- OK -->
+
+<div class="post-view-color post-view-window">
+	<!-- title -->
+	<a href="/hard/2024/03/23/295-Find-Median-from-Data-Stream.html">
+	<div class="post-view-title text-left" >
+		<p>[Leetcode解題] 295. Find Median from Data Stream - 使用heap解</p>
+	</div>
+	
+	<!-- date -->
+	<div class="post-view-date">
+			23 March 2024
+	</div>
+	</a>
+
+	<!-- tags -->
+	<div class="post-view-tags">
+    
+		
+	</div>
+	<hr>
+
+	<!-- excerpt -->
+	<div class="post-view-excerpt text-left">
+		<p>
+			<h2 id="題目">題目</h2>
+<p><a href="https://leetcode.com/problems/find-median-from-data-stream/">295. Find Median from Data Stream</a>
+中位數是排序整數列表中的中間值。如果列表的大小是偶數，則沒有中間值，中位數是兩個中間值的平均值。</p>
+
+<p>例如，對於 arr = [2,3,4]，中位數為 3。
+例如，對於 arr = [2,3]，中位數為 (2 + 3) / 2 = 2.5。</p>
+
+<p>實現 class MedianFinder：
+<strong>MedianFinder():</strong> 初始化 MedianFinder。
+<strong>void addNum(int num):</strong> 將整數 <code class="language-plaintext highlighter-rouge">num</code> 從資料流添加到資料結構中。
+<strong>double findMedian():</strong> 返回到目前為止所有元素的中位數。</p>
+
+		</p>
+	</div>		
+	<hr>
+
+	<!-- Read Button -->
+	<a href="/hard/2024/03/23/295-Find-Median-from-Data-Stream.html">
+	<div class="post-view-readmore text-center">
+		<i class="fab fa-readme fa-2x"></i>
+	</div>
+	</a>
+</div>
+
+
+	<!-- OK -->
+
+<div class="post-view-color post-view-window">
+	<!-- title -->
+	<a href="/hard/2024/03/23/140-Word-Break-II.html">
+	<div class="post-view-title text-left" >
+		<p>[Leetcode解題] 140. Word Break II</p>
+	</div>
+	
+	<!-- date -->
+	<div class="post-view-date">
+			23 March 2024
+	</div>
+	</a>
+
+	<!-- tags -->
+	<div class="post-view-tags">
+    
+		
+	</div>
+	<hr>
+
+	<!-- excerpt -->
+	<div class="post-view-excerpt text-left">
+		<p>
+			<h1 id="140-word-break-ii">140. Word Break II</h1>
+
+<h2 id="題目">題目</h2>
+
+<p><a href="https://leetcode.com/problems/word-break-ii/">140. Word Break II</a></p>
+
+<p>給一個字串以及一個詞表（一個包含單詞的矩陣），求該字串是否能被以詞表內的單字切分，並返回所有的可能，單字可以被重複利用。</p>
+
+		</p>
+	</div>		
+	<hr>
+
+	<!-- Read Button -->
+	<a href="/hard/2024/03/23/140-Word-Break-II.html">
+	<div class="post-view-readmore text-center">
+		<i class="fab fa-readme fa-2x"></i>
+	</div>
+	</a>
+</div>
+
+
+	<!-- OK -->
+
+<div class="post-view-color post-view-window">
+	<!-- title -->
+	<a href="/hard/2024/03/09/2009-Minimum-Number-of-Operations-to-Make-Array-Continuous.html">
+	<div class="post-view-title text-left" >
+		<p>[Leetcode解題] 2009. Minimum Number of Operations to Make Array Continuous - 使用 Binary Search 算法 </p>
+	</div>
+	
+	<!-- date -->
+	<div class="post-view-date">
+			9 March 2024
+	</div>
+	</a>
+
+	<!-- tags -->
+	<div class="post-view-tags">
+    
+		
+	</div>
+	<hr>
+
+	<!-- excerpt -->
+	<div class="post-view-excerpt text-left">
+		<p>
+			<h1 id="題目">題目</h1>
+<p><a href="https://leetcode.com/problems/minimum-number-of-operations-to-make-array-continuous/">2009. Minimum Number of Operations to Make Array Continuous</a>
+給定一個整數陣列 nums。在一次操作中，你可以將 nums 中的任何元素替換為任何整數。
+如果滿足以下兩個條件，則 nums 被認為是連續的：</p>
+
+<p>nums 中的所有元素都是唯一的。
+nums 中的最大元素與最小元素之間的差等於 nums.length - 1。
+例如，nums = [4, 2, 5, 3] 是連續的，但 nums = [1, 22, 22, 24, 24] 不是連續的。</p>
+
+<p>返回使 nums 變得連續所需的最小操作次數。</p>
+
+		</p>
+	</div>		
+	<hr>
+
+	<!-- Read Button -->
+	<a href="/hard/2024/03/09/2009-Minimum-Number-of-Operations-to-Make-Array-Continuous.html">
+	<div class="post-view-readmore text-center">
+		<i class="fab fa-readme fa-2x"></i>
+	</div>
+	</a>
+</div>
+
+
+	<!-- OK -->
+
+<div class="post-view-color post-view-window">
+	<!-- title -->
+	<a href="/hard/2024/02/23/249-sliding-window-maximum.html">
+	<div class="post-view-title text-left" >
+		<p>[Leetcode解題] 239. Sliding Window Maximum</p>
+	</div>
+	
+	<!-- date -->
+	<div class="post-view-date">
+			23 February 2024
+	</div>
+	</a>
+
+	<!-- tags -->
+	<div class="post-view-tags">
+    
+		
+	</div>
+	<hr>
+
+	<!-- excerpt -->
+	<div class="post-view-excerpt text-left">
+		<p>
+			<h1 id="題目">題目</h1>
+
+<p><a href="https://leetcode.com/problems/sliding-window-maximum/description/">239. Sliding Window Maximum</a></p>
+
+<p>給定一個陣列$nums$，以及<code class="language-plaintext highlighter-rouge">sliding window size</code> $k$，找出每個<code class="language-plaintext highlighter-rouge">sliding window</code>下的<code class="language-plaintext highlighter-rouge">max</code>。</p>
+
+
+		</p>
+	</div>		
+	<hr>
+
+	<!-- Read Button -->
+	<a href="/hard/2024/02/23/249-sliding-window-maximum.html">
+	<div class="post-view-readmore text-center">
+		<i class="fab fa-readme fa-2x"></i>
+	</div>
+	</a>
+</div>
+
+
+	<!-- OK -->
+
+<div class="post-view-color post-view-window">
+	<!-- title -->
+	<a href="/hard/amazon/2024/02/23/127-Word-Ladder.html">
+	<div class="post-view-title text-left" >
+		<p>[Leetcode解題] 127. Word Ladder - BFS解</p>
+	</div>
+	
+	<!-- date -->
+	<div class="post-view-date">
+			23 February 2024
+	</div>
+	</a>
+
+	<!-- tags -->
+	<div class="post-view-tags">
+    
+		
+	</div>
+	<hr>
+
+	<!-- excerpt -->
+	<div class="post-view-excerpt text-left">
+		<p>
+			<h2 id="題目">題目</h2>
+<p><a href="https://leetcode.com/problems/word-ladder/">127. Word Ladder</a>
+給定兩個單字 beginWord 和 endWord，以及一個字典 wordList，其中包含了許多單字。請找出從 beginWord 到 endWord 的最短轉換序列的長度，轉換規則如下：</p>
+
+<ul>
+  <li>每個相鄰的單字之間只能相差一個字母。</li>
+  <li>轉換序列中的每個單字都必須在 wordList 中，但 beginWord 不一定需要在 wordList 中。</li>
+  <li>最後一個單字必須是 endWord。
+如果無法找到這樣的轉換序列，則返回 0。</li>
+</ul>
+
+		</p>
+	</div>		
+	<hr>
+
+	<!-- Read Button -->
+	<a href="/hard/amazon/2024/02/23/127-Word-Ladder.html">
+	<div class="post-view-readmore text-center">
+		<i class="fab fa-readme fa-2x"></i>
+	</div>
+	</a>
+</div>
+
+
+	<!-- OK -->
+
+<div class="post-view-color post-view-window">
+	<!-- title -->
+	<a href="/hard/amazon/microsoft/apple/2024/02/03/23-Merge-k-Sorted-Lists.html">
+	<div class="post-view-title text-left" >
+		<p>[Leetcode解題] 23. Merge k Sorted Lists - heap(Priority Queue)解</p>
+	</div>
+	
+	<!-- date -->
+	<div class="post-view-date">
+			3 February 2024
+	</div>
+	</a>
+
+	<!-- tags -->
+	<div class="post-view-tags">
+    
+		
+	</div>
+	<hr>
+
+	<!-- excerpt -->
+	<div class="post-view-excerpt text-left">
+		<p>
+			<h2 id="題目">題目</h2>
+
+<p><a href="https://leetcode.com/problems/merge-k-sorted-lists/description/">23. Merge k Sorted Lists</a></p>
+
+<p>給定 $k$ 個已經排序的 <code class="language-plaintext highlighter-rouge">linked-lists</code>，將它們合併成一個排序的 <code class="language-plaintext highlighter-rouge">linked-list</code>，並返回。</p>
+
+		</p>
+	</div>		
+	<hr>
+
+	<!-- Read Button -->
+	<a href="/hard/amazon/microsoft/apple/2024/02/03/23-Merge-k-Sorted-Lists.html">
+	<div class="post-view-readmore text-center">
+		<i class="fab fa-readme fa-2x"></i>
+	</div>
+	</a>
+</div>
+
+
+	<!-- OK -->
+
+<div class="post-view-color post-view-window">
+	<!-- title -->
+	<a href="/hard/2023/07/07/4-Median-of-Two-Sorted-Arrays.html">
+	<div class="post-view-title text-left" >
+		<p>[Leetcode解題] Median of Two Sorted Arrays  - 使用分治法(Divide-and-conquer)算法</p>
+	</div>
+	
+	<!-- date -->
+	<div class="post-view-date">
+			7 July 2023
+	</div>
+	</a>
+
+	<!-- tags -->
+	<div class="post-view-tags">
+    
+		
+	</div>
+	<hr>
+
+	<!-- excerpt -->
+	<div class="post-view-excerpt text-left">
+		<p>
+			<h1 id="題目">題目</h1>
+<p><a href="https://leetcode.com/problems/median-of-two-sorted-arrays/">4. Median of Two Sorted Arrays</a>
+兩個已排序陣列的中位數</p>
+
+<p>給定兩個大小分別為 $m$ 和 $n$ 的已排序陣列 $nums1$ 和 $nums2$，找出這兩個陣列的中位數。</p>
+
+<p>整體運行時間複雜度應為 $O(log(m+n))$。</p>
+
+
+		</p>
+	</div>		
+	<hr>
+
+	<!-- Read Button -->
+	<a href="/hard/2023/07/07/4-Median-of-Two-Sorted-Arrays.html">
+	<div class="post-view-readmore text-center">
+		<i class="fab fa-readme fa-2x"></i>
+	</div>
+	</a>
+</div>
+
+
+	<!-- OK -->
+
+<div class="post-view-color post-view-window">
+	<!-- title -->
+	<a href="/hard/2022/02/11/72-edit-distance.html">
+	<div class="post-view-title text-left" >
+		<p>[Leetcode解題] Edit Distance - dp解</p>
+	</div>
+	
+	<!-- date -->
+	<div class="post-view-date">
+			11 February 2022
+	</div>
+	</a>
+
+	<!-- tags -->
+	<div class="post-view-tags">
+    
+		
+	</div>
+	<hr>
+
+	<!-- excerpt -->
+	<div class="post-view-excerpt text-left">
+		<p>
+			<h1 id="題目">題目</h1>
+<p><a href="https://leetcode.com/problems/edit-distance">72. Edit Distance</a></p>
+
+
+		</p>
+	</div>		
+	<hr>
+
+	<!-- Read Button -->
+	<a href="/hard/2022/02/11/72-edit-distance.html">
+	<div class="post-view-readmore text-center">
+		<i class="fab fa-readme fa-2x"></i>
+	</div>
+	</a>
+</div>
+
+
+	<!-- OK -->
+
+<div class="post-view-color post-view-window">
+	<!-- title -->
+	<a href="/hard/2022/02/11/68-Text-Justification.html">
+	<div class="post-view-title text-left" >
+		<p>[Leetcode解題] Text Justification - greedy解</p>
+	</div>
+	
+	<!-- date -->
+	<div class="post-view-date">
+			11 February 2022
+	</div>
+	</a>
+
+	<!-- tags -->
+	<div class="post-view-tags">
+    
+		
+	</div>
+	<hr>
+
+	<!-- excerpt -->
+	<div class="post-view-excerpt text-left">
+		<p>
+			<h1 id="題目">題目</h1>
+<p><a href="https://leetcode.com/problems/text-justification/">68. Text Justification</a>
+這是一道文本格式化的題目。給定一個字符串數組 words 和一個寬度 maxWidth，要求將文本格式化為每一行的寬度正好為 maxWidth 且完全（左右）對齊。</p>
+
+<p>題目要求應該採用貪婪策略將您的文字打包，即在每一行中打包盡可能多的文字。必要時填充額外的空格’‘，使每一行的寬度正好為 maxWidth。</p>
+
+<p>文字之間的額外空格應盡可能均勻分配。如果一行上的空格數不均勻分配在文字之間，左邊的空槽將分配更多的空格，而右邊的空槽分配的空格較少。</p>
+
+<p>最後一行的文本應左對齊，並且在文字之間不插入額外空格。</p>
+
+
+		</p>
+	</div>		
+	<hr>
+
+	<!-- Read Button -->
+	<a href="/hard/2022/02/11/68-Text-Justification.html">
+	<div class="post-view-readmore text-center">
+		<i class="fab fa-readme fa-2x"></i>
+	</div>
+	</a>
+</div>
+
+
+	<!-- OK -->
+
+<div class="post-view-color post-view-window">
+	<!-- title -->
+	<a href="/hard/2022/02/11/42-Trapping-Rain-Water.html">
+	<div class="post-view-title text-left" >
+		<p>[Leetcode解題] Trapping Rain Water</p>
+	</div>
+	
+	<!-- date -->
+	<div class="post-view-date">
+			11 February 2022
+	</div>
+	</a>
+
+	<!-- tags -->
+	<div class="post-view-tags">
+    
+		
+	</div>
+	<hr>
+
+	<!-- excerpt -->
+	<div class="post-view-excerpt text-left">
+		<p>
+			<h1 id="題目">題目</h1>
+<p><a href="https://leetcode.com/problems/trapping-rain-water/">42. Trapping Rain Water</a></p>
+
+
+		</p>
+	</div>		
+	<hr>
+
+	<!-- Read Button -->
+	<a href="/hard/2022/02/11/42-Trapping-Rain-Water.html">
+	<div class="post-view-readmore text-center">
+		<i class="fab fa-readme fa-2x"></i>
+	</div>
+	</a>
+</div>
+
+
+
+		</div>
+		<div class="col-md-2 col-sm-0">
+		</div>
+	</div>
+</div>
+
+		</main>
+		<footer class="footer">
+			<!-- No -->
+
+<!--This is the footer of the website-->
+
+<div class="footer-window container-fluid footer-color">
+	<div class="row">
+		<div class="footer-view footer-left col-md-4 text-left">
+			<div class="footer-section">
+				<div class="account-box">
+			</div>
+			</div>
+		</div>
+		<div class="footer-view footer-center col-md-4 text-center">
+			<div class="footer-section">
+				<div class="footer-copyright">
+					解題愛好者
+					<br><br>
+					歡迎來到刷題貓！我們是兩位熱愛程式設計的工程師，在此分享Leetcode刷題心得以及整理主題式的文章
+					<br><br>
+					© 2023 CATXCODER All Rights Reserved
+				</div>
+				<div>
+				</div>
+			</div>
+		</div>
+		<div class="footer-view footer-right col-md-4 text-center">
+			<div class="footer-section">
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--
+log
+<p>Version 0.0.2</p>
+			<p>0.0.2 - 配色完成</p>
+			<p>0.0.2 - 基本模板完成</p>
+			<p>0.0.2 - 自我介紹新增打字效果</p>
+
+
+
+
+-->
+
+		</footer>
+		</div>
+	</body>
+</html>
+
+<script>
+$(".badge-info").hover(function(){
+    $(this).hide(1000);
+});
+
+
+</script>

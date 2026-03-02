@@ -1,0 +1,1890 @@
+<!-- OK -->
+
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="utf-8">
+	<link rel="icon" type="image/x-icon" href="/res/catxcoder.ico">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>[Leetcode解題] 1438. Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit - 使用deque+ two pointer解</title>
+	<meta name="description" content="[Leetcode解題] 1438. Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit - 使用deque+ two pointer解" />
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<!-- My CSS -->
+<link href="/res/css/common.css" rel="stylesheet">
+
+	</head>
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-MHQH8LKZYV"></script>
+	<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+
+	gtag('config', 'G-MHQH8LKZYV');
+	</script>
+	<body>		
+				<!-- JQeury -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+    
+	<!-- Font Awesome -->
+	<!--<script defer src="https://use.fontawesome.com/releases/v6.4.2/js/all.js" integrity="	sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe" crossorigin="anonymous"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" integrity="sha512-uKQ39gEGiyUJl4AI6L+ekBdGKpGw4xJ55+xyJG7YFlJokPNYegn9KwQ3P8A7aFQAUtUsAQHep+d/lrGqrbPIDQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<!-- support MathJax -->
+	<style TYPE="text/css">
+	code.has-jax {font: inherit; font-size: 100%; background: inherit; border: inherit;}
+	</style>
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	    tex2jax: {
+	        inlineMath: [['$','$'], ['\\(','\\)']],
+	        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'] // removed 'code' entry
+	    }
+	});
+	MathJax.Hub.Queue(function() {
+	    var all = MathJax.Hub.getAllJax(), i;
+	    for(i = 0; i < all.length; i += 1) {
+	        all[i].SourceElement().parentNode.className += ' has-jax';
+	    }
+	});
+	</script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<!-- A patch to fix mathjax -->
+<!-- https://github.com/mathjax/MathJax/issues/1737 -->
+	<script type="text/x-mathjax-config">
+if (MathJax.Hub.Browser.isSafari && parseInt(MathJax.Hub.Browser.webkit) >= 603) {
+  MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready", function () {
+    var HTMLCSS = MathJax.OutputJax["HTML-CSS"];
+    var MML = MathJax.ElementJax.mml;
+    var toHTML = MML.mo.prototype.toHTML;
+    MML.mo.Augment({
+      toHTML: function (span) {
+        span = toHTML.call(this,span);
+        if (span.bbox.w === 0 && span.bbox.lw < 0 && span.firstChild) {
+          span.style.marginLeft = HTMLCSS.Em(span.bbox.lw);
+        }
+        return span;
+      }
+    });
+  });
+}
+</script>
+
+		<header>
+			<!-- OK -->
+
+<div class="container">
+  <nav class="navbar navbar-expand-lg navbar-default nav-color" >
+    <a href="/index.html">
+      <img src="/res/catxcoder.ico" class="img-fluid" style="width: 32px; margin-right: 10px;">
+    </a>
+    <a class="navbar-item" href="/index.html">
+      刷題貓
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span><i class="fas fa-bars" ></i></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <ul class="navbar-nav ml-auto navbar-right">
+          <li class="nav-item">
+             <a class="nav-link" href="/index.html">首頁</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/posts/categories">難度</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/posts/algorithms">演算法</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/works">主題式</a>
+          </li>
+        </ul>
+    </div>
+  </nav>
+</div>
+
+		</header>
+		<main>
+			<!-- OK -->
+
+<div class="container-fluid text-center bg-color">
+	<div class="row bg-icon">
+		<div class="col-md-2 col-sm-0">
+
+		</div>
+		<div class="view-home col-md-8 col-sm-12 post-home-color">
+			<div class="post-view-color post-view-window">
+	
+	<!-- title -->
+	<div class="post-view-title text-left" >
+		<p>[Leetcode解題] 1438. Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit - 使用deque+ two pointer解</p>
+	</div>
+	
+	<!-- date -->
+	<div class="post-view-date">
+			29 June 2024
+	</div>
+
+	<!-- tags -->
+	<div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">deque</i>
+		
+		<i href="#" class="badge badge-dark">sliding-window</i>
+		
+	</div>
+	<hr>
+
+	<!-- excerpt -->
+	<div class="post-view-excerpt text-left">
+		<p>
+			<h2 id="題目">題目</h2>
+
+<p><a href="https://leetcode.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/">1438. Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit</a>
+給定一個整數數組 <code class="language-plaintext highlighter-rouge">nums</code> 和一個整數 <code class="language-plaintext highlighter-rouge">limit</code>，請返回<strong>長度最大的非空子陣列</strong>的長度，使得該子陣列中任何兩個元素之間的絕對差不超過 <code class="language-plaintext highlighter-rouge">limit</code>。
+<!--more--></p>
+
+<h2 id="解題思路">解題思路</h2>
+
+<p>這道題目要求我們找出一個連續子陣列，使得該子陣列中的最大值與最小值之間的差不超過 <code class="language-plaintext highlighter-rouge">limit</code>。我們可以用<strong>雙指針</strong>和兩個單調遞增及單調遞減的<strong>雙端隊列</strong>(deque)來解決這個問題。</p>
+
+<p>具體思路如下：</p>
+
+<ol>
+  <li><strong>雙端隊列(deque)</strong>：
+    <ul>
+      <li>使用 <code class="language-plaintext highlighter-rouge">increaseDeque</code> 來維護一個單調遞增的隊列，隊列中的元素在index與數值上都是遞增的，對應的是當前子陣列中的最小值。</li>
+      <li>使用 <code class="language-plaintext highlighter-rouge">decreaseDeque</code> 來維護一個單調遞減的隊列，隊列中的元素在index上是遞增的，在數值上是遞減的，隊列中的元素對應的是當前子陣列中的最大值。
+        <blockquote>
+          <p>我們在實作的時候是存index在雙端隊列(deque)中，方便計算長度。</p>
+        </blockquote>
+      </li>
+    </ul>
+  </li>
+  <li><strong>遍歷陣列</strong>：
+    <ul>
+      <li>對於陣列中的每個元素，將其加入 <code class="language-plaintext highlighter-rouge">increaseDeque</code> 和 <code class="language-plaintext highlighter-rouge">decreaseDeque</code> 中，並保持兩個隊列的單調性。</li>
+      <li>在每次加入新元素後，檢查當前子陣列的最大值與最小值之間的差是否超過了 <code class="language-plaintext highlighter-rouge">limit</code>。</li>
+      <li>如果超過了 <code class="language-plaintext highlighter-rouge">limit</code>，我們需要調整左邊界 <code class="language-plaintext highlighter-rouge">l</code>，直到子陣列再次符合條件。
+如果現在加入的元素會導致最大值與最小值之間的差是否超過了 limit，那只有兩種情況:
+        <ol>
+          <li>加入的值為區間的最大值，我們要調整左邊界<code class="language-plaintext highlighter-rouge">l</code>使得最小值變大到符合 <em>最大值與最小值之間的差 &lt;= limit</em> ，由於<code class="language-plaintext highlighter-rouge">increaseDeque</code> 隊列中的元素在index與數值上都是遞增的，因此我們可以透過<code class="language-plaintext highlighter-rouge">increaseDeque</code>找最小符合限制的左界。</li>
+          <li>加入的值為區間的最小值，與加入為最大值類似，只是換成透過<code class="language-plaintext highlighter-rouge">decreaseDeque</code>找最小的index符合限制的左界。</li>
+        </ol>
+      </li>
+    </ul>
+  </li>
+  <li><strong>更新結果</strong>：
+    <ul>
+      <li>在調整左邊界後，計算當前子陣列的長度，並更新最大子陣列長度。</li>
+    </ul>
+  </li>
+</ol>
+
+<p>這樣，我們就可以在線性時間內找到符合條件的最大子陣列的長度。</p>
+
+<h2 id="python-實作">Python 實作</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">longestSubarray</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nums</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="n">increaseDeque</span> <span class="o">=</span> <span class="n">deque</span><span class="p">()</span>  <span class="c1"># 單調遞增隊列
+</span>        <span class="n">decreaseDeque</span> <span class="o">=</span> <span class="n">deque</span><span class="p">()</span>  <span class="c1"># 單調遞減隊列
+</span>        <span class="n">l</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># 左邊界
+</span>        <span class="n">max_length</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># 最長的子陣列長度
+</span>        
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)):</span>
+            <span class="c1"># 維護單調遞增隊列
+</span>            <span class="k">while</span> <span class="n">increaseDeque</span> <span class="ow">and</span> <span class="n">nums</span><span class="p">[</span><span class="n">r</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">nums</span><span class="p">[</span><span class="n">increaseDeque</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]:</span>
+                <span class="n">increaseDeque</span><span class="p">.</span><span class="n">pop</span><span class="p">()</span>
+            <span class="n">increaseDeque</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+            
+            <span class="c1"># 維護單調遞減隊列
+</span>            <span class="k">while</span> <span class="n">decreaseDeque</span> <span class="ow">and</span> <span class="n">nums</span><span class="p">[</span><span class="n">r</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">nums</span><span class="p">[</span><span class="n">decreaseDeque</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]:</span>
+                <span class="n">decreaseDeque</span><span class="p">.</span><span class="n">pop</span><span class="p">()</span>
+            <span class="n">decreaseDeque</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+            
+            <span class="c1"># 當前子陣列不符合條件時，移動左邊界
+</span>            <span class="k">while</span> <span class="n">nums</span><span class="p">[</span><span class="n">decreaseDeque</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">-</span> <span class="n">nums</span><span class="p">[</span><span class="n">increaseDeque</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">&gt;</span> <span class="n">limit</span><span class="p">:</span>
+                <span class="n">l</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">if</span> <span class="n">increaseDeque</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">l</span><span class="p">:</span>
+                    <span class="n">increaseDeque</span><span class="p">.</span><span class="n">popleft</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">decreaseDeque</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">l</span><span class="p">:</span>
+                    <span class="n">decreaseDeque</span><span class="p">.</span><span class="n">popleft</span><span class="p">()</span>
+            
+            <span class="c1"># 更新最大子陣列長度
+</span>            <span class="n">max_length</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">max_length</span><span class="p">,</span> <span class="n">r</span> <span class="o">-</span> <span class="n">l</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">max_length</span>
+</code></pre></div></div>
+<h2 id="c-實作">C++ 實作</h2>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="nl">public:</span>
+    <span class="kt">int</span> <span class="n">longestSubarray</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">nums</span><span class="p">,</span> <span class="kt">int</span> <span class="n">limit</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// maintain two monotonic stacks</span>
+        <span class="n">deque</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">increaseSt</span><span class="p">;</span> <span class="c1">// Holds indices in increasing order, front is the minimum of the interval.</span>
+        <span class="n">deque</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">decreaseSt</span><span class="p">;</span> <span class="c1">// Holds indices in decreasing order, front is the maximum of the interval.</span>
+        <span class="kt">int</span> <span class="n">l</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="c1">// left bound of the interval, (exclusive)</span>
+        <span class="kt">int</span> <span class="n">r</span><span class="p">;</span> <span class="c1">// right bound of the interval, (inclusive)</span>
+        <span class="kt">int</span> <span class="n">sizeOfSubArr</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+
+        <span class="c1">// traverse each number in nums, treating it as the right end of interval</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">r</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">r</span><span class="o">&lt;</span><span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">r</span><span class="o">++</span><span class="p">){</span>
+            <span class="c1">// add number in increaseSt and decreaseSt, and maintain two monotonic stacks</span>
+            <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">increaseSt</span><span class="p">.</span><span class="n">empty</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="n">nums</span><span class="p">[</span><span class="n">r</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">nums</span><span class="p">[</span><span class="n">increaseSt</span><span class="p">.</span><span class="n">back</span><span class="p">()])</span> <span class="n">increaseSt</span><span class="p">.</span><span class="n">pop_back</span><span class="p">();</span>
+            <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">decreaseSt</span><span class="p">.</span><span class="n">empty</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="n">nums</span><span class="p">[</span><span class="n">r</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">nums</span><span class="p">[</span><span class="n">decreaseSt</span><span class="p">.</span><span class="n">back</span><span class="p">()])</span> <span class="n">decreaseSt</span><span class="p">.</span><span class="n">pop_back</span><span class="p">();</span>
+            <span class="n">increaseSt</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">r</span><span class="p">);</span>
+            <span class="n">decreaseSt</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">r</span><span class="p">);</span>
+            
+            <span class="c1">// check the current interval is valid</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">decreaseSt</span><span class="p">.</span><span class="n">front</span><span class="p">()]</span><span class="o">-</span><span class="n">nums</span><span class="p">[</span><span class="n">increaseSt</span><span class="p">.</span><span class="n">front</span><span class="p">()]</span><span class="o">&gt;</span><span class="n">limit</span><span class="p">){</span>
+                <span class="n">sizeOfSubArr</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">sizeOfSubArr</span><span class="p">,</span> <span class="n">r</span><span class="o">-</span><span class="n">l</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+                
+                <span class="c1">// move the left of interval to make the interval valid</span>
+                <span class="k">while</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">decreaseSt</span><span class="p">.</span><span class="n">front</span><span class="p">()]</span><span class="o">-</span><span class="n">nums</span><span class="p">[</span><span class="n">increaseSt</span><span class="p">.</span><span class="n">front</span><span class="p">()]</span><span class="o">&gt;</span><span class="n">limit</span><span class="p">){</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">decreaseSt</span><span class="p">.</span><span class="n">front</span><span class="p">()</span> <span class="o">==</span> <span class="n">r</span><span class="p">){</span>
+                        <span class="n">l</span> <span class="o">=</span> <span class="n">increaseSt</span><span class="p">.</span><span class="n">front</span><span class="p">();</span>
+                        <span class="n">increaseSt</span><span class="p">.</span><span class="n">pop_front</span><span class="p">();</span>
+                    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+                        <span class="n">l</span> <span class="o">=</span> <span class="n">decreaseSt</span><span class="p">.</span><span class="n">front</span><span class="p">();</span>
+                        <span class="n">decreaseSt</span><span class="p">.</span><span class="n">pop_front</span><span class="p">();</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="n">sizeOfSubArr</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">sizeOfSubArr</span><span class="p">,</span> <span class="n">r</span><span class="o">-</span><span class="n">l</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">sizeOfSubArr</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<h2 id="時間複雜度">時間複雜度</h2>
+
+<p>這個解法的時間複雜度是 $O(n)$，其中 <code class="language-plaintext highlighter-rouge">n</code> 是陣列 <code class="language-plaintext highlighter-rouge">nums</code> 的長度。因為每個元素最多只會被加入和移除兩個雙端隊列(deque)各一次，所以整個過程的時間複雜度是線性的。</p>
+
+<h2 id="空間複雜度">空間複雜度</h2>
+
+<p>空間複雜度是 $O(n)$，因為我們使用了兩個雙端隊列(deque)來維護當前子陣列的最小值和最大值。在最壞情況下，這些隊列可以包含 <code class="language-plaintext highlighter-rouge">n</code> 個元素。</p>
+
+		</p>
+	</div>		
+  <div style="text-align: left; padding: 25px;">
+  <h1>相關文章</h1>
+  
+  
+
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  <a href="/easy/2026/01/02/1869-Longer-Contiguous-Segments-of-Ones-than-Zeros.html" class="badge badge-success">[Leetcode解題] 1869. Longer Contiguous Segments of Ones than Zeros</a>
+  
+  
+  
+  <!--
+  <div>[Leetcode解題] 1869. Longer Contiguous Segments of Ones than Zeros</div>
+  <div class="post-view-tags">
+		
+      
+		<a href="/posts/categories/easy/" class="badge badge-success">easy</a>
+  	  
+      
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">String</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  <a href="/easy/2024/08/03/1460-Make-Two-Arrays-Equal-by-Reversing-Subarrays.html" class="badge badge-success">[Leetcode解題] 1460. Make Two Arrays Equal by Reversing Subarrays</a>
+  
+  
+  
+  <!--
+  <div>[Leetcode解題] 1460. Make Two Arrays Equal by Reversing Subarrays</div>
+  <div class="post-view-tags">
+		
+      
+		<a href="/posts/categories/easy/" class="badge badge-success">easy</a>
+  	  
+      
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">hashtable</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  
+  <a href="/hard/2024/07/13/2751-Robot-Collisions.html" class="badge badge-danger">[Leetcode解題] 2751. Robot Collisions - 使用stack解</a>
+  
+  <!--
+  <div>[Leetcode解題] 2751. Robot Collisions - 使用stack解</div>
+  <div class="post-view-tags">
+		
+      
+      
+      
+		<a href="/posts/categories/hard/" class="badge badge-danger">hard</a>
+  	  
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">stack</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  
+  <a href="/hard/2024/02/23/249-sliding-window-maximum.html" class="badge badge-danger">[Leetcode解題] 239. Sliding Window Maximum</a>
+  
+  <!--
+  <div>[Leetcode解題] 239. Sliding Window Maximum</div>
+  <div class="post-view-tags">
+		
+      
+      
+      
+		<a href="/posts/categories/hard/" class="badge badge-danger">hard</a>
+  	  
+		
+		
+		<i href="#" class="badge badge-dark">monotonic-queue</i>
+		
+		<i href="#" class="badge badge-dark">deque</i>
+		
+		<i href="#" class="badge badge-dark">queue</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2025/12/06/1895-Largest-Magic-Square.html" class="badge badge-warning">[Leetcode解題] 1895. Largest Magic Square</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 1895. Largest Magic Square</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">preSum</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2025/11/15/419-Battleships-in-a-Board.html" class="badge badge-warning">[Leetcode解題] 419. Battleships in a Board</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 419. Battleships in a Board</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">dfs</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2025/04/26/2261-k-divisible-elements-subarrays.html" class="badge badge-warning">[Leetcode解題] 2261. K Divisible Elements Subarrays</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 2261. K Divisible Elements Subarrays</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">rolling-hash</i>
+		
+		<i href="#" class="badge badge-dark">hash</i>
+		
+		<i href="#" class="badge badge-dark">trie</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2025/04/19/2563-count-the-number-of-fair-pairs.html" class="badge badge-warning">[Leetcode解題] 2563. Count the Number of Fair Pairs</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 2563. Count the Number of Fair Pairs</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">binary-search</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2025/03/16/2560-house-robber-iv.html" class="badge badge-warning">[Leetcode解題] 2560. House Robber IV</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 2560. House Robber IV</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">greedy</i>
+		
+		<i href="#" class="badge badge-dark">binary-search</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/12/06/2554-Maximum-Number-of-Integers-to-Choose-From-a-Range-I.html" class="badge badge-warning">[Leetcode解題]  2554. Maximum Number of Integers to Choose From a Range I</a>
+  
+  
+  <!--
+  <div>[Leetcode解題]  2554. Maximum Number of Integers to Choose From a Range I</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">greedy</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/09/06/380-Insert-Delete-GetRandom-O(1).html" class="badge badge-warning">[Leetcode解題]  380. Insert Delete GetRandom O(1)</a>
+  
+  
+  <!--
+  <div>[Leetcode解題]  380. Insert Delete GetRandom O(1)</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">hashTable</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/08/03/3143-Maximum-Points-Inside-the-Square.html" class="badge badge-warning">[Leetcode解題] 3143. Maximum Points Inside the Square</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 3143. Maximum Points Inside the Square</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">sort</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/07/20/1605-Find-Valid-Matrix-Given-Row-and-Column-Sums.html" class="badge badge-warning">[Leetcode解題] 1605. Find Valid Matrix Given Row and Column Sums - 使用Greedy+雙指針解</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 1605. Find Valid Matrix Given Row and Column Sums - 使用Greedy+雙指針解</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">two-pointers</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/07/12/986-Interval-List-Intersections.html" class="badge badge-warning">[Leetcode解題] 986. Interval List Intersections - 雙指針解</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 986. Interval List Intersections - 雙指針解</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">two-pointers</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/06/30/187-Repeated-DNS-Sequences.html" class="badge badge-warning">[Leetcode解題] 187. Repeated DNA Sequences - 使用hashtable解+4進位</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 187. Repeated DNA Sequences - 使用hashtable解+4進位</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">hash</i>
+		
+		<i href="#" class="badge badge-dark">hashtable</i>
+		
+		<i href="#" class="badge badge-dark">bit</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/06/29/1438-Longest-Continuous-Subarray-With-Absolute-Diff-Less-Than-or-Equal-to-Limit.html" class="badge badge-warning">[Leetcode解題] 1438. Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit - 使用deque+ two pointer解</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 1438. Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit - 使用deque+ two pointer解</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">deque</i>
+		
+		<i href="#" class="badge badge-dark">sliding-window</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/06/22/1248-Count-Number-of-Nice-Subarrays.html" class="badge badge-warning">[Leetcode解題] 1248. Count Number of Nice Subarrays - 使用presum+hashtable解</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 1248. Count Number of Nice Subarrays - 使用presum+hashtable解</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">presum</i>
+		
+		<i href="#" class="badge badge-dark">hash</i>
+		
+		<i href="#" class="badge badge-dark">hashtable</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/05/18/523-Continuous-subarray-sum.html" class="badge badge-warning">[Leetcode解題] 523. Continuous Subarray Sum</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 523. Continuous Subarray Sum</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">presum</i>
+		
+		<i href="#" class="badge badge-dark">hash</i>
+		
+		<i href="#" class="badge badge-dark">hashtable</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/05/18/1423-Maximum-Points-You-Can-Obtain-from-Cards.html" class="badge badge-warning">[Leetcode解題] 1423. Maximum Points You Can Obtain from Cards</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 1423. Maximum Points You Can Obtain from Cards</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">presum</i>
+		
+		<i href="#" class="badge badge-dark">sliding-window</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/04/20/1146-Snapshot-Array.html" class="badge badge-warning">[Leetcode解題] 1146. Snapshot Array</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 1146. Snapshot Array</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">binary-search</i>
+		
+		<i href="#" class="badge badge-dark">bs</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+  </div>
+</div>
+		</div>
+		<div class="col-md-2 col-sm-0">
+		</div>
+	</div>
+</div>
+
+		</main>
+		<footer class="footer">
+			<!-- No -->
+
+<!--This is the footer of the website-->
+
+<div class="footer-window container-fluid footer-color">
+	<div class="row">
+		<div class="footer-view footer-left col-md-4 text-left">
+			<div class="footer-section">
+				<div class="account-box">
+			</div>
+			</div>
+		</div>
+		<div class="footer-view footer-center col-md-4 text-center">
+			<div class="footer-section">
+				<div class="footer-copyright">
+					解題愛好者
+					<br><br>
+					歡迎來到刷題貓！我們是兩位熱愛程式設計的工程師，在此分享Leetcode刷題心得以及整理主題式的文章
+					<br><br>
+					© 2023 CATXCODER All Rights Reserved
+				</div>
+				<div>
+				</div>
+			</div>
+		</div>
+		<div class="footer-view footer-right col-md-4 text-center">
+			<div class="footer-section">
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--
+log
+<p>Version 0.0.2</p>
+			<p>0.0.2 - 配色完成</p>
+			<p>0.0.2 - 基本模板完成</p>
+			<p>0.0.2 - 自我介紹新增打字效果</p>
+
+
+
+
+-->
+
+		</footer>
+		</div>
+	</body>
+</html>
+
+<script>
+$(".badge-info").hover(function(){
+    $(this).hide(1000);
+});
+
+
+</script>

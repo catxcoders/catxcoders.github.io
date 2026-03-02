@@ -1,0 +1,2067 @@
+<!-- OK -->
+
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="utf-8">
+	<link rel="icon" type="image/x-icon" href="/res/catxcoder.ico">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>[Leetcode解題] Merge Two Sorted Lists - 指針解</title>
+	<meta name="description" content="[Leetcode解題] Merge Two Sorted Lists - 指針解" />
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<!-- My CSS -->
+<link href="/res/css/common.css" rel="stylesheet">
+
+	</head>
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-MHQH8LKZYV"></script>
+	<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+
+	gtag('config', 'G-MHQH8LKZYV');
+	</script>
+	<body>		
+				<!-- JQeury -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+    
+	<!-- Font Awesome -->
+	<!--<script defer src="https://use.fontawesome.com/releases/v6.4.2/js/all.js" integrity="	sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe" crossorigin="anonymous"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" integrity="sha512-uKQ39gEGiyUJl4AI6L+ekBdGKpGw4xJ55+xyJG7YFlJokPNYegn9KwQ3P8A7aFQAUtUsAQHep+d/lrGqrbPIDQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<!-- support MathJax -->
+	<style TYPE="text/css">
+	code.has-jax {font: inherit; font-size: 100%; background: inherit; border: inherit;}
+	</style>
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	    tex2jax: {
+	        inlineMath: [['$','$'], ['\\(','\\)']],
+	        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'] // removed 'code' entry
+	    }
+	});
+	MathJax.Hub.Queue(function() {
+	    var all = MathJax.Hub.getAllJax(), i;
+	    for(i = 0; i < all.length; i += 1) {
+	        all[i].SourceElement().parentNode.className += ' has-jax';
+	    }
+	});
+	</script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<!-- A patch to fix mathjax -->
+<!-- https://github.com/mathjax/MathJax/issues/1737 -->
+	<script type="text/x-mathjax-config">
+if (MathJax.Hub.Browser.isSafari && parseInt(MathJax.Hub.Browser.webkit) >= 603) {
+  MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready", function () {
+    var HTMLCSS = MathJax.OutputJax["HTML-CSS"];
+    var MML = MathJax.ElementJax.mml;
+    var toHTML = MML.mo.prototype.toHTML;
+    MML.mo.Augment({
+      toHTML: function (span) {
+        span = toHTML.call(this,span);
+        if (span.bbox.w === 0 && span.bbox.lw < 0 && span.firstChild) {
+          span.style.marginLeft = HTMLCSS.Em(span.bbox.lw);
+        }
+        return span;
+      }
+    });
+  });
+}
+</script>
+
+		<header>
+			<!-- OK -->
+
+<div class="container">
+  <nav class="navbar navbar-expand-lg navbar-default nav-color" >
+    <a href="/index.html">
+      <img src="/res/catxcoder.ico" class="img-fluid" style="width: 32px; margin-right: 10px;">
+    </a>
+    <a class="navbar-item" href="/index.html">
+      刷題貓
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span><i class="fas fa-bars" ></i></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <ul class="navbar-nav ml-auto navbar-right">
+          <li class="nav-item">
+             <a class="nav-link" href="/index.html">首頁</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/posts/categories">難度</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/posts/algorithms">演算法</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/works">主題式</a>
+          </li>
+        </ul>
+    </div>
+  </nav>
+</div>
+
+		</header>
+		<main>
+			<!-- OK -->
+
+<div class="container-fluid text-center bg-color">
+	<div class="row bg-icon">
+		<div class="col-md-2 col-sm-0">
+
+		</div>
+		<div class="view-home col-md-8 col-sm-12 post-home-color">
+			<div class="post-view-color post-view-window">
+	
+	<!-- title -->
+	<div class="post-view-title text-left" >
+		<p>[Leetcode解題] Merge Two Sorted Lists - 指針解</p>
+	</div>
+	
+	<!-- date -->
+	<div class="post-view-date">
+			11 February 2022
+	</div>
+
+	<!-- tags -->
+	<div class="post-view-tags">
+		
+      
+		<a href="/posts/categories/easy/" class="badge badge-success">easy</a>
+  	  
+      
+      
+		
+		
+		<i href="#" class="badge badge-dark">linked-list</i>
+		
+		<i href="#" class="badge badge-dark">pointer</i>
+		
+	</div>
+	<hr>
+
+	<!-- excerpt -->
+	<div class="post-view-excerpt text-left">
+		<p>
+			<h2 id="題目">題目</h2>
+<p><a href="https://leetcode.com/problems/merge-two-sorted-lists/description/">21. Merge Two Sorted Lists</a>
+給定兩個排的List: list1 和 list2。
+將這兩個給定兩個排的List合併為一個排序的給定兩個排的List。合併的過程應該通過拼接第一個和第二個給定兩個排的List的節點完成。
+返回合併後List的head。</p>
+
+<!--more-->
+
+<h1 id="解題思路">解題思路</h1>
+<p>不論這兩條<code class="language-plaintext highlighter-rouge">List</code>有沒有排序過，都可以直接將這兩條<code class="language-plaintext highlighter-rouge">List</code>拼起來再做sort，這樣的時間複雜度是O(nlogn), n為兩條<code class="language-plaintext highlighter-rouge">List</code>總元素個數。
+因為兩條<code class="language-plaintext highlighter-rouge">List</code>都是排序好的，因此可以試著運用這個特性，來減少計算量。</p>
+<div class="graphviz-wrapper">
+
+<!-- Generated by graphviz version 14.1.2 (0)
+ -->
+<!-- Pages: 1 -->
+<svg role="img" aria-label="graphviz-5c36df7eb333dabf5c47e0e7fbebb9fb" width="290pt" height="70pt" viewBox="0.00 0.00 290.00 70.00">
+<title>graphviz-5c36df7eb333dabf5c47e0e7fbebb9fb</title>
+<desc>
+digraph {
+rankdir=LR
+ranksep=0.3
+node [shape=box style=&quot;rounded,filled&quot; height=0.3]
+node [label=1 fillcolor=pink] 1.1
+node [label=2 fillcolor=pink] 1.2
+node [label=4 fillcolor=pink] 1.4
+node [label=1 fillcolor=lightgray] 2.1
+node [label=3 fillcolor=lightgray] 2.3
+node [label=4 fillcolor=lightgray] 2.4
+node [label=5 fillcolor=lightgray] 2.5
+node [ label=&quot;\N&quot;]
+1.1 -&gt; 1.2 -&gt; 1.4
+2.1 -&gt; 2.3 -&gt; 2.4 -&gt; 2.5
+}
+</desc>
+
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 66.25)">
+<polygon fill="white" stroke="none" points="-4,4 -4,-66.25 286,-66.25 286,4 -4,4" />
+<!-- 1.1 -->
+<g id="node1" class="node">
+<title>1.1</title>
+<path fill="pink" stroke="black" d="M46.58,-22.25C46.58,-22.25 7.42,-22.25 7.42,-22.25 3.71,-22.25 0,-18.54 0,-14.83 0,-14.83 0,-7.42 0,-7.42 0,-3.71 3.71,0 7.42,0 7.42,0 46.58,0 46.58,0 50.29,0 54,-3.71 54,-7.42 54,-7.42 54,-14.83 54,-14.83 54,-18.54 50.29,-22.25 46.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="27" y="-4.95" font-family="Times,serif" font-size="14.00">1</text>
+</g>
+<!-- 1.2 -->
+<g id="node2" class="node">
+<title>1.2</title>
+<path fill="pink" stroke="black" d="M122.58,-22.25C122.58,-22.25 83.42,-22.25 83.42,-22.25 79.71,-22.25 76,-18.54 76,-14.83 76,-14.83 76,-7.42 76,-7.42 76,-3.71 79.71,0 83.42,0 83.42,0 122.58,0 122.58,0 126.29,0 130,-3.71 130,-7.42 130,-7.42 130,-14.83 130,-14.83 130,-18.54 126.29,-22.25 122.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="103" y="-4.95" font-family="Times,serif" font-size="14.00">2</text>
+</g>
+<!-- 1.1&#45;&gt;1.2 -->
+<g id="edge1" class="edge">
+<title>1.1&#45;&gt;1.2</title>
+<path fill="none" stroke="black" d="M54.3,-11.12C57.57,-11.12 60.96,-11.12 64.36,-11.12" />
+<polygon fill="black" stroke="black" points="64.27,-14.63 74.27,-11.13 64.27,-7.63 64.27,-14.63" />
+</g>
+<!-- 1.4 -->
+<g id="node3" class="node">
+<title>1.4</title>
+<path fill="pink" stroke="black" d="M198.58,-22.25C198.58,-22.25 159.42,-22.25 159.42,-22.25 155.71,-22.25 152,-18.54 152,-14.83 152,-14.83 152,-7.42 152,-7.42 152,-3.71 155.71,0 159.42,0 159.42,0 198.58,0 198.58,0 202.29,0 206,-3.71 206,-7.42 206,-7.42 206,-14.83 206,-14.83 206,-18.54 202.29,-22.25 198.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="179" y="-4.95" font-family="Times,serif" font-size="14.00">4</text>
+</g>
+<!-- 1.2&#45;&gt;1.4 -->
+<g id="edge2" class="edge">
+<title>1.2&#45;&gt;1.4</title>
+<path fill="none" stroke="black" d="M130.3,-11.12C133.57,-11.12 136.96,-11.12 140.36,-11.12" />
+<polygon fill="black" stroke="black" points="140.27,-14.63 150.27,-11.13 140.27,-7.63 140.27,-14.63" />
+</g>
+<!-- 2.1 -->
+<g id="node4" class="node">
+<title>2.1</title>
+<path fill="lightgray" stroke="black" d="M46.58,-62.25C46.58,-62.25 7.42,-62.25 7.42,-62.25 3.71,-62.25 0,-58.54 0,-54.83 0,-54.83 0,-47.42 0,-47.42 0,-43.71 3.71,-40 7.42,-40 7.42,-40 46.58,-40 46.58,-40 50.29,-40 54,-43.71 54,-47.42 54,-47.42 54,-54.83 54,-54.83 54,-58.54 50.29,-62.25 46.58,-62.25" />
+<text xml:space="preserve" text-anchor="middle" x="27" y="-44.95" font-family="Times,serif" font-size="14.00">1</text>
+</g>
+<!-- 2.3 -->
+<g id="node5" class="node">
+<title>2.3</title>
+<path fill="lightgray" stroke="black" d="M122.58,-62.25C122.58,-62.25 83.42,-62.25 83.42,-62.25 79.71,-62.25 76,-58.54 76,-54.83 76,-54.83 76,-47.42 76,-47.42 76,-43.71 79.71,-40 83.42,-40 83.42,-40 122.58,-40 122.58,-40 126.29,-40 130,-43.71 130,-47.42 130,-47.42 130,-54.83 130,-54.83 130,-58.54 126.29,-62.25 122.58,-62.25" />
+<text xml:space="preserve" text-anchor="middle" x="103" y="-44.95" font-family="Times,serif" font-size="14.00">3</text>
+</g>
+<!-- 2.1&#45;&gt;2.3 -->
+<g id="edge3" class="edge">
+<title>2.1&#45;&gt;2.3</title>
+<path fill="none" stroke="black" d="M54.3,-51.12C57.57,-51.12 60.96,-51.12 64.36,-51.12" />
+<polygon fill="black" stroke="black" points="64.27,-54.63 74.27,-51.13 64.27,-47.63 64.27,-54.63" />
+</g>
+<!-- 2.4 -->
+<g id="node6" class="node">
+<title>2.4</title>
+<path fill="lightgray" stroke="black" d="M198.58,-62.25C198.58,-62.25 159.42,-62.25 159.42,-62.25 155.71,-62.25 152,-58.54 152,-54.83 152,-54.83 152,-47.42 152,-47.42 152,-43.71 155.71,-40 159.42,-40 159.42,-40 198.58,-40 198.58,-40 202.29,-40 206,-43.71 206,-47.42 206,-47.42 206,-54.83 206,-54.83 206,-58.54 202.29,-62.25 198.58,-62.25" />
+<text xml:space="preserve" text-anchor="middle" x="179" y="-44.95" font-family="Times,serif" font-size="14.00">4</text>
+</g>
+<!-- 2.3&#45;&gt;2.4 -->
+<g id="edge4" class="edge">
+<title>2.3&#45;&gt;2.4</title>
+<path fill="none" stroke="black" d="M130.3,-51.12C133.57,-51.12 136.96,-51.12 140.36,-51.12" />
+<polygon fill="black" stroke="black" points="140.27,-54.63 150.27,-51.13 140.27,-47.63 140.27,-54.63" />
+</g>
+<!-- 2.5 -->
+<g id="node7" class="node">
+<title>2.5</title>
+<path fill="lightgray" stroke="black" d="M274.58,-62.25C274.58,-62.25 235.42,-62.25 235.42,-62.25 231.71,-62.25 228,-58.54 228,-54.83 228,-54.83 228,-47.42 228,-47.42 228,-43.71 231.71,-40 235.42,-40 235.42,-40 274.58,-40 274.58,-40 278.29,-40 282,-43.71 282,-47.42 282,-47.42 282,-54.83 282,-54.83 282,-58.54 278.29,-62.25 274.58,-62.25" />
+<text xml:space="preserve" text-anchor="middle" x="255" y="-44.95" font-family="Times,serif" font-size="14.00">5</text>
+</g>
+<!-- 2.4&#45;&gt;2.5 -->
+<g id="edge5" class="edge">
+<title>2.4&#45;&gt;2.5</title>
+<path fill="none" stroke="black" d="M206.3,-51.12C209.57,-51.12 212.96,-51.12 216.36,-51.12" />
+<polygon fill="black" stroke="black" points="216.27,-54.63 226.27,-51.13 216.27,-47.63 216.27,-54.63" />
+</g>
+</g>
+</svg>
+</div>
+<p>比較兩條排序好的<code class="language-plaintext highlighter-rouge">list</code>的第一個元素，將比較小的元素接到比較result後，直到至少有一條List為空</p>
+
+<div class="graphviz-wrapper">
+
+<!-- Generated by graphviz version 14.1.2 (0)
+ -->
+<!-- Pages: 1 -->
+<svg role="img" aria-label="graphviz-f071932f24d170fccd5197c85ef29e8d" width="290pt" height="110pt" viewBox="0.00 0.00 290.00 110.00">
+<title>graphviz-f071932f24d170fccd5197c85ef29e8d</title>
+<desc>
+digraph {
+rankdir=LR
+ranksep=0.3
+node [shape=box style=&quot;rounded,filled&quot; height=0.3]
+node [label=1 fillcolor=pink] 1.1
+node [label=2 fillcolor=pink] 1.2
+node [label=4 fillcolor=pink] 1.4
+node [label=1 fillcolor=lightgray] 2.1
+node [label=3 fillcolor=lightgray] 2.3
+node [label=4 fillcolor=lightgray] 2.4
+node [label=5 fillcolor=lightgray] 2.5
+node [ label=&quot;\N&quot;]
+1.2 -&gt; 1.4
+2.1 -&gt;2.3 -&gt; 2.4 -&gt; 2.5
+result -&gt; 1.1  
+}
+
+</desc>
+
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 106.25)">
+<polygon fill="white" stroke="none" points="-4,4 -4,-106.25 286,-106.25 286,4 -4,4" />
+<!-- 1.1 -->
+<g id="node1" class="node">
+<title>1.1</title>
+<path fill="pink" stroke="black" d="M122.58,-22.25C122.58,-22.25 83.42,-22.25 83.42,-22.25 79.71,-22.25 76,-18.54 76,-14.83 76,-14.83 76,-7.42 76,-7.42 76,-3.71 79.71,0 83.42,0 83.42,0 122.58,0 122.58,0 126.29,0 130,-3.71 130,-7.42 130,-7.42 130,-14.83 130,-14.83 130,-18.54 126.29,-22.25 122.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="103" y="-4.95" font-family="Times,serif" font-size="14.00">1</text>
+</g>
+<!-- 1.2 -->
+<g id="node2" class="node">
+<title>1.2</title>
+<path fill="pink" stroke="black" d="M46.58,-62.25C46.58,-62.25 7.42,-62.25 7.42,-62.25 3.71,-62.25 0,-58.54 0,-54.83 0,-54.83 0,-47.42 0,-47.42 0,-43.71 3.71,-40 7.42,-40 7.42,-40 46.58,-40 46.58,-40 50.29,-40 54,-43.71 54,-47.42 54,-47.42 54,-54.83 54,-54.83 54,-58.54 50.29,-62.25 46.58,-62.25" />
+<text xml:space="preserve" text-anchor="middle" x="27" y="-44.95" font-family="Times,serif" font-size="14.00">2</text>
+</g>
+<!-- 1.4 -->
+<g id="node3" class="node">
+<title>1.4</title>
+<path fill="pink" stroke="black" d="M122.58,-62.25C122.58,-62.25 83.42,-62.25 83.42,-62.25 79.71,-62.25 76,-58.54 76,-54.83 76,-54.83 76,-47.42 76,-47.42 76,-43.71 79.71,-40 83.42,-40 83.42,-40 122.58,-40 122.58,-40 126.29,-40 130,-43.71 130,-47.42 130,-47.42 130,-54.83 130,-54.83 130,-58.54 126.29,-62.25 122.58,-62.25" />
+<text xml:space="preserve" text-anchor="middle" x="103" y="-44.95" font-family="Times,serif" font-size="14.00">4</text>
+</g>
+<!-- 1.2&#45;&gt;1.4 -->
+<g id="edge1" class="edge">
+<title>1.2&#45;&gt;1.4</title>
+<path fill="none" stroke="black" d="M54.3,-51.12C57.57,-51.12 60.96,-51.12 64.36,-51.12" />
+<polygon fill="black" stroke="black" points="64.27,-54.63 74.27,-51.13 64.27,-47.63 64.27,-54.63" />
+</g>
+<!-- 2.1 -->
+<g id="node4" class="node">
+<title>2.1</title>
+<path fill="lightgray" stroke="black" d="M46.58,-102.25C46.58,-102.25 7.42,-102.25 7.42,-102.25 3.71,-102.25 0,-98.54 0,-94.83 0,-94.83 0,-87.42 0,-87.42 0,-83.71 3.71,-80 7.42,-80 7.42,-80 46.58,-80 46.58,-80 50.29,-80 54,-83.71 54,-87.42 54,-87.42 54,-94.83 54,-94.83 54,-98.54 50.29,-102.25 46.58,-102.25" />
+<text xml:space="preserve" text-anchor="middle" x="27" y="-84.95" font-family="Times,serif" font-size="14.00">1</text>
+</g>
+<!-- 2.3 -->
+<g id="node5" class="node">
+<title>2.3</title>
+<path fill="lightgray" stroke="black" d="M122.58,-102.25C122.58,-102.25 83.42,-102.25 83.42,-102.25 79.71,-102.25 76,-98.54 76,-94.83 76,-94.83 76,-87.42 76,-87.42 76,-83.71 79.71,-80 83.42,-80 83.42,-80 122.58,-80 122.58,-80 126.29,-80 130,-83.71 130,-87.42 130,-87.42 130,-94.83 130,-94.83 130,-98.54 126.29,-102.25 122.58,-102.25" />
+<text xml:space="preserve" text-anchor="middle" x="103" y="-84.95" font-family="Times,serif" font-size="14.00">3</text>
+</g>
+<!-- 2.1&#45;&gt;2.3 -->
+<g id="edge2" class="edge">
+<title>2.1&#45;&gt;2.3</title>
+<path fill="none" stroke="black" d="M54.3,-91.12C57.57,-91.12 60.96,-91.12 64.36,-91.12" />
+<polygon fill="black" stroke="black" points="64.27,-94.63 74.27,-91.13 64.27,-87.63 64.27,-94.63" />
+</g>
+<!-- 2.4 -->
+<g id="node6" class="node">
+<title>2.4</title>
+<path fill="lightgray" stroke="black" d="M198.58,-102.25C198.58,-102.25 159.42,-102.25 159.42,-102.25 155.71,-102.25 152,-98.54 152,-94.83 152,-94.83 152,-87.42 152,-87.42 152,-83.71 155.71,-80 159.42,-80 159.42,-80 198.58,-80 198.58,-80 202.29,-80 206,-83.71 206,-87.42 206,-87.42 206,-94.83 206,-94.83 206,-98.54 202.29,-102.25 198.58,-102.25" />
+<text xml:space="preserve" text-anchor="middle" x="179" y="-84.95" font-family="Times,serif" font-size="14.00">4</text>
+</g>
+<!-- 2.3&#45;&gt;2.4 -->
+<g id="edge3" class="edge">
+<title>2.3&#45;&gt;2.4</title>
+<path fill="none" stroke="black" d="M130.3,-91.12C133.57,-91.12 136.96,-91.12 140.36,-91.12" />
+<polygon fill="black" stroke="black" points="140.27,-94.63 150.27,-91.13 140.27,-87.63 140.27,-94.63" />
+</g>
+<!-- 2.5 -->
+<g id="node7" class="node">
+<title>2.5</title>
+<path fill="lightgray" stroke="black" d="M274.58,-102.25C274.58,-102.25 235.42,-102.25 235.42,-102.25 231.71,-102.25 228,-98.54 228,-94.83 228,-94.83 228,-87.42 228,-87.42 228,-83.71 231.71,-80 235.42,-80 235.42,-80 274.58,-80 274.58,-80 278.29,-80 282,-83.71 282,-87.42 282,-87.42 282,-94.83 282,-94.83 282,-98.54 278.29,-102.25 274.58,-102.25" />
+<text xml:space="preserve" text-anchor="middle" x="255" y="-84.95" font-family="Times,serif" font-size="14.00">5</text>
+</g>
+<!-- 2.4&#45;&gt;2.5 -->
+<g id="edge4" class="edge">
+<title>2.4&#45;&gt;2.5</title>
+<path fill="none" stroke="black" d="M206.3,-91.12C209.57,-91.12 212.96,-91.12 216.36,-91.12" />
+<polygon fill="black" stroke="black" points="216.27,-94.63 226.27,-91.13 216.27,-87.63 216.27,-94.63" />
+</g>
+<!-- result -->
+<g id="node8" class="node">
+<title>result</title>
+<path fill="lightgray" stroke="black" d="M46.58,-22.25C46.58,-22.25 7.42,-22.25 7.42,-22.25 3.71,-22.25 0,-18.54 0,-14.83 0,-14.83 0,-7.42 0,-7.42 0,-3.71 3.71,0 7.42,0 7.42,0 46.58,0 46.58,0 50.29,0 54,-3.71 54,-7.42 54,-7.42 54,-14.83 54,-14.83 54,-18.54 50.29,-22.25 46.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="27" y="-4.95" font-family="Times,serif" font-size="14.00">result</text>
+</g>
+<!-- result&#45;&gt;1.1 -->
+<g id="edge5" class="edge">
+<title>result&#45;&gt;1.1</title>
+<path fill="none" stroke="black" d="M54.3,-11.12C57.57,-11.12 60.96,-11.12 64.36,-11.12" />
+<polygon fill="black" stroke="black" points="64.27,-14.63 74.27,-11.13 64.27,-7.63 64.27,-14.63" />
+</g>
+</g>
+</svg>
+</div>
+<hr />
+
+<div class="graphviz-wrapper">
+
+<!-- Generated by graphviz version 14.1.2 (0)
+ -->
+<!-- Pages: 1 -->
+<svg role="img" aria-label="graphviz-2f69f768b0e566db7e31a83c97a68a0a" width="214pt" height="110pt" viewBox="0.00 0.00 214.00 110.00">
+<title>graphviz-2f69f768b0e566db7e31a83c97a68a0a</title>
+<desc>
+digraph {
+rankdir=LR
+ranksep=0.3
+node [shape=box style=&quot;rounded,filled&quot; height=0.3]
+node [label=1 fillcolor=pink] 1.1
+node [label=2 fillcolor=pink] 1.2
+node [label=4 fillcolor=pink] 1.4
+node [label=1 fillcolor=lightgray] 2.1
+node [label=3 fillcolor=lightgray] 2.3
+node [label=4 fillcolor=lightgray] 2.4
+node [label=5 fillcolor=lightgray] 2.5
+node [ label=&quot;\N&quot;]
+1.2 -&gt; 1.4
+2.3 -&gt; 2.4 -&gt; 2.5
+result -&gt; 1.1 -&gt; 2.1
+}
+
+</desc>
+
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 106.25)">
+<polygon fill="white" stroke="none" points="-4,4 -4,-106.25 210,-106.25 210,4 -4,4" />
+<!-- 1.1 -->
+<g id="node1" class="node">
+<title>1.1</title>
+<path fill="pink" stroke="black" d="M122.58,-22.25C122.58,-22.25 83.42,-22.25 83.42,-22.25 79.71,-22.25 76,-18.54 76,-14.83 76,-14.83 76,-7.42 76,-7.42 76,-3.71 79.71,0 83.42,0 83.42,0 122.58,0 122.58,0 126.29,0 130,-3.71 130,-7.42 130,-7.42 130,-14.83 130,-14.83 130,-18.54 126.29,-22.25 122.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="103" y="-4.95" font-family="Times,serif" font-size="14.00">1</text>
+</g>
+<!-- 2.1 -->
+<g id="node4" class="node">
+<title>2.1</title>
+<path fill="lightgray" stroke="black" d="M198.58,-22.25C198.58,-22.25 159.42,-22.25 159.42,-22.25 155.71,-22.25 152,-18.54 152,-14.83 152,-14.83 152,-7.42 152,-7.42 152,-3.71 155.71,0 159.42,0 159.42,0 198.58,0 198.58,0 202.29,0 206,-3.71 206,-7.42 206,-7.42 206,-14.83 206,-14.83 206,-18.54 202.29,-22.25 198.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="179" y="-4.95" font-family="Times,serif" font-size="14.00">1</text>
+</g>
+<!-- 1.1&#45;&gt;2.1 -->
+<g id="edge5" class="edge">
+<title>1.1&#45;&gt;2.1</title>
+<path fill="none" stroke="black" d="M130.3,-11.12C133.57,-11.12 136.96,-11.12 140.36,-11.12" />
+<polygon fill="black" stroke="black" points="140.27,-14.63 150.27,-11.13 140.27,-7.63 140.27,-14.63" />
+</g>
+<!-- 1.2 -->
+<g id="node2" class="node">
+<title>1.2</title>
+<path fill="pink" stroke="black" d="M46.58,-62.25C46.58,-62.25 7.42,-62.25 7.42,-62.25 3.71,-62.25 0,-58.54 0,-54.83 0,-54.83 0,-47.42 0,-47.42 0,-43.71 3.71,-40 7.42,-40 7.42,-40 46.58,-40 46.58,-40 50.29,-40 54,-43.71 54,-47.42 54,-47.42 54,-54.83 54,-54.83 54,-58.54 50.29,-62.25 46.58,-62.25" />
+<text xml:space="preserve" text-anchor="middle" x="27" y="-44.95" font-family="Times,serif" font-size="14.00">2</text>
+</g>
+<!-- 1.4 -->
+<g id="node3" class="node">
+<title>1.4</title>
+<path fill="pink" stroke="black" d="M122.58,-62.25C122.58,-62.25 83.42,-62.25 83.42,-62.25 79.71,-62.25 76,-58.54 76,-54.83 76,-54.83 76,-47.42 76,-47.42 76,-43.71 79.71,-40 83.42,-40 83.42,-40 122.58,-40 122.58,-40 126.29,-40 130,-43.71 130,-47.42 130,-47.42 130,-54.83 130,-54.83 130,-58.54 126.29,-62.25 122.58,-62.25" />
+<text xml:space="preserve" text-anchor="middle" x="103" y="-44.95" font-family="Times,serif" font-size="14.00">4</text>
+</g>
+<!-- 1.2&#45;&gt;1.4 -->
+<g id="edge1" class="edge">
+<title>1.2&#45;&gt;1.4</title>
+<path fill="none" stroke="black" d="M54.3,-51.12C57.57,-51.12 60.96,-51.12 64.36,-51.12" />
+<polygon fill="black" stroke="black" points="64.27,-54.63 74.27,-51.13 64.27,-47.63 64.27,-54.63" />
+</g>
+<!-- 2.3 -->
+<g id="node5" class="node">
+<title>2.3</title>
+<path fill="lightgray" stroke="black" d="M46.58,-102.25C46.58,-102.25 7.42,-102.25 7.42,-102.25 3.71,-102.25 0,-98.54 0,-94.83 0,-94.83 0,-87.42 0,-87.42 0,-83.71 3.71,-80 7.42,-80 7.42,-80 46.58,-80 46.58,-80 50.29,-80 54,-83.71 54,-87.42 54,-87.42 54,-94.83 54,-94.83 54,-98.54 50.29,-102.25 46.58,-102.25" />
+<text xml:space="preserve" text-anchor="middle" x="27" y="-84.95" font-family="Times,serif" font-size="14.00">3</text>
+</g>
+<!-- 2.4 -->
+<g id="node6" class="node">
+<title>2.4</title>
+<path fill="lightgray" stroke="black" d="M122.58,-102.25C122.58,-102.25 83.42,-102.25 83.42,-102.25 79.71,-102.25 76,-98.54 76,-94.83 76,-94.83 76,-87.42 76,-87.42 76,-83.71 79.71,-80 83.42,-80 83.42,-80 122.58,-80 122.58,-80 126.29,-80 130,-83.71 130,-87.42 130,-87.42 130,-94.83 130,-94.83 130,-98.54 126.29,-102.25 122.58,-102.25" />
+<text xml:space="preserve" text-anchor="middle" x="103" y="-84.95" font-family="Times,serif" font-size="14.00">4</text>
+</g>
+<!-- 2.3&#45;&gt;2.4 -->
+<g id="edge2" class="edge">
+<title>2.3&#45;&gt;2.4</title>
+<path fill="none" stroke="black" d="M54.3,-91.12C57.57,-91.12 60.96,-91.12 64.36,-91.12" />
+<polygon fill="black" stroke="black" points="64.27,-94.63 74.27,-91.13 64.27,-87.63 64.27,-94.63" />
+</g>
+<!-- 2.5 -->
+<g id="node7" class="node">
+<title>2.5</title>
+<path fill="lightgray" stroke="black" d="M198.58,-102.25C198.58,-102.25 159.42,-102.25 159.42,-102.25 155.71,-102.25 152,-98.54 152,-94.83 152,-94.83 152,-87.42 152,-87.42 152,-83.71 155.71,-80 159.42,-80 159.42,-80 198.58,-80 198.58,-80 202.29,-80 206,-83.71 206,-87.42 206,-87.42 206,-94.83 206,-94.83 206,-98.54 202.29,-102.25 198.58,-102.25" />
+<text xml:space="preserve" text-anchor="middle" x="179" y="-84.95" font-family="Times,serif" font-size="14.00">5</text>
+</g>
+<!-- 2.4&#45;&gt;2.5 -->
+<g id="edge3" class="edge">
+<title>2.4&#45;&gt;2.5</title>
+<path fill="none" stroke="black" d="M130.3,-91.12C133.57,-91.12 136.96,-91.12 140.36,-91.12" />
+<polygon fill="black" stroke="black" points="140.27,-94.63 150.27,-91.13 140.27,-87.63 140.27,-94.63" />
+</g>
+<!-- result -->
+<g id="node8" class="node">
+<title>result</title>
+<path fill="lightgray" stroke="black" d="M46.58,-22.25C46.58,-22.25 7.42,-22.25 7.42,-22.25 3.71,-22.25 0,-18.54 0,-14.83 0,-14.83 0,-7.42 0,-7.42 0,-3.71 3.71,0 7.42,0 7.42,0 46.58,0 46.58,0 50.29,0 54,-3.71 54,-7.42 54,-7.42 54,-14.83 54,-14.83 54,-18.54 50.29,-22.25 46.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="27" y="-4.95" font-family="Times,serif" font-size="14.00">result</text>
+</g>
+<!-- result&#45;&gt;1.1 -->
+<g id="edge4" class="edge">
+<title>result&#45;&gt;1.1</title>
+<path fill="none" stroke="black" d="M54.3,-11.12C57.57,-11.12 60.96,-11.12 64.36,-11.12" />
+<polygon fill="black" stroke="black" points="64.27,-14.63 74.27,-11.13 64.27,-7.63 64.27,-14.63" />
+</g>
+</g>
+</svg>
+</div>
+<hr />
+
+<div class="graphviz-wrapper">
+
+<!-- Generated by graphviz version 14.1.2 (0)
+ -->
+<!-- Pages: 1 -->
+<svg role="img" aria-label="graphviz-e7321849ecb8c5d5f6704b06ebcbe23b" width="290pt" height="110pt" viewBox="0.00 0.00 290.00 110.00">
+<title>graphviz-e7321849ecb8c5d5f6704b06ebcbe23b</title>
+<desc>
+
+digraph {
+rankdir=LR
+ranksep=0.3
+node [shape=box style=&quot;rounded,filled&quot; height=0.3]
+node [label=1 fillcolor=pink] 1.1
+node [label=2 fillcolor=pink] 1.2
+node [label=4 fillcolor=pink] 1.4
+node [label=1 fillcolor=lightgray] 2.1
+node [label=3 fillcolor=lightgray] 2.3
+node [label=4 fillcolor=lightgray] 2.4
+node [label=5 fillcolor=lightgray] 2.5
+node [ label=&quot;\N&quot;]
+1.4
+2.3 -&gt; 2.4 -&gt; 2.5
+result -&gt;1.1 -&gt; 2.1 -&gt; 1.2
+}
+
+</desc>
+
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 106.25)">
+<polygon fill="white" stroke="none" points="-4,4 -4,-106.25 286,-106.25 286,4 -4,4" />
+<!-- 1.1 -->
+<g id="node1" class="node">
+<title>1.1</title>
+<path fill="pink" stroke="black" d="M122.58,-22.25C122.58,-22.25 83.42,-22.25 83.42,-22.25 79.71,-22.25 76,-18.54 76,-14.83 76,-14.83 76,-7.42 76,-7.42 76,-3.71 79.71,0 83.42,0 83.42,0 122.58,0 122.58,0 126.29,0 130,-3.71 130,-7.42 130,-7.42 130,-14.83 130,-14.83 130,-18.54 126.29,-22.25 122.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="103" y="-4.95" font-family="Times,serif" font-size="14.00">1</text>
+</g>
+<!-- 2.1 -->
+<g id="node4" class="node">
+<title>2.1</title>
+<path fill="lightgray" stroke="black" d="M198.58,-22.25C198.58,-22.25 159.42,-22.25 159.42,-22.25 155.71,-22.25 152,-18.54 152,-14.83 152,-14.83 152,-7.42 152,-7.42 152,-3.71 155.71,0 159.42,0 159.42,0 198.58,0 198.58,0 202.29,0 206,-3.71 206,-7.42 206,-7.42 206,-14.83 206,-14.83 206,-18.54 202.29,-22.25 198.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="179" y="-4.95" font-family="Times,serif" font-size="14.00">1</text>
+</g>
+<!-- 1.1&#45;&gt;2.1 -->
+<g id="edge4" class="edge">
+<title>1.1&#45;&gt;2.1</title>
+<path fill="none" stroke="black" d="M130.3,-11.12C133.57,-11.12 136.96,-11.12 140.36,-11.12" />
+<polygon fill="black" stroke="black" points="140.27,-14.63 150.27,-11.13 140.27,-7.63 140.27,-14.63" />
+</g>
+<!-- 1.2 -->
+<g id="node2" class="node">
+<title>1.2</title>
+<path fill="pink" stroke="black" d="M274.58,-22.25C274.58,-22.25 235.42,-22.25 235.42,-22.25 231.71,-22.25 228,-18.54 228,-14.83 228,-14.83 228,-7.42 228,-7.42 228,-3.71 231.71,0 235.42,0 235.42,0 274.58,0 274.58,0 278.29,0 282,-3.71 282,-7.42 282,-7.42 282,-14.83 282,-14.83 282,-18.54 278.29,-22.25 274.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="255" y="-4.95" font-family="Times,serif" font-size="14.00">2</text>
+</g>
+<!-- 1.4 -->
+<g id="node3" class="node">
+<title>1.4</title>
+<path fill="pink" stroke="black" d="M46.58,-62.25C46.58,-62.25 7.42,-62.25 7.42,-62.25 3.71,-62.25 0,-58.54 0,-54.83 0,-54.83 0,-47.42 0,-47.42 0,-43.71 3.71,-40 7.42,-40 7.42,-40 46.58,-40 46.58,-40 50.29,-40 54,-43.71 54,-47.42 54,-47.42 54,-54.83 54,-54.83 54,-58.54 50.29,-62.25 46.58,-62.25" />
+<text xml:space="preserve" text-anchor="middle" x="27" y="-44.95" font-family="Times,serif" font-size="14.00">4</text>
+</g>
+<!-- 2.1&#45;&gt;1.2 -->
+<g id="edge5" class="edge">
+<title>2.1&#45;&gt;1.2</title>
+<path fill="none" stroke="black" d="M206.3,-11.12C209.57,-11.12 212.96,-11.12 216.36,-11.12" />
+<polygon fill="black" stroke="black" points="216.27,-14.63 226.27,-11.13 216.27,-7.63 216.27,-14.63" />
+</g>
+<!-- 2.3 -->
+<g id="node5" class="node">
+<title>2.3</title>
+<path fill="lightgray" stroke="black" d="M46.58,-102.25C46.58,-102.25 7.42,-102.25 7.42,-102.25 3.71,-102.25 0,-98.54 0,-94.83 0,-94.83 0,-87.42 0,-87.42 0,-83.71 3.71,-80 7.42,-80 7.42,-80 46.58,-80 46.58,-80 50.29,-80 54,-83.71 54,-87.42 54,-87.42 54,-94.83 54,-94.83 54,-98.54 50.29,-102.25 46.58,-102.25" />
+<text xml:space="preserve" text-anchor="middle" x="27" y="-84.95" font-family="Times,serif" font-size="14.00">3</text>
+</g>
+<!-- 2.4 -->
+<g id="node6" class="node">
+<title>2.4</title>
+<path fill="lightgray" stroke="black" d="M122.58,-102.25C122.58,-102.25 83.42,-102.25 83.42,-102.25 79.71,-102.25 76,-98.54 76,-94.83 76,-94.83 76,-87.42 76,-87.42 76,-83.71 79.71,-80 83.42,-80 83.42,-80 122.58,-80 122.58,-80 126.29,-80 130,-83.71 130,-87.42 130,-87.42 130,-94.83 130,-94.83 130,-98.54 126.29,-102.25 122.58,-102.25" />
+<text xml:space="preserve" text-anchor="middle" x="103" y="-84.95" font-family="Times,serif" font-size="14.00">4</text>
+</g>
+<!-- 2.3&#45;&gt;2.4 -->
+<g id="edge1" class="edge">
+<title>2.3&#45;&gt;2.4</title>
+<path fill="none" stroke="black" d="M54.3,-91.12C57.57,-91.12 60.96,-91.12 64.36,-91.12" />
+<polygon fill="black" stroke="black" points="64.27,-94.63 74.27,-91.13 64.27,-87.63 64.27,-94.63" />
+</g>
+<!-- 2.5 -->
+<g id="node7" class="node">
+<title>2.5</title>
+<path fill="lightgray" stroke="black" d="M198.58,-102.25C198.58,-102.25 159.42,-102.25 159.42,-102.25 155.71,-102.25 152,-98.54 152,-94.83 152,-94.83 152,-87.42 152,-87.42 152,-83.71 155.71,-80 159.42,-80 159.42,-80 198.58,-80 198.58,-80 202.29,-80 206,-83.71 206,-87.42 206,-87.42 206,-94.83 206,-94.83 206,-98.54 202.29,-102.25 198.58,-102.25" />
+<text xml:space="preserve" text-anchor="middle" x="179" y="-84.95" font-family="Times,serif" font-size="14.00">5</text>
+</g>
+<!-- 2.4&#45;&gt;2.5 -->
+<g id="edge2" class="edge">
+<title>2.4&#45;&gt;2.5</title>
+<path fill="none" stroke="black" d="M130.3,-91.12C133.57,-91.12 136.96,-91.12 140.36,-91.12" />
+<polygon fill="black" stroke="black" points="140.27,-94.63 150.27,-91.13 140.27,-87.63 140.27,-94.63" />
+</g>
+<!-- result -->
+<g id="node8" class="node">
+<title>result</title>
+<path fill="lightgray" stroke="black" d="M46.58,-22.25C46.58,-22.25 7.42,-22.25 7.42,-22.25 3.71,-22.25 0,-18.54 0,-14.83 0,-14.83 0,-7.42 0,-7.42 0,-3.71 3.71,0 7.42,0 7.42,0 46.58,0 46.58,0 50.29,0 54,-3.71 54,-7.42 54,-7.42 54,-14.83 54,-14.83 54,-18.54 50.29,-22.25 46.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="27" y="-4.95" font-family="Times,serif" font-size="14.00">result</text>
+</g>
+<!-- result&#45;&gt;1.1 -->
+<g id="edge3" class="edge">
+<title>result&#45;&gt;1.1</title>
+<path fill="none" stroke="black" d="M54.3,-11.12C57.57,-11.12 60.96,-11.12 64.36,-11.12" />
+<polygon fill="black" stroke="black" points="64.27,-14.63 74.27,-11.13 64.27,-7.63 64.27,-14.63" />
+</g>
+</g>
+</svg>
+</div>
+<hr />
+<div class="graphviz-wrapper">
+
+<!-- Generated by graphviz version 14.1.2 (0)
+ -->
+<!-- Pages: 1 -->
+<svg role="img" aria-label="graphviz-07ae9dff2d93c5c40dfca31e988d9280" width="366pt" height="110pt" viewBox="0.00 0.00 366.00 110.00">
+<title>graphviz-07ae9dff2d93c5c40dfca31e988d9280</title>
+<desc>
+digraph {
+rankdir=LR
+ranksep=0.3
+node [shape=box style=&quot;rounded,filled&quot; height=0.3]
+node [label=1 fillcolor=pink] 1.1
+node [label=2 fillcolor=pink] 1.2
+node [label=4 fillcolor=pink] 1.4
+node [label=1 fillcolor=lightgray] 2.1
+node [label=3 fillcolor=lightgray] 2.3
+node [label=4 fillcolor=lightgray] 2.4
+node [label=5 fillcolor=lightgray] 2.5
+node [ label=&quot;\N&quot;]
+1.4
+2.4 -&gt; 2.5
+result -&gt;1.1 -&gt; 2.1 -&gt; 1.2 -&gt; 2.3
+}
+
+</desc>
+
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 106.25)">
+<polygon fill="white" stroke="none" points="-4,4 -4,-106.25 362,-106.25 362,4 -4,4" />
+<!-- 1.1 -->
+<g id="node1" class="node">
+<title>1.1</title>
+<path fill="pink" stroke="black" d="M122.58,-22.25C122.58,-22.25 83.42,-22.25 83.42,-22.25 79.71,-22.25 76,-18.54 76,-14.83 76,-14.83 76,-7.42 76,-7.42 76,-3.71 79.71,0 83.42,0 83.42,0 122.58,0 122.58,0 126.29,0 130,-3.71 130,-7.42 130,-7.42 130,-14.83 130,-14.83 130,-18.54 126.29,-22.25 122.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="103" y="-4.95" font-family="Times,serif" font-size="14.00">1</text>
+</g>
+<!-- 2.1 -->
+<g id="node4" class="node">
+<title>2.1</title>
+<path fill="lightgray" stroke="black" d="M198.58,-22.25C198.58,-22.25 159.42,-22.25 159.42,-22.25 155.71,-22.25 152,-18.54 152,-14.83 152,-14.83 152,-7.42 152,-7.42 152,-3.71 155.71,0 159.42,0 159.42,0 198.58,0 198.58,0 202.29,0 206,-3.71 206,-7.42 206,-7.42 206,-14.83 206,-14.83 206,-18.54 202.29,-22.25 198.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="179" y="-4.95" font-family="Times,serif" font-size="14.00">1</text>
+</g>
+<!-- 1.1&#45;&gt;2.1 -->
+<g id="edge3" class="edge">
+<title>1.1&#45;&gt;2.1</title>
+<path fill="none" stroke="black" d="M130.3,-11.12C133.57,-11.12 136.96,-11.12 140.36,-11.12" />
+<polygon fill="black" stroke="black" points="140.27,-14.63 150.27,-11.13 140.27,-7.63 140.27,-14.63" />
+</g>
+<!-- 1.2 -->
+<g id="node2" class="node">
+<title>1.2</title>
+<path fill="pink" stroke="black" d="M274.58,-22.25C274.58,-22.25 235.42,-22.25 235.42,-22.25 231.71,-22.25 228,-18.54 228,-14.83 228,-14.83 228,-7.42 228,-7.42 228,-3.71 231.71,0 235.42,0 235.42,0 274.58,0 274.58,0 278.29,0 282,-3.71 282,-7.42 282,-7.42 282,-14.83 282,-14.83 282,-18.54 278.29,-22.25 274.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="255" y="-4.95" font-family="Times,serif" font-size="14.00">2</text>
+</g>
+<!-- 2.3 -->
+<g id="node5" class="node">
+<title>2.3</title>
+<path fill="lightgray" stroke="black" d="M350.58,-22.25C350.58,-22.25 311.42,-22.25 311.42,-22.25 307.71,-22.25 304,-18.54 304,-14.83 304,-14.83 304,-7.42 304,-7.42 304,-3.71 307.71,0 311.42,0 311.42,0 350.58,0 350.58,0 354.29,0 358,-3.71 358,-7.42 358,-7.42 358,-14.83 358,-14.83 358,-18.54 354.29,-22.25 350.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="331" y="-4.95" font-family="Times,serif" font-size="14.00">3</text>
+</g>
+<!-- 1.2&#45;&gt;2.3 -->
+<g id="edge5" class="edge">
+<title>1.2&#45;&gt;2.3</title>
+<path fill="none" stroke="black" d="M282.3,-11.12C285.57,-11.12 288.96,-11.12 292.36,-11.12" />
+<polygon fill="black" stroke="black" points="292.27,-14.63 302.27,-11.13 292.27,-7.63 292.27,-14.63" />
+</g>
+<!-- 1.4 -->
+<g id="node3" class="node">
+<title>1.4</title>
+<path fill="pink" stroke="black" d="M46.58,-62.25C46.58,-62.25 7.42,-62.25 7.42,-62.25 3.71,-62.25 0,-58.54 0,-54.83 0,-54.83 0,-47.42 0,-47.42 0,-43.71 3.71,-40 7.42,-40 7.42,-40 46.58,-40 46.58,-40 50.29,-40 54,-43.71 54,-47.42 54,-47.42 54,-54.83 54,-54.83 54,-58.54 50.29,-62.25 46.58,-62.25" />
+<text xml:space="preserve" text-anchor="middle" x="27" y="-44.95" font-family="Times,serif" font-size="14.00">4</text>
+</g>
+<!-- 2.1&#45;&gt;1.2 -->
+<g id="edge4" class="edge">
+<title>2.1&#45;&gt;1.2</title>
+<path fill="none" stroke="black" d="M206.3,-11.12C209.57,-11.12 212.96,-11.12 216.36,-11.12" />
+<polygon fill="black" stroke="black" points="216.27,-14.63 226.27,-11.13 216.27,-7.63 216.27,-14.63" />
+</g>
+<!-- 2.4 -->
+<g id="node6" class="node">
+<title>2.4</title>
+<path fill="lightgray" stroke="black" d="M46.58,-102.25C46.58,-102.25 7.42,-102.25 7.42,-102.25 3.71,-102.25 0,-98.54 0,-94.83 0,-94.83 0,-87.42 0,-87.42 0,-83.71 3.71,-80 7.42,-80 7.42,-80 46.58,-80 46.58,-80 50.29,-80 54,-83.71 54,-87.42 54,-87.42 54,-94.83 54,-94.83 54,-98.54 50.29,-102.25 46.58,-102.25" />
+<text xml:space="preserve" text-anchor="middle" x="27" y="-84.95" font-family="Times,serif" font-size="14.00">4</text>
+</g>
+<!-- 2.5 -->
+<g id="node7" class="node">
+<title>2.5</title>
+<path fill="lightgray" stroke="black" d="M122.58,-102.25C122.58,-102.25 83.42,-102.25 83.42,-102.25 79.71,-102.25 76,-98.54 76,-94.83 76,-94.83 76,-87.42 76,-87.42 76,-83.71 79.71,-80 83.42,-80 83.42,-80 122.58,-80 122.58,-80 126.29,-80 130,-83.71 130,-87.42 130,-87.42 130,-94.83 130,-94.83 130,-98.54 126.29,-102.25 122.58,-102.25" />
+<text xml:space="preserve" text-anchor="middle" x="103" y="-84.95" font-family="Times,serif" font-size="14.00">5</text>
+</g>
+<!-- 2.4&#45;&gt;2.5 -->
+<g id="edge1" class="edge">
+<title>2.4&#45;&gt;2.5</title>
+<path fill="none" stroke="black" d="M54.3,-91.12C57.57,-91.12 60.96,-91.12 64.36,-91.12" />
+<polygon fill="black" stroke="black" points="64.27,-94.63 74.27,-91.13 64.27,-87.63 64.27,-94.63" />
+</g>
+<!-- result -->
+<g id="node8" class="node">
+<title>result</title>
+<path fill="lightgray" stroke="black" d="M46.58,-22.25C46.58,-22.25 7.42,-22.25 7.42,-22.25 3.71,-22.25 0,-18.54 0,-14.83 0,-14.83 0,-7.42 0,-7.42 0,-3.71 3.71,0 7.42,0 7.42,0 46.58,0 46.58,0 50.29,0 54,-3.71 54,-7.42 54,-7.42 54,-14.83 54,-14.83 54,-18.54 50.29,-22.25 46.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="27" y="-4.95" font-family="Times,serif" font-size="14.00">result</text>
+</g>
+<!-- result&#45;&gt;1.1 -->
+<g id="edge2" class="edge">
+<title>result&#45;&gt;1.1</title>
+<path fill="none" stroke="black" d="M54.3,-11.12C57.57,-11.12 60.96,-11.12 64.36,-11.12" />
+<polygon fill="black" stroke="black" points="64.27,-14.63 74.27,-11.13 64.27,-7.63 64.27,-14.63" />
+</g>
+</g>
+</svg>
+</div>
+<hr />
+<p>只剩下一條list還有元素，把這條list剩餘的元素按照順序直接放到result的最尾端</p>
+<div class="graphviz-wrapper">
+
+<!-- Generated by graphviz version 14.1.2 (0)
+ -->
+<!-- Pages: 1 -->
+<svg role="img" aria-label="graphviz-46195296e7ba20176a0b8b7a0d70a6b0" width="442pt" height="70pt" viewBox="0.00 0.00 442.00 70.00">
+<title>graphviz-46195296e7ba20176a0b8b7a0d70a6b0</title>
+<desc>
+digraph {
+rankdir=LR
+ranksep=0.3
+node [shape=box style=&quot;rounded,filled&quot; height=0.3]
+node [label=1 fillcolor=pink] 1.1
+node [label=2 fillcolor=pink] 1.2
+node [label=4 fillcolor=pink] 1.4
+node [label=1 fillcolor=lightgray] 2.1
+node [label=3 fillcolor=lightgray] 2.3
+node [label=4 fillcolor=lightgray] 2.4
+node [label=5 fillcolor=lightgray] 2.5
+node [ label=&quot;\N&quot;]
+
+2.4 -&gt; 2.5
+result -&gt;1.1 -&gt; 2.1 -&gt; 1.2 -&gt; 2.3 -&gt; 1.4
+}
+
+</desc>
+
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 66.25)">
+<polygon fill="white" stroke="none" points="-4,4 -4,-66.25 438,-66.25 438,4 -4,4" />
+<!-- 1.1 -->
+<g id="node1" class="node">
+<title>1.1</title>
+<path fill="pink" stroke="black" d="M122.58,-22.25C122.58,-22.25 83.42,-22.25 83.42,-22.25 79.71,-22.25 76,-18.54 76,-14.83 76,-14.83 76,-7.42 76,-7.42 76,-3.71 79.71,0 83.42,0 83.42,0 122.58,0 122.58,0 126.29,0 130,-3.71 130,-7.42 130,-7.42 130,-14.83 130,-14.83 130,-18.54 126.29,-22.25 122.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="103" y="-4.95" font-family="Times,serif" font-size="14.00">1</text>
+</g>
+<!-- 2.1 -->
+<g id="node4" class="node">
+<title>2.1</title>
+<path fill="lightgray" stroke="black" d="M198.58,-22.25C198.58,-22.25 159.42,-22.25 159.42,-22.25 155.71,-22.25 152,-18.54 152,-14.83 152,-14.83 152,-7.42 152,-7.42 152,-3.71 155.71,0 159.42,0 159.42,0 198.58,0 198.58,0 202.29,0 206,-3.71 206,-7.42 206,-7.42 206,-14.83 206,-14.83 206,-18.54 202.29,-22.25 198.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="179" y="-4.95" font-family="Times,serif" font-size="14.00">1</text>
+</g>
+<!-- 1.1&#45;&gt;2.1 -->
+<g id="edge3" class="edge">
+<title>1.1&#45;&gt;2.1</title>
+<path fill="none" stroke="black" d="M130.3,-11.12C133.57,-11.12 136.96,-11.12 140.36,-11.12" />
+<polygon fill="black" stroke="black" points="140.27,-14.63 150.27,-11.13 140.27,-7.63 140.27,-14.63" />
+</g>
+<!-- 1.2 -->
+<g id="node2" class="node">
+<title>1.2</title>
+<path fill="pink" stroke="black" d="M274.58,-22.25C274.58,-22.25 235.42,-22.25 235.42,-22.25 231.71,-22.25 228,-18.54 228,-14.83 228,-14.83 228,-7.42 228,-7.42 228,-3.71 231.71,0 235.42,0 235.42,0 274.58,0 274.58,0 278.29,0 282,-3.71 282,-7.42 282,-7.42 282,-14.83 282,-14.83 282,-18.54 278.29,-22.25 274.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="255" y="-4.95" font-family="Times,serif" font-size="14.00">2</text>
+</g>
+<!-- 2.3 -->
+<g id="node5" class="node">
+<title>2.3</title>
+<path fill="lightgray" stroke="black" d="M350.58,-22.25C350.58,-22.25 311.42,-22.25 311.42,-22.25 307.71,-22.25 304,-18.54 304,-14.83 304,-14.83 304,-7.42 304,-7.42 304,-3.71 307.71,0 311.42,0 311.42,0 350.58,0 350.58,0 354.29,0 358,-3.71 358,-7.42 358,-7.42 358,-14.83 358,-14.83 358,-18.54 354.29,-22.25 350.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="331" y="-4.95" font-family="Times,serif" font-size="14.00">3</text>
+</g>
+<!-- 1.2&#45;&gt;2.3 -->
+<g id="edge5" class="edge">
+<title>1.2&#45;&gt;2.3</title>
+<path fill="none" stroke="black" d="M282.3,-11.12C285.57,-11.12 288.96,-11.12 292.36,-11.12" />
+<polygon fill="black" stroke="black" points="292.27,-14.63 302.27,-11.13 292.27,-7.63 292.27,-14.63" />
+</g>
+<!-- 1.4 -->
+<g id="node3" class="node">
+<title>1.4</title>
+<path fill="pink" stroke="black" d="M426.58,-22.25C426.58,-22.25 387.42,-22.25 387.42,-22.25 383.71,-22.25 380,-18.54 380,-14.83 380,-14.83 380,-7.42 380,-7.42 380,-3.71 383.71,0 387.42,0 387.42,0 426.58,0 426.58,0 430.29,0 434,-3.71 434,-7.42 434,-7.42 434,-14.83 434,-14.83 434,-18.54 430.29,-22.25 426.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="407" y="-4.95" font-family="Times,serif" font-size="14.00">4</text>
+</g>
+<!-- 2.1&#45;&gt;1.2 -->
+<g id="edge4" class="edge">
+<title>2.1&#45;&gt;1.2</title>
+<path fill="none" stroke="black" d="M206.3,-11.12C209.57,-11.12 212.96,-11.12 216.36,-11.12" />
+<polygon fill="black" stroke="black" points="216.27,-14.63 226.27,-11.13 216.27,-7.63 216.27,-14.63" />
+</g>
+<!-- 2.3&#45;&gt;1.4 -->
+<g id="edge6" class="edge">
+<title>2.3&#45;&gt;1.4</title>
+<path fill="none" stroke="black" d="M358.3,-11.12C361.57,-11.12 364.96,-11.12 368.36,-11.12" />
+<polygon fill="black" stroke="black" points="368.27,-14.63 378.27,-11.13 368.27,-7.63 368.27,-14.63" />
+</g>
+<!-- 2.4 -->
+<g id="node6" class="node">
+<title>2.4</title>
+<path fill="lightgray" stroke="black" d="M46.58,-62.25C46.58,-62.25 7.42,-62.25 7.42,-62.25 3.71,-62.25 0,-58.54 0,-54.83 0,-54.83 0,-47.42 0,-47.42 0,-43.71 3.71,-40 7.42,-40 7.42,-40 46.58,-40 46.58,-40 50.29,-40 54,-43.71 54,-47.42 54,-47.42 54,-54.83 54,-54.83 54,-58.54 50.29,-62.25 46.58,-62.25" />
+<text xml:space="preserve" text-anchor="middle" x="27" y="-44.95" font-family="Times,serif" font-size="14.00">4</text>
+</g>
+<!-- 2.5 -->
+<g id="node7" class="node">
+<title>2.5</title>
+<path fill="lightgray" stroke="black" d="M122.58,-62.25C122.58,-62.25 83.42,-62.25 83.42,-62.25 79.71,-62.25 76,-58.54 76,-54.83 76,-54.83 76,-47.42 76,-47.42 76,-43.71 79.71,-40 83.42,-40 83.42,-40 122.58,-40 122.58,-40 126.29,-40 130,-43.71 130,-47.42 130,-47.42 130,-54.83 130,-54.83 130,-58.54 126.29,-62.25 122.58,-62.25" />
+<text xml:space="preserve" text-anchor="middle" x="103" y="-44.95" font-family="Times,serif" font-size="14.00">5</text>
+</g>
+<!-- 2.4&#45;&gt;2.5 -->
+<g id="edge1" class="edge">
+<title>2.4&#45;&gt;2.5</title>
+<path fill="none" stroke="black" d="M54.3,-51.12C57.57,-51.12 60.96,-51.12 64.36,-51.12" />
+<polygon fill="black" stroke="black" points="64.27,-54.63 74.27,-51.13 64.27,-47.63 64.27,-54.63" />
+</g>
+<!-- result -->
+<g id="node8" class="node">
+<title>result</title>
+<path fill="lightgray" stroke="black" d="M46.58,-22.25C46.58,-22.25 7.42,-22.25 7.42,-22.25 3.71,-22.25 0,-18.54 0,-14.83 0,-14.83 0,-7.42 0,-7.42 0,-3.71 3.71,0 7.42,0 7.42,0 46.58,0 46.58,0 50.29,0 54,-3.71 54,-7.42 54,-7.42 54,-14.83 54,-14.83 54,-18.54 50.29,-22.25 46.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="27" y="-4.95" font-family="Times,serif" font-size="14.00">result</text>
+</g>
+<!-- result&#45;&gt;1.1 -->
+<g id="edge2" class="edge">
+<title>result&#45;&gt;1.1</title>
+<path fill="none" stroke="black" d="M54.3,-11.12C57.57,-11.12 60.96,-11.12 64.36,-11.12" />
+<polygon fill="black" stroke="black" points="64.27,-14.63 74.27,-11.13 64.27,-7.63 64.27,-14.63" />
+</g>
+</g>
+</svg>
+</div>
+
+<hr />
+<p>我們就成功把兩條排序好的List合成一條排序好的List了!!</p>
+
+<div class="graphviz-wrapper">
+
+<!-- Generated by graphviz version 14.1.2 (0)
+ -->
+<!-- Pages: 1 -->
+<svg role="img" aria-label="graphviz-582ddff22645280afb50e811ec2f5c58" width="594pt" height="30pt" viewBox="0.00 0.00 594.00 30.00">
+<title>graphviz-582ddff22645280afb50e811ec2f5c58</title>
+<desc>
+digraph {
+rankdir=LR
+ranksep=0.3
+node [shape=box style=&quot;rounded,filled&quot; height=0.3]
+node [label=1 fillcolor=pink] 1.1
+node [label=2 fillcolor=pink] 1.2
+node [label=4 fillcolor=pink] 1.4
+node [label=1 fillcolor=lightgray] 2.1
+node [label=3 fillcolor=lightgray] 2.3
+node [label=4 fillcolor=lightgray] 2.4
+node [ label=&quot;\N&quot;]
+
+result -&gt;1.1 -&gt; 2.1 -&gt; 1.2 -&gt; 2.3 -&gt; 1.4 -&gt; 2.4 -&gt; 2.5
+}
+
+</desc>
+
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 26.25)">
+<polygon fill="white" stroke="none" points="-4,4 -4,-26.25 590,-26.25 590,4 -4,4" />
+<!-- 1.1 -->
+<g id="node1" class="node">
+<title>1.1</title>
+<path fill="pink" stroke="black" d="M122.58,-22.25C122.58,-22.25 83.42,-22.25 83.42,-22.25 79.71,-22.25 76,-18.54 76,-14.83 76,-14.83 76,-7.42 76,-7.42 76,-3.71 79.71,0 83.42,0 83.42,0 122.58,0 122.58,0 126.29,0 130,-3.71 130,-7.42 130,-7.42 130,-14.83 130,-14.83 130,-18.54 126.29,-22.25 122.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="103" y="-4.95" font-family="Times,serif" font-size="14.00">1</text>
+</g>
+<!-- 2.1 -->
+<g id="node4" class="node">
+<title>2.1</title>
+<path fill="lightgray" stroke="black" d="M198.58,-22.25C198.58,-22.25 159.42,-22.25 159.42,-22.25 155.71,-22.25 152,-18.54 152,-14.83 152,-14.83 152,-7.42 152,-7.42 152,-3.71 155.71,0 159.42,0 159.42,0 198.58,0 198.58,0 202.29,0 206,-3.71 206,-7.42 206,-7.42 206,-14.83 206,-14.83 206,-18.54 202.29,-22.25 198.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="179" y="-4.95" font-family="Times,serif" font-size="14.00">1</text>
+</g>
+<!-- 1.1&#45;&gt;2.1 -->
+<g id="edge2" class="edge">
+<title>1.1&#45;&gt;2.1</title>
+<path fill="none" stroke="black" d="M130.3,-11.12C133.57,-11.12 136.96,-11.12 140.36,-11.12" />
+<polygon fill="black" stroke="black" points="140.27,-14.63 150.27,-11.13 140.27,-7.63 140.27,-14.63" />
+</g>
+<!-- 1.2 -->
+<g id="node2" class="node">
+<title>1.2</title>
+<path fill="pink" stroke="black" d="M274.58,-22.25C274.58,-22.25 235.42,-22.25 235.42,-22.25 231.71,-22.25 228,-18.54 228,-14.83 228,-14.83 228,-7.42 228,-7.42 228,-3.71 231.71,0 235.42,0 235.42,0 274.58,0 274.58,0 278.29,0 282,-3.71 282,-7.42 282,-7.42 282,-14.83 282,-14.83 282,-18.54 278.29,-22.25 274.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="255" y="-4.95" font-family="Times,serif" font-size="14.00">2</text>
+</g>
+<!-- 2.3 -->
+<g id="node5" class="node">
+<title>2.3</title>
+<path fill="lightgray" stroke="black" d="M350.58,-22.25C350.58,-22.25 311.42,-22.25 311.42,-22.25 307.71,-22.25 304,-18.54 304,-14.83 304,-14.83 304,-7.42 304,-7.42 304,-3.71 307.71,0 311.42,0 311.42,0 350.58,0 350.58,0 354.29,0 358,-3.71 358,-7.42 358,-7.42 358,-14.83 358,-14.83 358,-18.54 354.29,-22.25 350.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="331" y="-4.95" font-family="Times,serif" font-size="14.00">3</text>
+</g>
+<!-- 1.2&#45;&gt;2.3 -->
+<g id="edge4" class="edge">
+<title>1.2&#45;&gt;2.3</title>
+<path fill="none" stroke="black" d="M282.3,-11.12C285.57,-11.12 288.96,-11.12 292.36,-11.12" />
+<polygon fill="black" stroke="black" points="292.27,-14.63 302.27,-11.13 292.27,-7.63 292.27,-14.63" />
+</g>
+<!-- 1.4 -->
+<g id="node3" class="node">
+<title>1.4</title>
+<path fill="pink" stroke="black" d="M426.58,-22.25C426.58,-22.25 387.42,-22.25 387.42,-22.25 383.71,-22.25 380,-18.54 380,-14.83 380,-14.83 380,-7.42 380,-7.42 380,-3.71 383.71,0 387.42,0 387.42,0 426.58,0 426.58,0 430.29,0 434,-3.71 434,-7.42 434,-7.42 434,-14.83 434,-14.83 434,-18.54 430.29,-22.25 426.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="407" y="-4.95" font-family="Times,serif" font-size="14.00">4</text>
+</g>
+<!-- 2.4 -->
+<g id="node6" class="node">
+<title>2.4</title>
+<path fill="lightgray" stroke="black" d="M502.58,-22.25C502.58,-22.25 463.42,-22.25 463.42,-22.25 459.71,-22.25 456,-18.54 456,-14.83 456,-14.83 456,-7.42 456,-7.42 456,-3.71 459.71,0 463.42,0 463.42,0 502.58,0 502.58,0 506.29,0 510,-3.71 510,-7.42 510,-7.42 510,-14.83 510,-14.83 510,-18.54 506.29,-22.25 502.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="483" y="-4.95" font-family="Times,serif" font-size="14.00">4</text>
+</g>
+<!-- 1.4&#45;&gt;2.4 -->
+<g id="edge6" class="edge">
+<title>1.4&#45;&gt;2.4</title>
+<path fill="none" stroke="black" d="M434.3,-11.12C437.57,-11.12 440.96,-11.12 444.36,-11.12" />
+<polygon fill="black" stroke="black" points="444.27,-14.63 454.27,-11.13 444.27,-7.63 444.27,-14.63" />
+</g>
+<!-- 2.1&#45;&gt;1.2 -->
+<g id="edge3" class="edge">
+<title>2.1&#45;&gt;1.2</title>
+<path fill="none" stroke="black" d="M206.3,-11.12C209.57,-11.12 212.96,-11.12 216.36,-11.12" />
+<polygon fill="black" stroke="black" points="216.27,-14.63 226.27,-11.13 216.27,-7.63 216.27,-14.63" />
+</g>
+<!-- 2.3&#45;&gt;1.4 -->
+<g id="edge5" class="edge">
+<title>2.3&#45;&gt;1.4</title>
+<path fill="none" stroke="black" d="M358.3,-11.12C361.57,-11.12 364.96,-11.12 368.36,-11.12" />
+<polygon fill="black" stroke="black" points="368.27,-14.63 378.27,-11.13 368.27,-7.63 368.27,-14.63" />
+</g>
+<!-- 2.5 -->
+<g id="node8" class="node">
+<title>2.5</title>
+<path fill="lightgray" stroke="black" d="M578.58,-22.25C578.58,-22.25 539.42,-22.25 539.42,-22.25 535.71,-22.25 532,-18.54 532,-14.83 532,-14.83 532,-7.42 532,-7.42 532,-3.71 535.71,0 539.42,0 539.42,0 578.58,0 578.58,0 582.29,0 586,-3.71 586,-7.42 586,-7.42 586,-14.83 586,-14.83 586,-18.54 582.29,-22.25 578.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="559" y="-4.95" font-family="Times,serif" font-size="14.00">2.5</text>
+</g>
+<!-- 2.4&#45;&gt;2.5 -->
+<g id="edge7" class="edge">
+<title>2.4&#45;&gt;2.5</title>
+<path fill="none" stroke="black" d="M510.3,-11.12C513.57,-11.12 516.96,-11.12 520.36,-11.12" />
+<polygon fill="black" stroke="black" points="520.27,-14.63 530.27,-11.13 520.27,-7.63 520.27,-14.63" />
+</g>
+<!-- result -->
+<g id="node7" class="node">
+<title>result</title>
+<path fill="lightgray" stroke="black" d="M46.58,-22.25C46.58,-22.25 7.42,-22.25 7.42,-22.25 3.71,-22.25 0,-18.54 0,-14.83 0,-14.83 0,-7.42 0,-7.42 0,-3.71 3.71,0 7.42,0 7.42,0 46.58,0 46.58,0 50.29,0 54,-3.71 54,-7.42 54,-7.42 54,-14.83 54,-14.83 54,-18.54 50.29,-22.25 46.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="27" y="-4.95" font-family="Times,serif" font-size="14.00">result</text>
+</g>
+<!-- result&#45;&gt;1.1 -->
+<g id="edge1" class="edge">
+<title>result&#45;&gt;1.1</title>
+<path fill="none" stroke="black" d="M54.3,-11.12C57.57,-11.12 60.96,-11.12 64.36,-11.12" />
+<polygon fill="black" stroke="black" points="64.27,-14.63 74.27,-11.13 64.27,-7.63 64.27,-14.63" />
+</g>
+</g>
+</svg>
+</div>
+
+<h1 id="實作">實作</h1>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+</span><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">mergeTwoLists</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">list1</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ListNode</span><span class="p">],</span> <span class="n">list2</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ListNode</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ListNode</span><span class="p">]:</span>
+        <span class="n">cr</span> <span class="o">=</span> <span class="n">mergeList</span> <span class="o">=</span> <span class="n">ListNode</span><span class="p">()</span>
+        <span class="k">while</span> <span class="n">list1</span> <span class="ow">and</span> <span class="n">list2</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">list1</span><span class="p">.</span><span class="n">val</span> <span class="o">&lt;</span> <span class="n">list2</span><span class="p">.</span><span class="n">val</span><span class="p">:</span>
+                <span class="n">cr</span><span class="p">.</span><span class="nb">next</span> <span class="o">=</span> <span class="n">list1</span>
+                <span class="n">list1</span> <span class="o">=</span> <span class="n">list1</span><span class="p">.</span><span class="nb">next</span>
+                <span class="n">cr</span> <span class="o">=</span> <span class="n">cr</span><span class="p">.</span><span class="nb">next</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">cr</span><span class="p">.</span><span class="nb">next</span> <span class="o">=</span> <span class="n">list2</span>
+                <span class="n">list2</span> <span class="o">=</span> <span class="n">list2</span><span class="p">.</span><span class="nb">next</span>
+                <span class="n">cr</span> <span class="o">=</span> <span class="n">cr</span><span class="p">.</span><span class="nb">next</span>
+        
+        <span class="n">cr</span><span class="p">.</span><span class="nb">next</span> <span class="o">=</span> <span class="n">list1</span> <span class="k">if</span> <span class="n">list1</span> <span class="k">else</span> <span class="n">list2</span>
+        <span class="k">return</span> <span class="n">mergeList</span><span class="p">.</span><span class="nb">next</span>
+</code></pre></div></div>
+
+		</p>
+	</div>		
+  <div style="text-align: left; padding: 25px;">
+  <h1>相關文章</h1>
+  
+  
+
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  <a href="/easy/2022/02/11/21-Merge-Two-Sorted-Lists.html" class="badge badge-success">[Leetcode解題] Merge Two Sorted Lists - 指針解</a>
+  
+  
+  
+  <!--
+  <div>[Leetcode解題] Merge Two Sorted Lists - 指針解</div>
+  <div class="post-view-tags">
+		
+      
+		<a href="/posts/categories/easy/" class="badge badge-success">easy</a>
+  	  
+      
+      
+		
+		
+		<i href="#" class="badge badge-dark">linked-list</i>
+		
+		<i href="#" class="badge badge-dark">pointer</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+  </div>
+</div>
+		</div>
+		<div class="col-md-2 col-sm-0">
+		</div>
+	</div>
+</div>
+
+		</main>
+		<footer class="footer">
+			<!-- No -->
+
+<!--This is the footer of the website-->
+
+<div class="footer-window container-fluid footer-color">
+	<div class="row">
+		<div class="footer-view footer-left col-md-4 text-left">
+			<div class="footer-section">
+				<div class="account-box">
+			</div>
+			</div>
+		</div>
+		<div class="footer-view footer-center col-md-4 text-center">
+			<div class="footer-section">
+				<div class="footer-copyright">
+					解題愛好者
+					<br><br>
+					歡迎來到刷題貓！我們是兩位熱愛程式設計的工程師，在此分享Leetcode刷題心得以及整理主題式的文章
+					<br><br>
+					© 2023 CATXCODER All Rights Reserved
+				</div>
+				<div>
+				</div>
+			</div>
+		</div>
+		<div class="footer-view footer-right col-md-4 text-center">
+			<div class="footer-section">
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--
+log
+<p>Version 0.0.2</p>
+			<p>0.0.2 - 配色完成</p>
+			<p>0.0.2 - 基本模板完成</p>
+			<p>0.0.2 - 自我介紹新增打字效果</p>
+
+
+
+
+-->
+
+		</footer>
+		</div>
+	</body>
+</html>
+
+<script>
+$(".badge-info").hover(function(){
+    $(this).hide(1000);
+});
+
+
+</script>

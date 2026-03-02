@@ -1,0 +1,3633 @@
+<!-- OK -->
+
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="utf-8">
+	<link rel="icon" type="image/x-icon" href="/res/catxcoder.ico">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>[Leetcode解題] Flatten Binary Tree to Linked List - 遍歷二叉樹</title>
+	<meta name="description" content="[Leetcode解題] Flatten Binary Tree to Linked List - 遍歷二叉樹" />
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<!-- My CSS -->
+<link href="/res/css/common.css" rel="stylesheet">
+
+	</head>
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-MHQH8LKZYV"></script>
+	<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+
+	gtag('config', 'G-MHQH8LKZYV');
+	</script>
+	<body>		
+				<!-- JQeury -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+    
+	<!-- Font Awesome -->
+	<!--<script defer src="https://use.fontawesome.com/releases/v6.4.2/js/all.js" integrity="	sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe" crossorigin="anonymous"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" integrity="sha512-uKQ39gEGiyUJl4AI6L+ekBdGKpGw4xJ55+xyJG7YFlJokPNYegn9KwQ3P8A7aFQAUtUsAQHep+d/lrGqrbPIDQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<!-- support MathJax -->
+	<style TYPE="text/css">
+	code.has-jax {font: inherit; font-size: 100%; background: inherit; border: inherit;}
+	</style>
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	    tex2jax: {
+	        inlineMath: [['$','$'], ['\\(','\\)']],
+	        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'] // removed 'code' entry
+	    }
+	});
+	MathJax.Hub.Queue(function() {
+	    var all = MathJax.Hub.getAllJax(), i;
+	    for(i = 0; i < all.length; i += 1) {
+	        all[i].SourceElement().parentNode.className += ' has-jax';
+	    }
+	});
+	</script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<!-- A patch to fix mathjax -->
+<!-- https://github.com/mathjax/MathJax/issues/1737 -->
+	<script type="text/x-mathjax-config">
+if (MathJax.Hub.Browser.isSafari && parseInt(MathJax.Hub.Browser.webkit) >= 603) {
+  MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready", function () {
+    var HTMLCSS = MathJax.OutputJax["HTML-CSS"];
+    var MML = MathJax.ElementJax.mml;
+    var toHTML = MML.mo.prototype.toHTML;
+    MML.mo.Augment({
+      toHTML: function (span) {
+        span = toHTML.call(this,span);
+        if (span.bbox.w === 0 && span.bbox.lw < 0 && span.firstChild) {
+          span.style.marginLeft = HTMLCSS.Em(span.bbox.lw);
+        }
+        return span;
+      }
+    });
+  });
+}
+</script>
+
+		<header>
+			<!-- OK -->
+
+<div class="container">
+  <nav class="navbar navbar-expand-lg navbar-default nav-color" >
+    <a href="/index.html">
+      <img src="/res/catxcoder.ico" class="img-fluid" style="width: 32px; margin-right: 10px;">
+    </a>
+    <a class="navbar-item" href="/index.html">
+      刷題貓
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span><i class="fas fa-bars" ></i></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <ul class="navbar-nav ml-auto navbar-right">
+          <li class="nav-item">
+             <a class="nav-link" href="/index.html">首頁</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/posts/categories">難度</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/posts/algorithms">演算法</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/works">主題式</a>
+          </li>
+        </ul>
+    </div>
+  </nav>
+</div>
+
+		</header>
+		<main>
+			<!-- OK -->
+
+<div class="container-fluid text-center bg-color">
+	<div class="row bg-icon">
+		<div class="col-md-2 col-sm-0">
+
+		</div>
+		<div class="view-home col-md-8 col-sm-12 post-home-color">
+			<div class="post-view-color post-view-window">
+	
+	<!-- title -->
+	<div class="post-view-title text-left" >
+		<p>[Leetcode解題] Flatten Binary Tree to Linked List - 遍歷二叉樹</p>
+	</div>
+	
+	<!-- date -->
+	<div class="post-view-date">
+			11 February 2022
+	</div>
+
+	<!-- tags -->
+	<div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">tree</i>
+		
+		<i href="#" class="badge badge-dark">linked-list</i>
+		
+	</div>
+	<hr>
+
+	<!-- excerpt -->
+	<div class="post-view-excerpt text-left">
+		<p>
+			<h1 id="題目">題目</h1>
+<p><a href="https://leetcode.com/problems/flatten-binary-tree-to-linked-list/description/">114. Flatten Binary Tree to Linked List</a></p>
+
+<p>給一個二叉樹的<code class="language-plaintext highlighter-rouge">root</code>，將樹壓平成一個<code class="language-plaintext highlighter-rouge">linked list</code>。
+這個<code class="language-plaintext highlighter-rouge">linked list</code>應該與二叉樹的<a href="https://en.wikipedia.org/wiki/Tree_traversal#Pre-order,_NLR">前序遍歷</a>順序相同。</p>
+
+<!--more-->
+
+<h1 id="解法一">解法一</h1>
+<h2 id="解題思路">解題思路</h2>
+<p>從這棵樹的前序遍歷最遠的<code class="language-plaintext highlighter-rouge">Node</code>開始(下圖中的<code class="language-plaintext highlighter-rouge">6</code>)</p>
+
+<div class="graphviz-wrapper">
+
+<!-- Generated by graphviz version 14.1.2 (0)
+ -->
+<!-- Pages: 1 -->
+<svg role="img" aria-label="graphviz-4b44a5cd981c0641948c69f8262e6d76" width="278pt" height="119pt" viewBox="0.00 0.00 278.00 119.00">
+<title>graphviz-4b44a5cd981c0641948c69f8262e6d76</title>
+<desc>
+digraph {
+//rankdir=LR
+ranksep=0.3
+node [shape=box style=&quot;rounded,filled&quot; height=0.3]
+//node [label=1 fillcolor=&quot;#cce8ff&quot;] 1.1
+node [label=1 fillcolor=lightgray] 1
+node [label=2 fillcolor=lightgray] 2
+node [label=3 fillcolor=lightgray] 3
+node [label=4 fillcolor=lightgray] 4
+node [label=5 fillcolor=lightgray] 5
+node [ label=&quot;\N&quot;]
+1 -&gt; 2 -&gt; 3
+2 -&gt; 4
+1 -&gt; 5 -&gt; null
+5 -&gt; 6
+}
+</desc>
+
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 114.75)">
+<polygon fill="white" stroke="none" points="-4,4 -4,-114.75 274,-114.75 274,4 -4,4" />
+<!-- 1 -->
+<g id="node1" class="node">
+<title>1</title>
+<path fill="lightgray" stroke="black" d="M154.58,-110.75C154.58,-110.75 115.42,-110.75 115.42,-110.75 111.71,-110.75 108,-107.04 108,-103.33 108,-103.33 108,-95.92 108,-95.92 108,-92.21 111.71,-88.5 115.42,-88.5 115.42,-88.5 154.58,-88.5 154.58,-88.5 158.29,-88.5 162,-92.21 162,-95.92 162,-95.92 162,-103.33 162,-103.33 162,-107.04 158.29,-110.75 154.58,-110.75" />
+<text xml:space="preserve" text-anchor="middle" x="135" y="-93.45" font-family="Times,serif" font-size="14.00">1</text>
+</g>
+<!-- 2 -->
+<g id="node2" class="node">
+<title>2</title>
+<path fill="lightgray" stroke="black" d="M118.58,-66.5C118.58,-66.5 79.42,-66.5 79.42,-66.5 75.71,-66.5 72,-62.79 72,-59.08 72,-59.08 72,-51.67 72,-51.67 72,-47.96 75.71,-44.25 79.42,-44.25 79.42,-44.25 118.58,-44.25 118.58,-44.25 122.29,-44.25 126,-47.96 126,-51.67 126,-51.67 126,-59.08 126,-59.08 126,-62.79 122.29,-66.5 118.58,-66.5" />
+<text xml:space="preserve" text-anchor="middle" x="99" y="-49.2" font-family="Times,serif" font-size="14.00">2</text>
+</g>
+<!-- 1&#45;&gt;2 -->
+<g id="edge1" class="edge">
+<title>1&#45;&gt;2</title>
+<path fill="none" stroke="black" d="M126.29,-88.4C122.97,-84.51 119.09,-79.95 115.3,-75.5" />
+<polygon fill="black" stroke="black" points="118.02,-73.3 108.87,-67.95 112.69,-77.84 118.02,-73.3" />
+</g>
+<!-- 5 -->
+<g id="node5" class="node">
+<title>5</title>
+<path fill="lightgray" stroke="black" d="M190.58,-66.5C190.58,-66.5 151.42,-66.5 151.42,-66.5 147.71,-66.5 144,-62.79 144,-59.08 144,-59.08 144,-51.67 144,-51.67 144,-47.96 147.71,-44.25 151.42,-44.25 151.42,-44.25 190.58,-44.25 190.58,-44.25 194.29,-44.25 198,-47.96 198,-51.67 198,-51.67 198,-59.08 198,-59.08 198,-62.79 194.29,-66.5 190.58,-66.5" />
+<text xml:space="preserve" text-anchor="middle" x="171" y="-49.2" font-family="Times,serif" font-size="14.00">5</text>
+</g>
+<!-- 1&#45;&gt;5 -->
+<g id="edge4" class="edge">
+<title>1&#45;&gt;5</title>
+<path fill="none" stroke="black" d="M143.71,-88.4C147.03,-84.51 150.91,-79.95 154.7,-75.5" />
+<polygon fill="black" stroke="black" points="157.31,-77.84 161.13,-67.95 151.98,-73.3 157.31,-77.84" />
+</g>
+<!-- 3 -->
+<g id="node3" class="node">
+<title>3</title>
+<path fill="lightgray" stroke="black" d="M46.58,-22.25C46.58,-22.25 7.42,-22.25 7.42,-22.25 3.71,-22.25 0,-18.54 0,-14.83 0,-14.83 0,-7.42 0,-7.42 0,-3.71 3.71,0 7.42,0 7.42,0 46.58,0 46.58,0 50.29,0 54,-3.71 54,-7.42 54,-7.42 54,-14.83 54,-14.83 54,-18.54 50.29,-22.25 46.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="27" y="-4.95" font-family="Times,serif" font-size="14.00">3</text>
+</g>
+<!-- 2&#45;&gt;3 -->
+<g id="edge2" class="edge">
+<title>2&#45;&gt;3</title>
+<path fill="none" stroke="black" d="M81.2,-43.93C73.3,-39.29 63.81,-33.73 55,-28.55" />
+<polygon fill="black" stroke="black" points="56.79,-25.55 46.4,-23.51 53.25,-31.59 56.79,-25.55" />
+</g>
+<!-- 4 -->
+<g id="node4" class="node">
+<title>4</title>
+<path fill="lightgray" stroke="black" d="M118.58,-22.25C118.58,-22.25 79.42,-22.25 79.42,-22.25 75.71,-22.25 72,-18.54 72,-14.83 72,-14.83 72,-7.42 72,-7.42 72,-3.71 75.71,0 79.42,0 79.42,0 118.58,0 118.58,0 122.29,0 126,-3.71 126,-7.42 126,-7.42 126,-14.83 126,-14.83 126,-18.54 122.29,-22.25 118.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="99" y="-4.95" font-family="Times,serif" font-size="14.00">4</text>
+</g>
+<!-- 2&#45;&gt;4 -->
+<g id="edge3" class="edge">
+<title>2&#45;&gt;4</title>
+<path fill="none" stroke="black" d="M99,-44.15C99,-40.98 99,-37.36 99,-33.72" />
+<polygon fill="black" stroke="black" points="102.5,-34.07 99,-24.07 95.5,-34.07 102.5,-34.07" />
+</g>
+<!-- null -->
+<g id="node6" class="node">
+<title>null</title>
+<path fill="lightgray" stroke="black" d="M190.58,-22.25C190.58,-22.25 151.42,-22.25 151.42,-22.25 147.71,-22.25 144,-18.54 144,-14.83 144,-14.83 144,-7.42 144,-7.42 144,-3.71 147.71,0 151.42,0 151.42,0 190.58,0 190.58,0 194.29,0 198,-3.71 198,-7.42 198,-7.42 198,-14.83 198,-14.83 198,-18.54 194.29,-22.25 190.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="171" y="-4.95" font-family="Times,serif" font-size="14.00">null</text>
+</g>
+<!-- 5&#45;&gt;null -->
+<g id="edge5" class="edge">
+<title>5&#45;&gt;null</title>
+<path fill="none" stroke="black" d="M171,-44.15C171,-40.98 171,-37.36 171,-33.72" />
+<polygon fill="black" stroke="black" points="174.5,-34.07 171,-24.07 167.5,-34.07 174.5,-34.07" />
+</g>
+<!-- 6 -->
+<g id="node7" class="node">
+<title>6</title>
+<path fill="lightgray" stroke="black" d="M262.58,-22.25C262.58,-22.25 223.42,-22.25 223.42,-22.25 219.71,-22.25 216,-18.54 216,-14.83 216,-14.83 216,-7.42 216,-7.42 216,-3.71 219.71,0 223.42,0 223.42,0 262.58,0 262.58,0 266.29,0 270,-3.71 270,-7.42 270,-7.42 270,-14.83 270,-14.83 270,-18.54 266.29,-22.25 262.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="243" y="-4.95" font-family="Times,serif" font-size="14.00">6</text>
+</g>
+<!-- 5&#45;&gt;6 -->
+<g id="edge6" class="edge">
+<title>5&#45;&gt;6</title>
+<path fill="none" stroke="black" d="M188.8,-43.93C196.7,-39.29 206.19,-33.73 215,-28.55" />
+<polygon fill="black" stroke="black" points="216.75,-31.59 223.6,-23.51 213.21,-25.55 216.75,-31.59" />
+</g>
+</g>
+</svg>
+</div>
+<hr />
+<p>將這個<code class="language-plaintext highlighter-rouge">Node</code>(下圖中的<code class="language-plaintext highlighter-rouge">6</code>)的指標存到<code class="language-plaintext highlighter-rouge">pre</code></p>
+<div class="graphviz-wrapper">
+
+<!-- Generated by graphviz version 14.1.2 (0)
+ -->
+<!-- Pages: 1 -->
+<svg role="img" aria-label="graphviz-61704b33716b9120e40b9908c130e2dc" width="138pt" height="30pt" viewBox="0.00 0.00 138.00 30.00">
+<title>graphviz-61704b33716b9120e40b9908c130e2dc</title>
+<desc>
+digraph {
+rankdir=LR
+ranksep=0.3
+node [shape=box style=&quot;rounded,filled&quot; height=0.3]
+node [label=pre fillcolor=&quot;#cce8ff&quot;] pre
+node [label=6 fillcolor=lightgray] 6
+node [ label=&quot;\N&quot;]
+
+pre -&gt; 6
+}
+</desc>
+
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 26.25)">
+<polygon fill="white" stroke="none" points="-4,4 -4,-26.25 134,-26.25 134,4 -4,4" />
+<!-- pre -->
+<g id="node1" class="node">
+<title>pre</title>
+<path fill="#cce8ff" stroke="black" d="M46.58,-22.25C46.58,-22.25 7.42,-22.25 7.42,-22.25 3.71,-22.25 0,-18.54 0,-14.83 0,-14.83 0,-7.42 0,-7.42 0,-3.71 3.71,0 7.42,0 7.42,0 46.58,0 46.58,0 50.29,0 54,-3.71 54,-7.42 54,-7.42 54,-14.83 54,-14.83 54,-18.54 50.29,-22.25 46.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="27" y="-4.95" font-family="Times,serif" font-size="14.00">pre</text>
+</g>
+<!-- 6 -->
+<g id="node2" class="node">
+<title>6</title>
+<path fill="lightgray" stroke="black" d="M122.58,-22.25C122.58,-22.25 83.42,-22.25 83.42,-22.25 79.71,-22.25 76,-18.54 76,-14.83 76,-14.83 76,-7.42 76,-7.42 76,-3.71 79.71,0 83.42,0 83.42,0 122.58,0 122.58,0 126.29,0 130,-3.71 130,-7.42 130,-7.42 130,-14.83 130,-14.83 130,-18.54 126.29,-22.25 122.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="103" y="-4.95" font-family="Times,serif" font-size="14.00">6</text>
+</g>
+<!-- pre&#45;&gt;6 -->
+<g id="edge1" class="edge">
+<title>pre&#45;&gt;6</title>
+<path fill="none" stroke="black" d="M54.3,-11.12C57.57,-11.12 60.96,-11.12 64.36,-11.12" />
+<polygon fill="black" stroke="black" points="64.27,-14.63 74.27,-11.13 64.27,-7.63 64.27,-14.63" />
+</g>
+</g>
+</svg>
+</div>
+
+<div class="graphviz-wrapper">
+
+<!-- Generated by graphviz version 14.1.2 (0)
+ -->
+<!-- Pages: 1 -->
+<svg role="img" aria-label="graphviz-53e5e49bc374b52187ef4122582488fa" width="278pt" height="119pt" viewBox="0.00 0.00 278.00 119.00">
+<title>graphviz-53e5e49bc374b52187ef4122582488fa</title>
+<desc>
+digraph {
+//rankdir=LR
+ranksep=0.3
+node [shape=box style=&quot;rounded,filled&quot; height=0.3]
+node [label=1 fillcolor=lightgray] 1
+node [label=2 fillcolor=lightgray] 2
+node [label=3 fillcolor=lightgray] 3
+node [label=4 fillcolor=lightgray] 4
+node [label=5 fillcolor=lightgray] 5
+node [label=null fillcolor=lightgray] n1
+node [label=6 fillcolor=lightgray] 6
+//node [label=null fillcolor=lightgray] n2
+node [ label=&quot;\N&quot;]
+1 -&gt; 2 -&gt; 3
+2 -&gt; 4
+1 -&gt; 5 -&gt; n1
+5 -&gt; 6
+}
+</desc>
+
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 114.75)">
+<polygon fill="white" stroke="none" points="-4,4 -4,-114.75 274,-114.75 274,4 -4,4" />
+<!-- 1 -->
+<g id="node1" class="node">
+<title>1</title>
+<path fill="lightgray" stroke="black" d="M154.58,-110.75C154.58,-110.75 115.42,-110.75 115.42,-110.75 111.71,-110.75 108,-107.04 108,-103.33 108,-103.33 108,-95.92 108,-95.92 108,-92.21 111.71,-88.5 115.42,-88.5 115.42,-88.5 154.58,-88.5 154.58,-88.5 158.29,-88.5 162,-92.21 162,-95.92 162,-95.92 162,-103.33 162,-103.33 162,-107.04 158.29,-110.75 154.58,-110.75" />
+<text xml:space="preserve" text-anchor="middle" x="135" y="-93.45" font-family="Times,serif" font-size="14.00">1</text>
+</g>
+<!-- 2 -->
+<g id="node2" class="node">
+<title>2</title>
+<path fill="lightgray" stroke="black" d="M118.58,-66.5C118.58,-66.5 79.42,-66.5 79.42,-66.5 75.71,-66.5 72,-62.79 72,-59.08 72,-59.08 72,-51.67 72,-51.67 72,-47.96 75.71,-44.25 79.42,-44.25 79.42,-44.25 118.58,-44.25 118.58,-44.25 122.29,-44.25 126,-47.96 126,-51.67 126,-51.67 126,-59.08 126,-59.08 126,-62.79 122.29,-66.5 118.58,-66.5" />
+<text xml:space="preserve" text-anchor="middle" x="99" y="-49.2" font-family="Times,serif" font-size="14.00">2</text>
+</g>
+<!-- 1&#45;&gt;2 -->
+<g id="edge1" class="edge">
+<title>1&#45;&gt;2</title>
+<path fill="none" stroke="black" d="M126.29,-88.4C122.97,-84.51 119.09,-79.95 115.3,-75.5" />
+<polygon fill="black" stroke="black" points="118.02,-73.3 108.87,-67.95 112.69,-77.84 118.02,-73.3" />
+</g>
+<!-- 5 -->
+<g id="node5" class="node">
+<title>5</title>
+<path fill="lightgray" stroke="black" d="M190.58,-66.5C190.58,-66.5 151.42,-66.5 151.42,-66.5 147.71,-66.5 144,-62.79 144,-59.08 144,-59.08 144,-51.67 144,-51.67 144,-47.96 147.71,-44.25 151.42,-44.25 151.42,-44.25 190.58,-44.25 190.58,-44.25 194.29,-44.25 198,-47.96 198,-51.67 198,-51.67 198,-59.08 198,-59.08 198,-62.79 194.29,-66.5 190.58,-66.5" />
+<text xml:space="preserve" text-anchor="middle" x="171" y="-49.2" font-family="Times,serif" font-size="14.00">5</text>
+</g>
+<!-- 1&#45;&gt;5 -->
+<g id="edge4" class="edge">
+<title>1&#45;&gt;5</title>
+<path fill="none" stroke="black" d="M143.71,-88.4C147.03,-84.51 150.91,-79.95 154.7,-75.5" />
+<polygon fill="black" stroke="black" points="157.31,-77.84 161.13,-67.95 151.98,-73.3 157.31,-77.84" />
+</g>
+<!-- 3 -->
+<g id="node3" class="node">
+<title>3</title>
+<path fill="lightgray" stroke="black" d="M46.58,-22.25C46.58,-22.25 7.42,-22.25 7.42,-22.25 3.71,-22.25 0,-18.54 0,-14.83 0,-14.83 0,-7.42 0,-7.42 0,-3.71 3.71,0 7.42,0 7.42,0 46.58,0 46.58,0 50.29,0 54,-3.71 54,-7.42 54,-7.42 54,-14.83 54,-14.83 54,-18.54 50.29,-22.25 46.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="27" y="-4.95" font-family="Times,serif" font-size="14.00">3</text>
+</g>
+<!-- 2&#45;&gt;3 -->
+<g id="edge2" class="edge">
+<title>2&#45;&gt;3</title>
+<path fill="none" stroke="black" d="M81.2,-43.93C73.3,-39.29 63.81,-33.73 55,-28.55" />
+<polygon fill="black" stroke="black" points="56.79,-25.55 46.4,-23.51 53.25,-31.59 56.79,-25.55" />
+</g>
+<!-- 4 -->
+<g id="node4" class="node">
+<title>4</title>
+<path fill="lightgray" stroke="black" d="M118.58,-22.25C118.58,-22.25 79.42,-22.25 79.42,-22.25 75.71,-22.25 72,-18.54 72,-14.83 72,-14.83 72,-7.42 72,-7.42 72,-3.71 75.71,0 79.42,0 79.42,0 118.58,0 118.58,0 122.29,0 126,-3.71 126,-7.42 126,-7.42 126,-14.83 126,-14.83 126,-18.54 122.29,-22.25 118.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="99" y="-4.95" font-family="Times,serif" font-size="14.00">4</text>
+</g>
+<!-- 2&#45;&gt;4 -->
+<g id="edge3" class="edge">
+<title>2&#45;&gt;4</title>
+<path fill="none" stroke="black" d="M99,-44.15C99,-40.98 99,-37.36 99,-33.72" />
+<polygon fill="black" stroke="black" points="102.5,-34.07 99,-24.07 95.5,-34.07 102.5,-34.07" />
+</g>
+<!-- n1 -->
+<g id="node6" class="node">
+<title>n1</title>
+<path fill="lightgray" stroke="black" d="M190.58,-22.25C190.58,-22.25 151.42,-22.25 151.42,-22.25 147.71,-22.25 144,-18.54 144,-14.83 144,-14.83 144,-7.42 144,-7.42 144,-3.71 147.71,0 151.42,0 151.42,0 190.58,0 190.58,0 194.29,0 198,-3.71 198,-7.42 198,-7.42 198,-14.83 198,-14.83 198,-18.54 194.29,-22.25 190.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="171" y="-4.95" font-family="Times,serif" font-size="14.00">null</text>
+</g>
+<!-- 5&#45;&gt;n1 -->
+<g id="edge5" class="edge">
+<title>5&#45;&gt;n1</title>
+<path fill="none" stroke="black" d="M171,-44.15C171,-40.98 171,-37.36 171,-33.72" />
+<polygon fill="black" stroke="black" points="174.5,-34.07 171,-24.07 167.5,-34.07 174.5,-34.07" />
+</g>
+<!-- 6 -->
+<g id="node7" class="node">
+<title>6</title>
+<path fill="lightgray" stroke="black" d="M262.58,-22.25C262.58,-22.25 223.42,-22.25 223.42,-22.25 219.71,-22.25 216,-18.54 216,-14.83 216,-14.83 216,-7.42 216,-7.42 216,-3.71 219.71,0 223.42,0 223.42,0 262.58,0 262.58,0 266.29,0 270,-3.71 270,-7.42 270,-7.42 270,-14.83 270,-14.83 270,-18.54 266.29,-22.25 262.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="243" y="-4.95" font-family="Times,serif" font-size="14.00">6</text>
+</g>
+<!-- 5&#45;&gt;6 -->
+<g id="edge6" class="edge">
+<title>5&#45;&gt;6</title>
+<path fill="none" stroke="black" d="M188.8,-43.93C196.7,-39.29 206.19,-33.73 215,-28.55" />
+<polygon fill="black" stroke="black" points="216.75,-31.59 223.6,-23.51 213.21,-25.55 216.75,-31.59" />
+</g>
+</g>
+</svg>
+</div>
+
+<hr />
+<p>不是<code class="language-plaintext highlighter-rouge">pre</code>的child且前序遍歷最遠的<code class="language-plaintext highlighter-rouge">Node</code>(下圖中的<code class="language-plaintext highlighter-rouge">5</code>)的<code class="language-plaintext highlighter-rouge">left</code>設為NULL，並將上一步的<code class="language-plaintext highlighter-rouge">pre</code>接到<code class="language-plaintext highlighter-rouge">Node</code>(下圖中的<code class="language-plaintext highlighter-rouge">5</code>)的<code class="language-plaintext highlighter-rouge">right</code>，將<code class="language-plaintext highlighter-rouge">pre</code>設為<code class="language-plaintext highlighter-rouge">Node</code>(下圖中的<code class="language-plaintext highlighter-rouge">5</code>)</p>
+<div class="graphviz-wrapper">
+
+<!-- Generated by graphviz version 14.1.2 (0)
+ -->
+<!-- Pages: 1 -->
+<svg role="img" aria-label="graphviz-1626216c2fea5424cb8375fa37b705c6" width="214pt" height="30pt" viewBox="0.00 0.00 214.00 30.00">
+<title>graphviz-1626216c2fea5424cb8375fa37b705c6</title>
+<desc>
+digraph {
+rankdir=LR
+ranksep=0.3
+node [shape=box style=&quot;rounded,filled&quot; height=0.3]
+node [label=pre fillcolor=&quot;#cce8ff&quot;] pre
+node [label=6 fillcolor=lightgray] 6
+node [label=5 fillcolor=lightgray] 5
+node [ label=&quot;\N&quot;]
+
+pre -&gt; 5 -&gt; 6
+}
+</desc>
+
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 26.25)">
+<polygon fill="white" stroke="none" points="-4,4 -4,-26.25 210,-26.25 210,4 -4,4" />
+<!-- pre -->
+<g id="node1" class="node">
+<title>pre</title>
+<path fill="#cce8ff" stroke="black" d="M46.58,-22.25C46.58,-22.25 7.42,-22.25 7.42,-22.25 3.71,-22.25 0,-18.54 0,-14.83 0,-14.83 0,-7.42 0,-7.42 0,-3.71 3.71,0 7.42,0 7.42,0 46.58,0 46.58,0 50.29,0 54,-3.71 54,-7.42 54,-7.42 54,-14.83 54,-14.83 54,-18.54 50.29,-22.25 46.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="27" y="-4.95" font-family="Times,serif" font-size="14.00">pre</text>
+</g>
+<!-- 5 -->
+<g id="node3" class="node">
+<title>5</title>
+<path fill="lightgray" stroke="black" d="M122.58,-22.25C122.58,-22.25 83.42,-22.25 83.42,-22.25 79.71,-22.25 76,-18.54 76,-14.83 76,-14.83 76,-7.42 76,-7.42 76,-3.71 79.71,0 83.42,0 83.42,0 122.58,0 122.58,0 126.29,0 130,-3.71 130,-7.42 130,-7.42 130,-14.83 130,-14.83 130,-18.54 126.29,-22.25 122.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="103" y="-4.95" font-family="Times,serif" font-size="14.00">5</text>
+</g>
+<!-- pre&#45;&gt;5 -->
+<g id="edge1" class="edge">
+<title>pre&#45;&gt;5</title>
+<path fill="none" stroke="black" d="M54.3,-11.12C57.57,-11.12 60.96,-11.12 64.36,-11.12" />
+<polygon fill="black" stroke="black" points="64.27,-14.63 74.27,-11.13 64.27,-7.63 64.27,-14.63" />
+</g>
+<!-- 6 -->
+<g id="node2" class="node">
+<title>6</title>
+<path fill="lightgray" stroke="black" d="M198.58,-22.25C198.58,-22.25 159.42,-22.25 159.42,-22.25 155.71,-22.25 152,-18.54 152,-14.83 152,-14.83 152,-7.42 152,-7.42 152,-3.71 155.71,0 159.42,0 159.42,0 198.58,0 198.58,0 202.29,0 206,-3.71 206,-7.42 206,-7.42 206,-14.83 206,-14.83 206,-18.54 202.29,-22.25 198.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="179" y="-4.95" font-family="Times,serif" font-size="14.00">6</text>
+</g>
+<!-- 5&#45;&gt;6 -->
+<g id="edge2" class="edge">
+<title>5&#45;&gt;6</title>
+<path fill="none" stroke="black" d="M130.3,-11.12C133.57,-11.12 136.96,-11.12 140.36,-11.12" />
+<polygon fill="black" stroke="black" points="140.27,-14.63 150.27,-11.13 140.27,-7.63 140.27,-14.63" />
+</g>
+</g>
+</svg>
+</div>
+
+<div class="graphviz-wrapper">
+
+<!-- Generated by graphviz version 14.1.2 (0)
+ -->
+<!-- Pages: 1 -->
+<svg role="img" aria-label="graphviz-53e5e49bc374b52187ef4122582488fa" width="278pt" height="119pt" viewBox="0.00 0.00 278.00 119.00">
+<title>graphviz-53e5e49bc374b52187ef4122582488fa</title>
+<desc>
+digraph {
+//rankdir=LR
+ranksep=0.3
+node [shape=box style=&quot;rounded,filled&quot; height=0.3]
+node [label=1 fillcolor=lightgray] 1
+node [label=2 fillcolor=lightgray] 2
+node [label=3 fillcolor=lightgray] 3
+node [label=4 fillcolor=lightgray] 4
+node [label=5 fillcolor=lightgray] 5
+node [label=null fillcolor=lightgray] n1
+node [label=6 fillcolor=lightgray] 6
+//node [label=null fillcolor=lightgray] n2
+node [ label=&quot;\N&quot;]
+1 -&gt; 2 -&gt; 3
+2 -&gt; 4
+1 -&gt; 5 -&gt; n1
+5 -&gt; 6
+}
+</desc>
+
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 114.75)">
+<polygon fill="white" stroke="none" points="-4,4 -4,-114.75 274,-114.75 274,4 -4,4" />
+<!-- 1 -->
+<g id="node1" class="node">
+<title>1</title>
+<path fill="lightgray" stroke="black" d="M154.58,-110.75C154.58,-110.75 115.42,-110.75 115.42,-110.75 111.71,-110.75 108,-107.04 108,-103.33 108,-103.33 108,-95.92 108,-95.92 108,-92.21 111.71,-88.5 115.42,-88.5 115.42,-88.5 154.58,-88.5 154.58,-88.5 158.29,-88.5 162,-92.21 162,-95.92 162,-95.92 162,-103.33 162,-103.33 162,-107.04 158.29,-110.75 154.58,-110.75" />
+<text xml:space="preserve" text-anchor="middle" x="135" y="-93.45" font-family="Times,serif" font-size="14.00">1</text>
+</g>
+<!-- 2 -->
+<g id="node2" class="node">
+<title>2</title>
+<path fill="lightgray" stroke="black" d="M118.58,-66.5C118.58,-66.5 79.42,-66.5 79.42,-66.5 75.71,-66.5 72,-62.79 72,-59.08 72,-59.08 72,-51.67 72,-51.67 72,-47.96 75.71,-44.25 79.42,-44.25 79.42,-44.25 118.58,-44.25 118.58,-44.25 122.29,-44.25 126,-47.96 126,-51.67 126,-51.67 126,-59.08 126,-59.08 126,-62.79 122.29,-66.5 118.58,-66.5" />
+<text xml:space="preserve" text-anchor="middle" x="99" y="-49.2" font-family="Times,serif" font-size="14.00">2</text>
+</g>
+<!-- 1&#45;&gt;2 -->
+<g id="edge1" class="edge">
+<title>1&#45;&gt;2</title>
+<path fill="none" stroke="black" d="M126.29,-88.4C122.97,-84.51 119.09,-79.95 115.3,-75.5" />
+<polygon fill="black" stroke="black" points="118.02,-73.3 108.87,-67.95 112.69,-77.84 118.02,-73.3" />
+</g>
+<!-- 5 -->
+<g id="node5" class="node">
+<title>5</title>
+<path fill="lightgray" stroke="black" d="M190.58,-66.5C190.58,-66.5 151.42,-66.5 151.42,-66.5 147.71,-66.5 144,-62.79 144,-59.08 144,-59.08 144,-51.67 144,-51.67 144,-47.96 147.71,-44.25 151.42,-44.25 151.42,-44.25 190.58,-44.25 190.58,-44.25 194.29,-44.25 198,-47.96 198,-51.67 198,-51.67 198,-59.08 198,-59.08 198,-62.79 194.29,-66.5 190.58,-66.5" />
+<text xml:space="preserve" text-anchor="middle" x="171" y="-49.2" font-family="Times,serif" font-size="14.00">5</text>
+</g>
+<!-- 1&#45;&gt;5 -->
+<g id="edge4" class="edge">
+<title>1&#45;&gt;5</title>
+<path fill="none" stroke="black" d="M143.71,-88.4C147.03,-84.51 150.91,-79.95 154.7,-75.5" />
+<polygon fill="black" stroke="black" points="157.31,-77.84 161.13,-67.95 151.98,-73.3 157.31,-77.84" />
+</g>
+<!-- 3 -->
+<g id="node3" class="node">
+<title>3</title>
+<path fill="lightgray" stroke="black" d="M46.58,-22.25C46.58,-22.25 7.42,-22.25 7.42,-22.25 3.71,-22.25 0,-18.54 0,-14.83 0,-14.83 0,-7.42 0,-7.42 0,-3.71 3.71,0 7.42,0 7.42,0 46.58,0 46.58,0 50.29,0 54,-3.71 54,-7.42 54,-7.42 54,-14.83 54,-14.83 54,-18.54 50.29,-22.25 46.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="27" y="-4.95" font-family="Times,serif" font-size="14.00">3</text>
+</g>
+<!-- 2&#45;&gt;3 -->
+<g id="edge2" class="edge">
+<title>2&#45;&gt;3</title>
+<path fill="none" stroke="black" d="M81.2,-43.93C73.3,-39.29 63.81,-33.73 55,-28.55" />
+<polygon fill="black" stroke="black" points="56.79,-25.55 46.4,-23.51 53.25,-31.59 56.79,-25.55" />
+</g>
+<!-- 4 -->
+<g id="node4" class="node">
+<title>4</title>
+<path fill="lightgray" stroke="black" d="M118.58,-22.25C118.58,-22.25 79.42,-22.25 79.42,-22.25 75.71,-22.25 72,-18.54 72,-14.83 72,-14.83 72,-7.42 72,-7.42 72,-3.71 75.71,0 79.42,0 79.42,0 118.58,0 118.58,0 122.29,0 126,-3.71 126,-7.42 126,-7.42 126,-14.83 126,-14.83 126,-18.54 122.29,-22.25 118.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="99" y="-4.95" font-family="Times,serif" font-size="14.00">4</text>
+</g>
+<!-- 2&#45;&gt;4 -->
+<g id="edge3" class="edge">
+<title>2&#45;&gt;4</title>
+<path fill="none" stroke="black" d="M99,-44.15C99,-40.98 99,-37.36 99,-33.72" />
+<polygon fill="black" stroke="black" points="102.5,-34.07 99,-24.07 95.5,-34.07 102.5,-34.07" />
+</g>
+<!-- n1 -->
+<g id="node6" class="node">
+<title>n1</title>
+<path fill="lightgray" stroke="black" d="M190.58,-22.25C190.58,-22.25 151.42,-22.25 151.42,-22.25 147.71,-22.25 144,-18.54 144,-14.83 144,-14.83 144,-7.42 144,-7.42 144,-3.71 147.71,0 151.42,0 151.42,0 190.58,0 190.58,0 194.29,0 198,-3.71 198,-7.42 198,-7.42 198,-14.83 198,-14.83 198,-18.54 194.29,-22.25 190.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="171" y="-4.95" font-family="Times,serif" font-size="14.00">null</text>
+</g>
+<!-- 5&#45;&gt;n1 -->
+<g id="edge5" class="edge">
+<title>5&#45;&gt;n1</title>
+<path fill="none" stroke="black" d="M171,-44.15C171,-40.98 171,-37.36 171,-33.72" />
+<polygon fill="black" stroke="black" points="174.5,-34.07 171,-24.07 167.5,-34.07 174.5,-34.07" />
+</g>
+<!-- 6 -->
+<g id="node7" class="node">
+<title>6</title>
+<path fill="lightgray" stroke="black" d="M262.58,-22.25C262.58,-22.25 223.42,-22.25 223.42,-22.25 219.71,-22.25 216,-18.54 216,-14.83 216,-14.83 216,-7.42 216,-7.42 216,-3.71 219.71,0 223.42,0 223.42,0 262.58,0 262.58,0 266.29,0 270,-3.71 270,-7.42 270,-7.42 270,-14.83 270,-14.83 270,-18.54 266.29,-22.25 262.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="243" y="-4.95" font-family="Times,serif" font-size="14.00">6</text>
+</g>
+<!-- 5&#45;&gt;6 -->
+<g id="edge6" class="edge">
+<title>5&#45;&gt;6</title>
+<path fill="none" stroke="black" d="M188.8,-43.93C196.7,-39.29 206.19,-33.73 215,-28.55" />
+<polygon fill="black" stroke="black" points="216.75,-31.59 223.6,-23.51 213.21,-25.55 216.75,-31.59" />
+</g>
+</g>
+</svg>
+</div>
+<hr />
+<p>不是<code class="language-plaintext highlighter-rouge">pre</code>的child且前序遍歷最遠的<code class="language-plaintext highlighter-rouge">Node</code>(下圖中的<code class="language-plaintext highlighter-rouge">4</code>)的<code class="language-plaintext highlighter-rouge">left</code>設為NULL，並將上一步的<code class="language-plaintext highlighter-rouge">pre</code>接到<code class="language-plaintext highlighter-rouge">Node</code>(下圖中的<code class="language-plaintext highlighter-rouge">4</code>)的<code class="language-plaintext highlighter-rouge">right</code>，將<code class="language-plaintext highlighter-rouge">pre</code>設為<code class="language-plaintext highlighter-rouge">Node</code>(下圖中的<code class="language-plaintext highlighter-rouge">4</code>)</p>
+<div class="graphviz-wrapper">
+
+<!-- Generated by graphviz version 14.1.2 (0)
+ -->
+<!-- Pages: 1 -->
+<svg role="img" aria-label="graphviz-ff8e1773c7e521ee231d3258d6f4ecc8" width="290pt" height="30pt" viewBox="0.00 0.00 290.00 30.00">
+<title>graphviz-ff8e1773c7e521ee231d3258d6f4ecc8</title>
+<desc>
+digraph {
+rankdir=LR
+ranksep=0.3
+node [shape=box style=&quot;rounded,filled&quot; height=0.3]
+node [label=pre fillcolor=&quot;#cce8ff&quot;] pre
+node [label=6 fillcolor=lightgray] 6
+node [label=5 fillcolor=lightgray] 5
+node [label=4 fillcolor=lightgray] 4
+node [ label=&quot;\N&quot;]
+
+pre -&gt; 4 -&gt; 5 -&gt; 6
+}
+</desc>
+
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 26.25)">
+<polygon fill="white" stroke="none" points="-4,4 -4,-26.25 286,-26.25 286,4 -4,4" />
+<!-- pre -->
+<g id="node1" class="node">
+<title>pre</title>
+<path fill="#cce8ff" stroke="black" d="M46.58,-22.25C46.58,-22.25 7.42,-22.25 7.42,-22.25 3.71,-22.25 0,-18.54 0,-14.83 0,-14.83 0,-7.42 0,-7.42 0,-3.71 3.71,0 7.42,0 7.42,0 46.58,0 46.58,0 50.29,0 54,-3.71 54,-7.42 54,-7.42 54,-14.83 54,-14.83 54,-18.54 50.29,-22.25 46.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="27" y="-4.95" font-family="Times,serif" font-size="14.00">pre</text>
+</g>
+<!-- 4 -->
+<g id="node4" class="node">
+<title>4</title>
+<path fill="lightgray" stroke="black" d="M122.58,-22.25C122.58,-22.25 83.42,-22.25 83.42,-22.25 79.71,-22.25 76,-18.54 76,-14.83 76,-14.83 76,-7.42 76,-7.42 76,-3.71 79.71,0 83.42,0 83.42,0 122.58,0 122.58,0 126.29,0 130,-3.71 130,-7.42 130,-7.42 130,-14.83 130,-14.83 130,-18.54 126.29,-22.25 122.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="103" y="-4.95" font-family="Times,serif" font-size="14.00">4</text>
+</g>
+<!-- pre&#45;&gt;4 -->
+<g id="edge1" class="edge">
+<title>pre&#45;&gt;4</title>
+<path fill="none" stroke="black" d="M54.3,-11.12C57.57,-11.12 60.96,-11.12 64.36,-11.12" />
+<polygon fill="black" stroke="black" points="64.27,-14.63 74.27,-11.13 64.27,-7.63 64.27,-14.63" />
+</g>
+<!-- 6 -->
+<g id="node2" class="node">
+<title>6</title>
+<path fill="lightgray" stroke="black" d="M274.58,-22.25C274.58,-22.25 235.42,-22.25 235.42,-22.25 231.71,-22.25 228,-18.54 228,-14.83 228,-14.83 228,-7.42 228,-7.42 228,-3.71 231.71,0 235.42,0 235.42,0 274.58,0 274.58,0 278.29,0 282,-3.71 282,-7.42 282,-7.42 282,-14.83 282,-14.83 282,-18.54 278.29,-22.25 274.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="255" y="-4.95" font-family="Times,serif" font-size="14.00">6</text>
+</g>
+<!-- 5 -->
+<g id="node3" class="node">
+<title>5</title>
+<path fill="lightgray" stroke="black" d="M198.58,-22.25C198.58,-22.25 159.42,-22.25 159.42,-22.25 155.71,-22.25 152,-18.54 152,-14.83 152,-14.83 152,-7.42 152,-7.42 152,-3.71 155.71,0 159.42,0 159.42,0 198.58,0 198.58,0 202.29,0 206,-3.71 206,-7.42 206,-7.42 206,-14.83 206,-14.83 206,-18.54 202.29,-22.25 198.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="179" y="-4.95" font-family="Times,serif" font-size="14.00">5</text>
+</g>
+<!-- 5&#45;&gt;6 -->
+<g id="edge3" class="edge">
+<title>5&#45;&gt;6</title>
+<path fill="none" stroke="black" d="M206.3,-11.12C209.57,-11.12 212.96,-11.12 216.36,-11.12" />
+<polygon fill="black" stroke="black" points="216.27,-14.63 226.27,-11.13 216.27,-7.63 216.27,-14.63" />
+</g>
+<!-- 4&#45;&gt;5 -->
+<g id="edge2" class="edge">
+<title>4&#45;&gt;5</title>
+<path fill="none" stroke="black" d="M130.3,-11.12C133.57,-11.12 136.96,-11.12 140.36,-11.12" />
+<polygon fill="black" stroke="black" points="140.27,-14.63 150.27,-11.13 140.27,-7.63 140.27,-14.63" />
+</g>
+</g>
+</svg>
+</div>
+
+<div class="graphviz-wrapper">
+
+<!-- Generated by graphviz version 14.1.2 (0)
+ -->
+<!-- Pages: 1 -->
+<svg role="img" aria-label="graphviz-51c427b837c0ac62a793f8abe5856b5a" width="206pt" height="207pt" viewBox="0.00 0.00 206.00 207.00">
+<title>graphviz-51c427b837c0ac62a793f8abe5856b5a</title>
+<desc>
+digraph {
+//rankdir=LR
+ranksep=0.3
+node [shape=box style=&quot;rounded,filled&quot; height=0.3]
+node [label=null fillcolor=lightgray] n2
+node [label=null fillcolor=lightgray] n3
+node [label=1 fillcolor=lightgray] 1
+node [label=2 fillcolor=lightgray] 2
+node [label=3 fillcolor=lightgray] 3
+node [label=4 fillcolor=lightgray] 4
+node [label=5 fillcolor=lightgray] 5
+node [label=null fillcolor=lightgray] n1
+node [label=6 fillcolor=lightgray] 6
+node [label=null fillcolor=lightgray] n2
+node [ label=&quot;\N&quot;]
+1 -&gt; 2 -&gt; 3
+2 -&gt; 4 -&gt;5 -&gt; 6
+1 -&gt; n1
+4 -&gt; n2
+5 -&gt; n3
+}
+</desc>
+
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 203.25)">
+<polygon fill="white" stroke="none" points="-4,4 -4,-203.25 202,-203.25 202,4 -4,4" />
+<!-- n2 -->
+<g id="node1" class="node">
+<title>n2</title>
+<path fill="lightgray" stroke="black" d="M82.58,-66.5C82.58,-66.5 43.42,-66.5 43.42,-66.5 39.71,-66.5 36,-62.79 36,-59.08 36,-59.08 36,-51.67 36,-51.67 36,-47.96 39.71,-44.25 43.42,-44.25 43.42,-44.25 82.58,-44.25 82.58,-44.25 86.29,-44.25 90,-47.96 90,-51.67 90,-51.67 90,-59.08 90,-59.08 90,-62.79 86.29,-66.5 82.58,-66.5" />
+<text xml:space="preserve" text-anchor="middle" x="63" y="-49.2" font-family="Times,serif" font-size="14.00">null</text>
+</g>
+<!-- n3 -->
+<g id="node2" class="node">
+<title>n3</title>
+<path fill="lightgray" stroke="black" d="M118.58,-22.25C118.58,-22.25 79.42,-22.25 79.42,-22.25 75.71,-22.25 72,-18.54 72,-14.83 72,-14.83 72,-7.42 72,-7.42 72,-3.71 75.71,0 79.42,0 79.42,0 118.58,0 118.58,0 122.29,0 126,-3.71 126,-7.42 126,-7.42 126,-14.83 126,-14.83 126,-18.54 122.29,-22.25 118.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="99" y="-4.95" font-family="Times,serif" font-size="14.00">null</text>
+</g>
+<!-- 1 -->
+<g id="node3" class="node">
+<title>1</title>
+<path fill="lightgray" stroke="black" d="M118.58,-199.25C118.58,-199.25 79.42,-199.25 79.42,-199.25 75.71,-199.25 72,-195.54 72,-191.83 72,-191.83 72,-184.42 72,-184.42 72,-180.71 75.71,-177 79.42,-177 79.42,-177 118.58,-177 118.58,-177 122.29,-177 126,-180.71 126,-184.42 126,-184.42 126,-191.83 126,-191.83 126,-195.54 122.29,-199.25 118.58,-199.25" />
+<text xml:space="preserve" text-anchor="middle" x="99" y="-181.95" font-family="Times,serif" font-size="14.00">1</text>
+</g>
+<!-- 2 -->
+<g id="node4" class="node">
+<title>2</title>
+<path fill="lightgray" stroke="black" d="M82.58,-155C82.58,-155 43.42,-155 43.42,-155 39.71,-155 36,-151.29 36,-147.58 36,-147.58 36,-140.17 36,-140.17 36,-136.46 39.71,-132.75 43.42,-132.75 43.42,-132.75 82.58,-132.75 82.58,-132.75 86.29,-132.75 90,-136.46 90,-140.17 90,-140.17 90,-147.58 90,-147.58 90,-151.29 86.29,-155 82.58,-155" />
+<text xml:space="preserve" text-anchor="middle" x="63" y="-137.7" font-family="Times,serif" font-size="14.00">2</text>
+</g>
+<!-- 1&#45;&gt;2 -->
+<g id="edge1" class="edge">
+<title>1&#45;&gt;2</title>
+<path fill="none" stroke="black" d="M90.29,-176.9C86.97,-173.01 83.09,-168.45 79.3,-164" />
+<polygon fill="black" stroke="black" points="82.02,-161.8 72.87,-156.45 76.69,-166.34 82.02,-161.8" />
+</g>
+<!-- n1 -->
+<g id="node8" class="node">
+<title>n1</title>
+<path fill="lightgray" stroke="black" d="M154.58,-155C154.58,-155 115.42,-155 115.42,-155 111.71,-155 108,-151.29 108,-147.58 108,-147.58 108,-140.17 108,-140.17 108,-136.46 111.71,-132.75 115.42,-132.75 115.42,-132.75 154.58,-132.75 154.58,-132.75 158.29,-132.75 162,-136.46 162,-140.17 162,-140.17 162,-147.58 162,-147.58 162,-151.29 158.29,-155 154.58,-155" />
+<text xml:space="preserve" text-anchor="middle" x="135" y="-137.7" font-family="Times,serif" font-size="14.00">null</text>
+</g>
+<!-- 1&#45;&gt;n1 -->
+<g id="edge6" class="edge">
+<title>1&#45;&gt;n1</title>
+<path fill="none" stroke="black" d="M107.71,-176.9C111.03,-173.01 114.91,-168.45 118.7,-164" />
+<polygon fill="black" stroke="black" points="121.31,-166.34 125.13,-156.45 115.98,-161.8 121.31,-166.34" />
+</g>
+<!-- 3 -->
+<g id="node5" class="node">
+<title>3</title>
+<path fill="lightgray" stroke="black" d="M46.58,-110.75C46.58,-110.75 7.42,-110.75 7.42,-110.75 3.71,-110.75 0,-107.04 0,-103.33 0,-103.33 0,-95.92 0,-95.92 0,-92.21 3.71,-88.5 7.42,-88.5 7.42,-88.5 46.58,-88.5 46.58,-88.5 50.29,-88.5 54,-92.21 54,-95.92 54,-95.92 54,-103.33 54,-103.33 54,-107.04 50.29,-110.75 46.58,-110.75" />
+<text xml:space="preserve" text-anchor="middle" x="27" y="-93.45" font-family="Times,serif" font-size="14.00">3</text>
+</g>
+<!-- 2&#45;&gt;3 -->
+<g id="edge2" class="edge">
+<title>2&#45;&gt;3</title>
+<path fill="none" stroke="black" d="M54.29,-132.65C50.97,-128.76 47.09,-124.2 43.3,-119.75" />
+<polygon fill="black" stroke="black" points="46.02,-117.55 36.87,-112.2 40.69,-122.09 46.02,-117.55" />
+</g>
+<!-- 4 -->
+<g id="node6" class="node">
+<title>4</title>
+<path fill="lightgray" stroke="black" d="M118.58,-110.75C118.58,-110.75 79.42,-110.75 79.42,-110.75 75.71,-110.75 72,-107.04 72,-103.33 72,-103.33 72,-95.92 72,-95.92 72,-92.21 75.71,-88.5 79.42,-88.5 79.42,-88.5 118.58,-88.5 118.58,-88.5 122.29,-88.5 126,-92.21 126,-95.92 126,-95.92 126,-103.33 126,-103.33 126,-107.04 122.29,-110.75 118.58,-110.75" />
+<text xml:space="preserve" text-anchor="middle" x="99" y="-93.45" font-family="Times,serif" font-size="14.00">4</text>
+</g>
+<!-- 2&#45;&gt;4 -->
+<g id="edge3" class="edge">
+<title>2&#45;&gt;4</title>
+<path fill="none" stroke="black" d="M71.71,-132.65C75.03,-128.76 78.91,-124.2 82.7,-119.75" />
+<polygon fill="black" stroke="black" points="85.31,-122.09 89.13,-112.2 79.98,-117.55 85.31,-122.09" />
+</g>
+<!-- 4&#45;&gt;n2 -->
+<g id="edge7" class="edge">
+<title>4&#45;&gt;n2</title>
+<path fill="none" stroke="black" d="M90.29,-88.4C86.97,-84.51 83.09,-79.95 79.3,-75.5" />
+<polygon fill="black" stroke="black" points="82.02,-73.3 72.87,-67.95 76.69,-77.84 82.02,-73.3" />
+</g>
+<!-- 5 -->
+<g id="node7" class="node">
+<title>5</title>
+<path fill="lightgray" stroke="black" d="M154.58,-66.5C154.58,-66.5 115.42,-66.5 115.42,-66.5 111.71,-66.5 108,-62.79 108,-59.08 108,-59.08 108,-51.67 108,-51.67 108,-47.96 111.71,-44.25 115.42,-44.25 115.42,-44.25 154.58,-44.25 154.58,-44.25 158.29,-44.25 162,-47.96 162,-51.67 162,-51.67 162,-59.08 162,-59.08 162,-62.79 158.29,-66.5 154.58,-66.5" />
+<text xml:space="preserve" text-anchor="middle" x="135" y="-49.2" font-family="Times,serif" font-size="14.00">5</text>
+</g>
+<!-- 4&#45;&gt;5 -->
+<g id="edge4" class="edge">
+<title>4&#45;&gt;5</title>
+<path fill="none" stroke="black" d="M107.71,-88.4C111.03,-84.51 114.91,-79.95 118.7,-75.5" />
+<polygon fill="black" stroke="black" points="121.31,-77.84 125.13,-67.95 115.98,-73.3 121.31,-77.84" />
+</g>
+<!-- 5&#45;&gt;n3 -->
+<g id="edge8" class="edge">
+<title>5&#45;&gt;n3</title>
+<path fill="none" stroke="black" d="M126.29,-44.15C122.97,-40.26 119.09,-35.7 115.3,-31.25" />
+<polygon fill="black" stroke="black" points="118.02,-29.05 108.87,-23.7 112.69,-33.59 118.02,-29.05" />
+</g>
+<!-- 6 -->
+<g id="node9" class="node">
+<title>6</title>
+<path fill="lightgray" stroke="black" d="M190.58,-22.25C190.58,-22.25 151.42,-22.25 151.42,-22.25 147.71,-22.25 144,-18.54 144,-14.83 144,-14.83 144,-7.42 144,-7.42 144,-3.71 147.71,0 151.42,0 151.42,0 190.58,0 190.58,0 194.29,0 198,-3.71 198,-7.42 198,-7.42 198,-14.83 198,-14.83 198,-18.54 194.29,-22.25 190.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="171" y="-4.95" font-family="Times,serif" font-size="14.00">6</text>
+</g>
+<!-- 5&#45;&gt;6 -->
+<g id="edge5" class="edge">
+<title>5&#45;&gt;6</title>
+<path fill="none" stroke="black" d="M143.71,-44.15C147.03,-40.26 150.91,-35.7 154.7,-31.25" />
+<polygon fill="black" stroke="black" points="157.31,-33.59 161.13,-23.7 151.98,-29.05 157.31,-33.59" />
+</g>
+</g>
+</svg>
+</div>
+
+<hr />
+<p>依此類推…</p>
+<div class="graphviz-wrapper">
+
+<!-- Generated by graphviz version 14.1.2 (0)
+ -->
+<!-- Pages: 1 -->
+<svg role="img" aria-label="graphviz-a7a4479ddafc3155fa302799e369357e" width="366pt" height="30pt" viewBox="0.00 0.00 366.00 30.00">
+<title>graphviz-a7a4479ddafc3155fa302799e369357e</title>
+<desc>
+digraph {
+rankdir=LR
+ranksep=0.3
+node [shape=box style=&quot;rounded,filled&quot; height=0.3]
+node [label=pre fillcolor=&quot;#cce8ff&quot;] pre
+node [label=6 fillcolor=lightgray] 6
+node [label=5 fillcolor=lightgray] 5
+node [label=4 fillcolor=lightgray] 4
+node [label=3 fillcolor=lightgray] 3
+node [ label=&quot;\N&quot;]
+
+pre -&gt; 3 -&gt; 4 -&gt; 5 -&gt; 6
+}
+</desc>
+
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 26.25)">
+<polygon fill="white" stroke="none" points="-4,4 -4,-26.25 362,-26.25 362,4 -4,4" />
+<!-- pre -->
+<g id="node1" class="node">
+<title>pre</title>
+<path fill="#cce8ff" stroke="black" d="M46.58,-22.25C46.58,-22.25 7.42,-22.25 7.42,-22.25 3.71,-22.25 0,-18.54 0,-14.83 0,-14.83 0,-7.42 0,-7.42 0,-3.71 3.71,0 7.42,0 7.42,0 46.58,0 46.58,0 50.29,0 54,-3.71 54,-7.42 54,-7.42 54,-14.83 54,-14.83 54,-18.54 50.29,-22.25 46.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="27" y="-4.95" font-family="Times,serif" font-size="14.00">pre</text>
+</g>
+<!-- 3 -->
+<g id="node5" class="node">
+<title>3</title>
+<path fill="lightgray" stroke="black" d="M122.58,-22.25C122.58,-22.25 83.42,-22.25 83.42,-22.25 79.71,-22.25 76,-18.54 76,-14.83 76,-14.83 76,-7.42 76,-7.42 76,-3.71 79.71,0 83.42,0 83.42,0 122.58,0 122.58,0 126.29,0 130,-3.71 130,-7.42 130,-7.42 130,-14.83 130,-14.83 130,-18.54 126.29,-22.25 122.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="103" y="-4.95" font-family="Times,serif" font-size="14.00">3</text>
+</g>
+<!-- pre&#45;&gt;3 -->
+<g id="edge1" class="edge">
+<title>pre&#45;&gt;3</title>
+<path fill="none" stroke="black" d="M54.3,-11.12C57.57,-11.12 60.96,-11.12 64.36,-11.12" />
+<polygon fill="black" stroke="black" points="64.27,-14.63 74.27,-11.13 64.27,-7.63 64.27,-14.63" />
+</g>
+<!-- 6 -->
+<g id="node2" class="node">
+<title>6</title>
+<path fill="lightgray" stroke="black" d="M350.58,-22.25C350.58,-22.25 311.42,-22.25 311.42,-22.25 307.71,-22.25 304,-18.54 304,-14.83 304,-14.83 304,-7.42 304,-7.42 304,-3.71 307.71,0 311.42,0 311.42,0 350.58,0 350.58,0 354.29,0 358,-3.71 358,-7.42 358,-7.42 358,-14.83 358,-14.83 358,-18.54 354.29,-22.25 350.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="331" y="-4.95" font-family="Times,serif" font-size="14.00">6</text>
+</g>
+<!-- 5 -->
+<g id="node3" class="node">
+<title>5</title>
+<path fill="lightgray" stroke="black" d="M274.58,-22.25C274.58,-22.25 235.42,-22.25 235.42,-22.25 231.71,-22.25 228,-18.54 228,-14.83 228,-14.83 228,-7.42 228,-7.42 228,-3.71 231.71,0 235.42,0 235.42,0 274.58,0 274.58,0 278.29,0 282,-3.71 282,-7.42 282,-7.42 282,-14.83 282,-14.83 282,-18.54 278.29,-22.25 274.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="255" y="-4.95" font-family="Times,serif" font-size="14.00">5</text>
+</g>
+<!-- 5&#45;&gt;6 -->
+<g id="edge4" class="edge">
+<title>5&#45;&gt;6</title>
+<path fill="none" stroke="black" d="M282.3,-11.12C285.57,-11.12 288.96,-11.12 292.36,-11.12" />
+<polygon fill="black" stroke="black" points="292.27,-14.63 302.27,-11.13 292.27,-7.63 292.27,-14.63" />
+</g>
+<!-- 4 -->
+<g id="node4" class="node">
+<title>4</title>
+<path fill="lightgray" stroke="black" d="M198.58,-22.25C198.58,-22.25 159.42,-22.25 159.42,-22.25 155.71,-22.25 152,-18.54 152,-14.83 152,-14.83 152,-7.42 152,-7.42 152,-3.71 155.71,0 159.42,0 159.42,0 198.58,0 198.58,0 202.29,0 206,-3.71 206,-7.42 206,-7.42 206,-14.83 206,-14.83 206,-18.54 202.29,-22.25 198.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="179" y="-4.95" font-family="Times,serif" font-size="14.00">4</text>
+</g>
+<!-- 4&#45;&gt;5 -->
+<g id="edge3" class="edge">
+<title>4&#45;&gt;5</title>
+<path fill="none" stroke="black" d="M206.3,-11.12C209.57,-11.12 212.96,-11.12 216.36,-11.12" />
+<polygon fill="black" stroke="black" points="216.27,-14.63 226.27,-11.13 216.27,-7.63 216.27,-14.63" />
+</g>
+<!-- 3&#45;&gt;4 -->
+<g id="edge2" class="edge">
+<title>3&#45;&gt;4</title>
+<path fill="none" stroke="black" d="M130.3,-11.12C133.57,-11.12 136.96,-11.12 140.36,-11.12" />
+<polygon fill="black" stroke="black" points="140.27,-14.63 150.27,-11.13 140.27,-7.63 140.27,-14.63" />
+</g>
+</g>
+</svg>
+</div>
+
+<div class="graphviz-wrapper">
+
+<!-- Generated by graphviz version 14.1.2 (0)
+ -->
+<!-- Pages: 1 -->
+<svg role="img" aria-label="graphviz-7c353766fd503d778564f8ff36a56667" width="206pt" height="252pt" viewBox="0.00 0.00 206.00 252.00">
+<title>graphviz-7c353766fd503d778564f8ff36a56667</title>
+<desc>
+digraph {
+//rankdir=LR
+ranksep=0.3
+node [shape=box style=&quot;rounded,filled&quot; height=0.3]
+node [label=null fillcolor=lightgray] n2
+node [label=null fillcolor=lightgray] n3
+node [label=null fillcolor=lightgray] n4
+node [label=1 fillcolor=lightgray] 1
+node [label=2 fillcolor=lightgray] 2
+node [label=3 fillcolor=lightgray] 3
+node [label=4 fillcolor=lightgray] 4
+node [label=5 fillcolor=lightgray] 5
+node [label=null fillcolor=lightgray] n1
+node [label=6 fillcolor=lightgray] 6
+node [label=null fillcolor=lightgray] n2
+node [label=null fillcolor=lightgray] n5
+node [ label=&quot;\N&quot;]
+1 -&gt; 2 -&gt; 3 -&gt; n4
+3 -&gt; 4 -&gt;5 -&gt; 6
+1 -&gt; n1
+4 -&gt; n2
+5 -&gt; n3
+2 -&gt; n5
+}
+</desc>
+
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 247.5)">
+<polygon fill="white" stroke="none" points="-4,4 -4,-247.5 202,-247.5 202,4 -4,4" />
+<!-- n2 -->
+<g id="node1" class="node">
+<title>n2</title>
+<path fill="lightgray" stroke="black" d="M82.58,-66.5C82.58,-66.5 43.42,-66.5 43.42,-66.5 39.71,-66.5 36,-62.79 36,-59.08 36,-59.08 36,-51.67 36,-51.67 36,-47.96 39.71,-44.25 43.42,-44.25 43.42,-44.25 82.58,-44.25 82.58,-44.25 86.29,-44.25 90,-47.96 90,-51.67 90,-51.67 90,-59.08 90,-59.08 90,-62.79 86.29,-66.5 82.58,-66.5" />
+<text xml:space="preserve" text-anchor="middle" x="63" y="-49.2" font-family="Times,serif" font-size="14.00">null</text>
+</g>
+<!-- n3 -->
+<g id="node2" class="node">
+<title>n3</title>
+<path fill="lightgray" stroke="black" d="M118.58,-22.25C118.58,-22.25 79.42,-22.25 79.42,-22.25 75.71,-22.25 72,-18.54 72,-14.83 72,-14.83 72,-7.42 72,-7.42 72,-3.71 75.71,0 79.42,0 79.42,0 118.58,0 118.58,0 122.29,0 126,-3.71 126,-7.42 126,-7.42 126,-14.83 126,-14.83 126,-18.54 122.29,-22.25 118.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="99" y="-4.95" font-family="Times,serif" font-size="14.00">null</text>
+</g>
+<!-- n4 -->
+<g id="node3" class="node">
+<title>n4</title>
+<path fill="lightgray" stroke="black" d="M46.58,-110.75C46.58,-110.75 7.42,-110.75 7.42,-110.75 3.71,-110.75 0,-107.04 0,-103.33 0,-103.33 0,-95.92 0,-95.92 0,-92.21 3.71,-88.5 7.42,-88.5 7.42,-88.5 46.58,-88.5 46.58,-88.5 50.29,-88.5 54,-92.21 54,-95.92 54,-95.92 54,-103.33 54,-103.33 54,-107.04 50.29,-110.75 46.58,-110.75" />
+<text xml:space="preserve" text-anchor="middle" x="27" y="-93.45" font-family="Times,serif" font-size="14.00">null</text>
+</g>
+<!-- 1 -->
+<g id="node4" class="node">
+<title>1</title>
+<path fill="lightgray" stroke="black" d="M154.58,-243.5C154.58,-243.5 115.42,-243.5 115.42,-243.5 111.71,-243.5 108,-239.79 108,-236.08 108,-236.08 108,-228.67 108,-228.67 108,-224.96 111.71,-221.25 115.42,-221.25 115.42,-221.25 154.58,-221.25 154.58,-221.25 158.29,-221.25 162,-224.96 162,-228.67 162,-228.67 162,-236.08 162,-236.08 162,-239.79 158.29,-243.5 154.58,-243.5" />
+<text xml:space="preserve" text-anchor="middle" x="135" y="-226.2" font-family="Times,serif" font-size="14.00">1</text>
+</g>
+<!-- 2 -->
+<g id="node5" class="node">
+<title>2</title>
+<path fill="lightgray" stroke="black" d="M118.58,-199.25C118.58,-199.25 79.42,-199.25 79.42,-199.25 75.71,-199.25 72,-195.54 72,-191.83 72,-191.83 72,-184.42 72,-184.42 72,-180.71 75.71,-177 79.42,-177 79.42,-177 118.58,-177 118.58,-177 122.29,-177 126,-180.71 126,-184.42 126,-184.42 126,-191.83 126,-191.83 126,-195.54 122.29,-199.25 118.58,-199.25" />
+<text xml:space="preserve" text-anchor="middle" x="99" y="-181.95" font-family="Times,serif" font-size="14.00">2</text>
+</g>
+<!-- 1&#45;&gt;2 -->
+<g id="edge1" class="edge">
+<title>1&#45;&gt;2</title>
+<path fill="none" stroke="black" d="M126.29,-221.15C122.97,-217.26 119.09,-212.7 115.3,-208.25" />
+<polygon fill="black" stroke="black" points="118.02,-206.05 108.87,-200.7 112.69,-210.59 118.02,-206.05" />
+</g>
+<!-- n1 -->
+<g id="node9" class="node">
+<title>n1</title>
+<path fill="lightgray" stroke="black" d="M190.58,-199.25C190.58,-199.25 151.42,-199.25 151.42,-199.25 147.71,-199.25 144,-195.54 144,-191.83 144,-191.83 144,-184.42 144,-184.42 144,-180.71 147.71,-177 151.42,-177 151.42,-177 190.58,-177 190.58,-177 194.29,-177 198,-180.71 198,-184.42 198,-184.42 198,-191.83 198,-191.83 198,-195.54 194.29,-199.25 190.58,-199.25" />
+<text xml:space="preserve" text-anchor="middle" x="171" y="-181.95" font-family="Times,serif" font-size="14.00">null</text>
+</g>
+<!-- 1&#45;&gt;n1 -->
+<g id="edge7" class="edge">
+<title>1&#45;&gt;n1</title>
+<path fill="none" stroke="black" d="M143.71,-221.15C147.03,-217.26 150.91,-212.7 154.7,-208.25" />
+<polygon fill="black" stroke="black" points="157.31,-210.59 161.13,-200.7 151.98,-206.05 157.31,-210.59" />
+</g>
+<!-- 3 -->
+<g id="node6" class="node">
+<title>3</title>
+<path fill="lightgray" stroke="black" d="M82.58,-155C82.58,-155 43.42,-155 43.42,-155 39.71,-155 36,-151.29 36,-147.58 36,-147.58 36,-140.17 36,-140.17 36,-136.46 39.71,-132.75 43.42,-132.75 43.42,-132.75 82.58,-132.75 82.58,-132.75 86.29,-132.75 90,-136.46 90,-140.17 90,-140.17 90,-147.58 90,-147.58 90,-151.29 86.29,-155 82.58,-155" />
+<text xml:space="preserve" text-anchor="middle" x="63" y="-137.7" font-family="Times,serif" font-size="14.00">3</text>
+</g>
+<!-- 2&#45;&gt;3 -->
+<g id="edge2" class="edge">
+<title>2&#45;&gt;3</title>
+<path fill="none" stroke="black" d="M90.29,-176.9C86.97,-173.01 83.09,-168.45 79.3,-164" />
+<polygon fill="black" stroke="black" points="82.02,-161.8 72.87,-156.45 76.69,-166.34 82.02,-161.8" />
+</g>
+<!-- n5 -->
+<g id="node11" class="node">
+<title>n5</title>
+<path fill="lightgray" stroke="black" d="M154.58,-155C154.58,-155 115.42,-155 115.42,-155 111.71,-155 108,-151.29 108,-147.58 108,-147.58 108,-140.17 108,-140.17 108,-136.46 111.71,-132.75 115.42,-132.75 115.42,-132.75 154.58,-132.75 154.58,-132.75 158.29,-132.75 162,-136.46 162,-140.17 162,-140.17 162,-147.58 162,-147.58 162,-151.29 158.29,-155 154.58,-155" />
+<text xml:space="preserve" text-anchor="middle" x="135" y="-137.7" font-family="Times,serif" font-size="14.00">null</text>
+</g>
+<!-- 2&#45;&gt;n5 -->
+<g id="edge10" class="edge">
+<title>2&#45;&gt;n5</title>
+<path fill="none" stroke="black" d="M107.71,-176.9C111.03,-173.01 114.91,-168.45 118.7,-164" />
+<polygon fill="black" stroke="black" points="121.31,-166.34 125.13,-156.45 115.98,-161.8 121.31,-166.34" />
+</g>
+<!-- 3&#45;&gt;n4 -->
+<g id="edge3" class="edge">
+<title>3&#45;&gt;n4</title>
+<path fill="none" stroke="black" d="M54.29,-132.65C50.97,-128.76 47.09,-124.2 43.3,-119.75" />
+<polygon fill="black" stroke="black" points="46.02,-117.55 36.87,-112.2 40.69,-122.09 46.02,-117.55" />
+</g>
+<!-- 4 -->
+<g id="node7" class="node">
+<title>4</title>
+<path fill="lightgray" stroke="black" d="M118.58,-110.75C118.58,-110.75 79.42,-110.75 79.42,-110.75 75.71,-110.75 72,-107.04 72,-103.33 72,-103.33 72,-95.92 72,-95.92 72,-92.21 75.71,-88.5 79.42,-88.5 79.42,-88.5 118.58,-88.5 118.58,-88.5 122.29,-88.5 126,-92.21 126,-95.92 126,-95.92 126,-103.33 126,-103.33 126,-107.04 122.29,-110.75 118.58,-110.75" />
+<text xml:space="preserve" text-anchor="middle" x="99" y="-93.45" font-family="Times,serif" font-size="14.00">4</text>
+</g>
+<!-- 3&#45;&gt;4 -->
+<g id="edge4" class="edge">
+<title>3&#45;&gt;4</title>
+<path fill="none" stroke="black" d="M71.71,-132.65C75.03,-128.76 78.91,-124.2 82.7,-119.75" />
+<polygon fill="black" stroke="black" points="85.31,-122.09 89.13,-112.2 79.98,-117.55 85.31,-122.09" />
+</g>
+<!-- 4&#45;&gt;n2 -->
+<g id="edge8" class="edge">
+<title>4&#45;&gt;n2</title>
+<path fill="none" stroke="black" d="M90.29,-88.4C86.97,-84.51 83.09,-79.95 79.3,-75.5" />
+<polygon fill="black" stroke="black" points="82.02,-73.3 72.87,-67.95 76.69,-77.84 82.02,-73.3" />
+</g>
+<!-- 5 -->
+<g id="node8" class="node">
+<title>5</title>
+<path fill="lightgray" stroke="black" d="M154.58,-66.5C154.58,-66.5 115.42,-66.5 115.42,-66.5 111.71,-66.5 108,-62.79 108,-59.08 108,-59.08 108,-51.67 108,-51.67 108,-47.96 111.71,-44.25 115.42,-44.25 115.42,-44.25 154.58,-44.25 154.58,-44.25 158.29,-44.25 162,-47.96 162,-51.67 162,-51.67 162,-59.08 162,-59.08 162,-62.79 158.29,-66.5 154.58,-66.5" />
+<text xml:space="preserve" text-anchor="middle" x="135" y="-49.2" font-family="Times,serif" font-size="14.00">5</text>
+</g>
+<!-- 4&#45;&gt;5 -->
+<g id="edge5" class="edge">
+<title>4&#45;&gt;5</title>
+<path fill="none" stroke="black" d="M107.71,-88.4C111.03,-84.51 114.91,-79.95 118.7,-75.5" />
+<polygon fill="black" stroke="black" points="121.31,-77.84 125.13,-67.95 115.98,-73.3 121.31,-77.84" />
+</g>
+<!-- 5&#45;&gt;n3 -->
+<g id="edge9" class="edge">
+<title>5&#45;&gt;n3</title>
+<path fill="none" stroke="black" d="M126.29,-44.15C122.97,-40.26 119.09,-35.7 115.3,-31.25" />
+<polygon fill="black" stroke="black" points="118.02,-29.05 108.87,-23.7 112.69,-33.59 118.02,-29.05" />
+</g>
+<!-- 6 -->
+<g id="node10" class="node">
+<title>6</title>
+<path fill="lightgray" stroke="black" d="M190.58,-22.25C190.58,-22.25 151.42,-22.25 151.42,-22.25 147.71,-22.25 144,-18.54 144,-14.83 144,-14.83 144,-7.42 144,-7.42 144,-3.71 147.71,0 151.42,0 151.42,0 190.58,0 190.58,0 194.29,0 198,-3.71 198,-7.42 198,-7.42 198,-14.83 198,-14.83 198,-18.54 194.29,-22.25 190.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="171" y="-4.95" font-family="Times,serif" font-size="14.00">6</text>
+</g>
+<!-- 5&#45;&gt;6 -->
+<g id="edge6" class="edge">
+<title>5&#45;&gt;6</title>
+<path fill="none" stroke="black" d="M143.71,-44.15C147.03,-40.26 150.91,-35.7 154.7,-31.25" />
+<polygon fill="black" stroke="black" points="157.31,-33.59 161.13,-23.7 151.98,-29.05 157.31,-33.59" />
+</g>
+</g>
+</svg>
+</div>
+
+<hr />
+<p>依此類推…</p>
+<div class="graphviz-wrapper">
+
+<!-- Generated by graphviz version 14.1.2 (0)
+ -->
+<!-- Pages: 1 -->
+<svg role="img" aria-label="graphviz-db5a4fbbfeb58d061f1934ef28b23137" width="442pt" height="30pt" viewBox="0.00 0.00 442.00 30.00">
+<title>graphviz-db5a4fbbfeb58d061f1934ef28b23137</title>
+<desc>
+digraph {
+rankdir=LR
+ranksep=0.3
+node [shape=box style=&quot;rounded,filled&quot; height=0.3]
+node [label=pre fillcolor=&quot;#cce8ff&quot;] pre
+node [label=6 fillcolor=lightgray] 6
+node [label=5 fillcolor=lightgray] 5
+node [label=4 fillcolor=lightgray] 4
+node [label=3 fillcolor=lightgray] 3
+node [label=2 fillcolor=lightgray] 2
+node [ label=&quot;\N&quot;]
+
+pre -&gt; 2 -&gt; 3 -&gt; 4 -&gt; 5 -&gt; 6
+}
+</desc>
+
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 26.25)">
+<polygon fill="white" stroke="none" points="-4,4 -4,-26.25 438,-26.25 438,4 -4,4" />
+<!-- pre -->
+<g id="node1" class="node">
+<title>pre</title>
+<path fill="#cce8ff" stroke="black" d="M46.58,-22.25C46.58,-22.25 7.42,-22.25 7.42,-22.25 3.71,-22.25 0,-18.54 0,-14.83 0,-14.83 0,-7.42 0,-7.42 0,-3.71 3.71,0 7.42,0 7.42,0 46.58,0 46.58,0 50.29,0 54,-3.71 54,-7.42 54,-7.42 54,-14.83 54,-14.83 54,-18.54 50.29,-22.25 46.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="27" y="-4.95" font-family="Times,serif" font-size="14.00">pre</text>
+</g>
+<!-- 2 -->
+<g id="node6" class="node">
+<title>2</title>
+<path fill="lightgray" stroke="black" d="M122.58,-22.25C122.58,-22.25 83.42,-22.25 83.42,-22.25 79.71,-22.25 76,-18.54 76,-14.83 76,-14.83 76,-7.42 76,-7.42 76,-3.71 79.71,0 83.42,0 83.42,0 122.58,0 122.58,0 126.29,0 130,-3.71 130,-7.42 130,-7.42 130,-14.83 130,-14.83 130,-18.54 126.29,-22.25 122.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="103" y="-4.95" font-family="Times,serif" font-size="14.00">2</text>
+</g>
+<!-- pre&#45;&gt;2 -->
+<g id="edge1" class="edge">
+<title>pre&#45;&gt;2</title>
+<path fill="none" stroke="black" d="M54.3,-11.12C57.57,-11.12 60.96,-11.12 64.36,-11.12" />
+<polygon fill="black" stroke="black" points="64.27,-14.63 74.27,-11.13 64.27,-7.63 64.27,-14.63" />
+</g>
+<!-- 6 -->
+<g id="node2" class="node">
+<title>6</title>
+<path fill="lightgray" stroke="black" d="M426.58,-22.25C426.58,-22.25 387.42,-22.25 387.42,-22.25 383.71,-22.25 380,-18.54 380,-14.83 380,-14.83 380,-7.42 380,-7.42 380,-3.71 383.71,0 387.42,0 387.42,0 426.58,0 426.58,0 430.29,0 434,-3.71 434,-7.42 434,-7.42 434,-14.83 434,-14.83 434,-18.54 430.29,-22.25 426.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="407" y="-4.95" font-family="Times,serif" font-size="14.00">6</text>
+</g>
+<!-- 5 -->
+<g id="node3" class="node">
+<title>5</title>
+<path fill="lightgray" stroke="black" d="M350.58,-22.25C350.58,-22.25 311.42,-22.25 311.42,-22.25 307.71,-22.25 304,-18.54 304,-14.83 304,-14.83 304,-7.42 304,-7.42 304,-3.71 307.71,0 311.42,0 311.42,0 350.58,0 350.58,0 354.29,0 358,-3.71 358,-7.42 358,-7.42 358,-14.83 358,-14.83 358,-18.54 354.29,-22.25 350.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="331" y="-4.95" font-family="Times,serif" font-size="14.00">5</text>
+</g>
+<!-- 5&#45;&gt;6 -->
+<g id="edge5" class="edge">
+<title>5&#45;&gt;6</title>
+<path fill="none" stroke="black" d="M358.3,-11.12C361.57,-11.12 364.96,-11.12 368.36,-11.12" />
+<polygon fill="black" stroke="black" points="368.27,-14.63 378.27,-11.13 368.27,-7.63 368.27,-14.63" />
+</g>
+<!-- 4 -->
+<g id="node4" class="node">
+<title>4</title>
+<path fill="lightgray" stroke="black" d="M274.58,-22.25C274.58,-22.25 235.42,-22.25 235.42,-22.25 231.71,-22.25 228,-18.54 228,-14.83 228,-14.83 228,-7.42 228,-7.42 228,-3.71 231.71,0 235.42,0 235.42,0 274.58,0 274.58,0 278.29,0 282,-3.71 282,-7.42 282,-7.42 282,-14.83 282,-14.83 282,-18.54 278.29,-22.25 274.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="255" y="-4.95" font-family="Times,serif" font-size="14.00">4</text>
+</g>
+<!-- 4&#45;&gt;5 -->
+<g id="edge4" class="edge">
+<title>4&#45;&gt;5</title>
+<path fill="none" stroke="black" d="M282.3,-11.12C285.57,-11.12 288.96,-11.12 292.36,-11.12" />
+<polygon fill="black" stroke="black" points="292.27,-14.63 302.27,-11.13 292.27,-7.63 292.27,-14.63" />
+</g>
+<!-- 3 -->
+<g id="node5" class="node">
+<title>3</title>
+<path fill="lightgray" stroke="black" d="M198.58,-22.25C198.58,-22.25 159.42,-22.25 159.42,-22.25 155.71,-22.25 152,-18.54 152,-14.83 152,-14.83 152,-7.42 152,-7.42 152,-3.71 155.71,0 159.42,0 159.42,0 198.58,0 198.58,0 202.29,0 206,-3.71 206,-7.42 206,-7.42 206,-14.83 206,-14.83 206,-18.54 202.29,-22.25 198.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="179" y="-4.95" font-family="Times,serif" font-size="14.00">3</text>
+</g>
+<!-- 3&#45;&gt;4 -->
+<g id="edge3" class="edge">
+<title>3&#45;&gt;4</title>
+<path fill="none" stroke="black" d="M206.3,-11.12C209.57,-11.12 212.96,-11.12 216.36,-11.12" />
+<polygon fill="black" stroke="black" points="216.27,-14.63 226.27,-11.13 216.27,-7.63 216.27,-14.63" />
+</g>
+<!-- 2&#45;&gt;3 -->
+<g id="edge2" class="edge">
+<title>2&#45;&gt;3</title>
+<path fill="none" stroke="black" d="M130.3,-11.12C133.57,-11.12 136.96,-11.12 140.36,-11.12" />
+<polygon fill="black" stroke="black" points="140.27,-14.63 150.27,-11.13 140.27,-7.63 140.27,-14.63" />
+</g>
+</g>
+</svg>
+</div>
+
+<div class="graphviz-wrapper">
+
+<!-- Generated by graphviz version 14.1.2 (0)
+ -->
+<!-- Pages: 1 -->
+<svg role="img" aria-label="graphviz-fd3604517dc6820d091e63d6f4092263" width="242pt" height="252pt" viewBox="0.00 0.00 242.00 252.00">
+<title>graphviz-fd3604517dc6820d091e63d6f4092263</title>
+<desc>
+digraph {
+//rankdir=LR
+ranksep=0.3
+node [shape=box style=&quot;rounded,filled&quot; height=0.3]
+node [label=null fillcolor=lightgray] n2
+node [label=null fillcolor=lightgray] n3
+node [label=null fillcolor=lightgray] n4
+node [label=null fillcolor=lightgray] n5
+node [label=1 fillcolor=lightgray] 1
+node [label=2 fillcolor=lightgray] 2
+node [label=3 fillcolor=lightgray] 3
+node [label=4 fillcolor=lightgray] 4
+node [label=5 fillcolor=lightgray] 5
+node [label=null fillcolor=lightgray] n1
+node [label=6 fillcolor=lightgray] 6
+node [label=null fillcolor=lightgray] n2
+
+node [ label=&quot;\N&quot;]
+1 -&gt; 2 -&gt; 3 -&gt; n4
+3 -&gt; 4 -&gt;5 -&gt; 6
+1 -&gt; n1
+4 -&gt; n2
+5 -&gt; n3
+2 -&gt; n5
+}
+</desc>
+
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 247.5)">
+<polygon fill="white" stroke="none" points="-4,4 -4,-247.5 238,-247.5 238,4 -4,4" />
+<!-- n2 -->
+<g id="node1" class="node">
+<title>n2</title>
+<path fill="lightgray" stroke="black" d="M118.58,-66.5C118.58,-66.5 79.42,-66.5 79.42,-66.5 75.71,-66.5 72,-62.79 72,-59.08 72,-59.08 72,-51.67 72,-51.67 72,-47.96 75.71,-44.25 79.42,-44.25 79.42,-44.25 118.58,-44.25 118.58,-44.25 122.29,-44.25 126,-47.96 126,-51.67 126,-51.67 126,-59.08 126,-59.08 126,-62.79 122.29,-66.5 118.58,-66.5" />
+<text xml:space="preserve" text-anchor="middle" x="99" y="-49.2" font-family="Times,serif" font-size="14.00">null</text>
+</g>
+<!-- n3 -->
+<g id="node2" class="node">
+<title>n3</title>
+<path fill="lightgray" stroke="black" d="M154.58,-22.25C154.58,-22.25 115.42,-22.25 115.42,-22.25 111.71,-22.25 108,-18.54 108,-14.83 108,-14.83 108,-7.42 108,-7.42 108,-3.71 111.71,0 115.42,0 115.42,0 154.58,0 154.58,0 158.29,0 162,-3.71 162,-7.42 162,-7.42 162,-14.83 162,-14.83 162,-18.54 158.29,-22.25 154.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="135" y="-4.95" font-family="Times,serif" font-size="14.00">null</text>
+</g>
+<!-- n4 -->
+<g id="node3" class="node">
+<title>n4</title>
+<path fill="lightgray" stroke="black" d="M82.58,-110.75C82.58,-110.75 43.42,-110.75 43.42,-110.75 39.71,-110.75 36,-107.04 36,-103.33 36,-103.33 36,-95.92 36,-95.92 36,-92.21 39.71,-88.5 43.42,-88.5 43.42,-88.5 82.58,-88.5 82.58,-88.5 86.29,-88.5 90,-92.21 90,-95.92 90,-95.92 90,-103.33 90,-103.33 90,-107.04 86.29,-110.75 82.58,-110.75" />
+<text xml:space="preserve" text-anchor="middle" x="63" y="-93.45" font-family="Times,serif" font-size="14.00">null</text>
+</g>
+<!-- n5 -->
+<g id="node4" class="node">
+<title>n5</title>
+<path fill="lightgray" stroke="black" d="M46.58,-155C46.58,-155 7.42,-155 7.42,-155 3.71,-155 0,-151.29 0,-147.58 0,-147.58 0,-140.17 0,-140.17 0,-136.46 3.71,-132.75 7.42,-132.75 7.42,-132.75 46.58,-132.75 46.58,-132.75 50.29,-132.75 54,-136.46 54,-140.17 54,-140.17 54,-147.58 54,-147.58 54,-151.29 50.29,-155 46.58,-155" />
+<text xml:space="preserve" text-anchor="middle" x="27" y="-137.7" font-family="Times,serif" font-size="14.00">null</text>
+</g>
+<!-- 1 -->
+<g id="node5" class="node">
+<title>1</title>
+<path fill="lightgray" stroke="black" d="M118.58,-243.5C118.58,-243.5 79.42,-243.5 79.42,-243.5 75.71,-243.5 72,-239.79 72,-236.08 72,-236.08 72,-228.67 72,-228.67 72,-224.96 75.71,-221.25 79.42,-221.25 79.42,-221.25 118.58,-221.25 118.58,-221.25 122.29,-221.25 126,-224.96 126,-228.67 126,-228.67 126,-236.08 126,-236.08 126,-239.79 122.29,-243.5 118.58,-243.5" />
+<text xml:space="preserve" text-anchor="middle" x="99" y="-226.2" font-family="Times,serif" font-size="14.00">1</text>
+</g>
+<!-- 2 -->
+<g id="node6" class="node">
+<title>2</title>
+<path fill="lightgray" stroke="black" d="M82.58,-199.25C82.58,-199.25 43.42,-199.25 43.42,-199.25 39.71,-199.25 36,-195.54 36,-191.83 36,-191.83 36,-184.42 36,-184.42 36,-180.71 39.71,-177 43.42,-177 43.42,-177 82.58,-177 82.58,-177 86.29,-177 90,-180.71 90,-184.42 90,-184.42 90,-191.83 90,-191.83 90,-195.54 86.29,-199.25 82.58,-199.25" />
+<text xml:space="preserve" text-anchor="middle" x="63" y="-181.95" font-family="Times,serif" font-size="14.00">2</text>
+</g>
+<!-- 1&#45;&gt;2 -->
+<g id="edge1" class="edge">
+<title>1&#45;&gt;2</title>
+<path fill="none" stroke="black" d="M90.29,-221.15C86.97,-217.26 83.09,-212.7 79.3,-208.25" />
+<polygon fill="black" stroke="black" points="82.02,-206.05 72.87,-200.7 76.69,-210.59 82.02,-206.05" />
+</g>
+<!-- n1 -->
+<g id="node10" class="node">
+<title>n1</title>
+<path fill="lightgray" stroke="black" d="M154.58,-199.25C154.58,-199.25 115.42,-199.25 115.42,-199.25 111.71,-199.25 108,-195.54 108,-191.83 108,-191.83 108,-184.42 108,-184.42 108,-180.71 111.71,-177 115.42,-177 115.42,-177 154.58,-177 154.58,-177 158.29,-177 162,-180.71 162,-184.42 162,-184.42 162,-191.83 162,-191.83 162,-195.54 158.29,-199.25 154.58,-199.25" />
+<text xml:space="preserve" text-anchor="middle" x="135" y="-181.95" font-family="Times,serif" font-size="14.00">null</text>
+</g>
+<!-- 1&#45;&gt;n1 -->
+<g id="edge7" class="edge">
+<title>1&#45;&gt;n1</title>
+<path fill="none" stroke="black" d="M107.71,-221.15C111.03,-217.26 114.91,-212.7 118.7,-208.25" />
+<polygon fill="black" stroke="black" points="121.31,-210.59 125.13,-200.7 115.98,-206.05 121.31,-210.59" />
+</g>
+<!-- 2&#45;&gt;n5 -->
+<g id="edge10" class="edge">
+<title>2&#45;&gt;n5</title>
+<path fill="none" stroke="black" d="M54.29,-176.9C50.97,-173.01 47.09,-168.45 43.3,-164" />
+<polygon fill="black" stroke="black" points="46.02,-161.8 36.87,-156.45 40.69,-166.34 46.02,-161.8" />
+</g>
+<!-- 3 -->
+<g id="node7" class="node">
+<title>3</title>
+<path fill="lightgray" stroke="black" d="M118.58,-155C118.58,-155 79.42,-155 79.42,-155 75.71,-155 72,-151.29 72,-147.58 72,-147.58 72,-140.17 72,-140.17 72,-136.46 75.71,-132.75 79.42,-132.75 79.42,-132.75 118.58,-132.75 118.58,-132.75 122.29,-132.75 126,-136.46 126,-140.17 126,-140.17 126,-147.58 126,-147.58 126,-151.29 122.29,-155 118.58,-155" />
+<text xml:space="preserve" text-anchor="middle" x="99" y="-137.7" font-family="Times,serif" font-size="14.00">3</text>
+</g>
+<!-- 2&#45;&gt;3 -->
+<g id="edge2" class="edge">
+<title>2&#45;&gt;3</title>
+<path fill="none" stroke="black" d="M71.71,-176.9C75.03,-173.01 78.91,-168.45 82.7,-164" />
+<polygon fill="black" stroke="black" points="85.31,-166.34 89.13,-156.45 79.98,-161.8 85.31,-166.34" />
+</g>
+<!-- 3&#45;&gt;n4 -->
+<g id="edge3" class="edge">
+<title>3&#45;&gt;n4</title>
+<path fill="none" stroke="black" d="M90.29,-132.65C86.97,-128.76 83.09,-124.2 79.3,-119.75" />
+<polygon fill="black" stroke="black" points="82.02,-117.55 72.87,-112.2 76.69,-122.09 82.02,-117.55" />
+</g>
+<!-- 4 -->
+<g id="node8" class="node">
+<title>4</title>
+<path fill="lightgray" stroke="black" d="M154.58,-110.75C154.58,-110.75 115.42,-110.75 115.42,-110.75 111.71,-110.75 108,-107.04 108,-103.33 108,-103.33 108,-95.92 108,-95.92 108,-92.21 111.71,-88.5 115.42,-88.5 115.42,-88.5 154.58,-88.5 154.58,-88.5 158.29,-88.5 162,-92.21 162,-95.92 162,-95.92 162,-103.33 162,-103.33 162,-107.04 158.29,-110.75 154.58,-110.75" />
+<text xml:space="preserve" text-anchor="middle" x="135" y="-93.45" font-family="Times,serif" font-size="14.00">4</text>
+</g>
+<!-- 3&#45;&gt;4 -->
+<g id="edge4" class="edge">
+<title>3&#45;&gt;4</title>
+<path fill="none" stroke="black" d="M107.71,-132.65C111.03,-128.76 114.91,-124.2 118.7,-119.75" />
+<polygon fill="black" stroke="black" points="121.31,-122.09 125.13,-112.2 115.98,-117.55 121.31,-122.09" />
+</g>
+<!-- 4&#45;&gt;n2 -->
+<g id="edge8" class="edge">
+<title>4&#45;&gt;n2</title>
+<path fill="none" stroke="black" d="M126.29,-88.4C122.97,-84.51 119.09,-79.95 115.3,-75.5" />
+<polygon fill="black" stroke="black" points="118.02,-73.3 108.87,-67.95 112.69,-77.84 118.02,-73.3" />
+</g>
+<!-- 5 -->
+<g id="node9" class="node">
+<title>5</title>
+<path fill="lightgray" stroke="black" d="M190.58,-66.5C190.58,-66.5 151.42,-66.5 151.42,-66.5 147.71,-66.5 144,-62.79 144,-59.08 144,-59.08 144,-51.67 144,-51.67 144,-47.96 147.71,-44.25 151.42,-44.25 151.42,-44.25 190.58,-44.25 190.58,-44.25 194.29,-44.25 198,-47.96 198,-51.67 198,-51.67 198,-59.08 198,-59.08 198,-62.79 194.29,-66.5 190.58,-66.5" />
+<text xml:space="preserve" text-anchor="middle" x="171" y="-49.2" font-family="Times,serif" font-size="14.00">5</text>
+</g>
+<!-- 4&#45;&gt;5 -->
+<g id="edge5" class="edge">
+<title>4&#45;&gt;5</title>
+<path fill="none" stroke="black" d="M143.71,-88.4C147.03,-84.51 150.91,-79.95 154.7,-75.5" />
+<polygon fill="black" stroke="black" points="157.31,-77.84 161.13,-67.95 151.98,-73.3 157.31,-77.84" />
+</g>
+<!-- 5&#45;&gt;n3 -->
+<g id="edge9" class="edge">
+<title>5&#45;&gt;n3</title>
+<path fill="none" stroke="black" d="M162.29,-44.15C158.97,-40.26 155.09,-35.7 151.3,-31.25" />
+<polygon fill="black" stroke="black" points="154.02,-29.05 144.87,-23.7 148.69,-33.59 154.02,-29.05" />
+</g>
+<!-- 6 -->
+<g id="node11" class="node">
+<title>6</title>
+<path fill="lightgray" stroke="black" d="M226.58,-22.25C226.58,-22.25 187.42,-22.25 187.42,-22.25 183.71,-22.25 180,-18.54 180,-14.83 180,-14.83 180,-7.42 180,-7.42 180,-3.71 183.71,0 187.42,0 187.42,0 226.58,0 226.58,0 230.29,0 234,-3.71 234,-7.42 234,-7.42 234,-14.83 234,-14.83 234,-18.54 230.29,-22.25 226.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="207" y="-4.95" font-family="Times,serif" font-size="14.00">6</text>
+</g>
+<!-- 5&#45;&gt;6 -->
+<g id="edge6" class="edge">
+<title>5&#45;&gt;6</title>
+<path fill="none" stroke="black" d="M179.71,-44.15C183.03,-40.26 186.91,-35.7 190.7,-31.25" />
+<polygon fill="black" stroke="black" points="193.31,-33.59 197.13,-23.7 187.98,-29.05 193.31,-33.59" />
+</g>
+</g>
+</svg>
+</div>
+<hr />
+<p>依此類推…</p>
+<div class="graphviz-wrapper">
+
+<!-- Generated by graphviz version 14.1.2 (0)
+ -->
+<!-- Pages: 1 -->
+<svg role="img" aria-label="graphviz-c07b701ff2fe3e059ce554fe0c9eddc4" width="518pt" height="30pt" viewBox="0.00 0.00 518.00 30.00">
+<title>graphviz-c07b701ff2fe3e059ce554fe0c9eddc4</title>
+<desc>
+digraph {
+rankdir=LR
+ranksep=0.3
+node [shape=box style=&quot;rounded,filled&quot; height=0.3]
+node [label=pre fillcolor=&quot;#cce8ff&quot;] pre
+node [label=6 fillcolor=lightgray] 6
+node [label=5 fillcolor=lightgray] 5
+node [label=4 fillcolor=lightgray] 4
+node [label=3 fillcolor=lightgray] 3
+node [label=2 fillcolor=lightgray] 2
+node [label=1 fillcolor=lightgray] 1
+node [ label=&quot;\N&quot;]
+
+pre -&gt; 1 -&gt; 2 -&gt; 3 -&gt; 4 -&gt; 5 -&gt; 6
+}
+</desc>
+
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 26.25)">
+<polygon fill="white" stroke="none" points="-4,4 -4,-26.25 514,-26.25 514,4 -4,4" />
+<!-- pre -->
+<g id="node1" class="node">
+<title>pre</title>
+<path fill="#cce8ff" stroke="black" d="M46.58,-22.25C46.58,-22.25 7.42,-22.25 7.42,-22.25 3.71,-22.25 0,-18.54 0,-14.83 0,-14.83 0,-7.42 0,-7.42 0,-3.71 3.71,0 7.42,0 7.42,0 46.58,0 46.58,0 50.29,0 54,-3.71 54,-7.42 54,-7.42 54,-14.83 54,-14.83 54,-18.54 50.29,-22.25 46.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="27" y="-4.95" font-family="Times,serif" font-size="14.00">pre</text>
+</g>
+<!-- 1 -->
+<g id="node7" class="node">
+<title>1</title>
+<path fill="lightgray" stroke="black" d="M122.58,-22.25C122.58,-22.25 83.42,-22.25 83.42,-22.25 79.71,-22.25 76,-18.54 76,-14.83 76,-14.83 76,-7.42 76,-7.42 76,-3.71 79.71,0 83.42,0 83.42,0 122.58,0 122.58,0 126.29,0 130,-3.71 130,-7.42 130,-7.42 130,-14.83 130,-14.83 130,-18.54 126.29,-22.25 122.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="103" y="-4.95" font-family="Times,serif" font-size="14.00">1</text>
+</g>
+<!-- pre&#45;&gt;1 -->
+<g id="edge1" class="edge">
+<title>pre&#45;&gt;1</title>
+<path fill="none" stroke="black" d="M54.3,-11.12C57.57,-11.12 60.96,-11.12 64.36,-11.12" />
+<polygon fill="black" stroke="black" points="64.27,-14.63 74.27,-11.13 64.27,-7.63 64.27,-14.63" />
+</g>
+<!-- 6 -->
+<g id="node2" class="node">
+<title>6</title>
+<path fill="lightgray" stroke="black" d="M502.58,-22.25C502.58,-22.25 463.42,-22.25 463.42,-22.25 459.71,-22.25 456,-18.54 456,-14.83 456,-14.83 456,-7.42 456,-7.42 456,-3.71 459.71,0 463.42,0 463.42,0 502.58,0 502.58,0 506.29,0 510,-3.71 510,-7.42 510,-7.42 510,-14.83 510,-14.83 510,-18.54 506.29,-22.25 502.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="483" y="-4.95" font-family="Times,serif" font-size="14.00">6</text>
+</g>
+<!-- 5 -->
+<g id="node3" class="node">
+<title>5</title>
+<path fill="lightgray" stroke="black" d="M426.58,-22.25C426.58,-22.25 387.42,-22.25 387.42,-22.25 383.71,-22.25 380,-18.54 380,-14.83 380,-14.83 380,-7.42 380,-7.42 380,-3.71 383.71,0 387.42,0 387.42,0 426.58,0 426.58,0 430.29,0 434,-3.71 434,-7.42 434,-7.42 434,-14.83 434,-14.83 434,-18.54 430.29,-22.25 426.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="407" y="-4.95" font-family="Times,serif" font-size="14.00">5</text>
+</g>
+<!-- 5&#45;&gt;6 -->
+<g id="edge6" class="edge">
+<title>5&#45;&gt;6</title>
+<path fill="none" stroke="black" d="M434.3,-11.12C437.57,-11.12 440.96,-11.12 444.36,-11.12" />
+<polygon fill="black" stroke="black" points="444.27,-14.63 454.27,-11.13 444.27,-7.63 444.27,-14.63" />
+</g>
+<!-- 4 -->
+<g id="node4" class="node">
+<title>4</title>
+<path fill="lightgray" stroke="black" d="M350.58,-22.25C350.58,-22.25 311.42,-22.25 311.42,-22.25 307.71,-22.25 304,-18.54 304,-14.83 304,-14.83 304,-7.42 304,-7.42 304,-3.71 307.71,0 311.42,0 311.42,0 350.58,0 350.58,0 354.29,0 358,-3.71 358,-7.42 358,-7.42 358,-14.83 358,-14.83 358,-18.54 354.29,-22.25 350.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="331" y="-4.95" font-family="Times,serif" font-size="14.00">4</text>
+</g>
+<!-- 4&#45;&gt;5 -->
+<g id="edge5" class="edge">
+<title>4&#45;&gt;5</title>
+<path fill="none" stroke="black" d="M358.3,-11.12C361.57,-11.12 364.96,-11.12 368.36,-11.12" />
+<polygon fill="black" stroke="black" points="368.27,-14.63 378.27,-11.13 368.27,-7.63 368.27,-14.63" />
+</g>
+<!-- 3 -->
+<g id="node5" class="node">
+<title>3</title>
+<path fill="lightgray" stroke="black" d="M274.58,-22.25C274.58,-22.25 235.42,-22.25 235.42,-22.25 231.71,-22.25 228,-18.54 228,-14.83 228,-14.83 228,-7.42 228,-7.42 228,-3.71 231.71,0 235.42,0 235.42,0 274.58,0 274.58,0 278.29,0 282,-3.71 282,-7.42 282,-7.42 282,-14.83 282,-14.83 282,-18.54 278.29,-22.25 274.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="255" y="-4.95" font-family="Times,serif" font-size="14.00">3</text>
+</g>
+<!-- 3&#45;&gt;4 -->
+<g id="edge4" class="edge">
+<title>3&#45;&gt;4</title>
+<path fill="none" stroke="black" d="M282.3,-11.12C285.57,-11.12 288.96,-11.12 292.36,-11.12" />
+<polygon fill="black" stroke="black" points="292.27,-14.63 302.27,-11.13 292.27,-7.63 292.27,-14.63" />
+</g>
+<!-- 2 -->
+<g id="node6" class="node">
+<title>2</title>
+<path fill="lightgray" stroke="black" d="M198.58,-22.25C198.58,-22.25 159.42,-22.25 159.42,-22.25 155.71,-22.25 152,-18.54 152,-14.83 152,-14.83 152,-7.42 152,-7.42 152,-3.71 155.71,0 159.42,0 159.42,0 198.58,0 198.58,0 202.29,0 206,-3.71 206,-7.42 206,-7.42 206,-14.83 206,-14.83 206,-18.54 202.29,-22.25 198.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="179" y="-4.95" font-family="Times,serif" font-size="14.00">2</text>
+</g>
+<!-- 2&#45;&gt;3 -->
+<g id="edge3" class="edge">
+<title>2&#45;&gt;3</title>
+<path fill="none" stroke="black" d="M206.3,-11.12C209.57,-11.12 212.96,-11.12 216.36,-11.12" />
+<polygon fill="black" stroke="black" points="216.27,-14.63 226.27,-11.13 216.27,-7.63 216.27,-14.63" />
+</g>
+<!-- 1&#45;&gt;2 -->
+<g id="edge2" class="edge">
+<title>1&#45;&gt;2</title>
+<path fill="none" stroke="black" d="M130.3,-11.12C133.57,-11.12 136.96,-11.12 140.36,-11.12" />
+<polygon fill="black" stroke="black" points="140.27,-14.63 150.27,-11.13 140.27,-7.63 140.27,-14.63" />
+</g>
+</g>
+</svg>
+</div>
+
+<div class="graphviz-wrapper">
+
+<!-- Generated by graphviz version 14.1.2 (0)
+ -->
+<!-- Pages: 1 -->
+<svg role="img" aria-label="graphviz-8a2f61ede13c9a51f9ad53bb0e778bee" width="278pt" height="252pt" viewBox="0.00 0.00 278.00 252.00">
+<title>graphviz-8a2f61ede13c9a51f9ad53bb0e778bee</title>
+<desc>
+digraph {
+//rankdir=LR
+ranksep=0.3
+node [shape=box style=&quot;rounded,filled&quot; height=0.3]
+node [label=null fillcolor=lightgray] n1
+node [label=null fillcolor=lightgray] n2
+node [label=null fillcolor=lightgray] n3
+node [label=null fillcolor=lightgray] n4
+node [label=null fillcolor=lightgray] n5
+node [label=1 fillcolor=lightgray] 1
+node [label=2 fillcolor=lightgray] 2
+node [label=3 fillcolor=lightgray] 3
+node [label=4 fillcolor=lightgray] 4
+node [label=5 fillcolor=lightgray] 5
+
+node [label=6 fillcolor=lightgray] 6
+node [label=null fillcolor=lightgray] n2
+
+node [ label=&quot;\N&quot;]
+1 -&gt; 2 -&gt; 3 -&gt; n4
+3 -&gt; 4 -&gt;5 -&gt; 6
+1 -&gt; n1
+4 -&gt; n2
+5 -&gt; n3
+2 -&gt; n5
+}
+</desc>
+
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 247.5)">
+<polygon fill="white" stroke="none" points="-4,4 -4,-247.5 274,-247.5 274,4 -4,4" />
+<!-- n1 -->
+<g id="node1" class="node">
+<title>n1</title>
+<path fill="lightgray" stroke="black" d="M46.58,-199.25C46.58,-199.25 7.42,-199.25 7.42,-199.25 3.71,-199.25 0,-195.54 0,-191.83 0,-191.83 0,-184.42 0,-184.42 0,-180.71 3.71,-177 7.42,-177 7.42,-177 46.58,-177 46.58,-177 50.29,-177 54,-180.71 54,-184.42 54,-184.42 54,-191.83 54,-191.83 54,-195.54 50.29,-199.25 46.58,-199.25" />
+<text xml:space="preserve" text-anchor="middle" x="27" y="-181.95" font-family="Times,serif" font-size="14.00">null</text>
+</g>
+<!-- n2 -->
+<g id="node2" class="node">
+<title>n2</title>
+<path fill="lightgray" stroke="black" d="M154.58,-66.5C154.58,-66.5 115.42,-66.5 115.42,-66.5 111.71,-66.5 108,-62.79 108,-59.08 108,-59.08 108,-51.67 108,-51.67 108,-47.96 111.71,-44.25 115.42,-44.25 115.42,-44.25 154.58,-44.25 154.58,-44.25 158.29,-44.25 162,-47.96 162,-51.67 162,-51.67 162,-59.08 162,-59.08 162,-62.79 158.29,-66.5 154.58,-66.5" />
+<text xml:space="preserve" text-anchor="middle" x="135" y="-49.2" font-family="Times,serif" font-size="14.00">null</text>
+</g>
+<!-- n3 -->
+<g id="node3" class="node">
+<title>n3</title>
+<path fill="lightgray" stroke="black" d="M190.58,-22.25C190.58,-22.25 151.42,-22.25 151.42,-22.25 147.71,-22.25 144,-18.54 144,-14.83 144,-14.83 144,-7.42 144,-7.42 144,-3.71 147.71,0 151.42,0 151.42,0 190.58,0 190.58,0 194.29,0 198,-3.71 198,-7.42 198,-7.42 198,-14.83 198,-14.83 198,-18.54 194.29,-22.25 190.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="171" y="-4.95" font-family="Times,serif" font-size="14.00">null</text>
+</g>
+<!-- n4 -->
+<g id="node4" class="node">
+<title>n4</title>
+<path fill="lightgray" stroke="black" d="M118.58,-110.75C118.58,-110.75 79.42,-110.75 79.42,-110.75 75.71,-110.75 72,-107.04 72,-103.33 72,-103.33 72,-95.92 72,-95.92 72,-92.21 75.71,-88.5 79.42,-88.5 79.42,-88.5 118.58,-88.5 118.58,-88.5 122.29,-88.5 126,-92.21 126,-95.92 126,-95.92 126,-103.33 126,-103.33 126,-107.04 122.29,-110.75 118.58,-110.75" />
+<text xml:space="preserve" text-anchor="middle" x="99" y="-93.45" font-family="Times,serif" font-size="14.00">null</text>
+</g>
+<!-- n5 -->
+<g id="node5" class="node">
+<title>n5</title>
+<path fill="lightgray" stroke="black" d="M82.58,-155C82.58,-155 43.42,-155 43.42,-155 39.71,-155 36,-151.29 36,-147.58 36,-147.58 36,-140.17 36,-140.17 36,-136.46 39.71,-132.75 43.42,-132.75 43.42,-132.75 82.58,-132.75 82.58,-132.75 86.29,-132.75 90,-136.46 90,-140.17 90,-140.17 90,-147.58 90,-147.58 90,-151.29 86.29,-155 82.58,-155" />
+<text xml:space="preserve" text-anchor="middle" x="63" y="-137.7" font-family="Times,serif" font-size="14.00">null</text>
+</g>
+<!-- 1 -->
+<g id="node6" class="node">
+<title>1</title>
+<path fill="lightgray" stroke="black" d="M82.58,-243.5C82.58,-243.5 43.42,-243.5 43.42,-243.5 39.71,-243.5 36,-239.79 36,-236.08 36,-236.08 36,-228.67 36,-228.67 36,-224.96 39.71,-221.25 43.42,-221.25 43.42,-221.25 82.58,-221.25 82.58,-221.25 86.29,-221.25 90,-224.96 90,-228.67 90,-228.67 90,-236.08 90,-236.08 90,-239.79 86.29,-243.5 82.58,-243.5" />
+<text xml:space="preserve" text-anchor="middle" x="63" y="-226.2" font-family="Times,serif" font-size="14.00">1</text>
+</g>
+<!-- 1&#45;&gt;n1 -->
+<g id="edge7" class="edge">
+<title>1&#45;&gt;n1</title>
+<path fill="none" stroke="black" d="M54.29,-221.15C50.97,-217.26 47.09,-212.7 43.3,-208.25" />
+<polygon fill="black" stroke="black" points="46.02,-206.05 36.87,-200.7 40.69,-210.59 46.02,-206.05" />
+</g>
+<!-- 2 -->
+<g id="node7" class="node">
+<title>2</title>
+<path fill="lightgray" stroke="black" d="M118.58,-199.25C118.58,-199.25 79.42,-199.25 79.42,-199.25 75.71,-199.25 72,-195.54 72,-191.83 72,-191.83 72,-184.42 72,-184.42 72,-180.71 75.71,-177 79.42,-177 79.42,-177 118.58,-177 118.58,-177 122.29,-177 126,-180.71 126,-184.42 126,-184.42 126,-191.83 126,-191.83 126,-195.54 122.29,-199.25 118.58,-199.25" />
+<text xml:space="preserve" text-anchor="middle" x="99" y="-181.95" font-family="Times,serif" font-size="14.00">2</text>
+</g>
+<!-- 1&#45;&gt;2 -->
+<g id="edge1" class="edge">
+<title>1&#45;&gt;2</title>
+<path fill="none" stroke="black" d="M71.71,-221.15C75.03,-217.26 78.91,-212.7 82.7,-208.25" />
+<polygon fill="black" stroke="black" points="85.31,-210.59 89.13,-200.7 79.98,-206.05 85.31,-210.59" />
+</g>
+<!-- 2&#45;&gt;n5 -->
+<g id="edge10" class="edge">
+<title>2&#45;&gt;n5</title>
+<path fill="none" stroke="black" d="M90.29,-176.9C86.97,-173.01 83.09,-168.45 79.3,-164" />
+<polygon fill="black" stroke="black" points="82.02,-161.8 72.87,-156.45 76.69,-166.34 82.02,-161.8" />
+</g>
+<!-- 3 -->
+<g id="node8" class="node">
+<title>3</title>
+<path fill="lightgray" stroke="black" d="M154.58,-155C154.58,-155 115.42,-155 115.42,-155 111.71,-155 108,-151.29 108,-147.58 108,-147.58 108,-140.17 108,-140.17 108,-136.46 111.71,-132.75 115.42,-132.75 115.42,-132.75 154.58,-132.75 154.58,-132.75 158.29,-132.75 162,-136.46 162,-140.17 162,-140.17 162,-147.58 162,-147.58 162,-151.29 158.29,-155 154.58,-155" />
+<text xml:space="preserve" text-anchor="middle" x="135" y="-137.7" font-family="Times,serif" font-size="14.00">3</text>
+</g>
+<!-- 2&#45;&gt;3 -->
+<g id="edge2" class="edge">
+<title>2&#45;&gt;3</title>
+<path fill="none" stroke="black" d="M107.71,-176.9C111.03,-173.01 114.91,-168.45 118.7,-164" />
+<polygon fill="black" stroke="black" points="121.31,-166.34 125.13,-156.45 115.98,-161.8 121.31,-166.34" />
+</g>
+<!-- 3&#45;&gt;n4 -->
+<g id="edge3" class="edge">
+<title>3&#45;&gt;n4</title>
+<path fill="none" stroke="black" d="M126.29,-132.65C122.97,-128.76 119.09,-124.2 115.3,-119.75" />
+<polygon fill="black" stroke="black" points="118.02,-117.55 108.87,-112.2 112.69,-122.09 118.02,-117.55" />
+</g>
+<!-- 4 -->
+<g id="node9" class="node">
+<title>4</title>
+<path fill="lightgray" stroke="black" d="M190.58,-110.75C190.58,-110.75 151.42,-110.75 151.42,-110.75 147.71,-110.75 144,-107.04 144,-103.33 144,-103.33 144,-95.92 144,-95.92 144,-92.21 147.71,-88.5 151.42,-88.5 151.42,-88.5 190.58,-88.5 190.58,-88.5 194.29,-88.5 198,-92.21 198,-95.92 198,-95.92 198,-103.33 198,-103.33 198,-107.04 194.29,-110.75 190.58,-110.75" />
+<text xml:space="preserve" text-anchor="middle" x="171" y="-93.45" font-family="Times,serif" font-size="14.00">4</text>
+</g>
+<!-- 3&#45;&gt;4 -->
+<g id="edge4" class="edge">
+<title>3&#45;&gt;4</title>
+<path fill="none" stroke="black" d="M143.71,-132.65C147.03,-128.76 150.91,-124.2 154.7,-119.75" />
+<polygon fill="black" stroke="black" points="157.31,-122.09 161.13,-112.2 151.98,-117.55 157.31,-122.09" />
+</g>
+<!-- 4&#45;&gt;n2 -->
+<g id="edge8" class="edge">
+<title>4&#45;&gt;n2</title>
+<path fill="none" stroke="black" d="M162.29,-88.4C158.97,-84.51 155.09,-79.95 151.3,-75.5" />
+<polygon fill="black" stroke="black" points="154.02,-73.3 144.87,-67.95 148.69,-77.84 154.02,-73.3" />
+</g>
+<!-- 5 -->
+<g id="node10" class="node">
+<title>5</title>
+<path fill="lightgray" stroke="black" d="M226.58,-66.5C226.58,-66.5 187.42,-66.5 187.42,-66.5 183.71,-66.5 180,-62.79 180,-59.08 180,-59.08 180,-51.67 180,-51.67 180,-47.96 183.71,-44.25 187.42,-44.25 187.42,-44.25 226.58,-44.25 226.58,-44.25 230.29,-44.25 234,-47.96 234,-51.67 234,-51.67 234,-59.08 234,-59.08 234,-62.79 230.29,-66.5 226.58,-66.5" />
+<text xml:space="preserve" text-anchor="middle" x="207" y="-49.2" font-family="Times,serif" font-size="14.00">5</text>
+</g>
+<!-- 4&#45;&gt;5 -->
+<g id="edge5" class="edge">
+<title>4&#45;&gt;5</title>
+<path fill="none" stroke="black" d="M179.71,-88.4C183.03,-84.51 186.91,-79.95 190.7,-75.5" />
+<polygon fill="black" stroke="black" points="193.31,-77.84 197.13,-67.95 187.98,-73.3 193.31,-77.84" />
+</g>
+<!-- 5&#45;&gt;n3 -->
+<g id="edge9" class="edge">
+<title>5&#45;&gt;n3</title>
+<path fill="none" stroke="black" d="M198.29,-44.15C194.97,-40.26 191.09,-35.7 187.3,-31.25" />
+<polygon fill="black" stroke="black" points="190.02,-29.05 180.87,-23.7 184.69,-33.59 190.02,-29.05" />
+</g>
+<!-- 6 -->
+<g id="node11" class="node">
+<title>6</title>
+<path fill="lightgray" stroke="black" d="M262.58,-22.25C262.58,-22.25 223.42,-22.25 223.42,-22.25 219.71,-22.25 216,-18.54 216,-14.83 216,-14.83 216,-7.42 216,-7.42 216,-3.71 219.71,0 223.42,0 223.42,0 262.58,0 262.58,0 266.29,0 270,-3.71 270,-7.42 270,-7.42 270,-14.83 270,-14.83 270,-18.54 266.29,-22.25 262.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="243" y="-4.95" font-family="Times,serif" font-size="14.00">6</text>
+</g>
+<!-- 5&#45;&gt;6 -->
+<g id="edge6" class="edge">
+<title>5&#45;&gt;6</title>
+<path fill="none" stroke="black" d="M215.71,-44.15C219.03,-40.26 222.91,-35.7 226.7,-31.25" />
+<polygon fill="black" stroke="black" points="229.31,-33.59 233.13,-23.7 223.98,-29.05 229.31,-33.59" />
+</g>
+</g>
+</svg>
+</div>
+
+<h2 id="實作">實作</h2>
+<ol>
+  <li>以<a href="https://en.wikipedia.org/wiki/Tree_traversal#Pre-order,_NLR">前序遍歷</a>倒序遞迴的方式去遍歷所有節點
+ 1.1 遞迴遍歷當前節點的右子樹。
+ 1.2 遞迴遍歷當前節點的左子樹。 
+ 1.3 訪問當前節點。</li>
+  <li>訪問到當前節點時，將當前節點的<code class="language-plaintext highlighter-rouge">left</code>設為None, 並將<code class="language-plaintext highlighter-rouge">right</code>設為前一次存在pre中的結點</li>
+  <li>將當前存在<code class="language-plaintext highlighter-rouge">pre</code>(代表已經flatten好的部分)</li>
+</ol>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+</span><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">pre</span> <span class="o">=</span> <span class="bp">None</span>
+
+    <span class="k">def</span> <span class="nf">flatten</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">TreeNode</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="s">"""
+        Do not return anything, modify root in-place instead.
+        """</span>
+        <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">root</span><span class="p">):</span>
+            <span class="k">return</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">root</span><span class="p">.</span><span class="n">right</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">root</span><span class="p">.</span><span class="n">left</span><span class="p">)</span>
+        <span class="n">root</span><span class="p">.</span><span class="n">left</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="n">root</span><span class="p">.</span><span class="n">right</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">pre</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">pre</span> <span class="o">=</span> <span class="n">root</span>
+</code></pre></div></div>
+
+<h2 id="時間複雜度">時間複雜度</h2>
+<p>由於<code class="language-plaintext highlighter-rouge">pre</code>會指到每個節點一次，更新節點狀態的時間複雜度為$O(1)$，圖中有n個節點，時間複雜度為$O(n)$</p>
+
+<hr />
+<h1 id="解法二">解法二</h1>
+<h2 id="解題思路-1">解題思路</h2>
+<p>一開始，我們將指標<code class="language-plaintext highlighter-rouge">cr</code>指到<code class="language-plaintext highlighter-rouge">root</code>，以下用黃色代表<code class="language-plaintext highlighter-rouge">cr</code>
+<code class="language-plaintext highlighter-rouge">cr</code>(節點<code class="language-plaintext highlighter-rouge">1</code>)的左邊子樹(淺粉色區域)的<code class="language-plaintext highlighter-rouge">root</code>(節點<code class="language-plaintext highlighter-rouge">2</code>)，左邊子樹前序遍歷最遠的點(節點<code class="language-plaintext highlighter-rouge">4</code>)</p>
+<div class="graphviz-wrapper">
+
+<!-- Generated by graphviz version 14.1.2 (0)
+ -->
+<!-- Pages: 1 -->
+<svg role="img" aria-label="graphviz-6ed43fc56a6cc7ed4b0040d0dd0e1ba3" width="294pt" height="135pt" viewBox="0.00 0.00 294.00 135.00">
+<title>graphviz-6ed43fc56a6cc7ed4b0040d0dd0e1ba3</title>
+<desc>
+digraph {
+//rankdir=LR
+ranksep=0.3
+node [shape=box style=&quot;rounded,filled&quot; height=0.3]
+node [label=1 fillcolor=&quot;#ffe66d&quot;] 1
+node [label=2 fillcolor=&quot;#cce8ff&quot;] 2
+node [label=3 fillcolor=lightgray] 3
+node [label=4 fillcolor=&quot;#cce8ff&quot;] 4
+node [label=5 fillcolor=lightgray] 5
+node [label=null fillcolor=lightgray] n1
+node [label=6 fillcolor=lightgray] 6
+//node [label=null fillcolor=lightgray] n2
+node [ label=&quot;\N&quot;]
+graph [style=&quot;filled,rounded&quot; fillcolor=&quot;#ffdddda7&quot;]
+subgraph cluster_1 {2 3 4}
+1 -&gt; 2 -&gt; 3
+2 -&gt; 4
+1 -&gt; 5 -&gt; n1
+5 -&gt; 6
+}
+</desc>
+
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 130.75)">
+<polygon fill="white" stroke="none" points="-4,4 -4,-130.75 290,-130.75 290,4 -4,4" />
+<g id="clust1" class="cluster">
+<title>cluster_1</title>
+<path fill="#ffdddd" fill-opacity="0.654902" stroke="black" d="M20,-8C20,-8 138,-8 138,-8 144,-8 150,-14 150,-20 150,-20 150,-78.5 150,-78.5 150,-84.5 144,-90.5 138,-90.5 138,-90.5 20,-90.5 20,-90.5 14,-90.5 8,-84.5 8,-78.5 8,-78.5 8,-20 8,-20 8,-14 14,-8 20,-8" />
+</g>
+<!-- 1 -->
+<g id="node1" class="node">
+<title>1</title>
+<path fill="#ffe66d" stroke="black" d="M170.58,-126.75C170.58,-126.75 131.42,-126.75 131.42,-126.75 127.71,-126.75 124,-123.04 124,-119.33 124,-119.33 124,-111.92 124,-111.92 124,-108.21 127.71,-104.5 131.42,-104.5 131.42,-104.5 170.58,-104.5 170.58,-104.5 174.29,-104.5 178,-108.21 178,-111.92 178,-111.92 178,-119.33 178,-119.33 178,-123.04 174.29,-126.75 170.58,-126.75" />
+<text xml:space="preserve" text-anchor="middle" x="151" y="-109.45" font-family="Times,serif" font-size="14.00">1</text>
+</g>
+<!-- 2 -->
+<g id="node2" class="node">
+<title>2</title>
+<path fill="#cce8ff" stroke="black" d="M134.58,-82.5C134.58,-82.5 95.42,-82.5 95.42,-82.5 91.71,-82.5 88,-78.79 88,-75.08 88,-75.08 88,-67.67 88,-67.67 88,-63.96 91.71,-60.25 95.42,-60.25 95.42,-60.25 134.58,-60.25 134.58,-60.25 138.29,-60.25 142,-63.96 142,-67.67 142,-67.67 142,-75.08 142,-75.08 142,-78.79 138.29,-82.5 134.58,-82.5" />
+<text xml:space="preserve" text-anchor="middle" x="115" y="-65.2" font-family="Times,serif" font-size="14.00">2</text>
+</g>
+<!-- 1&#45;&gt;2 -->
+<g id="edge1" class="edge">
+<title>1&#45;&gt;2</title>
+<path fill="none" stroke="black" d="M142.29,-104.4C138.97,-100.51 135.09,-95.95 131.3,-91.5" />
+<polygon fill="black" stroke="black" points="134.02,-89.3 124.87,-83.95 128.69,-93.84 134.02,-89.3" />
+</g>
+<!-- 5 -->
+<g id="node5" class="node">
+<title>5</title>
+<path fill="lightgray" stroke="black" d="M206.58,-82.5C206.58,-82.5 167.42,-82.5 167.42,-82.5 163.71,-82.5 160,-78.79 160,-75.08 160,-75.08 160,-67.67 160,-67.67 160,-63.96 163.71,-60.25 167.42,-60.25 167.42,-60.25 206.58,-60.25 206.58,-60.25 210.29,-60.25 214,-63.96 214,-67.67 214,-67.67 214,-75.08 214,-75.08 214,-78.79 210.29,-82.5 206.58,-82.5" />
+<text xml:space="preserve" text-anchor="middle" x="187" y="-65.2" font-family="Times,serif" font-size="14.00">5</text>
+</g>
+<!-- 1&#45;&gt;5 -->
+<g id="edge4" class="edge">
+<title>1&#45;&gt;5</title>
+<path fill="none" stroke="black" d="M159.71,-104.4C163.03,-100.51 166.91,-95.95 170.7,-91.5" />
+<polygon fill="black" stroke="black" points="173.31,-93.84 177.13,-83.95 167.98,-89.3 173.31,-93.84" />
+</g>
+<!-- 3 -->
+<g id="node3" class="node">
+<title>3</title>
+<path fill="lightgray" stroke="black" d="M62.58,-38.25C62.58,-38.25 23.42,-38.25 23.42,-38.25 19.71,-38.25 16,-34.54 16,-30.83 16,-30.83 16,-23.42 16,-23.42 16,-19.71 19.71,-16 23.42,-16 23.42,-16 62.58,-16 62.58,-16 66.29,-16 70,-19.71 70,-23.42 70,-23.42 70,-30.83 70,-30.83 70,-34.54 66.29,-38.25 62.58,-38.25" />
+<text xml:space="preserve" text-anchor="middle" x="43" y="-20.95" font-family="Times,serif" font-size="14.00">3</text>
+</g>
+<!-- 2&#45;&gt;3 -->
+<g id="edge2" class="edge">
+<title>2&#45;&gt;3</title>
+<path fill="none" stroke="black" d="M97.2,-59.93C89.3,-55.29 79.81,-49.73 71,-44.55" />
+<polygon fill="black" stroke="black" points="72.79,-41.55 62.4,-39.51 69.25,-47.59 72.79,-41.55" />
+</g>
+<!-- 4 -->
+<g id="node4" class="node">
+<title>4</title>
+<path fill="#cce8ff" stroke="black" d="M134.58,-38.25C134.58,-38.25 95.42,-38.25 95.42,-38.25 91.71,-38.25 88,-34.54 88,-30.83 88,-30.83 88,-23.42 88,-23.42 88,-19.71 91.71,-16 95.42,-16 95.42,-16 134.58,-16 134.58,-16 138.29,-16 142,-19.71 142,-23.42 142,-23.42 142,-30.83 142,-30.83 142,-34.54 138.29,-38.25 134.58,-38.25" />
+<text xml:space="preserve" text-anchor="middle" x="115" y="-20.95" font-family="Times,serif" font-size="14.00">4</text>
+</g>
+<!-- 2&#45;&gt;4 -->
+<g id="edge3" class="edge">
+<title>2&#45;&gt;4</title>
+<path fill="none" stroke="black" d="M115,-60.15C115,-56.98 115,-53.36 115,-49.72" />
+<polygon fill="black" stroke="black" points="118.5,-50.07 115,-40.07 111.5,-50.07 118.5,-50.07" />
+</g>
+<!-- n1 -->
+<g id="node6" class="node">
+<title>n1</title>
+<path fill="lightgray" stroke="black" d="M206.58,-38.25C206.58,-38.25 167.42,-38.25 167.42,-38.25 163.71,-38.25 160,-34.54 160,-30.83 160,-30.83 160,-23.42 160,-23.42 160,-19.71 163.71,-16 167.42,-16 167.42,-16 206.58,-16 206.58,-16 210.29,-16 214,-19.71 214,-23.42 214,-23.42 214,-30.83 214,-30.83 214,-34.54 210.29,-38.25 206.58,-38.25" />
+<text xml:space="preserve" text-anchor="middle" x="187" y="-20.95" font-family="Times,serif" font-size="14.00">null</text>
+</g>
+<!-- 5&#45;&gt;n1 -->
+<g id="edge5" class="edge">
+<title>5&#45;&gt;n1</title>
+<path fill="none" stroke="black" d="M187,-60.15C187,-56.98 187,-53.36 187,-49.72" />
+<polygon fill="black" stroke="black" points="190.5,-50.07 187,-40.07 183.5,-50.07 190.5,-50.07" />
+</g>
+<!-- 6 -->
+<g id="node7" class="node">
+<title>6</title>
+<path fill="lightgray" stroke="black" d="M278.58,-38.25C278.58,-38.25 239.42,-38.25 239.42,-38.25 235.71,-38.25 232,-34.54 232,-30.83 232,-30.83 232,-23.42 232,-23.42 232,-19.71 235.71,-16 239.42,-16 239.42,-16 278.58,-16 278.58,-16 282.29,-16 286,-19.71 286,-23.42 286,-23.42 286,-30.83 286,-30.83 286,-34.54 282.29,-38.25 278.58,-38.25" />
+<text xml:space="preserve" text-anchor="middle" x="259" y="-20.95" font-family="Times,serif" font-size="14.00">6</text>
+</g>
+<!-- 5&#45;&gt;6 -->
+<g id="edge6" class="edge">
+<title>5&#45;&gt;6</title>
+<path fill="none" stroke="black" d="M204.8,-59.93C212.7,-55.29 222.19,-49.73 231,-44.55" />
+<polygon fill="black" stroke="black" points="232.75,-47.59 239.6,-39.51 229.21,-41.55 232.75,-47.59" />
+</g>
+</g>
+</svg>
+</div>
+
+<p>將左邊子樹(淺粉色區域)移到<code class="language-plaintext highlighter-rouge">cr</code>(節點<code class="language-plaintext highlighter-rouge">1</code>)和<code class="language-plaintext highlighter-rouge">cr.right</code>(節點<code class="language-plaintext highlighter-rouge">5</code>)的中間:</p>
+<ol>
+  <li>將<code class="language-plaintext highlighter-rouge">cr</code>右側子樹接到前序遍歷最遠的點(節點4)的右側</li>
+  <li>將<code class="language-plaintext highlighter-rouge">cr</code>左側子樹接到<code class="language-plaintext highlighter-rouge">cr</code>右側</li>
+</ol>
+
+<div class="graphviz-wrapper">
+
+<!-- Generated by graphviz version 14.1.2 (0)
+ -->
+<!-- Pages: 1 -->
+<svg role="img" aria-label="graphviz-b2376157d1a8a2d2e4c235de8b901bdc" width="277pt" height="207pt" viewBox="0.00 0.00 277.00 207.00">
+<title>graphviz-b2376157d1a8a2d2e4c235de8b901bdc</title>
+<desc>
+digraph {
+//rankdir=LR
+ranksep=0.3
+node [shape=box style=&quot;rounded,filled&quot; height=0.3]
+node [label=null fillcolor=lightgray] n2
+node [label=null fillcolor=lightgray] n3
+node [label=1 fillcolor=&quot;#ffe66d&quot;] 1
+node [label=2 fillcolor=&quot;#cce8ff&quot;] 2
+node [label=3 fillcolor=lightgray] 3
+node [label=4 fillcolor=&quot;#cce8ff&quot;] 4
+node [label=5 fillcolor=lightgray] 5
+node [label=null fillcolor=lightgray] n1
+node [label=6 fillcolor=lightgray] 6
+//node [label=null fillcolor=lightgray] n2
+node [ label=&quot;\N&quot;]
+graph [style=&quot;filled,rounded&quot; fillcolor=&quot;#ffdddda7&quot;]
+subgraph cluster_1 {2 3 4}
+1 -&gt; n2
+1 -&gt; 2 -&gt; 3
+2 -&gt; 4 -&gt; 5 -&gt; n1
+4 -&gt; n3
+5 -&gt; 6
+}
+</desc>
+
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 203.25)">
+<polygon fill="white" stroke="none" points="-4,4 -4,-203.25 273,-203.25 273,4 -4,4" />
+<g id="clust1" class="cluster">
+<title>cluster_1</title>
+<path fill="#ffdddd" fill-opacity="0.654902" stroke="black" d="M75,-80.5C75,-80.5 193,-80.5 193,-80.5 199,-80.5 205,-86.5 205,-92.5 205,-92.5 205,-151 205,-151 205,-157 199,-163 193,-163 193,-163 75,-163 75,-163 69,-163 63,-157 63,-151 63,-151 63,-92.5 63,-92.5 63,-86.5 69,-80.5 75,-80.5" />
+</g>
+<!-- n2 -->
+<g id="node1" class="node">
+<title>n2</title>
+<path fill="lightgray" stroke="black" d="M46.58,-155C46.58,-155 7.42,-155 7.42,-155 3.71,-155 0,-151.29 0,-147.58 0,-147.58 0,-140.17 0,-140.17 0,-136.46 3.71,-132.75 7.42,-132.75 7.42,-132.75 46.58,-132.75 46.58,-132.75 50.29,-132.75 54,-136.46 54,-140.17 54,-140.17 54,-147.58 54,-147.58 54,-151.29 50.29,-155 46.58,-155" />
+<text xml:space="preserve" text-anchor="middle" x="27" y="-137.7" font-family="Times,serif" font-size="14.00">null</text>
+</g>
+<!-- n3 -->
+<g id="node2" class="node">
+<title>n3</title>
+<path fill="lightgray" stroke="black" d="M153.58,-66.5C153.58,-66.5 114.42,-66.5 114.42,-66.5 110.71,-66.5 107,-62.79 107,-59.08 107,-59.08 107,-51.67 107,-51.67 107,-47.96 110.71,-44.25 114.42,-44.25 114.42,-44.25 153.58,-44.25 153.58,-44.25 157.29,-44.25 161,-47.96 161,-51.67 161,-51.67 161,-59.08 161,-59.08 161,-62.79 157.29,-66.5 153.58,-66.5" />
+<text xml:space="preserve" text-anchor="middle" x="134" y="-49.2" font-family="Times,serif" font-size="14.00">null</text>
+</g>
+<!-- 1 -->
+<g id="node3" class="node">
+<title>1</title>
+<path fill="#ffe66d" stroke="black" d="M82.58,-199.25C82.58,-199.25 43.42,-199.25 43.42,-199.25 39.71,-199.25 36,-195.54 36,-191.83 36,-191.83 36,-184.42 36,-184.42 36,-180.71 39.71,-177 43.42,-177 43.42,-177 82.58,-177 82.58,-177 86.29,-177 90,-180.71 90,-184.42 90,-184.42 90,-191.83 90,-191.83 90,-195.54 86.29,-199.25 82.58,-199.25" />
+<text xml:space="preserve" text-anchor="middle" x="63" y="-181.95" font-family="Times,serif" font-size="14.00">1</text>
+</g>
+<!-- 1&#45;&gt;n2 -->
+<g id="edge1" class="edge">
+<title>1&#45;&gt;n2</title>
+<path fill="none" stroke="black" d="M54.29,-176.9C50.97,-173.01 47.09,-168.45 43.3,-164" />
+<polygon fill="black" stroke="black" points="46.02,-161.8 36.87,-156.45 40.69,-166.34 46.02,-161.8" />
+</g>
+<!-- 2 -->
+<g id="node4" class="node">
+<title>2</title>
+<path fill="#cce8ff" stroke="black" d="M118.58,-155C118.58,-155 79.42,-155 79.42,-155 75.71,-155 72,-151.29 72,-147.58 72,-147.58 72,-140.17 72,-140.17 72,-136.46 75.71,-132.75 79.42,-132.75 79.42,-132.75 118.58,-132.75 118.58,-132.75 122.29,-132.75 126,-136.46 126,-140.17 126,-140.17 126,-147.58 126,-147.58 126,-151.29 122.29,-155 118.58,-155" />
+<text xml:space="preserve" text-anchor="middle" x="99" y="-137.7" font-family="Times,serif" font-size="14.00">2</text>
+</g>
+<!-- 1&#45;&gt;2 -->
+<g id="edge2" class="edge">
+<title>1&#45;&gt;2</title>
+<path fill="none" stroke="black" d="M71.71,-176.9C75.03,-173.01 78.91,-168.45 82.7,-164" />
+<polygon fill="black" stroke="black" points="85.31,-166.34 89.13,-156.45 79.98,-161.8 85.31,-166.34" />
+</g>
+<!-- 3 -->
+<g id="node5" class="node">
+<title>3</title>
+<path fill="lightgray" stroke="black" d="M117.58,-110.75C117.58,-110.75 78.42,-110.75 78.42,-110.75 74.71,-110.75 71,-107.04 71,-103.33 71,-103.33 71,-95.92 71,-95.92 71,-92.21 74.71,-88.5 78.42,-88.5 78.42,-88.5 117.58,-88.5 117.58,-88.5 121.29,-88.5 125,-92.21 125,-95.92 125,-95.92 125,-103.33 125,-103.33 125,-107.04 121.29,-110.75 117.58,-110.75" />
+<text xml:space="preserve" text-anchor="middle" x="98" y="-93.45" font-family="Times,serif" font-size="14.00">3</text>
+</g>
+<!-- 2&#45;&gt;3 -->
+<g id="edge3" class="edge">
+<title>2&#45;&gt;3</title>
+<path fill="none" stroke="black" d="M98.76,-132.65C98.68,-129.48 98.6,-125.86 98.51,-122.22" />
+<polygon fill="black" stroke="black" points="102.02,-122.48 98.28,-112.56 95.02,-122.65 102.02,-122.48" />
+</g>
+<!-- 4 -->
+<g id="node6" class="node">
+<title>4</title>
+<path fill="#cce8ff" stroke="black" d="M189.58,-110.75C189.58,-110.75 150.42,-110.75 150.42,-110.75 146.71,-110.75 143,-107.04 143,-103.33 143,-103.33 143,-95.92 143,-95.92 143,-92.21 146.71,-88.5 150.42,-88.5 150.42,-88.5 189.58,-88.5 189.58,-88.5 193.29,-88.5 197,-92.21 197,-95.92 197,-95.92 197,-103.33 197,-103.33 197,-107.04 193.29,-110.75 189.58,-110.75" />
+<text xml:space="preserve" text-anchor="middle" x="170" y="-93.45" font-family="Times,serif" font-size="14.00">4</text>
+</g>
+<!-- 2&#45;&gt;4 -->
+<g id="edge4" class="edge">
+<title>2&#45;&gt;4</title>
+<path fill="none" stroke="black" d="M116.55,-132.43C124.34,-127.79 133.7,-122.23 142.39,-117.05" />
+<polygon fill="black" stroke="black" points="144.05,-120.14 150.86,-112.02 140.47,-114.12 144.05,-120.14" />
+</g>
+<!-- 4&#45;&gt;n3 -->
+<g id="edge7" class="edge">
+<title>4&#45;&gt;n3</title>
+<path fill="none" stroke="black" d="M161.29,-88.4C157.97,-84.51 154.09,-79.95 150.3,-75.5" />
+<polygon fill="black" stroke="black" points="153.02,-73.3 143.87,-67.95 147.69,-77.84 153.02,-73.3" />
+</g>
+<!-- 5 -->
+<g id="node7" class="node">
+<title>5</title>
+<path fill="lightgray" stroke="black" d="M225.58,-66.5C225.58,-66.5 186.42,-66.5 186.42,-66.5 182.71,-66.5 179,-62.79 179,-59.08 179,-59.08 179,-51.67 179,-51.67 179,-47.96 182.71,-44.25 186.42,-44.25 186.42,-44.25 225.58,-44.25 225.58,-44.25 229.29,-44.25 233,-47.96 233,-51.67 233,-51.67 233,-59.08 233,-59.08 233,-62.79 229.29,-66.5 225.58,-66.5" />
+<text xml:space="preserve" text-anchor="middle" x="206" y="-49.2" font-family="Times,serif" font-size="14.00">5</text>
+</g>
+<!-- 4&#45;&gt;5 -->
+<g id="edge5" class="edge">
+<title>4&#45;&gt;5</title>
+<path fill="none" stroke="black" d="M178.71,-88.4C182.03,-84.51 185.91,-79.95 189.7,-75.5" />
+<polygon fill="black" stroke="black" points="192.31,-77.84 196.13,-67.95 186.98,-73.3 192.31,-77.84" />
+</g>
+<!-- n1 -->
+<g id="node8" class="node">
+<title>n1</title>
+<path fill="lightgray" stroke="black" d="M189.58,-22.25C189.58,-22.25 150.42,-22.25 150.42,-22.25 146.71,-22.25 143,-18.54 143,-14.83 143,-14.83 143,-7.42 143,-7.42 143,-3.71 146.71,0 150.42,0 150.42,0 189.58,0 189.58,0 193.29,0 197,-3.71 197,-7.42 197,-7.42 197,-14.83 197,-14.83 197,-18.54 193.29,-22.25 189.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="170" y="-4.95" font-family="Times,serif" font-size="14.00">null</text>
+</g>
+<!-- 5&#45;&gt;n1 -->
+<g id="edge6" class="edge">
+<title>5&#45;&gt;n1</title>
+<path fill="none" stroke="black" d="M197.29,-44.15C193.97,-40.26 190.09,-35.7 186.3,-31.25" />
+<polygon fill="black" stroke="black" points="189.02,-29.05 179.87,-23.7 183.69,-33.59 189.02,-29.05" />
+</g>
+<!-- 6 -->
+<g id="node9" class="node">
+<title>6</title>
+<path fill="lightgray" stroke="black" d="M261.58,-22.25C261.58,-22.25 222.42,-22.25 222.42,-22.25 218.71,-22.25 215,-18.54 215,-14.83 215,-14.83 215,-7.42 215,-7.42 215,-3.71 218.71,0 222.42,0 222.42,0 261.58,0 261.58,0 265.29,0 269,-3.71 269,-7.42 269,-7.42 269,-14.83 269,-14.83 269,-18.54 265.29,-22.25 261.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="242" y="-4.95" font-family="Times,serif" font-size="14.00">6</text>
+</g>
+<!-- 5&#45;&gt;6 -->
+<g id="edge8" class="edge">
+<title>5&#45;&gt;6</title>
+<path fill="none" stroke="black" d="M214.71,-44.15C218.03,-40.26 221.91,-35.7 225.7,-31.25" />
+<polygon fill="black" stroke="black" points="228.31,-33.59 232.13,-23.7 222.98,-29.05 228.31,-33.59" />
+</g>
+</g>
+</svg>
+</div>
+<p><code class="language-plaintext highlighter-rouge">cr</code>向右移動，此時<code class="language-plaintext highlighter-rouge">cr</code>為節點<code class="language-plaintext highlighter-rouge">2</code>。
+<code class="language-plaintext highlighter-rouge">cr</code>(節點<code class="language-plaintext highlighter-rouge">2</code>)的左邊子樹(淺粉色區域)的<code class="language-plaintext highlighter-rouge">root</code>(節點<code class="language-plaintext highlighter-rouge">3</code>)，左邊子樹前序遍歷最遠的點(節點<code class="language-plaintext highlighter-rouge">3</code>)</p>
+
+<div class="graphviz-wrapper">
+
+<!-- Generated by graphviz version 14.1.2 (0)
+ -->
+<!-- Pages: 1 -->
+<svg role="img" aria-label="graphviz-fe64508bb47196744418f452873de631" width="242pt" height="207pt" viewBox="0.00 0.00 242.00 207.00">
+<title>graphviz-fe64508bb47196744418f452873de631</title>
+<desc>
+digraph {
+//rankdir=LR
+ranksep=0.3
+node [shape=box style=&quot;rounded,filled&quot; height=0.3]
+node [label=null fillcolor=lightgray] n2
+node [label=null fillcolor=lightgray] n3
+node [label=1 fillcolor=lightgray] 1
+node [label=2 fillcolor=&quot;#ffe66d&quot;] 2
+node [label=3 fillcolor=&quot;#cce8ff&quot;] 3
+node [label=4 fillcolor=lightgray] 4
+node [label=5 fillcolor=lightgray] 5
+node [label=null fillcolor=lightgray] n1
+node [label=6 fillcolor=lightgray] 6
+//node [label=null fillcolor=lightgray] n2
+node [ label=&quot;\N&quot;]
+graph [style=&quot;filled,rounded&quot; fillcolor=&quot;#ffdddda7&quot;]
+subgraph cluster_1 {3}
+1 -&gt; n2
+1 -&gt; 2 -&gt; 3
+2 -&gt; 4 -&gt; 5 -&gt; n1
+4 -&gt; n3
+5 -&gt; 6
+}
+</desc>
+
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 203.25)">
+<polygon fill="white" stroke="none" points="-4,4 -4,-203.25 238,-203.25 238,4 -4,4" />
+<g id="clust1" class="cluster">
+<title>cluster_1</title>
+<path fill="#ffdddd" fill-opacity="0.654902" stroke="black" d="M40,-80.5C40,-80.5 86,-80.5 86,-80.5 92,-80.5 98,-86.5 98,-92.5 98,-92.5 98,-106.75 98,-106.75 98,-112.75 92,-118.75 86,-118.75 86,-118.75 40,-118.75 40,-118.75 34,-118.75 28,-112.75 28,-106.75 28,-106.75 28,-92.5 28,-92.5 28,-86.5 34,-80.5 40,-80.5" />
+</g>
+<!-- n2 -->
+<g id="node1" class="node">
+<title>n2</title>
+<path fill="lightgray" stroke="black" d="M46.58,-155C46.58,-155 7.42,-155 7.42,-155 3.71,-155 0,-151.29 0,-147.58 0,-147.58 0,-140.17 0,-140.17 0,-136.46 3.71,-132.75 7.42,-132.75 7.42,-132.75 46.58,-132.75 46.58,-132.75 50.29,-132.75 54,-136.46 54,-140.17 54,-140.17 54,-147.58 54,-147.58 54,-151.29 50.29,-155 46.58,-155" />
+<text xml:space="preserve" text-anchor="middle" x="27" y="-137.7" font-family="Times,serif" font-size="14.00">null</text>
+</g>
+<!-- n3 -->
+<g id="node2" class="node">
+<title>n3</title>
+<path fill="lightgray" stroke="black" d="M118.58,-66.5C118.58,-66.5 79.42,-66.5 79.42,-66.5 75.71,-66.5 72,-62.79 72,-59.08 72,-59.08 72,-51.67 72,-51.67 72,-47.96 75.71,-44.25 79.42,-44.25 79.42,-44.25 118.58,-44.25 118.58,-44.25 122.29,-44.25 126,-47.96 126,-51.67 126,-51.67 126,-59.08 126,-59.08 126,-62.79 122.29,-66.5 118.58,-66.5" />
+<text xml:space="preserve" text-anchor="middle" x="99" y="-49.2" font-family="Times,serif" font-size="14.00">null</text>
+</g>
+<!-- 1 -->
+<g id="node3" class="node">
+<title>1</title>
+<path fill="lightgray" stroke="black" d="M82.58,-199.25C82.58,-199.25 43.42,-199.25 43.42,-199.25 39.71,-199.25 36,-195.54 36,-191.83 36,-191.83 36,-184.42 36,-184.42 36,-180.71 39.71,-177 43.42,-177 43.42,-177 82.58,-177 82.58,-177 86.29,-177 90,-180.71 90,-184.42 90,-184.42 90,-191.83 90,-191.83 90,-195.54 86.29,-199.25 82.58,-199.25" />
+<text xml:space="preserve" text-anchor="middle" x="63" y="-181.95" font-family="Times,serif" font-size="14.00">1</text>
+</g>
+<!-- 1&#45;&gt;n2 -->
+<g id="edge1" class="edge">
+<title>1&#45;&gt;n2</title>
+<path fill="none" stroke="black" d="M54.29,-176.9C50.97,-173.01 47.09,-168.45 43.3,-164" />
+<polygon fill="black" stroke="black" points="46.02,-161.8 36.87,-156.45 40.69,-166.34 46.02,-161.8" />
+</g>
+<!-- 2 -->
+<g id="node4" class="node">
+<title>2</title>
+<path fill="#ffe66d" stroke="black" d="M118.58,-155C118.58,-155 79.42,-155 79.42,-155 75.71,-155 72,-151.29 72,-147.58 72,-147.58 72,-140.17 72,-140.17 72,-136.46 75.71,-132.75 79.42,-132.75 79.42,-132.75 118.58,-132.75 118.58,-132.75 122.29,-132.75 126,-136.46 126,-140.17 126,-140.17 126,-147.58 126,-147.58 126,-151.29 122.29,-155 118.58,-155" />
+<text xml:space="preserve" text-anchor="middle" x="99" y="-137.7" font-family="Times,serif" font-size="14.00">2</text>
+</g>
+<!-- 1&#45;&gt;2 -->
+<g id="edge2" class="edge">
+<title>1&#45;&gt;2</title>
+<path fill="none" stroke="black" d="M71.71,-176.9C75.03,-173.01 78.91,-168.45 82.7,-164" />
+<polygon fill="black" stroke="black" points="85.31,-166.34 89.13,-156.45 79.98,-161.8 85.31,-166.34" />
+</g>
+<!-- 3 -->
+<g id="node5" class="node">
+<title>3</title>
+<path fill="#cce8ff" stroke="black" d="M82.58,-110.75C82.58,-110.75 43.42,-110.75 43.42,-110.75 39.71,-110.75 36,-107.04 36,-103.33 36,-103.33 36,-95.92 36,-95.92 36,-92.21 39.71,-88.5 43.42,-88.5 43.42,-88.5 82.58,-88.5 82.58,-88.5 86.29,-88.5 90,-92.21 90,-95.92 90,-95.92 90,-103.33 90,-103.33 90,-107.04 86.29,-110.75 82.58,-110.75" />
+<text xml:space="preserve" text-anchor="middle" x="63" y="-93.45" font-family="Times,serif" font-size="14.00">3</text>
+</g>
+<!-- 2&#45;&gt;3 -->
+<g id="edge3" class="edge">
+<title>2&#45;&gt;3</title>
+<path fill="none" stroke="black" d="M90.29,-132.65C86.97,-128.76 83.09,-124.2 79.3,-119.75" />
+<polygon fill="black" stroke="black" points="82.02,-117.55 72.87,-112.2 76.69,-122.09 82.02,-117.55" />
+</g>
+<!-- 4 -->
+<g id="node6" class="node">
+<title>4</title>
+<path fill="lightgray" stroke="black" d="M154.58,-110.75C154.58,-110.75 115.42,-110.75 115.42,-110.75 111.71,-110.75 108,-107.04 108,-103.33 108,-103.33 108,-95.92 108,-95.92 108,-92.21 111.71,-88.5 115.42,-88.5 115.42,-88.5 154.58,-88.5 154.58,-88.5 158.29,-88.5 162,-92.21 162,-95.92 162,-95.92 162,-103.33 162,-103.33 162,-107.04 158.29,-110.75 154.58,-110.75" />
+<text xml:space="preserve" text-anchor="middle" x="135" y="-93.45" font-family="Times,serif" font-size="14.00">4</text>
+</g>
+<!-- 2&#45;&gt;4 -->
+<g id="edge4" class="edge">
+<title>2&#45;&gt;4</title>
+<path fill="none" stroke="black" d="M107.71,-132.65C111.03,-128.76 114.91,-124.2 118.7,-119.75" />
+<polygon fill="black" stroke="black" points="121.31,-122.09 125.13,-112.2 115.98,-117.55 121.31,-122.09" />
+</g>
+<!-- 4&#45;&gt;n3 -->
+<g id="edge7" class="edge">
+<title>4&#45;&gt;n3</title>
+<path fill="none" stroke="black" d="M126.29,-88.4C122.97,-84.51 119.09,-79.95 115.3,-75.5" />
+<polygon fill="black" stroke="black" points="118.02,-73.3 108.87,-67.95 112.69,-77.84 118.02,-73.3" />
+</g>
+<!-- 5 -->
+<g id="node7" class="node">
+<title>5</title>
+<path fill="lightgray" stroke="black" d="M190.58,-66.5C190.58,-66.5 151.42,-66.5 151.42,-66.5 147.71,-66.5 144,-62.79 144,-59.08 144,-59.08 144,-51.67 144,-51.67 144,-47.96 147.71,-44.25 151.42,-44.25 151.42,-44.25 190.58,-44.25 190.58,-44.25 194.29,-44.25 198,-47.96 198,-51.67 198,-51.67 198,-59.08 198,-59.08 198,-62.79 194.29,-66.5 190.58,-66.5" />
+<text xml:space="preserve" text-anchor="middle" x="171" y="-49.2" font-family="Times,serif" font-size="14.00">5</text>
+</g>
+<!-- 4&#45;&gt;5 -->
+<g id="edge5" class="edge">
+<title>4&#45;&gt;5</title>
+<path fill="none" stroke="black" d="M143.71,-88.4C147.03,-84.51 150.91,-79.95 154.7,-75.5" />
+<polygon fill="black" stroke="black" points="157.31,-77.84 161.13,-67.95 151.98,-73.3 157.31,-77.84" />
+</g>
+<!-- n1 -->
+<g id="node8" class="node">
+<title>n1</title>
+<path fill="lightgray" stroke="black" d="M154.58,-22.25C154.58,-22.25 115.42,-22.25 115.42,-22.25 111.71,-22.25 108,-18.54 108,-14.83 108,-14.83 108,-7.42 108,-7.42 108,-3.71 111.71,0 115.42,0 115.42,0 154.58,0 154.58,0 158.29,0 162,-3.71 162,-7.42 162,-7.42 162,-14.83 162,-14.83 162,-18.54 158.29,-22.25 154.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="135" y="-4.95" font-family="Times,serif" font-size="14.00">null</text>
+</g>
+<!-- 5&#45;&gt;n1 -->
+<g id="edge6" class="edge">
+<title>5&#45;&gt;n1</title>
+<path fill="none" stroke="black" d="M162.29,-44.15C158.97,-40.26 155.09,-35.7 151.3,-31.25" />
+<polygon fill="black" stroke="black" points="154.02,-29.05 144.87,-23.7 148.69,-33.59 154.02,-29.05" />
+</g>
+<!-- 6 -->
+<g id="node9" class="node">
+<title>6</title>
+<path fill="lightgray" stroke="black" d="M226.58,-22.25C226.58,-22.25 187.42,-22.25 187.42,-22.25 183.71,-22.25 180,-18.54 180,-14.83 180,-14.83 180,-7.42 180,-7.42 180,-3.71 183.71,0 187.42,0 187.42,0 226.58,0 226.58,0 230.29,0 234,-3.71 234,-7.42 234,-7.42 234,-14.83 234,-14.83 234,-18.54 230.29,-22.25 226.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="207" y="-4.95" font-family="Times,serif" font-size="14.00">6</text>
+</g>
+<!-- 5&#45;&gt;6 -->
+<g id="edge8" class="edge">
+<title>5&#45;&gt;6</title>
+<path fill="none" stroke="black" d="M179.71,-44.15C183.03,-40.26 186.91,-35.7 190.7,-31.25" />
+<polygon fill="black" stroke="black" points="193.31,-33.59 197.13,-23.7 187.98,-29.05 193.31,-33.59" />
+</g>
+</g>
+</svg>
+</div>
+<p>將<code class="language-plaintext highlighter-rouge">cr</code>左邊子樹(淺粉色區域)移到<code class="language-plaintext highlighter-rouge">cr</code>(節點<code class="language-plaintext highlighter-rouge">2</code>)和<code class="language-plaintext highlighter-rouge">cr.right</code>(節點<code class="language-plaintext highlighter-rouge">4</code>)的中間</p>
+<div class="graphviz-wrapper">
+
+<!-- Generated by graphviz version 14.1.2 (0)
+ -->
+<!-- Pages: 1 -->
+<svg role="img" aria-label="graphviz-9a3c11fb9e78f7090049dc928d0c405e" width="278pt" height="252pt" viewBox="0.00 0.00 278.00 252.00">
+<title>graphviz-9a3c11fb9e78f7090049dc928d0c405e</title>
+<desc>
+digraph {
+//rankdir=LR
+ranksep=0.3
+node [shape=box style=&quot;rounded,filled&quot; height=0.3]
+node [label=null fillcolor=lightgray] n1
+node [label=null fillcolor=lightgray] n2
+node [label=null fillcolor=lightgray] n3
+node [label=null fillcolor=lightgray] n4
+node [label=null fillcolor=lightgray] n5
+node [label=1 fillcolor=lightgray] 1
+node [label=2 fillcolor=&quot;#ffe66d&quot;] 2
+node [label=3 fillcolor=&quot;#cce8ff&quot;] 3
+node [label=4 fillcolor=lightgray] 4
+node [label=5 fillcolor=lightgray] 5
+
+node [label=6 fillcolor=lightgray] 6
+node [label=null fillcolor=lightgray] n2
+
+node [ label=&quot;\N&quot;]
+graph [style=&quot;filled,rounded&quot; fillcolor=&quot;#ffdddda7&quot;]
+subgraph cluster_1 {3}
+1 -&gt; 2 -&gt; 3 -&gt; n4
+3 -&gt; 4 -&gt;5 -&gt; 6
+1 -&gt; n1
+4 -&gt; n2
+5 -&gt; n3
+2 -&gt; n5
+}
+</desc>
+
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 247.5)">
+<polygon fill="white" stroke="none" points="-4,4 -4,-247.5 274,-247.5 274,4 -4,4" />
+<g id="clust1" class="cluster">
+<title>cluster_1</title>
+<path fill="#ffdddd" fill-opacity="0.654902" stroke="black" d="M112,-124.75C112,-124.75 158,-124.75 158,-124.75 164,-124.75 170,-130.75 170,-136.75 170,-136.75 170,-151 170,-151 170,-157 164,-163 158,-163 158,-163 112,-163 112,-163 106,-163 100,-157 100,-151 100,-151 100,-136.75 100,-136.75 100,-130.75 106,-124.75 112,-124.75" />
+</g>
+<!-- n1 -->
+<g id="node1" class="node">
+<title>n1</title>
+<path fill="lightgray" stroke="black" d="M46.58,-199.25C46.58,-199.25 7.42,-199.25 7.42,-199.25 3.71,-199.25 0,-195.54 0,-191.83 0,-191.83 0,-184.42 0,-184.42 0,-180.71 3.71,-177 7.42,-177 7.42,-177 46.58,-177 46.58,-177 50.29,-177 54,-180.71 54,-184.42 54,-184.42 54,-191.83 54,-191.83 54,-195.54 50.29,-199.25 46.58,-199.25" />
+<text xml:space="preserve" text-anchor="middle" x="27" y="-181.95" font-family="Times,serif" font-size="14.00">null</text>
+</g>
+<!-- n2 -->
+<g id="node2" class="node">
+<title>n2</title>
+<path fill="lightgray" stroke="black" d="M154.58,-66.5C154.58,-66.5 115.42,-66.5 115.42,-66.5 111.71,-66.5 108,-62.79 108,-59.08 108,-59.08 108,-51.67 108,-51.67 108,-47.96 111.71,-44.25 115.42,-44.25 115.42,-44.25 154.58,-44.25 154.58,-44.25 158.29,-44.25 162,-47.96 162,-51.67 162,-51.67 162,-59.08 162,-59.08 162,-62.79 158.29,-66.5 154.58,-66.5" />
+<text xml:space="preserve" text-anchor="middle" x="135" y="-49.2" font-family="Times,serif" font-size="14.00">null</text>
+</g>
+<!-- n3 -->
+<g id="node3" class="node">
+<title>n3</title>
+<path fill="lightgray" stroke="black" d="M190.58,-22.25C190.58,-22.25 151.42,-22.25 151.42,-22.25 147.71,-22.25 144,-18.54 144,-14.83 144,-14.83 144,-7.42 144,-7.42 144,-3.71 147.71,0 151.42,0 151.42,0 190.58,0 190.58,0 194.29,0 198,-3.71 198,-7.42 198,-7.42 198,-14.83 198,-14.83 198,-18.54 194.29,-22.25 190.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="171" y="-4.95" font-family="Times,serif" font-size="14.00">null</text>
+</g>
+<!-- n4 -->
+<g id="node4" class="node">
+<title>n4</title>
+<path fill="lightgray" stroke="black" d="M118.58,-110.75C118.58,-110.75 79.42,-110.75 79.42,-110.75 75.71,-110.75 72,-107.04 72,-103.33 72,-103.33 72,-95.92 72,-95.92 72,-92.21 75.71,-88.5 79.42,-88.5 79.42,-88.5 118.58,-88.5 118.58,-88.5 122.29,-88.5 126,-92.21 126,-95.92 126,-95.92 126,-103.33 126,-103.33 126,-107.04 122.29,-110.75 118.58,-110.75" />
+<text xml:space="preserve" text-anchor="middle" x="99" y="-93.45" font-family="Times,serif" font-size="14.00">null</text>
+</g>
+<!-- n5 -->
+<g id="node5" class="node">
+<title>n5</title>
+<path fill="lightgray" stroke="black" d="M82.58,-155C82.58,-155 43.42,-155 43.42,-155 39.71,-155 36,-151.29 36,-147.58 36,-147.58 36,-140.17 36,-140.17 36,-136.46 39.71,-132.75 43.42,-132.75 43.42,-132.75 82.58,-132.75 82.58,-132.75 86.29,-132.75 90,-136.46 90,-140.17 90,-140.17 90,-147.58 90,-147.58 90,-151.29 86.29,-155 82.58,-155" />
+<text xml:space="preserve" text-anchor="middle" x="63" y="-137.7" font-family="Times,serif" font-size="14.00">null</text>
+</g>
+<!-- 1 -->
+<g id="node6" class="node">
+<title>1</title>
+<path fill="lightgray" stroke="black" d="M82.58,-243.5C82.58,-243.5 43.42,-243.5 43.42,-243.5 39.71,-243.5 36,-239.79 36,-236.08 36,-236.08 36,-228.67 36,-228.67 36,-224.96 39.71,-221.25 43.42,-221.25 43.42,-221.25 82.58,-221.25 82.58,-221.25 86.29,-221.25 90,-224.96 90,-228.67 90,-228.67 90,-236.08 90,-236.08 90,-239.79 86.29,-243.5 82.58,-243.5" />
+<text xml:space="preserve" text-anchor="middle" x="63" y="-226.2" font-family="Times,serif" font-size="14.00">1</text>
+</g>
+<!-- 1&#45;&gt;n1 -->
+<g id="edge7" class="edge">
+<title>1&#45;&gt;n1</title>
+<path fill="none" stroke="black" d="M54.29,-221.15C50.97,-217.26 47.09,-212.7 43.3,-208.25" />
+<polygon fill="black" stroke="black" points="46.02,-206.05 36.87,-200.7 40.69,-210.59 46.02,-206.05" />
+</g>
+<!-- 2 -->
+<g id="node7" class="node">
+<title>2</title>
+<path fill="#ffe66d" stroke="black" d="M118.58,-199.25C118.58,-199.25 79.42,-199.25 79.42,-199.25 75.71,-199.25 72,-195.54 72,-191.83 72,-191.83 72,-184.42 72,-184.42 72,-180.71 75.71,-177 79.42,-177 79.42,-177 118.58,-177 118.58,-177 122.29,-177 126,-180.71 126,-184.42 126,-184.42 126,-191.83 126,-191.83 126,-195.54 122.29,-199.25 118.58,-199.25" />
+<text xml:space="preserve" text-anchor="middle" x="99" y="-181.95" font-family="Times,serif" font-size="14.00">2</text>
+</g>
+<!-- 1&#45;&gt;2 -->
+<g id="edge1" class="edge">
+<title>1&#45;&gt;2</title>
+<path fill="none" stroke="black" d="M71.71,-221.15C75.03,-217.26 78.91,-212.7 82.7,-208.25" />
+<polygon fill="black" stroke="black" points="85.31,-210.59 89.13,-200.7 79.98,-206.05 85.31,-210.59" />
+</g>
+<!-- 2&#45;&gt;n5 -->
+<g id="edge10" class="edge">
+<title>2&#45;&gt;n5</title>
+<path fill="none" stroke="black" d="M90.29,-176.9C86.97,-173.01 83.09,-168.45 79.3,-164" />
+<polygon fill="black" stroke="black" points="82.02,-161.8 72.87,-156.45 76.69,-166.34 82.02,-161.8" />
+</g>
+<!-- 3 -->
+<g id="node8" class="node">
+<title>3</title>
+<path fill="#cce8ff" stroke="black" d="M154.58,-155C154.58,-155 115.42,-155 115.42,-155 111.71,-155 108,-151.29 108,-147.58 108,-147.58 108,-140.17 108,-140.17 108,-136.46 111.71,-132.75 115.42,-132.75 115.42,-132.75 154.58,-132.75 154.58,-132.75 158.29,-132.75 162,-136.46 162,-140.17 162,-140.17 162,-147.58 162,-147.58 162,-151.29 158.29,-155 154.58,-155" />
+<text xml:space="preserve" text-anchor="middle" x="135" y="-137.7" font-family="Times,serif" font-size="14.00">3</text>
+</g>
+<!-- 2&#45;&gt;3 -->
+<g id="edge2" class="edge">
+<title>2&#45;&gt;3</title>
+<path fill="none" stroke="black" d="M107.71,-176.9C111.03,-173.01 114.91,-168.45 118.7,-164" />
+<polygon fill="black" stroke="black" points="121.31,-166.34 125.13,-156.45 115.98,-161.8 121.31,-166.34" />
+</g>
+<!-- 3&#45;&gt;n4 -->
+<g id="edge3" class="edge">
+<title>3&#45;&gt;n4</title>
+<path fill="none" stroke="black" d="M126.29,-132.65C122.97,-128.76 119.09,-124.2 115.3,-119.75" />
+<polygon fill="black" stroke="black" points="118.02,-117.55 108.87,-112.2 112.69,-122.09 118.02,-117.55" />
+</g>
+<!-- 4 -->
+<g id="node9" class="node">
+<title>4</title>
+<path fill="lightgray" stroke="black" d="M190.58,-110.75C190.58,-110.75 151.42,-110.75 151.42,-110.75 147.71,-110.75 144,-107.04 144,-103.33 144,-103.33 144,-95.92 144,-95.92 144,-92.21 147.71,-88.5 151.42,-88.5 151.42,-88.5 190.58,-88.5 190.58,-88.5 194.29,-88.5 198,-92.21 198,-95.92 198,-95.92 198,-103.33 198,-103.33 198,-107.04 194.29,-110.75 190.58,-110.75" />
+<text xml:space="preserve" text-anchor="middle" x="171" y="-93.45" font-family="Times,serif" font-size="14.00">4</text>
+</g>
+<!-- 3&#45;&gt;4 -->
+<g id="edge4" class="edge">
+<title>3&#45;&gt;4</title>
+<path fill="none" stroke="black" d="M143.71,-132.65C147.03,-128.76 150.91,-124.2 154.7,-119.75" />
+<polygon fill="black" stroke="black" points="157.31,-122.09 161.13,-112.2 151.98,-117.55 157.31,-122.09" />
+</g>
+<!-- 4&#45;&gt;n2 -->
+<g id="edge8" class="edge">
+<title>4&#45;&gt;n2</title>
+<path fill="none" stroke="black" d="M162.29,-88.4C158.97,-84.51 155.09,-79.95 151.3,-75.5" />
+<polygon fill="black" stroke="black" points="154.02,-73.3 144.87,-67.95 148.69,-77.84 154.02,-73.3" />
+</g>
+<!-- 5 -->
+<g id="node10" class="node">
+<title>5</title>
+<path fill="lightgray" stroke="black" d="M226.58,-66.5C226.58,-66.5 187.42,-66.5 187.42,-66.5 183.71,-66.5 180,-62.79 180,-59.08 180,-59.08 180,-51.67 180,-51.67 180,-47.96 183.71,-44.25 187.42,-44.25 187.42,-44.25 226.58,-44.25 226.58,-44.25 230.29,-44.25 234,-47.96 234,-51.67 234,-51.67 234,-59.08 234,-59.08 234,-62.79 230.29,-66.5 226.58,-66.5" />
+<text xml:space="preserve" text-anchor="middle" x="207" y="-49.2" font-family="Times,serif" font-size="14.00">5</text>
+</g>
+<!-- 4&#45;&gt;5 -->
+<g id="edge5" class="edge">
+<title>4&#45;&gt;5</title>
+<path fill="none" stroke="black" d="M179.71,-88.4C183.03,-84.51 186.91,-79.95 190.7,-75.5" />
+<polygon fill="black" stroke="black" points="193.31,-77.84 197.13,-67.95 187.98,-73.3 193.31,-77.84" />
+</g>
+<!-- 5&#45;&gt;n3 -->
+<g id="edge9" class="edge">
+<title>5&#45;&gt;n3</title>
+<path fill="none" stroke="black" d="M198.29,-44.15C194.97,-40.26 191.09,-35.7 187.3,-31.25" />
+<polygon fill="black" stroke="black" points="190.02,-29.05 180.87,-23.7 184.69,-33.59 190.02,-29.05" />
+</g>
+<!-- 6 -->
+<g id="node11" class="node">
+<title>6</title>
+<path fill="lightgray" stroke="black" d="M262.58,-22.25C262.58,-22.25 223.42,-22.25 223.42,-22.25 219.71,-22.25 216,-18.54 216,-14.83 216,-14.83 216,-7.42 216,-7.42 216,-3.71 219.71,0 223.42,0 223.42,0 262.58,0 262.58,0 266.29,0 270,-3.71 270,-7.42 270,-7.42 270,-14.83 270,-14.83 270,-18.54 266.29,-22.25 262.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="243" y="-4.95" font-family="Times,serif" font-size="14.00">6</text>
+</g>
+<!-- 5&#45;&gt;6 -->
+<g id="edge6" class="edge">
+<title>5&#45;&gt;6</title>
+<path fill="none" stroke="black" d="M215.71,-44.15C219.03,-40.26 222.91,-35.7 226.7,-31.25" />
+<polygon fill="black" stroke="black" points="229.31,-33.59 233.13,-23.7 223.98,-29.05 229.31,-33.59" />
+</g>
+</g>
+</svg>
+</div>
+<p><code class="language-plaintext highlighter-rouge">cr</code>向右移動，此時<code class="language-plaintext highlighter-rouge">cr</code>為節點<code class="language-plaintext highlighter-rouge">3</code>。
+<code class="language-plaintext highlighter-rouge">cr</code>的左側為空，不需要做任何事情。
+<code class="language-plaintext highlighter-rouge">cr</code>持續向右移動，如果<code class="language-plaintext highlighter-rouge">cr</code>的左側不為空，按照之前的方式將左側子樹移到<code class="language-plaintext highlighter-rouge">cr</code>和<code class="language-plaintext highlighter-rouge">cr.right</code>中間</p>
+
+<div class="graphviz-wrapper">
+
+<!-- Generated by graphviz version 14.1.2 (0)
+ -->
+<!-- Pages: 1 -->
+<svg role="img" aria-label="graphviz-cba84a1567864862ec504c0179d37076" width="278pt" height="252pt" viewBox="0.00 0.00 278.00 252.00">
+<title>graphviz-cba84a1567864862ec504c0179d37076</title>
+<desc>
+digraph {
+//rankdir=LR
+ranksep=0.3
+node [shape=box style=&quot;rounded,filled&quot; height=0.3]
+node [label=null fillcolor=lightgray] n1
+node [label=null fillcolor=lightgray] n2
+node [label=null fillcolor=lightgray] n3
+node [label=null fillcolor=lightgray] n4
+node [label=null fillcolor=lightgray] n5
+node [label=1 fillcolor=lightgray] 1
+node [label=2 fillcolor=lightgray] 2
+node [label=3 fillcolor=&quot;#ffe66d&quot;] 3
+node [label=4 fillcolor=lightgray] 4
+node [label=5 fillcolor=lightgray] 5
+
+node [label=6 fillcolor=lightgray] 6
+node [label=null fillcolor=lightgray] n2
+
+node [ label=&quot;\N&quot;]
+1 -&gt; 2 -&gt; 3 -&gt; n4
+3 -&gt; 4 -&gt;5 -&gt; 6
+1 -&gt; n1
+4 -&gt; n2
+5 -&gt; n3
+2 -&gt; n5
+}
+</desc>
+
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 247.5)">
+<polygon fill="white" stroke="none" points="-4,4 -4,-247.5 274,-247.5 274,4 -4,4" />
+<!-- n1 -->
+<g id="node1" class="node">
+<title>n1</title>
+<path fill="lightgray" stroke="black" d="M46.58,-199.25C46.58,-199.25 7.42,-199.25 7.42,-199.25 3.71,-199.25 0,-195.54 0,-191.83 0,-191.83 0,-184.42 0,-184.42 0,-180.71 3.71,-177 7.42,-177 7.42,-177 46.58,-177 46.58,-177 50.29,-177 54,-180.71 54,-184.42 54,-184.42 54,-191.83 54,-191.83 54,-195.54 50.29,-199.25 46.58,-199.25" />
+<text xml:space="preserve" text-anchor="middle" x="27" y="-181.95" font-family="Times,serif" font-size="14.00">null</text>
+</g>
+<!-- n2 -->
+<g id="node2" class="node">
+<title>n2</title>
+<path fill="lightgray" stroke="black" d="M154.58,-66.5C154.58,-66.5 115.42,-66.5 115.42,-66.5 111.71,-66.5 108,-62.79 108,-59.08 108,-59.08 108,-51.67 108,-51.67 108,-47.96 111.71,-44.25 115.42,-44.25 115.42,-44.25 154.58,-44.25 154.58,-44.25 158.29,-44.25 162,-47.96 162,-51.67 162,-51.67 162,-59.08 162,-59.08 162,-62.79 158.29,-66.5 154.58,-66.5" />
+<text xml:space="preserve" text-anchor="middle" x="135" y="-49.2" font-family="Times,serif" font-size="14.00">null</text>
+</g>
+<!-- n3 -->
+<g id="node3" class="node">
+<title>n3</title>
+<path fill="lightgray" stroke="black" d="M190.58,-22.25C190.58,-22.25 151.42,-22.25 151.42,-22.25 147.71,-22.25 144,-18.54 144,-14.83 144,-14.83 144,-7.42 144,-7.42 144,-3.71 147.71,0 151.42,0 151.42,0 190.58,0 190.58,0 194.29,0 198,-3.71 198,-7.42 198,-7.42 198,-14.83 198,-14.83 198,-18.54 194.29,-22.25 190.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="171" y="-4.95" font-family="Times,serif" font-size="14.00">null</text>
+</g>
+<!-- n4 -->
+<g id="node4" class="node">
+<title>n4</title>
+<path fill="lightgray" stroke="black" d="M118.58,-110.75C118.58,-110.75 79.42,-110.75 79.42,-110.75 75.71,-110.75 72,-107.04 72,-103.33 72,-103.33 72,-95.92 72,-95.92 72,-92.21 75.71,-88.5 79.42,-88.5 79.42,-88.5 118.58,-88.5 118.58,-88.5 122.29,-88.5 126,-92.21 126,-95.92 126,-95.92 126,-103.33 126,-103.33 126,-107.04 122.29,-110.75 118.58,-110.75" />
+<text xml:space="preserve" text-anchor="middle" x="99" y="-93.45" font-family="Times,serif" font-size="14.00">null</text>
+</g>
+<!-- n5 -->
+<g id="node5" class="node">
+<title>n5</title>
+<path fill="lightgray" stroke="black" d="M82.58,-155C82.58,-155 43.42,-155 43.42,-155 39.71,-155 36,-151.29 36,-147.58 36,-147.58 36,-140.17 36,-140.17 36,-136.46 39.71,-132.75 43.42,-132.75 43.42,-132.75 82.58,-132.75 82.58,-132.75 86.29,-132.75 90,-136.46 90,-140.17 90,-140.17 90,-147.58 90,-147.58 90,-151.29 86.29,-155 82.58,-155" />
+<text xml:space="preserve" text-anchor="middle" x="63" y="-137.7" font-family="Times,serif" font-size="14.00">null</text>
+</g>
+<!-- 1 -->
+<g id="node6" class="node">
+<title>1</title>
+<path fill="lightgray" stroke="black" d="M82.58,-243.5C82.58,-243.5 43.42,-243.5 43.42,-243.5 39.71,-243.5 36,-239.79 36,-236.08 36,-236.08 36,-228.67 36,-228.67 36,-224.96 39.71,-221.25 43.42,-221.25 43.42,-221.25 82.58,-221.25 82.58,-221.25 86.29,-221.25 90,-224.96 90,-228.67 90,-228.67 90,-236.08 90,-236.08 90,-239.79 86.29,-243.5 82.58,-243.5" />
+<text xml:space="preserve" text-anchor="middle" x="63" y="-226.2" font-family="Times,serif" font-size="14.00">1</text>
+</g>
+<!-- 1&#45;&gt;n1 -->
+<g id="edge7" class="edge">
+<title>1&#45;&gt;n1</title>
+<path fill="none" stroke="black" d="M54.29,-221.15C50.97,-217.26 47.09,-212.7 43.3,-208.25" />
+<polygon fill="black" stroke="black" points="46.02,-206.05 36.87,-200.7 40.69,-210.59 46.02,-206.05" />
+</g>
+<!-- 2 -->
+<g id="node7" class="node">
+<title>2</title>
+<path fill="lightgray" stroke="black" d="M118.58,-199.25C118.58,-199.25 79.42,-199.25 79.42,-199.25 75.71,-199.25 72,-195.54 72,-191.83 72,-191.83 72,-184.42 72,-184.42 72,-180.71 75.71,-177 79.42,-177 79.42,-177 118.58,-177 118.58,-177 122.29,-177 126,-180.71 126,-184.42 126,-184.42 126,-191.83 126,-191.83 126,-195.54 122.29,-199.25 118.58,-199.25" />
+<text xml:space="preserve" text-anchor="middle" x="99" y="-181.95" font-family="Times,serif" font-size="14.00">2</text>
+</g>
+<!-- 1&#45;&gt;2 -->
+<g id="edge1" class="edge">
+<title>1&#45;&gt;2</title>
+<path fill="none" stroke="black" d="M71.71,-221.15C75.03,-217.26 78.91,-212.7 82.7,-208.25" />
+<polygon fill="black" stroke="black" points="85.31,-210.59 89.13,-200.7 79.98,-206.05 85.31,-210.59" />
+</g>
+<!-- 2&#45;&gt;n5 -->
+<g id="edge10" class="edge">
+<title>2&#45;&gt;n5</title>
+<path fill="none" stroke="black" d="M90.29,-176.9C86.97,-173.01 83.09,-168.45 79.3,-164" />
+<polygon fill="black" stroke="black" points="82.02,-161.8 72.87,-156.45 76.69,-166.34 82.02,-161.8" />
+</g>
+<!-- 3 -->
+<g id="node8" class="node">
+<title>3</title>
+<path fill="#ffe66d" stroke="black" d="M154.58,-155C154.58,-155 115.42,-155 115.42,-155 111.71,-155 108,-151.29 108,-147.58 108,-147.58 108,-140.17 108,-140.17 108,-136.46 111.71,-132.75 115.42,-132.75 115.42,-132.75 154.58,-132.75 154.58,-132.75 158.29,-132.75 162,-136.46 162,-140.17 162,-140.17 162,-147.58 162,-147.58 162,-151.29 158.29,-155 154.58,-155" />
+<text xml:space="preserve" text-anchor="middle" x="135" y="-137.7" font-family="Times,serif" font-size="14.00">3</text>
+</g>
+<!-- 2&#45;&gt;3 -->
+<g id="edge2" class="edge">
+<title>2&#45;&gt;3</title>
+<path fill="none" stroke="black" d="M107.71,-176.9C111.03,-173.01 114.91,-168.45 118.7,-164" />
+<polygon fill="black" stroke="black" points="121.31,-166.34 125.13,-156.45 115.98,-161.8 121.31,-166.34" />
+</g>
+<!-- 3&#45;&gt;n4 -->
+<g id="edge3" class="edge">
+<title>3&#45;&gt;n4</title>
+<path fill="none" stroke="black" d="M126.29,-132.65C122.97,-128.76 119.09,-124.2 115.3,-119.75" />
+<polygon fill="black" stroke="black" points="118.02,-117.55 108.87,-112.2 112.69,-122.09 118.02,-117.55" />
+</g>
+<!-- 4 -->
+<g id="node9" class="node">
+<title>4</title>
+<path fill="lightgray" stroke="black" d="M190.58,-110.75C190.58,-110.75 151.42,-110.75 151.42,-110.75 147.71,-110.75 144,-107.04 144,-103.33 144,-103.33 144,-95.92 144,-95.92 144,-92.21 147.71,-88.5 151.42,-88.5 151.42,-88.5 190.58,-88.5 190.58,-88.5 194.29,-88.5 198,-92.21 198,-95.92 198,-95.92 198,-103.33 198,-103.33 198,-107.04 194.29,-110.75 190.58,-110.75" />
+<text xml:space="preserve" text-anchor="middle" x="171" y="-93.45" font-family="Times,serif" font-size="14.00">4</text>
+</g>
+<!-- 3&#45;&gt;4 -->
+<g id="edge4" class="edge">
+<title>3&#45;&gt;4</title>
+<path fill="none" stroke="black" d="M143.71,-132.65C147.03,-128.76 150.91,-124.2 154.7,-119.75" />
+<polygon fill="black" stroke="black" points="157.31,-122.09 161.13,-112.2 151.98,-117.55 157.31,-122.09" />
+</g>
+<!-- 4&#45;&gt;n2 -->
+<g id="edge8" class="edge">
+<title>4&#45;&gt;n2</title>
+<path fill="none" stroke="black" d="M162.29,-88.4C158.97,-84.51 155.09,-79.95 151.3,-75.5" />
+<polygon fill="black" stroke="black" points="154.02,-73.3 144.87,-67.95 148.69,-77.84 154.02,-73.3" />
+</g>
+<!-- 5 -->
+<g id="node10" class="node">
+<title>5</title>
+<path fill="lightgray" stroke="black" d="M226.58,-66.5C226.58,-66.5 187.42,-66.5 187.42,-66.5 183.71,-66.5 180,-62.79 180,-59.08 180,-59.08 180,-51.67 180,-51.67 180,-47.96 183.71,-44.25 187.42,-44.25 187.42,-44.25 226.58,-44.25 226.58,-44.25 230.29,-44.25 234,-47.96 234,-51.67 234,-51.67 234,-59.08 234,-59.08 234,-62.79 230.29,-66.5 226.58,-66.5" />
+<text xml:space="preserve" text-anchor="middle" x="207" y="-49.2" font-family="Times,serif" font-size="14.00">5</text>
+</g>
+<!-- 4&#45;&gt;5 -->
+<g id="edge5" class="edge">
+<title>4&#45;&gt;5</title>
+<path fill="none" stroke="black" d="M179.71,-88.4C183.03,-84.51 186.91,-79.95 190.7,-75.5" />
+<polygon fill="black" stroke="black" points="193.31,-77.84 197.13,-67.95 187.98,-73.3 193.31,-77.84" />
+</g>
+<!-- 5&#45;&gt;n3 -->
+<g id="edge9" class="edge">
+<title>5&#45;&gt;n3</title>
+<path fill="none" stroke="black" d="M198.29,-44.15C194.97,-40.26 191.09,-35.7 187.3,-31.25" />
+<polygon fill="black" stroke="black" points="190.02,-29.05 180.87,-23.7 184.69,-33.59 190.02,-29.05" />
+</g>
+<!-- 6 -->
+<g id="node11" class="node">
+<title>6</title>
+<path fill="lightgray" stroke="black" d="M262.58,-22.25C262.58,-22.25 223.42,-22.25 223.42,-22.25 219.71,-22.25 216,-18.54 216,-14.83 216,-14.83 216,-7.42 216,-7.42 216,-3.71 219.71,0 223.42,0 223.42,0 262.58,0 262.58,0 266.29,0 270,-3.71 270,-7.42 270,-7.42 270,-14.83 270,-14.83 270,-18.54 266.29,-22.25 262.58,-22.25" />
+<text xml:space="preserve" text-anchor="middle" x="243" y="-4.95" font-family="Times,serif" font-size="14.00">6</text>
+</g>
+<!-- 5&#45;&gt;6 -->
+<g id="edge6" class="edge">
+<title>5&#45;&gt;6</title>
+<path fill="none" stroke="black" d="M215.71,-44.15C219.03,-40.26 222.91,-35.7 226.7,-31.25" />
+<polygon fill="black" stroke="black" points="229.31,-33.59 233.13,-23.7 223.98,-29.05 229.31,-33.59" />
+</g>
+</g>
+</svg>
+</div>
+
+<h2 id="實作-1">實作</h2>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+</span><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+
+    <span class="k">def</span> <span class="nf">flatten</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">TreeNode</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="s">"""
+        Do not return anything, modify root in-place instead.
+        """</span>
+        <span class="n">cr</span> <span class="o">=</span> <span class="n">root</span>
+        <span class="k">while</span> <span class="n">cr</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">cr</span><span class="p">.</span><span class="n">left</span><span class="p">:</span>
+                <span class="n">left_tail</span> <span class="o">=</span> <span class="n">cr</span><span class="p">.</span><span class="n">left</span>
+                <span class="k">while</span> <span class="n">left_tail</span><span class="p">.</span><span class="n">right</span><span class="p">:</span>
+                    <span class="n">left_tail</span> <span class="o">=</span> <span class="n">left_tail</span><span class="p">.</span><span class="n">right</span>
+                <span class="n">left_tail</span><span class="p">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">cr</span><span class="p">.</span><span class="n">right</span>
+                <span class="n">cr</span><span class="p">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">cr</span><span class="p">.</span><span class="n">left</span>
+                <span class="n">cr</span><span class="p">.</span><span class="n">left</span> <span class="o">=</span> <span class="bp">None</span>
+            <span class="n">cr</span> <span class="o">=</span> <span class="n">cr</span><span class="p">.</span><span class="n">right</span>
+</code></pre></div></div>
+<h2 id="時間複雜度-1">時間複雜度</h2>
+<p>這個做法由於每個節點會成為一次<code class="language-plaintext highlighter-rouge">cr</code>，將<code class="language-plaintext highlighter-rouge">cr</code>的右側的子樹合併至左側的時間複雜度為$O(1)$，圖中有n個節點，時間複雜度為$O(n)$</p>
+
+		</p>
+	</div>		
+  <div style="text-align: left; padding: 25px;">
+  <h1>相關文章</h1>
+  
+  
+
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2025/07/18/138-Copy-List-with-Random-Pointer.html" class="badge badge-warning">[Leetcode解題] 138. Copy List with Random Pointer</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 138. Copy List with Random Pointer</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">hashmap</i>
+		
+		<i href="#" class="badge badge-dark">linked-list</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2025/05/24/2368-reachable-nodes-with-restrictions.html" class="badge badge-warning">[Leetcode解題] 2368. Reachable Nodes With Restrictions</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 2368. Reachable Nodes With Restrictions</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">tree</i>
+		
+		<i href="#" class="badge badge-dark">dfs</i>
+		
+		<i href="#" class="badge badge-dark">bfs</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2025/05/23/1993-Operations-on-Tree.html" class="badge badge-warning">[Leetcode解題] 1993. Operations on Trees</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 1993. Operations on Trees</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">tree</i>
+		
+		<i href="#" class="badge badge-dark">dfs</i>
+		
+		<i href="#" class="badge badge-dark">bfs</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/10/05/1302-Deepest-Leaves-Sum.html" class="badge badge-warning">[Leetcode解題]  1302. Deepest Leaves Sum</a>
+  
+  
+  <!--
+  <div>[Leetcode解題]  1302. Deepest Leaves Sum</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">tree</i>
+		
+		<i href="#" class="badge badge-dark">binary-tree</i>
+		
+		<i href="#" class="badge badge-dark">bfs</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2022/02/11/114-Flatten-Binary-Tree-to-Linked-List.html" class="badge badge-warning">[Leetcode解題] Flatten Binary Tree to Linked List - 遍歷二叉樹</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] Flatten Binary Tree to Linked List - 遍歷二叉樹</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">tree</i>
+		
+		<i href="#" class="badge badge-dark">linked-list</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+  </div>
+</div>
+		</div>
+		<div class="col-md-2 col-sm-0">
+		</div>
+	</div>
+</div>
+
+		</main>
+		<footer class="footer">
+			<!-- No -->
+
+<!--This is the footer of the website-->
+
+<div class="footer-window container-fluid footer-color">
+	<div class="row">
+		<div class="footer-view footer-left col-md-4 text-left">
+			<div class="footer-section">
+				<div class="account-box">
+			</div>
+			</div>
+		</div>
+		<div class="footer-view footer-center col-md-4 text-center">
+			<div class="footer-section">
+				<div class="footer-copyright">
+					解題愛好者
+					<br><br>
+					歡迎來到刷題貓！我們是兩位熱愛程式設計的工程師，在此分享Leetcode刷題心得以及整理主題式的文章
+					<br><br>
+					© 2023 CATXCODER All Rights Reserved
+				</div>
+				<div>
+				</div>
+			</div>
+		</div>
+		<div class="footer-view footer-right col-md-4 text-center">
+			<div class="footer-section">
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--
+log
+<p>Version 0.0.2</p>
+			<p>0.0.2 - 配色完成</p>
+			<p>0.0.2 - 基本模板完成</p>
+			<p>0.0.2 - 自我介紹新增打字效果</p>
+
+
+
+
+-->
+
+		</footer>
+		</div>
+	</body>
+</html>
+
+<script>
+$(".badge-info").hover(function(){
+    $(this).hide(1000);
+});
+
+
+</script>

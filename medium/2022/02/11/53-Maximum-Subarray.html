@@ -1,0 +1,1968 @@
+<!-- OK -->
+
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="utf-8">
+	<link rel="icon" type="image/x-icon" href="/res/catxcoder.ico">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>[Leetcode解題] Maximum Subarray - presum解</title>
+	<meta name="description" content="[Leetcode解題] Maximum Subarray - presum解" />
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<!-- My CSS -->
+<link href="/res/css/common.css" rel="stylesheet">
+
+	</head>
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-MHQH8LKZYV"></script>
+	<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+
+	gtag('config', 'G-MHQH8LKZYV');
+	</script>
+	<body>		
+				<!-- JQeury -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+    
+	<!-- Font Awesome -->
+	<!--<script defer src="https://use.fontawesome.com/releases/v6.4.2/js/all.js" integrity="	sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe" crossorigin="anonymous"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" integrity="sha512-uKQ39gEGiyUJl4AI6L+ekBdGKpGw4xJ55+xyJG7YFlJokPNYegn9KwQ3P8A7aFQAUtUsAQHep+d/lrGqrbPIDQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<!-- support MathJax -->
+	<style TYPE="text/css">
+	code.has-jax {font: inherit; font-size: 100%; background: inherit; border: inherit;}
+	</style>
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	    tex2jax: {
+	        inlineMath: [['$','$'], ['\\(','\\)']],
+	        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'] // removed 'code' entry
+	    }
+	});
+	MathJax.Hub.Queue(function() {
+	    var all = MathJax.Hub.getAllJax(), i;
+	    for(i = 0; i < all.length; i += 1) {
+	        all[i].SourceElement().parentNode.className += ' has-jax';
+	    }
+	});
+	</script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<!-- A patch to fix mathjax -->
+<!-- https://github.com/mathjax/MathJax/issues/1737 -->
+	<script type="text/x-mathjax-config">
+if (MathJax.Hub.Browser.isSafari && parseInt(MathJax.Hub.Browser.webkit) >= 603) {
+  MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready", function () {
+    var HTMLCSS = MathJax.OutputJax["HTML-CSS"];
+    var MML = MathJax.ElementJax.mml;
+    var toHTML = MML.mo.prototype.toHTML;
+    MML.mo.Augment({
+      toHTML: function (span) {
+        span = toHTML.call(this,span);
+        if (span.bbox.w === 0 && span.bbox.lw < 0 && span.firstChild) {
+          span.style.marginLeft = HTMLCSS.Em(span.bbox.lw);
+        }
+        return span;
+      }
+    });
+  });
+}
+</script>
+
+		<header>
+			<!-- OK -->
+
+<div class="container">
+  <nav class="navbar navbar-expand-lg navbar-default nav-color" >
+    <a href="/index.html">
+      <img src="/res/catxcoder.ico" class="img-fluid" style="width: 32px; margin-right: 10px;">
+    </a>
+    <a class="navbar-item" href="/index.html">
+      刷題貓
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span><i class="fas fa-bars" ></i></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <ul class="navbar-nav ml-auto navbar-right">
+          <li class="nav-item">
+             <a class="nav-link" href="/index.html">首頁</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/posts/categories">難度</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/posts/algorithms">演算法</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/works">主題式</a>
+          </li>
+        </ul>
+    </div>
+  </nav>
+</div>
+
+		</header>
+		<main>
+			<!-- OK -->
+
+<div class="container-fluid text-center bg-color">
+	<div class="row bg-icon">
+		<div class="col-md-2 col-sm-0">
+
+		</div>
+		<div class="view-home col-md-8 col-sm-12 post-home-color">
+			<div class="post-view-color post-view-window">
+	
+	<!-- title -->
+	<div class="post-view-title text-left" >
+		<p>[Leetcode解題] Maximum Subarray - presum解</p>
+	</div>
+	
+	<!-- date -->
+	<div class="post-view-date">
+			11 February 2022
+	</div>
+
+	<!-- tags -->
+	<div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">dp</i>
+		
+		<i href="#" class="badge badge-dark">presum</i>
+		
+		<i href="#" class="badge badge-dark">apple</i>
+		
+	</div>
+	<hr>
+
+	<!-- excerpt -->
+	<div class="post-view-excerpt text-left">
+		<p>
+			<h1 id="題目">題目</h1>
+<p><a href="https://leetcode.com/problems/maximum-subarray/">53. Maximum Subarray</a>
+給定一個整數陣列<code class="language-plaintext highlighter-rouge">nums</code>，找到<strong>子陣列</strong>其總和最大並返回其總和。</p>
+
+<!--more-->
+
+<h1 id="使用presum">使用preSum</h1>
+
+<p><code class="language-plaintext highlighter-rouge">preSum(i)</code>代表陣列<code class="language-plaintext highlighter-rouge">nums[0:i]</code>(包含i)的總合，子陣列<code class="language-plaintext highlighter-rouge">nums[i:j]</code>的總和: <code class="language-plaintext highlighter-rouge">preSum(j)-preSum(i-1)</code>
+當前指標位置cr，到cr前最小的preSum <code class="language-plaintext highlighter-rouge">min_sum  = min(preSum(0),...,preSum(cr-1))</code>，那麼假設<strong>最大總和的子陣列</strong>的最後一個元素為cr，該子陣列的總合為<code class="language-plaintext highlighter-rouge">preSum(cr)-min_sum</code>。</p>
+
+<p>以下圖為例子，指標cr = 0，到cr前最小的preSum: minSum = 0，結尾為cr的最大總和的子陣列<code class="language-plaintext highlighter-rouge">ans_0 = preSum(0)-minSum = -2 - 0 = -2</code>。</p>
+
+<div class="graphviz-wrapper">
+
+<!-- Generated by graphviz version 14.1.2 (0)
+ -->
+<!-- Title: hierarchy Pages: 1 -->
+<svg role="img" aria-label="graphviz-63fcd599e72592989e2725a6d42134e0" width="324pt" height="103pt" viewBox="0.00 0.00 324.00 103.00">
+<title>graphviz-63fcd599e72592989e2725a6d42134e0</title>
+<desc>
+digraph hierarchy {
+  //rankdir=LR;
+  node [ shape=record ];
+  arr [label=&quot;
+      &lt;0&gt; -2 |
+      &lt;1&gt; 1 |
+      &lt;2&gt; -3 |
+      &lt;3&gt; 4 |
+      &lt;4&gt; -1 |
+        &lt;5&gt; 2 &quot;];
+node [shape=box style=&quot;rounded,filled&quot; height=0.3]
+cr -&gt; arr:&lt;0&gt;
+node [label=0 fillcolor=lightgray] 1
+node [label=&quot;\N&quot; shape=box style=&quot;rounded,filled&quot; height=0.3]
+minSum -&gt; 1
+preSum -&gt; 0
+}
+</desc>
+
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 99.25)">
+<title>hierarchy</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-99.25 320.38,-99.25 320.38,4 -4,4" />
+<!-- arr -->
+<g id="node1" class="node">
+<title>arr</title>
+<polygon fill="none" stroke="black" points="13,-0.5 13,-36.5 163,-36.5 163,-0.5 13,-0.5" />
+<text xml:space="preserve" text-anchor="middle" x="26.62" y="-12.32" font-family="Times,serif" font-size="14.00">&#45;2</text>
+<polyline fill="none" stroke="black" points="40.25,-0.5 40.25,-36.5" />
+<text xml:space="preserve" text-anchor="middle" x="51.62" y="-12.32" font-family="Times,serif" font-size="14.00">1</text>
+<polyline fill="none" stroke="black" points="63,-0.5 63,-36.5" />
+<text xml:space="preserve" text-anchor="middle" x="76.62" y="-12.32" font-family="Times,serif" font-size="14.00">&#45;3</text>
+<polyline fill="none" stroke="black" points="90.25,-0.5 90.25,-36.5" />
+<text xml:space="preserve" text-anchor="middle" x="101.62" y="-12.32" font-family="Times,serif" font-size="14.00">4</text>
+<polyline fill="none" stroke="black" points="113,-0.5 113,-36.5" />
+<text xml:space="preserve" text-anchor="middle" x="126.62" y="-12.32" font-family="Times,serif" font-size="14.00">&#45;1</text>
+<polyline fill="none" stroke="black" points="140.25,-0.5 140.25,-36.5" />
+<text xml:space="preserve" text-anchor="middle" x="151.62" y="-12.32" font-family="Times,serif" font-size="14.00">2</text>
+</g>
+<!-- cr -->
+<g id="node2" class="node">
+<title>cr</title>
+<path fill="lightgrey" stroke="black" d="M46.58,-95.25C46.58,-95.25 7.42,-95.25 7.42,-95.25 3.71,-95.25 0,-91.54 0,-87.83 0,-87.83 0,-80.42 0,-80.42 0,-76.71 3.71,-73 7.42,-73 7.42,-73 46.58,-73 46.58,-73 50.29,-73 54,-76.71 54,-80.42 54,-80.42 54,-87.83 54,-87.83 54,-91.54 50.29,-95.25 46.58,-95.25" />
+<text xml:space="preserve" text-anchor="middle" x="27" y="-77.95" font-family="Times,serif" font-size="14.00">cr</text>
+</g>
+<!-- cr&#45;&gt;arr -->
+<g id="edge1" class="edge">
+<title>cr&#45;&gt;arr:0</title>
+<path fill="none" stroke="black" d="M26.87,-72.87C26.79,-66.29 26.7,-57.33 26.66,-48.3" />
+<polygon fill="black" stroke="black" points="30.16,-48.5 26.63,-38.51 23.16,-48.52 30.16,-48.5" />
+</g>
+<!-- 1 -->
+<g id="node3" class="node">
+<title>1</title>
+<path fill="lightgray" stroke="black" d="M227.58,-29.62C227.58,-29.62 188.42,-29.62 188.42,-29.62 184.71,-29.62 181,-25.92 181,-22.21 181,-22.21 181,-14.79 181,-14.79 181,-11.08 184.71,-7.38 188.42,-7.38 188.42,-7.38 227.58,-7.38 227.58,-7.38 231.29,-7.38 235,-11.08 235,-14.79 235,-14.79 235,-22.21 235,-22.21 235,-25.92 231.29,-29.62 227.58,-29.62" />
+<text xml:space="preserve" text-anchor="middle" x="208" y="-12.32" font-family="Times,serif" font-size="14.00">0</text>
+</g>
+<!-- minSum -->
+<g id="node4" class="node">
+<title>minSum</title>
+<path fill="lightgray" stroke="black" d="M232.21,-95.25C232.21,-95.25 183.79,-95.25 183.79,-95.25 180.08,-95.25 176.38,-91.54 176.38,-87.83 176.38,-87.83 176.38,-80.42 176.38,-80.42 176.38,-76.71 180.08,-73 183.79,-73 183.79,-73 232.21,-73 232.21,-73 235.92,-73 239.62,-76.71 239.62,-80.42 239.62,-80.42 239.62,-87.83 239.62,-87.83 239.62,-91.54 235.92,-95.25 232.21,-95.25" />
+<text xml:space="preserve" text-anchor="middle" x="208" y="-77.95" font-family="Times,serif" font-size="14.00">minSum</text>
+</g>
+<!-- minSum&#45;&gt;1 -->
+<g id="edge2" class="edge">
+<title>minSum&#45;&gt;1</title>
+<path fill="none" stroke="black" d="M208,-72.62C208,-64.09 208,-51.79 208,-41.18" />
+<polygon fill="black" stroke="black" points="211.5,-41.32 208,-31.32 204.5,-41.32 211.5,-41.32" />
+</g>
+<!-- preSum -->
+<g id="node5" class="node">
+<title>preSum</title>
+<path fill="lightgray" stroke="black" d="M308.96,-95.25C308.96,-95.25 265.04,-95.25 265.04,-95.25 261.33,-95.25 257.62,-91.54 257.62,-87.83 257.62,-87.83 257.62,-80.42 257.62,-80.42 257.62,-76.71 261.33,-73 265.04,-73 265.04,-73 308.96,-73 308.96,-73 312.67,-73 316.38,-76.71 316.38,-80.42 316.38,-80.42 316.38,-87.83 316.38,-87.83 316.38,-91.54 312.67,-95.25 308.96,-95.25" />
+<text xml:space="preserve" text-anchor="middle" x="287" y="-77.95" font-family="Times,serif" font-size="14.00">preSum</text>
+</g>
+<!-- 0 -->
+<g id="node6" class="node">
+<title>0</title>
+<path fill="lightgray" stroke="black" d="M306.58,-29.62C306.58,-29.62 267.42,-29.62 267.42,-29.62 263.71,-29.62 260,-25.92 260,-22.21 260,-22.21 260,-14.79 260,-14.79 260,-11.08 263.71,-7.38 267.42,-7.38 267.42,-7.38 306.58,-7.38 306.58,-7.38 310.29,-7.38 314,-11.08 314,-14.79 314,-14.79 314,-22.21 314,-22.21 314,-25.92 310.29,-29.62 306.58,-29.62" />
+<text xml:space="preserve" text-anchor="middle" x="287" y="-12.32" font-family="Times,serif" font-size="14.00">0</text>
+</g>
+<!-- preSum&#45;&gt;0 -->
+<g id="edge3" class="edge">
+<title>preSum&#45;&gt;0</title>
+<path fill="none" stroke="black" d="M287,-72.62C287,-64.09 287,-51.79 287,-41.18" />
+<polygon fill="black" stroke="black" points="290.5,-41.32 287,-31.32 283.5,-41.32 290.5,-41.32" />
+</g>
+</g>
+</svg>
+</div>
+
+<p>cr依序遍歷nums的每個元素…</p>
+
+<p>指標cr = 4，到cr前最小的preSum: minSum = -2+1+(-3) = -4，結尾為cr的最大總和的子陣列<code class="language-plaintext highlighter-rouge">ans_4 = preSum(cr)-minSum = -1-(-4) = 3</code>。</p>
+
+<div class="graphviz-wrapper">
+
+<!-- Generated by graphviz version 14.1.2 (0)
+ -->
+<!-- Title: hierarchy Pages: 1 -->
+<svg role="img" aria-label="graphviz-f450616543877b223838bbc53bdad069" width="311pt" height="103pt" viewBox="0.00 0.00 311.00 103.00">
+<title>graphviz-f450616543877b223838bbc53bdad069</title>
+<desc>
+digraph hierarchy {
+  //rankdir=LR;
+  node [ shape=record ];
+  arr [label=&quot;
+      &lt;0&gt; -2 |
+      &lt;1&gt; 1 |
+      &lt;2&gt; -3 |
+      &lt;3&gt; 4 |
+      &lt;4&gt; -1 |
+        &lt;5&gt; 2 &quot;];
+node [shape=box style=&quot;rounded,filled&quot; height=0.3]
+cr -&gt; arr:&lt;4&gt;
+
+minSum -&gt; -4
+preSum -&gt; -1
+}
+</desc>
+
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 99.25)">
+<title>hierarchy</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-99.25 307.38,-99.25 307.38,4 -4,4" />
+<!-- arr -->
+<g id="node1" class="node">
+<title>arr</title>
+<polygon fill="none" stroke="black" points="0,-0.5 0,-36.5 150,-36.5 150,-0.5 0,-0.5" />
+<text xml:space="preserve" text-anchor="middle" x="13.62" y="-12.32" font-family="Times,serif" font-size="14.00">&#45;2</text>
+<polyline fill="none" stroke="black" points="27.25,-0.5 27.25,-36.5" />
+<text xml:space="preserve" text-anchor="middle" x="38.62" y="-12.32" font-family="Times,serif" font-size="14.00">1</text>
+<polyline fill="none" stroke="black" points="50,-0.5 50,-36.5" />
+<text xml:space="preserve" text-anchor="middle" x="63.62" y="-12.32" font-family="Times,serif" font-size="14.00">&#45;3</text>
+<polyline fill="none" stroke="black" points="77.25,-0.5 77.25,-36.5" />
+<text xml:space="preserve" text-anchor="middle" x="88.62" y="-12.32" font-family="Times,serif" font-size="14.00">4</text>
+<polyline fill="none" stroke="black" points="100,-0.5 100,-36.5" />
+<text xml:space="preserve" text-anchor="middle" x="113.62" y="-12.32" font-family="Times,serif" font-size="14.00">&#45;1</text>
+<polyline fill="none" stroke="black" points="127.25,-0.5 127.25,-36.5" />
+<text xml:space="preserve" text-anchor="middle" x="138.62" y="-12.32" font-family="Times,serif" font-size="14.00">2</text>
+</g>
+<!-- cr -->
+<g id="node2" class="node">
+<title>cr</title>
+<path fill="lightgrey" stroke="black" d="M132.58,-95.25C132.58,-95.25 93.42,-95.25 93.42,-95.25 89.71,-95.25 86,-91.54 86,-87.83 86,-87.83 86,-80.42 86,-80.42 86,-76.71 89.71,-73 93.42,-73 93.42,-73 132.58,-73 132.58,-73 136.29,-73 140,-76.71 140,-80.42 140,-80.42 140,-87.83 140,-87.83 140,-91.54 136.29,-95.25 132.58,-95.25" />
+<text xml:space="preserve" text-anchor="middle" x="113" y="-77.95" font-family="Times,serif" font-size="14.00">cr</text>
+</g>
+<!-- cr&#45;&gt;arr -->
+<g id="edge1" class="edge">
+<title>cr&#45;&gt;arr:4</title>
+<path fill="none" stroke="black" d="M113.22,-72.87C113.35,-66.29 113.49,-57.33 113.57,-48.3" />
+<polygon fill="black" stroke="black" points="117.07,-48.53 113.62,-38.51 110.07,-48.5 117.07,-48.53" />
+</g>
+<!-- minSum -->
+<g id="node3" class="node">
+<title>minSum</title>
+<path fill="lightgrey" stroke="black" d="M219.21,-95.25C219.21,-95.25 170.79,-95.25 170.79,-95.25 167.08,-95.25 163.38,-91.54 163.38,-87.83 163.38,-87.83 163.38,-80.42 163.38,-80.42 163.38,-76.71 167.08,-73 170.79,-73 170.79,-73 219.21,-73 219.21,-73 222.92,-73 226.62,-76.71 226.62,-80.42 226.62,-80.42 226.62,-87.83 226.62,-87.83 226.62,-91.54 222.92,-95.25 219.21,-95.25" />
+<text xml:space="preserve" text-anchor="middle" x="195" y="-77.95" font-family="Times,serif" font-size="14.00">minSum</text>
+</g>
+<!-- &#45;4 -->
+<g id="node4" class="node">
+<title>&#45;4</title>
+<path fill="lightgrey" stroke="black" d="M214.58,-29.62C214.58,-29.62 175.42,-29.62 175.42,-29.62 171.71,-29.62 168,-25.92 168,-22.21 168,-22.21 168,-14.79 168,-14.79 168,-11.08 171.71,-7.38 175.42,-7.38 175.42,-7.38 214.58,-7.38 214.58,-7.38 218.29,-7.38 222,-11.08 222,-14.79 222,-14.79 222,-22.21 222,-22.21 222,-25.92 218.29,-29.62 214.58,-29.62" />
+<text xml:space="preserve" text-anchor="middle" x="195" y="-12.32" font-family="Times,serif" font-size="14.00">&#45;4</text>
+</g>
+<!-- minSum&#45;&gt;&#45;4 -->
+<g id="edge2" class="edge">
+<title>minSum&#45;&gt;&#45;4</title>
+<path fill="none" stroke="black" d="M195,-72.62C195,-64.09 195,-51.79 195,-41.18" />
+<polygon fill="black" stroke="black" points="198.5,-41.32 195,-31.32 191.5,-41.32 198.5,-41.32" />
+</g>
+<!-- preSum -->
+<g id="node5" class="node">
+<title>preSum</title>
+<path fill="lightgrey" stroke="black" d="M295.96,-95.25C295.96,-95.25 252.04,-95.25 252.04,-95.25 248.33,-95.25 244.62,-91.54 244.62,-87.83 244.62,-87.83 244.62,-80.42 244.62,-80.42 244.62,-76.71 248.33,-73 252.04,-73 252.04,-73 295.96,-73 295.96,-73 299.67,-73 303.38,-76.71 303.38,-80.42 303.38,-80.42 303.38,-87.83 303.38,-87.83 303.38,-91.54 299.67,-95.25 295.96,-95.25" />
+<text xml:space="preserve" text-anchor="middle" x="274" y="-77.95" font-family="Times,serif" font-size="14.00">preSum</text>
+</g>
+<!-- &#45;1 -->
+<g id="node6" class="node">
+<title>&#45;1</title>
+<path fill="lightgrey" stroke="black" d="M293.58,-29.62C293.58,-29.62 254.42,-29.62 254.42,-29.62 250.71,-29.62 247,-25.92 247,-22.21 247,-22.21 247,-14.79 247,-14.79 247,-11.08 250.71,-7.38 254.42,-7.38 254.42,-7.38 293.58,-7.38 293.58,-7.38 297.29,-7.38 301,-11.08 301,-14.79 301,-14.79 301,-22.21 301,-22.21 301,-25.92 297.29,-29.62 293.58,-29.62" />
+<text xml:space="preserve" text-anchor="middle" x="274" y="-12.32" font-family="Times,serif" font-size="14.00">&#45;1</text>
+</g>
+<!-- preSum&#45;&gt;&#45;1 -->
+<g id="edge3" class="edge">
+<title>preSum&#45;&gt;&#45;1</title>
+<path fill="none" stroke="black" d="M274,-72.62C274,-64.09 274,-51.79 274,-41.18" />
+<polygon fill="black" stroke="black" points="277.5,-41.32 274,-31.32 270.5,-41.32 277.5,-41.32" />
+</g>
+</g>
+</svg>
+</div>
+<p>指標cr = 5，minSum = -2+1+(-3) = -4，結尾為cr的最大總和的子陣列<code class="language-plaintext highlighter-rouge">ans_5 = preSum(cr)-minSum = 1-(-4) = 5</code>。</p>
+<div class="graphviz-wrapper">
+
+<!-- Generated by graphviz version 14.1.2 (0)
+ -->
+<!-- Title: hierarchy Pages: 1 -->
+<svg role="img" aria-label="graphviz-434cdde28257ef86b700c55d2e704e62" width="331pt" height="103pt" viewBox="0.00 0.00 331.00 103.00">
+<title>graphviz-434cdde28257ef86b700c55d2e704e62</title>
+<desc>
+digraph hierarchy {
+  //rankdir=LR;
+  node [ shape=record ];
+  arr [label=&quot;
+      &lt;0&gt; -2 |
+      &lt;1&gt; 1 |
+      &lt;2&gt; -3 |
+      &lt;3&gt; 4 |
+      &lt;4&gt; -1 |
+        &lt;5&gt; 2 &quot;];
+node [shape=box style=&quot;rounded,filled&quot; height=0.3]
+cr -&gt; arr:&lt;5&gt;
+
+minSum -&gt; -4
+preSum -&gt; 1
+}
+</desc>
+
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 99.25)">
+<title>hierarchy</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-99.25 327.38,-99.25 327.38,4 -4,4" />
+<!-- arr -->
+<g id="node1" class="node">
+<title>arr</title>
+<polygon fill="none" stroke="black" points="0,-0.5 0,-36.5 150,-36.5 150,-0.5 0,-0.5" />
+<text xml:space="preserve" text-anchor="middle" x="13.62" y="-12.32" font-family="Times,serif" font-size="14.00">&#45;2</text>
+<polyline fill="none" stroke="black" points="27.25,-0.5 27.25,-36.5" />
+<text xml:space="preserve" text-anchor="middle" x="38.62" y="-12.32" font-family="Times,serif" font-size="14.00">1</text>
+<polyline fill="none" stroke="black" points="50,-0.5 50,-36.5" />
+<text xml:space="preserve" text-anchor="middle" x="63.62" y="-12.32" font-family="Times,serif" font-size="14.00">&#45;3</text>
+<polyline fill="none" stroke="black" points="77.25,-0.5 77.25,-36.5" />
+<text xml:space="preserve" text-anchor="middle" x="88.62" y="-12.32" font-family="Times,serif" font-size="14.00">4</text>
+<polyline fill="none" stroke="black" points="100,-0.5 100,-36.5" />
+<text xml:space="preserve" text-anchor="middle" x="113.62" y="-12.32" font-family="Times,serif" font-size="14.00">&#45;1</text>
+<polyline fill="none" stroke="black" points="127.25,-0.5 127.25,-36.5" />
+<text xml:space="preserve" text-anchor="middle" x="138.62" y="-12.32" font-family="Times,serif" font-size="14.00">2</text>
+</g>
+<!-- cr -->
+<g id="node2" class="node">
+<title>cr</title>
+<path fill="lightgrey" stroke="black" d="M157.58,-95.25C157.58,-95.25 118.42,-95.25 118.42,-95.25 114.71,-95.25 111,-91.54 111,-87.83 111,-87.83 111,-80.42 111,-80.42 111,-76.71 114.71,-73 118.42,-73 118.42,-73 157.58,-73 157.58,-73 161.29,-73 165,-76.71 165,-80.42 165,-80.42 165,-87.83 165,-87.83 165,-91.54 161.29,-95.25 157.58,-95.25" />
+<text xml:space="preserve" text-anchor="middle" x="138" y="-77.95" font-family="Times,serif" font-size="14.00">cr</text>
+</g>
+<!-- cr&#45;&gt;arr -->
+<g id="edge1" class="edge">
+<title>cr&#45;&gt;arr:5</title>
+<path fill="none" stroke="black" d="M138.22,-72.87C138.35,-66.29 138.49,-57.33 138.57,-48.3" />
+<polygon fill="black" stroke="black" points="142.07,-48.53 138.62,-38.51 135.07,-48.5 142.07,-48.53" />
+</g>
+<!-- minSum -->
+<g id="node3" class="node">
+<title>minSum</title>
+<path fill="lightgrey" stroke="black" d="M239.21,-95.25C239.21,-95.25 190.79,-95.25 190.79,-95.25 187.08,-95.25 183.38,-91.54 183.38,-87.83 183.38,-87.83 183.38,-80.42 183.38,-80.42 183.38,-76.71 187.08,-73 190.79,-73 190.79,-73 239.21,-73 239.21,-73 242.92,-73 246.62,-76.71 246.62,-80.42 246.62,-80.42 246.62,-87.83 246.62,-87.83 246.62,-91.54 242.92,-95.25 239.21,-95.25" />
+<text xml:space="preserve" text-anchor="middle" x="215" y="-77.95" font-family="Times,serif" font-size="14.00">minSum</text>
+</g>
+<!-- &#45;4 -->
+<g id="node4" class="node">
+<title>&#45;4</title>
+<path fill="lightgrey" stroke="black" d="M234.58,-29.62C234.58,-29.62 195.42,-29.62 195.42,-29.62 191.71,-29.62 188,-25.92 188,-22.21 188,-22.21 188,-14.79 188,-14.79 188,-11.08 191.71,-7.38 195.42,-7.38 195.42,-7.38 234.58,-7.38 234.58,-7.38 238.29,-7.38 242,-11.08 242,-14.79 242,-14.79 242,-22.21 242,-22.21 242,-25.92 238.29,-29.62 234.58,-29.62" />
+<text xml:space="preserve" text-anchor="middle" x="215" y="-12.32" font-family="Times,serif" font-size="14.00">&#45;4</text>
+</g>
+<!-- minSum&#45;&gt;&#45;4 -->
+<g id="edge2" class="edge">
+<title>minSum&#45;&gt;&#45;4</title>
+<path fill="none" stroke="black" d="M215,-72.62C215,-64.09 215,-51.79 215,-41.18" />
+<polygon fill="black" stroke="black" points="218.5,-41.32 215,-31.32 211.5,-41.32 218.5,-41.32" />
+</g>
+<!-- preSum -->
+<g id="node5" class="node">
+<title>preSum</title>
+<path fill="lightgrey" stroke="black" d="M315.96,-95.25C315.96,-95.25 272.04,-95.25 272.04,-95.25 268.33,-95.25 264.62,-91.54 264.62,-87.83 264.62,-87.83 264.62,-80.42 264.62,-80.42 264.62,-76.71 268.33,-73 272.04,-73 272.04,-73 315.96,-73 315.96,-73 319.67,-73 323.38,-76.71 323.38,-80.42 323.38,-80.42 323.38,-87.83 323.38,-87.83 323.38,-91.54 319.67,-95.25 315.96,-95.25" />
+<text xml:space="preserve" text-anchor="middle" x="294" y="-77.95" font-family="Times,serif" font-size="14.00">preSum</text>
+</g>
+<!-- 1 -->
+<g id="node6" class="node">
+<title>1</title>
+<path fill="lightgrey" stroke="black" d="M313.58,-29.62C313.58,-29.62 274.42,-29.62 274.42,-29.62 270.71,-29.62 267,-25.92 267,-22.21 267,-22.21 267,-14.79 267,-14.79 267,-11.08 270.71,-7.38 274.42,-7.38 274.42,-7.38 313.58,-7.38 313.58,-7.38 317.29,-7.38 321,-11.08 321,-14.79 321,-14.79 321,-22.21 321,-22.21 321,-25.92 317.29,-29.62 313.58,-29.62" />
+<text xml:space="preserve" text-anchor="middle" x="294" y="-12.32" font-family="Times,serif" font-size="14.00">1</text>
+</g>
+<!-- preSum&#45;&gt;1 -->
+<g id="edge3" class="edge">
+<title>preSum&#45;&gt;1</title>
+<path fill="none" stroke="black" d="M294,-72.62C294,-64.09 294,-51.79 294,-41.18" />
+<polygon fill="black" stroke="black" points="297.5,-41.32 294,-31.32 290.5,-41.32 297.5,-41.32" />
+</g>
+</g>
+</svg>
+</div>
+<p><code class="language-plaintext highlighter-rouge">cr</code>每前進一步，就會計算出一個結尾為<code class="language-plaintext highlighter-rouge">cr</code>的最大子陣列總和<code class="language-plaintext highlighter-rouge">ans_cr</code>，回傳最大的<code class="language-plaintext highlighter-rouge">ans_cr</code>就是最大子陣列總和。</p>
+
+<h2 id="時間複雜度">時間複雜度</h2>
+<p>由於每次指標cr向前走一步，都需要更新一次<code class="language-plaintext highlighter-rouge">preSum</code>, <code class="language-plaintext highlighter-rouge">min_sum</code>, 和最大的<code class="language-plaintext highlighter-rouge">ans</code>，因此時間複雜度為$O(N)$。</p>
+
+<h2 id="實作">實作</h2>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">maxSubArray</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nums</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="nb">sum</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">min_sum</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">ans</span> <span class="o">=</span> <span class="o">-</span><span class="n">inf</span>
+        <span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="n">nums</span><span class="p">:</span>
+            <span class="nb">sum</span> <span class="o">+=</span> <span class="n">num</span>
+            <span class="n">ans</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">ans</span><span class="p">,</span> <span class="nb">sum</span><span class="o">-</span><span class="n">min_sum</span><span class="p">)</span>
+            <span class="n">min_sum</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="nb">sum</span><span class="p">,</span> <span class="n">min_sum</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ans</span>
+</code></pre></div></div>
+
+<h1 id="動態規劃">動態規劃</h1>
+
+<p>先思考一下，如果子陣列的結尾位置為<code class="language-plaintext highlighter-rouge">i</code>，那麼最大總和的子陣列總和可以怎麼計算呢?</p>
+
+<p>以<code class="language-plaintext highlighter-rouge">cr[i]</code>代表<code class="language-plaintext highlighter-rouge">nums[i]</code>為結尾的總和最大nums子陣列，在已知cr[i-1]的前提下，cr[i]有兩種可能:</p>
+<ol>
+  <li>加上以前一個位置結尾的子陣列最大總和: cr[i-1]+nums[i]
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> nums = [-2,1,-3,4,-1,2,1,-5,4]
+                        ^
+                        i
+</code></pre></div>    </div>
+    <p>當我們要計算結尾為index i = 6的子陣列最大總和, 以<code class="language-plaintext highlighter-rouge">cr[i-1]</code>為結尾的最大子陣列總和為<code class="language-plaintext highlighter-rouge">cr[5]=1</code>，nums[i]=1加上以前一個位置結尾的子陣列最大總和 <strong>大於</strong> 從當前i這個位置算起，因此<code class="language-plaintext highlighter-rouge">cr[i]</code> = <code class="language-plaintext highlighter-rouge">cr[i-1]+nums[i]</code> = <code class="language-plaintext highlighter-rouge">cr[5]+nums[6]</code> = 2</p>
+  </li>
+  <li>不包含前一個位置的最大總和: nums[i]
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> nums = [-2,1,-3,4,-1,2,1,-5,4]
+            ^
+            i
+</code></pre></div>    </div>
+    <p>當我們要計算結尾為index i =1的子陣列最大總和, 以<code class="language-plaintext highlighter-rouge">cr[i-1]</code>為結尾的最大子陣列總和為<code class="language-plaintext highlighter-rouge">cr[0]=-2</code>，加上以前一個位置結尾的子陣列最大總和 <strong>不如</strong> 從當前i這個位置算起，因此cr[i] = nums[i]</p>
+  </li>
+</ol>
+
+<p>回到這個題目，我們可以使用迴圈，去計算每個結尾位置為<code class="language-plaintext highlighter-rouge">i</code>，最大總和的子陣列總和，只保留最大的總和，就是整個陣列的最大子陣列總和啦~</p>
+
+<h2 id="時間複雜度-1">時間複雜度</h2>
+<p>每次藉由前一個<code class="language-plaintext highlighter-rouge">cr[i-1]</code>來計算以當前index為結尾的子陣列最大總和<code class="language-plaintext highlighter-rouge">cr[i]</code>，時間複雜度是$O(1)$，針對每個<code class="language-plaintext highlighter-rouge">nums[i]</code>為結尾都需要一次計算，因此時間複雜度為$O(N)$。</p>
+
+<h2 id="實作-1">實作</h2>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">maxSubArray</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nums</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="n">cr</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">ans</span> <span class="o">=</span> <span class="o">-</span><span class="n">inf</span>
+        <span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="n">nums</span><span class="p">:</span>
+            <span class="n">cr</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">cr</span><span class="o">+</span><span class="n">num</span><span class="p">,</span> <span class="n">num</span><span class="p">)</span>
+            <span class="n">ans</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">ans</span><span class="p">,</span> <span class="n">cr</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ans</span>
+</code></pre></div></div>
+
+		</p>
+	</div>		
+  <div style="text-align: left; padding: 25px;">
+  <h1>相關文章</h1>
+  
+  
+
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  
+  <a href="/hard/2024/03/23/140-Word-Break-II.html" class="badge badge-danger">[Leetcode解題] 140. Word Break II</a>
+  
+  <!--
+  <div>[Leetcode解題] 140. Word Break II</div>
+  <div class="post-view-tags">
+		
+      
+      
+      
+		<a href="/posts/categories/hard/" class="badge badge-danger">hard</a>
+  	  
+		
+		
+		<i href="#" class="badge badge-dark">dp</i>
+		
+		<i href="#" class="badge badge-dark">recursion</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  
+  <a href="/hard/2022/02/11/72-edit-distance.html" class="badge badge-danger">[Leetcode解題] Edit Distance - dp解</a>
+  
+  <!--
+  <div>[Leetcode解題] Edit Distance - dp解</div>
+  <div class="post-view-tags">
+		
+      
+      
+      
+		<a href="/posts/categories/hard/" class="badge badge-danger">hard</a>
+  	  
+		
+		
+		<i href="#" class="badge badge-dark">dp</i>
+		
+		<i href="#" class="badge badge-dark">string</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2025/06/14/368-largest-divisible-subset.html" class="badge badge-warning">[Leetcode解題] 368. Largest Divisible Subset</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 368. Largest Divisible Subset</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">dp</i>
+		
+		<i href="#" class="badge badge-dark">math</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/06/22/1248-Count-Number-of-Nice-Subarrays.html" class="badge badge-warning">[Leetcode解題] 1248. Count Number of Nice Subarrays - 使用presum+hashtable解</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 1248. Count Number of Nice Subarrays - 使用presum+hashtable解</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">presum</i>
+		
+		<i href="#" class="badge badge-dark">hash</i>
+		
+		<i href="#" class="badge badge-dark">hashtable</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/05/18/523-Continuous-subarray-sum.html" class="badge badge-warning">[Leetcode解題] 523. Continuous Subarray Sum</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 523. Continuous Subarray Sum</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">presum</i>
+		
+		<i href="#" class="badge badge-dark">hash</i>
+		
+		<i href="#" class="badge badge-dark">hashtable</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/05/18/1423-Maximum-Points-You-Can-Obtain-from-Cards.html" class="badge badge-warning">[Leetcode解題] 1423. Maximum Points You Can Obtain from Cards</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 1423. Maximum Points You Can Obtain from Cards</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">presum</i>
+		
+		<i href="#" class="badge badge-dark">sliding-window</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/03/23/309-Best-Time-to-Buy-and-Sell-Stock-with-Cooldown.html" class="badge badge-warning">[Leetcode解題] 309. Best Time to Buy and Sell Stock with Cooldown</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 309. Best Time to Buy and Sell Stock with Cooldown</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">dp</i>
+		
+		<i href="#" class="badge badge-dark">dynamic-programming</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/03/23/139-Word-Break.html" class="badge badge-warning">[Leetcode解題] 139. Word Break - 使用dp解</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 139. Word Break - 使用dp解</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">dp</i>
+		
+		<i href="#" class="badge badge-dark">recursion</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2023/06/03/1035-Uncrossed-Lines.html" class="badge badge-warning">[Leetcode解題] Uncrossed Lines - DP + scrolling array解</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] Uncrossed Lines - DP + scrolling array解</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">dp</i>
+		
+		<i href="#" class="badge badge-dark">scrolling-array</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2022/02/11/79-Word-Search.html" class="badge badge-warning">[Leetcode解題] Word Search - bfs/dfs解</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] Word Search - bfs/dfs解</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">dp</i>
+		
+		<i href="#" class="badge badge-dark">dfs</i>
+		
+		<i href="#" class="badge badge-dark">bfs</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2022/02/11/53-Maximum-Subarray.html" class="badge badge-warning">[Leetcode解題] Maximum Subarray - presum解</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] Maximum Subarray - presum解</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">dp</i>
+		
+		<i href="#" class="badge badge-dark">presum</i>
+		
+		<i href="#" class="badge badge-dark">apple</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2022/02/11/3-Longest-Substring-Without-Repeating-Characters.html" class="badge badge-warning">[Leetcode解題] Longest Substring Without Repeating Characters - 用暴力法、DP法和前後指針解決</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] Longest Substring Without Repeating Characters - 用暴力法、DP法和前後指針解決</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">dp</i>
+		
+		<i href="#" class="badge badge-dark">two-pointers</i>
+		
+		<i href="#" class="badge badge-dark">python</i>
+		
+		<i href="#" class="badge badge-dark">apple</i>
+		
+		<i href="#" class="badge badge-dark">amazon</i>
+		
+		<i href="#" class="badge badge-dark">microsoft</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2022/02/11/22-Generate-Parentheses.html" class="badge badge-warning">[Leetcode解題] Generate Parentheses - Backtrace解</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] Generate Parentheses - Backtrace解</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">recursion</i>
+		
+		<i href="#" class="badge badge-dark">backtrace</i>
+		
+		<i href="#" class="badge badge-dark">apple</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2022/02/11/14-Longest-Common-Prefix.html" class="badge badge-warning">[Leetcode解題] Longest Common Prefix - 暴力解</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] Longest Common Prefix - 暴力解</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">string</i>
+		
+		<i href="#" class="badge badge-dark">apple</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+  </div>
+</div>
+		</div>
+		<div class="col-md-2 col-sm-0">
+		</div>
+	</div>
+</div>
+
+		</main>
+		<footer class="footer">
+			<!-- No -->
+
+<!--This is the footer of the website-->
+
+<div class="footer-window container-fluid footer-color">
+	<div class="row">
+		<div class="footer-view footer-left col-md-4 text-left">
+			<div class="footer-section">
+				<div class="account-box">
+			</div>
+			</div>
+		</div>
+		<div class="footer-view footer-center col-md-4 text-center">
+			<div class="footer-section">
+				<div class="footer-copyright">
+					解題愛好者
+					<br><br>
+					歡迎來到刷題貓！我們是兩位熱愛程式設計的工程師，在此分享Leetcode刷題心得以及整理主題式的文章
+					<br><br>
+					© 2023 CATXCODER All Rights Reserved
+				</div>
+				<div>
+				</div>
+			</div>
+		</div>
+		<div class="footer-view footer-right col-md-4 text-center">
+			<div class="footer-section">
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--
+log
+<p>Version 0.0.2</p>
+			<p>0.0.2 - 配色完成</p>
+			<p>0.0.2 - 基本模板完成</p>
+			<p>0.0.2 - 自我介紹新增打字效果</p>
+
+
+
+
+-->
+
+		</footer>
+		</div>
+	</body>
+</html>
+
+<script>
+$(".badge-info").hover(function(){
+    $(this).hide(1000);
+});
+
+
+</script>

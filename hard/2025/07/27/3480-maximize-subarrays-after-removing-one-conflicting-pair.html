@@ -1,0 +1,1388 @@
+<!-- OK -->
+
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="utf-8">
+	<link rel="icon" type="image/x-icon" href="/res/catxcoder.ico">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>[Leetcode解題] 3480. Maximize Subarrays After Removing One Conflicting Pair</title>
+	<meta name="description" content="3480 超詳細解說，附解題思路" />
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<!-- My CSS -->
+<link href="/res/css/common.css" rel="stylesheet">
+
+	</head>
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-MHQH8LKZYV"></script>
+	<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+
+	gtag('config', 'G-MHQH8LKZYV');
+	</script>
+	<body>		
+				<!-- JQeury -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+    
+	<!-- Font Awesome -->
+	<!--<script defer src="https://use.fontawesome.com/releases/v6.4.2/js/all.js" integrity="	sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe" crossorigin="anonymous"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" integrity="sha512-uKQ39gEGiyUJl4AI6L+ekBdGKpGw4xJ55+xyJG7YFlJokPNYegn9KwQ3P8A7aFQAUtUsAQHep+d/lrGqrbPIDQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<!-- support MathJax -->
+	<style TYPE="text/css">
+	code.has-jax {font: inherit; font-size: 100%; background: inherit; border: inherit;}
+	</style>
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	    tex2jax: {
+	        inlineMath: [['$','$'], ['\\(','\\)']],
+	        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'] // removed 'code' entry
+	    }
+	});
+	MathJax.Hub.Queue(function() {
+	    var all = MathJax.Hub.getAllJax(), i;
+	    for(i = 0; i < all.length; i += 1) {
+	        all[i].SourceElement().parentNode.className += ' has-jax';
+	    }
+	});
+	</script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<!-- A patch to fix mathjax -->
+<!-- https://github.com/mathjax/MathJax/issues/1737 -->
+	<script type="text/x-mathjax-config">
+if (MathJax.Hub.Browser.isSafari && parseInt(MathJax.Hub.Browser.webkit) >= 603) {
+  MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready", function () {
+    var HTMLCSS = MathJax.OutputJax["HTML-CSS"];
+    var MML = MathJax.ElementJax.mml;
+    var toHTML = MML.mo.prototype.toHTML;
+    MML.mo.Augment({
+      toHTML: function (span) {
+        span = toHTML.call(this,span);
+        if (span.bbox.w === 0 && span.bbox.lw < 0 && span.firstChild) {
+          span.style.marginLeft = HTMLCSS.Em(span.bbox.lw);
+        }
+        return span;
+      }
+    });
+  });
+}
+</script>
+
+		<header>
+			<!-- OK -->
+
+<div class="container">
+  <nav class="navbar navbar-expand-lg navbar-default nav-color" >
+    <a href="/index.html">
+      <img src="/res/catxcoder.ico" class="img-fluid" style="width: 32px; margin-right: 10px;">
+    </a>
+    <a class="navbar-item" href="/index.html">
+      刷題貓
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span><i class="fas fa-bars" ></i></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <ul class="navbar-nav ml-auto navbar-right">
+          <li class="nav-item">
+             <a class="nav-link" href="/index.html">首頁</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/posts/categories">難度</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/posts/algorithms">演算法</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/works">主題式</a>
+          </li>
+        </ul>
+    </div>
+  </nav>
+</div>
+
+		</header>
+		<main>
+			<!-- OK -->
+
+<div class="container-fluid text-center bg-color">
+	<div class="row bg-icon">
+		<div class="col-md-2 col-sm-0">
+
+		</div>
+		<div class="view-home col-md-8 col-sm-12 post-home-color">
+			<div class="post-view-color post-view-window">
+	
+	<!-- title -->
+	<div class="post-view-title text-left" >
+		<p>[Leetcode解題] 3480. Maximize Subarrays After Removing One Conflicting Pair</p>
+	</div>
+	
+	<!-- date -->
+	<div class="post-view-date">
+			27 July 2025
+	</div>
+
+	<!-- tags -->
+	<div class="post-view-tags">
+		
+      
+      
+      
+		<a href="/posts/categories/hard/" class="badge badge-danger">hard</a>
+  	  
+		
+		
+		<i href="#" class="badge badge-dark">enumeration</i>
+		
+		<i href="#" class="badge badge-dark">two-pointer</i>
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">subarray</i>
+		
+	</div>
+	<hr>
+
+	<!-- excerpt -->
+	<div class="post-view-excerpt text-left">
+		<p>
+			<h2 id="題目">題目</h2>
+<p><a href="https://leetcode.com/problems/maximize-subarrays-after-removing-one-conflicting-pair/description/?envType=daily-question&amp;envId=2025-07-26">3480. Maximize Subarrays After Removing One Conflicting Pair</a></p>
+
+<p>給定一個正整數n，表示一個從1到n的數列，另給一個conflictingPairs，裡面每個元素包含兩個數字a_i跟b_i，題目所求的subarray不能同時包含a_i跟b_i對於任意的i</p>
+
+<p>另外，題目所求的是，今天若刪除conflictingPairs中的某一個pair，能得到的最多的subarray為何？</p>
+
+<!--more-->
+
+<h2 id="解題思路">解題思路</h2>
+
+<p>這題相當困難，也很不直覺</p>
+
+<h3 id="用兩個指針表示subarray">用兩個指針表示subarray</h3>
+
+<p>首先，對於<code class="language-plaintext highlighter-rouge">subarray</code>的題目（注意subarray跟subset的差別），我們可以使用兩個指針來表示</p>
+
+<h3 id="只有一個conflictingpair的狀況">只有一個conflictingPair的狀況</h3>
+
+<p>今天，我可以看某一個conflictingPair，比如說(u, v)=(3, 5)，這邊我們假設u&lt;v這樣比較好解釋，另給定n為10</p>
+
+<p>1,2,3,4,5,6,7,8,9,10</p>
+
+<p>我們先思考，怎麼去得到所有可能的subarray，如上述說的，可以用兩個指針來表示</p>
+
+<p>對於後指針指到某個位置j的時候，可能的子矩陣有0到j-1個</p>
+
+<p>後指針j有幾種可能</p>
+
+<ol>
+  <li>小於3：那麼i不管是什麼，都不可能同時包含3跟5</li>
+  <li>大於等於3且小於5：同上，i不管是什麼，都不可能同時包含3跟5</li>
+  <li>大於等於5：i只要小於等於3，就會同時包含3跟5</li>
+</ol>
+
+<p>對於第三種狀況，我們可以很快速的求得，以j為結尾時，有效的子矩陣為j-3個，比如j=7，有效的子矩陣為4個，分別為：</p>
+
+<p>[4,5,6,7], [5,6,7], [6, 7], [7]</p>
+
+<p>現在，我們來看有兩個相同結尾的conflictingPairs會怎樣，假設(3, 5)跟(4, 5)</p>
+
+<p>我們發現，u越大，有效的子矩陣會越少，也就表示它的限制會更大</p>
+
+<p>所以我們只需考慮(4,5)就好</p>
+
+<p>因此，對於任意結尾j，我們都只需要考慮其最大的i的狀況，只會有一種</p>
+
+<h3 id="不同的conflictingpairs如何互相影響">不同的conflictingPairs如何互相影響</h3>
+
+<p>再來，假設我們現在就是有多組的conflicting pairs</p>
+
+<p>我們用一個矩陣紀錄下每個結尾v下，所對應到的最大的開頭u為何，比如說(3,5),(4,5)，以5結尾的情況，我們要考慮的是(4,5)，所以<code class="language-plaintext highlighter-rouge">right[5]=4</code></p>
+
+<p>今天我們結尾從1開始看到n，我們要一直以當前看過的conflicting pair中，最大的u為開頭去算，每次通過一個conflicting pair的結尾v，就需要再次更新</p>
+
+<p>我們來實際看一個例子</p>
+
+<p>conflicting pairs = (3, 5) 跟 (4, 9)</p>
+
+<ul>
+  <li>j=1,2,3,4的時候，因為還沒看到結尾5，所以此時的左界(u_max)為0，都是合法的組合</li>
+  <li>j=5，這時候開始有可能會包含第一個conflicting pair，更新u_max=3，所以如同上面所說的，合法的組合為j-3=2</li>
+  <li>j=6,7,8，這時候還沒到下一個conflicting pair的右界，所以u_max維持是3，都是用j-u_max的算法來計算</li>
+  <li>j=9，這時候我們看到另外一個conflicting pair了，所以需要更新u_max=4，因為比如說原先合法的(4,5,6,7,8,9)現在變成不合法了</li>
+</ul>
+
+<p>所以，我們可以觀察到，當我們j跑到新的conflicting pair的右界時，即需要更新u_max，讓u_max紀錄當下最右的值</p>
+
+<h3 id="不移除的情況如何計算">不移除的情況如何計算</h3>
+
+<p>到此，我們可以計算出不移除任何conflictingPairs的情況，所有有效的子矩陣數目為何</p>
+
+<p>我們紀錄每個v對應的所有可能u（或者只需要紀錄最大的u），然後從後指針1到n計算有效的子矩陣，並且維護一個最大的u_max</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="n">right</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">_u</span><span class="p">,</span> <span class="n">_v</span> <span class="ow">in</span> <span class="n">conflictingPairs</span><span class="p">:</span>
+    <span class="n">u</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">_u</span><span class="p">,</span> <span class="n">_v</span><span class="p">)</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">_u</span><span class="p">,</span> <span class="n">_v</span><span class="p">)</span>
+    <span class="n">right</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">right</span><span class="p">[</span><span class="n">v</span><span class="p">],</span> <span class="n">u</span><span class="p">)</span>
+
+<span class="n">u_max</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">score</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">u_max</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">right</span><span class="p">[</span><span class="n">r</span><span class="p">],</span> <span class="n">u_max</span><span class="p">)</span>
+    <span class="n">score</span> <span class="o">+=</span> <span class="n">r</span> <span class="o">-</span> <span class="n">u_max</span>
+    
+</code></pre></div></div>
+
+<h3 id="移除的狀況如何計算">移除的狀況如何計算</h3>
+
+<p>現在我們要考慮，若可以移除任意一個pair會怎樣</p>
+
+<p>如果可以移除一個的話，我們剛剛上面只記錄max的做法就會遇到困難，因為如果剛好移除max的那個Pair</p>
+
+<p>就會讓後面的假設失敗，所以我們要多計算並記錄第二大的值</p>
+
+<p>並且我們在看每一個conflicting pairs的時候，要考慮如果該pair被移除會影響到u_max時，那就要替換成第二大的值</p>
+
+<p>而替換後，會多出一些原先不合法但現在合法的subarray，多出來的數量就是<code class="language-plaintext highlighter-rouge">u_max1-u_max2</code></p>
+
+<p>這邊有個重點，我們要紀錄在<code class="language-plaintext highlighter-rouge">u_max1</code>的index下，bonus這個矩陣表示，當u_max1的這個pair被移除時，會產生多少新的subarray</p>
+
+<p>所以bonus這個矩陣，只會紀錄到所有可能的u_max1，因為它們被移除才會產生新的有效矩陣</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">maxSubarrays</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">conflictingPairs</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="n">right1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">right2</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">_u</span><span class="p">,</span> <span class="n">_v</span> <span class="ow">in</span> <span class="n">conflictingPairs</span><span class="p">:</span>
+            <span class="n">u</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">_u</span><span class="p">,</span> <span class="n">_v</span><span class="p">)</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">_u</span><span class="p">,</span> <span class="n">_v</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">u</span> <span class="o">&gt;</span> <span class="n">right1</span><span class="p">[</span><span class="n">v</span><span class="p">]:</span>
+                <span class="n">right2</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">right1</span><span class="p">[</span><span class="n">v</span><span class="p">]</span>
+                <span class="n">right1</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">u</span>
+            <span class="k">elif</span> <span class="n">u</span> <span class="o">&gt;</span> <span class="n">right2</span><span class="p">[</span><span class="n">v</span><span class="p">]:</span>
+                <span class="n">right2</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">u</span>
+                
+        <span class="n">u_max1</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">u_max2</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">score</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">bonus</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">right1</span><span class="p">[</span><span class="n">r</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">u_max1</span><span class="p">:</span>
+                <span class="n">u_max2</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">u_max1</span><span class="p">,</span> <span class="n">right2</span><span class="p">[</span><span class="n">r</span><span class="p">])</span>
+                <span class="n">u_max1</span> <span class="o">=</span> <span class="n">right1</span><span class="p">[</span><span class="n">r</span><span class="p">]</span>
+            <span class="k">elif</span> <span class="n">right1</span><span class="p">[</span><span class="n">r</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">u_max2</span><span class="p">:</span>
+                <span class="n">u_max2</span> <span class="o">=</span> <span class="n">right1</span><span class="p">[</span><span class="n">r</span><span class="p">]</span>
+
+            <span class="n">score</span> <span class="o">+=</span> <span class="n">r</span> <span class="o">-</span> <span class="n">u_max1</span>
+            <span class="n">bonus</span><span class="p">[</span><span class="n">u_max1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">u_max1</span> <span class="o">-</span> <span class="n">u_max2</span>
+        <span class="k">return</span> <span class="n">score</span> <span class="o">+</span> <span class="nb">max</span><span class="p">(</span><span class="n">bonus</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="時間複雜度">時間複雜度</h2>
+
+<p>$O(m+n)$，m為conflictingPairs的數量</p>
+
+		</p>
+	</div>		
+  <div style="text-align: left; padding: 25px;">
+  <h1>相關文章</h1>
+  
+  
+
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  
+  <a href="/hard/2025/07/27/3480-maximize-subarrays-after-removing-one-conflicting-pair.html" class="badge badge-danger">[Leetcode解題] 3480. Maximize Subarrays After Removing One Conflicting Pair</a>
+  
+  <!--
+  <div>[Leetcode解題] 3480. Maximize Subarrays After Removing One Conflicting Pair</div>
+  <div class="post-view-tags">
+		
+      
+      
+      
+		<a href="/posts/categories/hard/" class="badge badge-danger">hard</a>
+  	  
+		
+		
+		<i href="#" class="badge badge-dark">enumeration</i>
+		
+		<i href="#" class="badge badge-dark">two-pointer</i>
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">subarray</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+  </div>
+</div>
+		</div>
+		<div class="col-md-2 col-sm-0">
+		</div>
+	</div>
+</div>
+
+		</main>
+		<footer class="footer">
+			<!-- No -->
+
+<!--This is the footer of the website-->
+
+<div class="footer-window container-fluid footer-color">
+	<div class="row">
+		<div class="footer-view footer-left col-md-4 text-left">
+			<div class="footer-section">
+				<div class="account-box">
+			</div>
+			</div>
+		</div>
+		<div class="footer-view footer-center col-md-4 text-center">
+			<div class="footer-section">
+				<div class="footer-copyright">
+					解題愛好者
+					<br><br>
+					歡迎來到刷題貓！我們是兩位熱愛程式設計的工程師，在此分享Leetcode刷題心得以及整理主題式的文章
+					<br><br>
+					© 2023 CATXCODER All Rights Reserved
+				</div>
+				<div>
+				</div>
+			</div>
+		</div>
+		<div class="footer-view footer-right col-md-4 text-center">
+			<div class="footer-section">
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--
+log
+<p>Version 0.0.2</p>
+			<p>0.0.2 - 配色完成</p>
+			<p>0.0.2 - 基本模板完成</p>
+			<p>0.0.2 - 自我介紹新增打字效果</p>
+
+
+
+
+-->
+
+		</footer>
+		</div>
+	</body>
+</html>
+
+<script>
+$(".badge-info").hover(function(){
+    $(this).hide(1000);
+});
+
+
+</script>

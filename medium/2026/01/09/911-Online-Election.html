@@ -1,0 +1,1573 @@
+<!-- OK -->
+
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="utf-8">
+	<link rel="icon" type="image/x-icon" href="/res/catxcoder.ico">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>[Leetcode解題] 911. Online Election</title>
+	<meta name="description" content="911. Online Election - 使用Binary Search解" />
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<!-- My CSS -->
+<link href="/res/css/common.css" rel="stylesheet">
+
+	</head>
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-MHQH8LKZYV"></script>
+	<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+
+	gtag('config', 'G-MHQH8LKZYV');
+	</script>
+	<body>		
+				<!-- JQeury -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+    
+	<!-- Font Awesome -->
+	<!--<script defer src="https://use.fontawesome.com/releases/v6.4.2/js/all.js" integrity="	sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe" crossorigin="anonymous"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" integrity="sha512-uKQ39gEGiyUJl4AI6L+ekBdGKpGw4xJ55+xyJG7YFlJokPNYegn9KwQ3P8A7aFQAUtUsAQHep+d/lrGqrbPIDQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<!-- support MathJax -->
+	<style TYPE="text/css">
+	code.has-jax {font: inherit; font-size: 100%; background: inherit; border: inherit;}
+	</style>
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	    tex2jax: {
+	        inlineMath: [['$','$'], ['\\(','\\)']],
+	        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'] // removed 'code' entry
+	    }
+	});
+	MathJax.Hub.Queue(function() {
+	    var all = MathJax.Hub.getAllJax(), i;
+	    for(i = 0; i < all.length; i += 1) {
+	        all[i].SourceElement().parentNode.className += ' has-jax';
+	    }
+	});
+	</script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<!-- A patch to fix mathjax -->
+<!-- https://github.com/mathjax/MathJax/issues/1737 -->
+	<script type="text/x-mathjax-config">
+if (MathJax.Hub.Browser.isSafari && parseInt(MathJax.Hub.Browser.webkit) >= 603) {
+  MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready", function () {
+    var HTMLCSS = MathJax.OutputJax["HTML-CSS"];
+    var MML = MathJax.ElementJax.mml;
+    var toHTML = MML.mo.prototype.toHTML;
+    MML.mo.Augment({
+      toHTML: function (span) {
+        span = toHTML.call(this,span);
+        if (span.bbox.w === 0 && span.bbox.lw < 0 && span.firstChild) {
+          span.style.marginLeft = HTMLCSS.Em(span.bbox.lw);
+        }
+        return span;
+      }
+    });
+  });
+}
+</script>
+
+		<header>
+			<!-- OK -->
+
+<div class="container">
+  <nav class="navbar navbar-expand-lg navbar-default nav-color" >
+    <a href="/index.html">
+      <img src="/res/catxcoder.ico" class="img-fluid" style="width: 32px; margin-right: 10px;">
+    </a>
+    <a class="navbar-item" href="/index.html">
+      刷題貓
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span><i class="fas fa-bars" ></i></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <ul class="navbar-nav ml-auto navbar-right">
+          <li class="nav-item">
+             <a class="nav-link" href="/index.html">首頁</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/posts/categories">難度</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/posts/algorithms">演算法</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/works">主題式</a>
+          </li>
+        </ul>
+    </div>
+  </nav>
+</div>
+
+		</header>
+		<main>
+			<!-- OK -->
+
+<div class="container-fluid text-center bg-color">
+	<div class="row bg-icon">
+		<div class="col-md-2 col-sm-0">
+
+		</div>
+		<div class="view-home col-md-8 col-sm-12 post-home-color">
+			<div class="post-view-color post-view-window">
+	
+	<!-- title -->
+	<div class="post-view-title text-left" >
+		<p>[Leetcode解題] 911. Online Election</p>
+	</div>
+	
+	<!-- date -->
+	<div class="post-view-date">
+			9 January 2026
+	</div>
+
+	<!-- tags -->
+	<div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">binary_search,</i>
+		
+		<i href="#" class="badge badge-dark">bs</i>
+		
+	</div>
+	<hr>
+
+	<!-- excerpt -->
+	<div class="post-view-excerpt text-left">
+		<p>
+			<h1 id="911-online-election">911. Online Election</h1>
+
+<h2 id="題目">題目</h2>
+<p><a href="https://leetcode.com/problems/online-election/">911. Online Election</a>
+給定兩個等長整數陣列 <code class="language-plaintext highlighter-rouge">persons</code> 與 <code class="language-plaintext highlighter-rouge">times</code>：</p>
+
+<ul>
+  <li>第 <code class="language-plaintext highlighter-rouge">i</code> 票投給 <code class="language-plaintext highlighter-rouge">persons[i]</code></li>
+  <li>投票發生在時間 <code class="language-plaintext highlighter-rouge">times[i]</code></li>
+  <li><code class="language-plaintext highlighter-rouge">times</code> 嚴格遞增（每次投票時間愈來愈晚）</li>
+</ul>
+
+<p>對於每次查詢時間 <code class="language-plaintext highlighter-rouge">t</code>，請回傳「在時間 <code class="language-plaintext highlighter-rouge">t</code>（包含恰好在 <code class="language-plaintext highlighter-rouge">t</code> 投出的票）時，得票數領先的人」。</p>
+
+<p>規則補充：</p>
+
+<ul>
+  <li>若有平手（得票數相同），<strong>以最近一次投票者</strong>（在平手者之中，最後拿到票的人）為領先者。</li>
+</ul>
+
+<p>要實作 <code class="language-plaintext highlighter-rouge">TopVotedCandidate</code>：</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">TopVotedCandidate(persons, times)</code>：初始化</li>
+  <li><code class="language-plaintext highlighter-rouge">q(t)</code>：回傳時間 <code class="language-plaintext highlighter-rouge">t</code> 時的領先者</li>
+</ul>
+
+<!--more-->
+
+<h2 id="解題思路">解題思路</h2>
+
+<p>這題的關鍵在於：查詢會很多次，而投票序列是固定的。因此適合 <strong>預處理 + 二分搜尋</strong>。</p>
+
+<h3 id="1-預處理每個投票時間點的領先者">1) 預處理每個投票時間點的領先者</h3>
+
+<p>我們從左到右掃描每一票，維護：</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">count[p]</code>：候選人 <code class="language-plaintext highlighter-rouge">p</code> 目前得票數</li>
+  <li><code class="language-plaintext highlighter-rouge">leader</code>：目前領先者</li>
+  <li><code class="language-plaintext highlighter-rouge">leaderVotes</code>：領先者得票數</li>
+</ul>
+
+<p>當第 <code class="language-plaintext highlighter-rouge">i</code> 票投給 <code class="language-plaintext highlighter-rouge">p = persons[i]</code> 時：</p>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">count[p] += 1</code></li>
+  <li>若 <code class="language-plaintext highlighter-rouge">count[p] &gt;= leaderVotes</code>，則令 <code class="language-plaintext highlighter-rouge">leader = p</code>、<code class="language-plaintext highlighter-rouge">leaderVotes = count[p]</code></li>
+</ol>
+
+<p>注意這裡用 <code class="language-plaintext highlighter-rouge">&gt;=</code>（不是 <code class="language-plaintext highlighter-rouge">&gt;</code>）：</p>
+
+<ul>
+  <li>這正是「平手時以最近投票者勝出」的規則：當 <code class="language-plaintext highlighter-rouge">p</code> 追平領先者票數時，因為 <code class="language-plaintext highlighter-rouge">p</code> 是最新拿到票的人，所以應該成為新的 leader。</li>
+</ul>
+
+<p>把每個時間點的 <code class="language-plaintext highlighter-rouge">leader</code> 存到陣列 <code class="language-plaintext highlighter-rouge">leaders[i]</code>，代表在 <code class="language-plaintext highlighter-rouge">times[i]</code> 這一刻（包含這一票）結束後的領先者。</p>
+
+<h3 id="2-查詢用二分搜尋定位最後一個-timesi--t">2) 查詢用二分搜尋定位最後一個 <code class="language-plaintext highlighter-rouge">times[i] &lt;= t</code></h3>
+
+<p><code class="language-plaintext highlighter-rouge">q(t)</code> 要找「時間不超過 t 的最後一票」的位置：</p>
+
+<ul>
+  <li>用二分搜尋找 <code class="language-plaintext highlighter-rouge">idx = upper_bound(times, t) - 1</code></li>
+  <li>回傳 <code class="language-plaintext highlighter-rouge">leaders[idx]</code></li>
+</ul>
+
+<p>因為 <code class="language-plaintext highlighter-rouge">leaders[idx]</code> 就是投到 <code class="language-plaintext highlighter-rouge">times[idx]</code> 後的領先者，而 <code class="language-plaintext highlighter-rouge">times[idx]</code> 是所有 <code class="language-plaintext highlighter-rouge">&lt;= t</code> 的投票中最新的那個(投票在 t 時間點也算)。</p>
+
+<h2 id="c-實作">C++ 實作</h2>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">TopVotedCandidate</span> <span class="p">{</span>
+<span class="nl">public:</span>
+    <span class="n">TopVotedCandidate</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">persons</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">times</span><span class="p">)</span> <span class="o">:</span><span class="n">times</span><span class="p">(</span><span class="n">times</span><span class="p">){</span>
+        <span class="n">unordered_map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">count</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">leader</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">leaderVotes</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+        <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="n">p</span> <span class="o">:</span> <span class="n">persons</span><span class="p">){</span>
+            <span class="n">count</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">count</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">leaderVotes</span><span class="p">){</span>
+                <span class="n">leader</span> <span class="o">=</span> <span class="n">p</span><span class="p">;</span>
+                <span class="n">leaderVotes</span> <span class="o">=</span> <span class="n">count</span><span class="p">[</span><span class="n">p</span><span class="p">];</span>
+            <span class="p">}</span>   
+            <span class="n">leaders</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">leader</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    
+    <span class="kt">int</span> <span class="n">q</span><span class="p">(</span><span class="kt">int</span> <span class="n">t</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// max time[idx] &lt;= t</span>
+        <span class="k">auto</span> <span class="n">idx</span> <span class="o">=</span> <span class="n">upper_bound</span><span class="p">(</span><span class="n">times</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">times</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">t</span><span class="p">)</span><span class="o">-</span><span class="n">times</span><span class="p">.</span><span class="n">begin</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">leaders</span><span class="p">[</span><span class="n">idx</span><span class="p">];</span>
+    <span class="p">}</span>
+<span class="nl">private:</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">leaders</span><span class="p">;</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">times</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="cm">/**
+ * Your TopVotedCandidate object will be instantiated and called as such:
+ * TopVotedCandidate* obj = new TopVotedCandidate(persons, times);
+ * int param_1 = obj-&gt;q(t);
+ */</span>
+</code></pre></div></div>
+
+<h2 id="python-實作">Python 實作</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">TopVotedCandidate</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">persons</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">times</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">times</span> <span class="o">=</span> <span class="n">times</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">leaders</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="n">count</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+        <span class="n">leader</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="n">leader_votes</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">persons</span><span class="p">:</span>
+            <span class="n">count</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+            <span class="c1"># &gt;= 用來處理平手時，最新投票者勝出
+</span>            <span class="k">if</span> <span class="n">count</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">leader_votes</span><span class="p">:</span>
+                <span class="n">leader</span> <span class="o">=</span> <span class="n">p</span>
+                <span class="n">leader_votes</span> <span class="o">=</span> <span class="n">count</span><span class="p">[</span><span class="n">p</span><span class="p">]</span>
+
+            <span class="bp">self</span><span class="p">.</span><span class="n">leaders</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">leader</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">q</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="c1"># 找到最後一個 times[i] &lt;= t 的位置
+</span>        <span class="n">idx</span> <span class="o">=</span> <span class="n">bisect_right</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">times</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">leaders</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+</code></pre></div></div>
+
+<h2 id="時間與空間複雜度">時間與空間複雜度</h2>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">n = len(persons)</code>（投票數）</li>
+  <li><code class="language-plaintext highlighter-rouge">m</code> = 查詢次數</li>
+</ul>
+
+<h3 id="初始化建構子">初始化（建構子）</h3>
+<ul>
+  <li>時間：<code class="language-plaintext highlighter-rouge">O(n)</code>（單次掃描計票與建立 leaders）</li>
+  <li>空間：<code class="language-plaintext highlighter-rouge">O(n)</code>，leaders與建立的dict count最多是$n$，因此時間複雜度為$O(n)$</li>
+</ul>
+
+<h3 id="每次查詢-qt">每次查詢 <code class="language-plaintext highlighter-rouge">q(t)</code></h3>
+<ul>
+  <li>時間：<code class="language-plaintext highlighter-rouge">O(log n)</code>（對 <code class="language-plaintext highlighter-rouge">times</code> 二分搜尋）</li>
+  <li>空間：<code class="language-plaintext highlighter-rouge">O(1)</code>（不計輸入/儲存結構）</li>
+</ul>
+
+		</p>
+	</div>		
+  <div style="text-align: left; padding: 25px;">
+  <h1>相關文章</h1>
+  
+  
+
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  <a href="/easy/2026/01/31/744-find-smallest-letter-greater-than-target.html" class="badge badge-success">[Leetcode解題] 744. Find Smallest Letter Greater Than Target</a>
+  
+  
+  
+  <!--
+  <div>[Leetcode解題] 744. Find Smallest Letter Greater Than Target</div>
+  <div class="post-view-tags">
+		
+      
+		<a href="/posts/categories/easy/" class="badge badge-success">easy</a>
+  	  
+      
+      
+		
+		
+		<i href="#" class="badge badge-dark">binary_search,</i>
+		
+		<i href="#" class="badge badge-dark">bs</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  <a href="/easy/2023/06/09/744-find-smallest-letter-greater-than-target.html" class="badge badge-success">[Leetcode解題] Find Smallest Letter Greater Than Target - 使用二分搜尋法</a>
+  
+  
+  
+  <!--
+  <div>[Leetcode解題] Find Smallest Letter Greater Than Target - 使用二分搜尋法</div>
+  <div class="post-view-tags">
+		
+      
+		<a href="/posts/categories/easy/" class="badge badge-success">easy</a>
+  	  
+      
+      
+		
+		
+		<i href="#" class="badge badge-dark">binary-search</i>
+		
+		<i href="#" class="badge badge-dark">bs</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  
+  <a href="/hard/2024/03/09/2009-Minimum-Number-of-Operations-to-Make-Array-Continuous.html" class="badge badge-danger">[Leetcode解題] 2009. Minimum Number of Operations to Make Array Continuous - 使用 Binary Search 算法 </a>
+  
+  <!--
+  <div>[Leetcode解題] 2009. Minimum Number of Operations to Make Array Continuous - 使用 Binary Search 算法 </div>
+  <div class="post-view-tags">
+		
+      
+      
+      
+		<a href="/posts/categories/hard/" class="badge badge-danger">hard</a>
+  	  
+		
+		
+		<i href="#" class="badge badge-dark">binary-search</i>
+		
+		<i href="#" class="badge badge-dark">bs</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2026/01/16/2817-Minimum-Absolute-Difference-Between-Elements-With-Constraint.html" class="badge badge-warning">[Leetcode解題] 2817. Minimum Absolute Difference Between Elements With Constraint</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 2817. Minimum Absolute Difference Between Elements With Constraint</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">binary_search,</i>
+		
+		<i href="#" class="badge badge-dark">bs</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2026/01/10/367-valid-perfect-square.html" class="badge badge-warning">[Leetcode解題] 367. Valid Perfect Square</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 367. Valid Perfect Square</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">binary_search,</i>
+		
+		<i href="#" class="badge badge-dark">bs</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2026/01/09/911-Online-Election.html" class="badge badge-warning">[Leetcode解題] 911. Online Election</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 911. Online Election</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">binary_search,</i>
+		
+		<i href="#" class="badge badge-dark">bs</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2026/01/03/475-Heaters.html" class="badge badge-warning">[Leetcode解題] 475. Heaters</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 475. Heaters</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">binary_search,</i>
+		
+		<i href="#" class="badge badge-dark">bs</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/04/20/1146-Snapshot-Array.html" class="badge badge-warning">[Leetcode解題] 1146. Snapshot Array</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 1146. Snapshot Array</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">binary-search</i>
+		
+		<i href="#" class="badge badge-dark">bs</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+  </div>
+</div>
+		</div>
+		<div class="col-md-2 col-sm-0">
+		</div>
+	</div>
+</div>
+
+		</main>
+		<footer class="footer">
+			<!-- No -->
+
+<!--This is the footer of the website-->
+
+<div class="footer-window container-fluid footer-color">
+	<div class="row">
+		<div class="footer-view footer-left col-md-4 text-left">
+			<div class="footer-section">
+				<div class="account-box">
+			</div>
+			</div>
+		</div>
+		<div class="footer-view footer-center col-md-4 text-center">
+			<div class="footer-section">
+				<div class="footer-copyright">
+					解題愛好者
+					<br><br>
+					歡迎來到刷題貓！我們是兩位熱愛程式設計的工程師，在此分享Leetcode刷題心得以及整理主題式的文章
+					<br><br>
+					© 2023 CATXCODER All Rights Reserved
+				</div>
+				<div>
+				</div>
+			</div>
+		</div>
+		<div class="footer-view footer-right col-md-4 text-center">
+			<div class="footer-section">
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--
+log
+<p>Version 0.0.2</p>
+			<p>0.0.2 - 配色完成</p>
+			<p>0.0.2 - 基本模板完成</p>
+			<p>0.0.2 - 自我介紹新增打字效果</p>
+
+
+
+
+-->
+
+		</footer>
+		</div>
+	</body>
+</html>
+
+<script>
+$(".badge-info").hover(function(){
+    $(this).hide(1000);
+});
+
+
+</script>

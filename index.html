@@ -1,0 +1,388 @@
+<!-- OK -->
+
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="utf-8">
+	<link rel="icon" type="image/x-icon" href="/res/catxcoder.ico">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>刷題貓</title>
+	<meta name="description" content="刷題貓是一個分享Leetcode刷題心得的網站，內容包含Tree, List, String, Array, Search, Graph, Set, Dynamic Programming, Resursion等經典常見題型" />
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<!-- My CSS -->
+<link href="/res/css/common.css" rel="stylesheet">
+
+	</head>
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-MHQH8LKZYV"></script>
+	<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+
+	gtag('config', 'G-MHQH8LKZYV');
+	</script>
+	<body>		
+				<!-- JQeury -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+    
+	<!-- Font Awesome -->
+	<!--<script defer src="https://use.fontawesome.com/releases/v6.4.2/js/all.js" integrity="	sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe" crossorigin="anonymous"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" integrity="sha512-uKQ39gEGiyUJl4AI6L+ekBdGKpGw4xJ55+xyJG7YFlJokPNYegn9KwQ3P8A7aFQAUtUsAQHep+d/lrGqrbPIDQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<!-- support MathJax -->
+	<style TYPE="text/css">
+	code.has-jax {font: inherit; font-size: 100%; background: inherit; border: inherit;}
+	</style>
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	    tex2jax: {
+	        inlineMath: [['$','$'], ['\\(','\\)']],
+	        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'] // removed 'code' entry
+	    }
+	});
+	MathJax.Hub.Queue(function() {
+	    var all = MathJax.Hub.getAllJax(), i;
+	    for(i = 0; i < all.length; i += 1) {
+	        all[i].SourceElement().parentNode.className += ' has-jax';
+	    }
+	});
+	</script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<!-- A patch to fix mathjax -->
+<!-- https://github.com/mathjax/MathJax/issues/1737 -->
+	<script type="text/x-mathjax-config">
+if (MathJax.Hub.Browser.isSafari && parseInt(MathJax.Hub.Browser.webkit) >= 603) {
+  MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready", function () {
+    var HTMLCSS = MathJax.OutputJax["HTML-CSS"];
+    var MML = MathJax.ElementJax.mml;
+    var toHTML = MML.mo.prototype.toHTML;
+    MML.mo.Augment({
+      toHTML: function (span) {
+        span = toHTML.call(this,span);
+        if (span.bbox.w === 0 && span.bbox.lw < 0 && span.firstChild) {
+          span.style.marginLeft = HTMLCSS.Em(span.bbox.lw);
+        }
+        return span;
+      }
+    });
+  });
+}
+</script>
+
+		<header>
+			<!-- OK -->
+
+<div class="container">
+  <nav class="navbar navbar-expand-lg navbar-default nav-color" >
+    <a href="/index.html">
+      <img src="/res/catxcoder.ico" class="img-fluid" style="width: 32px; margin-right: 10px;">
+    </a>
+    <a class="navbar-item" href="/index.html">
+      刷題貓
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span><i class="fas fa-bars" ></i></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <ul class="navbar-nav ml-auto navbar-right">
+          <li class="nav-item">
+             <a class="nav-link" href="/index.html">首頁</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/posts/categories">難度</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/posts/algorithms">演算法</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/works">主題式</a>
+          </li>
+        </ul>
+    </div>
+  </nav>
+</div>
+
+		</header>
+		<main>
+			<!-- OK -->
+
+<div class="container-fluid text-center bg-color">
+	<div class="">
+	<div class="row bg-icon">
+		<div class="col-md-4 col-sm-0">
+
+		</div>
+		<div class="view-home col-md-4 col-sm-12 home-color">
+			<div class="container-fluid text-center">
+	<div>
+			<div class="profile-page-button-section">
+<span class="profile-page-button-box-description-title">解題心得</span>
+<div class="container-fluid profile-page-button-box">
+	<a href="/posts/categories">
+	<div class="row profile-button">
+		<div class="col-md-3 col-sm-3 profile-button-icon">
+			<span><i class="fas fa-pen-square fa-3x"></i></span>
+		</div>
+		<div class="col-md-9 col-sm-9 profile-page-button-box-description" >
+			<div class="profile-button-box-intro text-left" style=" width: 100%;">
+				<span class="profile-page-button-box-description-title">解題文章</span>
+			</div>
+			<div class="profile-button-box-chart progress" style="height: 10px; width: 100%;">
+				<div class="progress-bar progress-bar-striped bg-warning progress-posts" role="progressbar" style="width: 30%;" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+			</div>
+		</div>
+	</div>
+	</a>
+</div>
+<div class="container-fluid profile-page-button-box">
+	<a href="/works/">
+	<div class="row profile-button">
+		<div class="col-md-3 col-sm-3 profile-button-icon">
+			<span><i class="fas fa-coffee fa-3x"></i></span>
+		</div>
+		<div class="col-md-9 col-sm-9 profile-page-button-box-description" >
+			<div class="profile-button-box-intro text-left" style=" width: 100%;">
+				<span class="profile-page-button-box-description-title">主題文章</span>
+			</div>
+			<div class="profile-button-box-chart progress" style="height: 10px; width: 100%;">
+				<div class="progress-bar progress-bar-striped bg-warning progress-works" role="progressbar" style="width: 30%;" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+			</div>
+		</div>
+	</div>
+	</a>
+</div>
+</div>
+
+
+
+	</div>
+	<div style="padding-bottom: 50px">
+			
+<div class="profile-page-button-section">
+
+<span class="profile-page-button-box-description-title">企業精選</span>
+<div class="container-fluid profile-page-button-box">
+	<a href="/posts/companys/meta/">
+	<div class="row profile-button">
+		<div class="col-md-3 col-sm-3 profile-button-icon">
+      <span><i class="fab fa-meta fa-3x"></i></span>
+		</div>
+		<div class="col-md-9 col-sm-9 profile-page-button-box-description" >
+			<div class="profile-button-box-intro text-left" style=" width: 100%;">
+				<span class="profile-page-button-box-description-title">Meta</span>
+			</div>
+			<div class="profile-button-box-chart progress" style="height: 10px; width: 100%;">
+				<div class="progress-bar progress-bar-striped bg-warning progress-meta" role="progressbar" style="width: 30%;" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+			</div>
+		</div>
+	</div>
+	</a>
+</div>
+
+<div class="container-fluid profile-page-button-box">
+	<a href="/posts/companys/amazon/">
+	<div class="row profile-button">
+		<div class="col-md-3 col-sm-3 profile-button-icon">
+      <span><i class="fab fa-amazon fa-3x"></i></span>
+		</div>
+		<div class="col-md-9 col-sm-9 profile-page-button-box-description" >
+			<div class="profile-button-box-intro text-left" style=" width: 100%;">
+				<span class="profile-page-button-box-description-title">Amazon</span>
+			</div>
+			<div class="profile-button-box-chart progress" style="height: 10px; width: 100%;">
+				<div class="progress-bar progress-bar-striped bg-warning progress-amazon" role="progressbar" style="width: 30%;" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+			</div>
+		</div>
+	</div>
+	</a>
+</div>
+
+<div class="container-fluid profile-page-button-box">
+	<a href="/posts/companys/linkedin/">
+	<div class="row profile-button">
+		<div class="col-md-3 col-sm-3 profile-button-icon">
+      <span><i class="fab fa-linkedin fa-3x"></i></span>
+		</div>
+		<div class="col-md-9 col-sm-9 profile-page-button-box-description" >
+			<div class="profile-button-box-intro text-left" style=" width: 100%;">
+				<span class="profile-page-button-box-description-title">Linkedin</span>
+			</div>
+			<div class="profile-button-box-chart progress" style="height: 10px; width: 100%;">
+				<div class="progress-bar progress-bar-striped bg-warning progress-linkedin" role="progressbar" style="width: 30%;" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+			</div>
+		</div>
+	</div>
+	</a>
+</div>
+<div class="container-fluid profile-page-button-box">
+	<a href="/posts/companys/apple/">
+	<div class="row profile-button">
+		<div class="col-md-3 col-sm-3 profile-button-icon">
+      <span><i class="fab fa-apple fa-3x"></i></span>
+		</div>
+		<div class="col-md-9 col-sm-9 profile-page-button-box-description" >
+			<div class="profile-button-box-intro text-left" style=" width: 100%;">
+				<span class="profile-page-button-box-description-title">Apple</span>
+			</div>
+			<div class="profile-button-box-chart progress" style="height: 10px; width: 100%;">
+				<div class="progress-bar progress-bar-striped bg-warning progress-apple" role="progressbar" style="width: 30%;" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+			</div>
+		</div>
+	</div>
+	</a>
+</div>
+
+<div class="container-fluid profile-page-button-box">
+	<a href="/posts/companys/microsoft/">
+	<div class="row profile-button">
+		<div class="col-md-3 col-sm-3 profile-button-icon">
+      <span><i class="fab fa-microsoft fa-3x"></i></span>
+		</div>
+		<div class="col-md-9 col-sm-9 profile-page-button-box-description" >
+			<div class="profile-button-box-intro text-left" style=" width: 100%;">
+				<span class="profile-page-button-box-description-title">Microsoft</span>
+			</div>
+			<div class="profile-button-box-chart progress" style="height: 10px; width: 100%;">
+				<div class="progress-bar progress-bar-striped bg-warning progress-microsoft" role="progressbar" style="width: 30%;" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+			</div>
+		</div>
+	</div>
+	</a>
+</div>
+
+<div class="container-fluid profile-page-button-box">
+	<a href="/posts/companys/google/">
+	<div class="row profile-button">
+		<div class="col-md-3 col-sm-3 profile-button-icon">
+			<span><i class="fab fa-google fa-3x"></i></span>
+		</div>
+		<div class="col-md-9 col-sm-9 profile-page-button-box-description" >
+			<div class="profile-button-box-intro text-left" style=" width: 100%;">
+				<span class="profile-page-button-box-description-title">Google</span>
+			</div>
+			<div class="profile-button-box-chart progress" style="height: 10px; width: 100%;">
+				<div class="progress-bar progress-bar-striped bg-warning progress-google" role="progressbar" style="width: 30%;" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+			</div>
+		</div>
+	</div>
+	</a>
+</div>
+</div>
+
+
+
+	</div>
+
+</div>
+<script>
+
+
+$(document).ready(function(){
+  	$(".profile-page-intro-section").fadeIn(1000);
+});
+
+
+speed = 1;
+limit = [165, 3, 4, 6, , 7, 4, 3];
+limit = limit.map(zoom)
+nameList = [".progress-posts", ".progress-works", ".progress-meta", ".progress-amazon", ".progress-linkedin", ".progress-apple", ".progress-microsoft", ".progress-google"]
+console.log(limit);
+i = 0;
+
+
+function zoom(value, index, array){
+	return value;
+}
+
+function runProgress(){
+	var flag = false;
+	for(c=0; c<8; c++){
+		if(i <= limit[c]){
+			flag = true
+			percentage = i + "%";
+			$(nameList[c]).css("width", percentage);
+			$(nameList[c]).attr("aria-valuenow", i);
+
+		}else{
+			$(nameList[c]).html(limit[c]);
+		}
+	}
+	if(flag){
+		setTimeout(runProgress, speed);
+		i++;
+	}
+}
+runProgress();
+
+</script>
+
+
+		</div>
+		<div class="col-md-4 col-sm-0">
+		</div>
+	</div>
+	<div>
+</div>
+
+		</main>
+		<footer class="footer">
+			<!-- No -->
+
+<!--This is the footer of the website-->
+
+<div class="footer-window container-fluid footer-color">
+	<div class="row">
+		<div class="footer-view footer-left col-md-4 text-left">
+			<div class="footer-section">
+				<div class="account-box">
+			</div>
+			</div>
+		</div>
+		<div class="footer-view footer-center col-md-4 text-center">
+			<div class="footer-section">
+				<div class="footer-copyright">
+					解題愛好者
+					<br><br>
+					歡迎來到刷題貓！我們是兩位熱愛程式設計的工程師，在此分享Leetcode刷題心得以及整理主題式的文章
+					<br><br>
+					© 2023 CATXCODER All Rights Reserved
+				</div>
+				<div>
+				</div>
+			</div>
+		</div>
+		<div class="footer-view footer-right col-md-4 text-center">
+			<div class="footer-section">
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--
+log
+<p>Version 0.0.2</p>
+			<p>0.0.2 - 配色完成</p>
+			<p>0.0.2 - 基本模板完成</p>
+			<p>0.0.2 - 自我介紹新增打字效果</p>
+
+
+
+
+-->
+
+		</footer>
+		</div>
+	</body>
+</html>
+
+<script>
+$(".badge-info").hover(function(){
+    $(this).hide(1000);
+});
+
+
+</script>

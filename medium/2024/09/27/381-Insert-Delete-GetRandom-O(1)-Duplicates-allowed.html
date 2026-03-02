@@ -1,0 +1,1478 @@
+<!-- OK -->
+
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="utf-8">
+	<link rel="icon" type="image/x-icon" href="/res/catxcoder.ico">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>[Leetcode解題]  381. Insert Delete GetRandom O(1) - Duplicates allowed</title>
+	<meta name="description" content="381. Insert Delete GetRandom O(1) - Duplicates allowed" />
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<!-- My CSS -->
+<link href="/res/css/common.css" rel="stylesheet">
+
+	</head>
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-MHQH8LKZYV"></script>
+	<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+
+	gtag('config', 'G-MHQH8LKZYV');
+	</script>
+	<body>		
+				<!-- JQeury -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+    
+	<!-- Font Awesome -->
+	<!--<script defer src="https://use.fontawesome.com/releases/v6.4.2/js/all.js" integrity="	sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe" crossorigin="anonymous"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" integrity="sha512-uKQ39gEGiyUJl4AI6L+ekBdGKpGw4xJ55+xyJG7YFlJokPNYegn9KwQ3P8A7aFQAUtUsAQHep+d/lrGqrbPIDQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<!-- support MathJax -->
+	<style TYPE="text/css">
+	code.has-jax {font: inherit; font-size: 100%; background: inherit; border: inherit;}
+	</style>
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	    tex2jax: {
+	        inlineMath: [['$','$'], ['\\(','\\)']],
+	        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'] // removed 'code' entry
+	    }
+	});
+	MathJax.Hub.Queue(function() {
+	    var all = MathJax.Hub.getAllJax(), i;
+	    for(i = 0; i < all.length; i += 1) {
+	        all[i].SourceElement().parentNode.className += ' has-jax';
+	    }
+	});
+	</script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<!-- A patch to fix mathjax -->
+<!-- https://github.com/mathjax/MathJax/issues/1737 -->
+	<script type="text/x-mathjax-config">
+if (MathJax.Hub.Browser.isSafari && parseInt(MathJax.Hub.Browser.webkit) >= 603) {
+  MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready", function () {
+    var HTMLCSS = MathJax.OutputJax["HTML-CSS"];
+    var MML = MathJax.ElementJax.mml;
+    var toHTML = MML.mo.prototype.toHTML;
+    MML.mo.Augment({
+      toHTML: function (span) {
+        span = toHTML.call(this,span);
+        if (span.bbox.w === 0 && span.bbox.lw < 0 && span.firstChild) {
+          span.style.marginLeft = HTMLCSS.Em(span.bbox.lw);
+        }
+        return span;
+      }
+    });
+  });
+}
+</script>
+
+		<header>
+			<!-- OK -->
+
+<div class="container">
+  <nav class="navbar navbar-expand-lg navbar-default nav-color" >
+    <a href="/index.html">
+      <img src="/res/catxcoder.ico" class="img-fluid" style="width: 32px; margin-right: 10px;">
+    </a>
+    <a class="navbar-item" href="/index.html">
+      刷題貓
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span><i class="fas fa-bars" ></i></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <ul class="navbar-nav ml-auto navbar-right">
+          <li class="nav-item">
+             <a class="nav-link" href="/index.html">首頁</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/posts/categories">難度</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/posts/algorithms">演算法</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/works">主題式</a>
+          </li>
+        </ul>
+    </div>
+  </nav>
+</div>
+
+		</header>
+		<main>
+			<!-- OK -->
+
+<div class="container-fluid text-center bg-color">
+	<div class="row bg-icon">
+		<div class="col-md-2 col-sm-0">
+
+		</div>
+		<div class="view-home col-md-8 col-sm-12 post-home-color">
+			<div class="post-view-color post-view-window">
+	
+	<!-- title -->
+	<div class="post-view-title text-left" >
+		<p>[Leetcode解題]  381. Insert Delete GetRandom O(1) - Duplicates allowed</p>
+	</div>
+	
+	<!-- date -->
+	<div class="post-view-date">
+			27 September 2024
+	</div>
+
+	<!-- tags -->
+	<div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">hashmap</i>
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+	</div>
+	<hr>
+
+	<!-- excerpt -->
+	<div class="post-view-excerpt text-left">
+		<p>
+			<h1 id="381-insert-delete-getrandom-o1---duplicates-allowed">381. Insert Delete GetRandom O(1) - Duplicates allowed</h1>
+
+<h2 id="題目描述">題目描述</h2>
+<p><a href="https://leetcode.com/problems/insert-delete-getrandom-o1-duplicates-allowed/">381. Insert Delete GetRandom O(1) - Duplicates allowed</a>
+<code class="language-plaintext highlighter-rouge">RandomizedCollection</code> 是一個支援重複元素（multiset）的數據結構，需要支援以下三種操作：</p>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">bool insert(int val)</code>：將元素 <code class="language-plaintext highlighter-rouge">val</code> 插入到集合中，即使該元素已存在。返回值為 <code class="language-plaintext highlighter-rouge">true</code> 當該元素之前不在集合中，否則返回 <code class="language-plaintext highlighter-rouge">false</code>。</li>
+  <li><code class="language-plaintext highlighter-rouge">bool remove(int val)</code>：從集合中移除一個 <code class="language-plaintext highlighter-rouge">val</code>，如果 <code class="language-plaintext highlighter-rouge">val</code> 存在，則返回 <code class="language-plaintext highlighter-rouge">true</code>，否則返回 <code class="language-plaintext highlighter-rouge">false</code>。如果有多個相同元素，只移除其中一個。</li>
+  <li><code class="language-plaintext highlighter-rouge">int getRandom()</code>：隨機返回集合中的一個元素。每個元素被返回的機率應與它在集合中的出現次數成正比。</li>
+</ol>
+
+<p>要求所有操作在平均 $O(1)$ 的時間複雜度內完成。
+ <!--more--></p>
+<h2 id="解題思路">解題思路</h2>
+
+<p>這題與<a href="https://www.catxcoder.com/medium/2024/09/06/380-Insert-Delete-GetRandom-O(1).html">380. Insert Delete GetRandom O(1) </a>非常類似，只差在能否重複，本題也是藉由與陣列中最後一個交換的思路去做刪除元素的。</p>
+
+<p>為了達到平均 $O(1)$ 的時間複雜度，我們可以使用以下結構來儲存數據：</p>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">vector&lt;int&gt; nums</code>：用來儲存所有的元素。由於 <code class="language-plaintext highlighter-rouge">vector</code> 支援在尾部插入和刪除操作，這能幫助我們在 $O(1)$ 的時間內進行<em>隨機取出</em>、<em>插入</em>與<em>移除</em>操作。</li>
+  <li><code class="language-plaintext highlighter-rouge">unordered_map&lt;int, unordered_set&lt;int&gt;&gt; numToIdx</code>：用來映射每個數字到其在 <code class="language-plaintext highlighter-rouge">nums</code> 中所有出現的位置。這允許我們在 $O(1)$ 的時間內找到特定值並進行刪除操作。</li>
+</ol>
+
+<h3 id="插入操作-insert">插入操作 (insert)</h3>
+<ul>
+  <li>每次插入一個數字時，首先將其插入到 <code class="language-plaintext highlighter-rouge">nums</code> 的尾部，並將其在 <code class="language-plaintext highlighter-rouge">nums</code> 中的索引加入到 <code class="language-plaintext highlighter-rouge">numToIdx</code> 的對應集合中。</li>
+  <li>如果該數字之前不在集合中，返回 <code class="language-plaintext highlighter-rouge">true</code>；否則返回 <code class="language-plaintext highlighter-rouge">false</code>。</li>
+</ul>
+
+<h3 id="刪除操作-remove">刪除操作 (remove)</h3>
+<ul>
+  <li>若 <code class="language-plaintext highlighter-rouge">numToIdx</code> 中找不到 <code class="language-plaintext highlighter-rouge">val</code>，直接返回 <code class="language-plaintext highlighter-rouge">false</code>。</li>
+  <li>若找到，隨便取一個 <code class="language-plaintext highlighter-rouge">val</code> 在 <code class="language-plaintext highlighter-rouge">nums</code> 中的索引，然後將 <code class="language-plaintext highlighter-rouge">nums</code> 尾部的數字與這個索引對應的數字進行交換，並更新 <code class="language-plaintext highlighter-rouge">numToIdx</code> 中的索引信息，最後將 <code class="language-plaintext highlighter-rouge">nums</code> 尾部的數字刪除。</li>
+  <li>若該數字的所有出現位置都已被刪除，將其從 <code class="language-plaintext highlighter-rouge">numToIdx</code> 中刪除。</li>
+</ul>
+
+<h3 id="隨機獲取-getrandom">隨機獲取 (getRandom)</h3>
+<ul>
+  <li>直接從 <code class="language-plaintext highlighter-rouge">nums</code> 中隨機返回一個元素。由於 <code class="language-plaintext highlighter-rouge">nums</code> 儲存了所有的元素，並且每個元素的出現次數和集合中的數據一致，所以可以通過 <code class="language-plaintext highlighter-rouge">rand()</code> 函數隨機選取一個索引，達到返回隨機元素的效果。</li>
+</ul>
+
+<h2 id="python-實作">Python 實作</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">RandomizedCollection</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">nums</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># 儲存所有的數字
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">num_to_idx</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># 映射數字到其索引的集合
+</span>
+    <span class="k">def</span> <span class="nf">insert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="c1"># 插入數字到nums，並更新索引
+</span>        <span class="n">not_present</span> <span class="o">=</span> <span class="n">val</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">.</span><span class="n">num_to_idx</span>
+        <span class="k">if</span> <span class="n">not_present</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">num_to_idx</span><span class="p">[</span><span class="n">val</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">nums</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">num_to_idx</span><span class="p">[</span><span class="n">val</span><span class="p">].</span><span class="n">add</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">nums</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">not_present</span>
+
+    <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">val</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">.</span><span class="n">num_to_idx</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">num_to_idx</span><span class="p">[</span><span class="n">val</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">False</span>
+        <span class="c1"># 取出val的其中一個索引
+</span>        <span class="n">remove_idx</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">num_to_idx</span><span class="p">[</span><span class="n">val</span><span class="p">]))</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">num_to_idx</span><span class="p">[</span><span class="n">val</span><span class="p">].</span><span class="n">remove</span><span class="p">(</span><span class="n">remove_idx</span><span class="p">)</span>
+        <span class="n">last_val</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">nums</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        
+        <span class="c1"># 若不是最後一個元素，交換移除位置和最後一個元素
+</span>        <span class="k">if</span> <span class="n">remove_idx</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">nums</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">nums</span><span class="p">[</span><span class="n">remove_idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">last_val</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">num_to_idx</span><span class="p">[</span><span class="n">last_val</span><span class="p">].</span><span class="n">remove</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">nums</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">num_to_idx</span><span class="p">[</span><span class="n">last_val</span><span class="p">].</span><span class="n">add</span><span class="p">(</span><span class="n">remove_idx</span><span class="p">)</span>
+        
+        <span class="bp">self</span><span class="p">.</span><span class="n">nums</span><span class="p">.</span><span class="n">pop</span><span class="p">()</span>
+        
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">num_to_idx</span><span class="p">[</span><span class="n">val</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="p">.</span><span class="n">num_to_idx</span><span class="p">[</span><span class="n">val</span><span class="p">]</span>
+        
+        <span class="k">return</span> <span class="bp">True</span>
+
+    <span class="k">def</span> <span class="nf">getRandom</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">random</span><span class="p">.</span><span class="n">choice</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">nums</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="c-實作">C++ 實作</h2>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">RandomizedCollection</span> <span class="p">{</span>
+<span class="nl">public:</span>
+    <span class="n">RandomizedCollection</span><span class="p">()</span> <span class="p">{</span>
+        
+    <span class="p">}</span>
+    
+    <span class="kt">bool</span> <span class="n">insert</span><span class="p">(</span><span class="kt">int</span> <span class="n">val</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">bool</span> <span class="n">nopresent</span> <span class="o">=</span> <span class="n">numToIdx</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">val</span><span class="p">)</span><span class="o">==</span><span class="n">numToIdx</span><span class="p">.</span><span class="n">end</span><span class="p">();</span>
+        <span class="n">nums</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">val</span><span class="p">);</span>
+        <span class="n">numToIdx</span><span class="p">[</span><span class="n">val</span><span class="p">].</span><span class="n">insert</span><span class="p">(</span><span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">nopresent</span><span class="p">;</span>
+    <span class="p">}</span>
+    
+    <span class="kt">bool</span> <span class="n">remove</span><span class="p">(</span><span class="kt">int</span> <span class="n">val</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">numToIdx</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">val</span><span class="p">)</span><span class="o">==</span><span class="n">numToIdx</span><span class="p">.</span><span class="n">end</span><span class="p">())</span> <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">delIdx</span> <span class="o">=</span> <span class="o">*</span><span class="p">(</span><span class="n">numToIdx</span><span class="p">[</span><span class="n">val</span><span class="p">].</span><span class="n">begin</span><span class="p">());</span>
+        <span class="n">numToIdx</span><span class="p">[</span><span class="n">val</span><span class="p">].</span><span class="n">erase</span><span class="p">(</span><span class="n">delIdx</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">delIdx</span> <span class="o">!=</span> <span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">){</span>
+            <span class="n">numToIdx</span><span class="p">[</span><span class="n">nums</span><span class="p">.</span><span class="n">back</span><span class="p">()].</span><span class="n">erase</span><span class="p">(</span><span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+            <span class="n">numToIdx</span><span class="p">[</span><span class="n">nums</span><span class="p">.</span><span class="n">back</span><span class="p">()].</span><span class="n">insert</span><span class="p">(</span><span class="n">delIdx</span><span class="p">);</span>
+            <span class="n">swap</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">delIdx</span><span class="p">],</span> <span class="n">nums</span><span class="p">.</span><span class="n">back</span><span class="p">());</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">numToIdx</span><span class="p">[</span><span class="n">val</span><span class="p">].</span><span class="n">size</span><span class="p">()</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span> <span class="n">numToIdx</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span><span class="n">val</span><span class="p">);</span>
+        <span class="n">nums</span><span class="p">.</span><span class="n">pop_back</span><span class="p">();</span>
+        <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="p">}</span>
+    
+    <span class="kt">int</span> <span class="n">getRandom</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">nums</span><span class="p">[</span><span class="n">rand</span><span class="p">()</span><span class="o">%</span><span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">()];</span>
+    <span class="p">}</span>
+<span class="nl">private:</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">nums</span><span class="p">;</span>
+    <span class="n">unordered_map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="n">unordered_set</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">numToIdx</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="cm">/**
+ * Your RandomizedCollection object will be instantiated and called as such:
+ * RandomizedCollection* obj = new RandomizedCollection();
+ * bool param_1 = obj-&gt;insert(val);
+ * bool param_2 = obj-&gt;remove(val);
+ * int param_3 = obj-&gt;getRandom();
+ */</span>
+</code></pre></div></div>
+
+<h2 id="時間複雜度分析">時間複雜度分析</h2>
+
+<ol>
+  <li><strong>插入操作 <code class="language-plaintext highlighter-rouge">insert</code></strong>：
+    <ul>
+      <li>插入元素到 <code class="language-plaintext highlighter-rouge">nums</code> 尾部的時間為 $O(1)$。</li>
+      <li>更新 <code class="language-plaintext highlighter-rouge">num_to_idx</code> 時間為 $O(1)$。</li>
+      <li><strong>總時間複雜度</strong>：$O(1)$。</li>
+    </ul>
+  </li>
+  <li><strong>刪除操作 <code class="language-plaintext highlighter-rouge">remove</code></strong>：
+    <ul>
+      <li>找到 <code class="language-plaintext highlighter-rouge">val</code> 的索引並移除：$O(1)$。</li>
+      <li>如果刪除的不是最後一個元素，進行交換操作：$O(1)$。</li>
+      <li><strong>總時間複雜度</strong>：$O(1)$。</li>
+    </ul>
+  </li>
+  <li><strong>隨機返回 <code class="language-plaintext highlighter-rouge">getRandom</code></strong>：
+    <ul>
+      <li>隨機返回 <code class="language-plaintext highlighter-rouge">nums</code> 中的元素：$O(1)$。</li>
+      <li><strong>總時間複雜度</strong>：$O(1)$。</li>
+    </ul>
+  </li>
+</ol>
+
+<h2 id="總結">總結</h2>
+
+<p>這個題目的關鍵是利用 <code class="language-plaintext highlighter-rouge">vector</code> 和 <code class="language-plaintext highlighter-rouge">unordered_map&lt;int, unordered_set&lt;int&gt;&gt;</code> 結合，確保所有操作都能在平均 $O(1)$ 的時間內完成。<code class="language-plaintext highlighter-rouge">vector</code> 保證了隨機訪問與插入刪除的效率，<code class="language-plaintext highlighter-rouge">unordered_map&lt;int, unordered_set&lt;int&gt;&gt;</code> 使我們能夠快速地查找元素的位置並進行更新。</p>
+
+		</p>
+	</div>		
+  <div style="text-align: left; padding: 25px;">
+  <h1>相關文章</h1>
+  
+  
+
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  
+  <a href="/hard/2024/10/19/1106-Parsing-A-Boolean-Expression.html" class="badge badge-danger">[Leetcode解題]  1106. Parsing A Boolean Expression</a>
+  
+  <!--
+  <div>[Leetcode解題]  1106. Parsing A Boolean Expression</div>
+  <div class="post-view-tags">
+		
+      
+      
+      
+		<a href="/posts/categories/hard/" class="badge badge-danger">hard</a>
+  	  
+		
+		
+		<i href="#" class="badge badge-dark">pointer</i>
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2025/07/18/138-Copy-List-with-Random-Pointer.html" class="badge badge-warning">[Leetcode解題] 138. Copy List with Random Pointer</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 138. Copy List with Random Pointer</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">hashmap</i>
+		
+		<i href="#" class="badge badge-dark">linked-list</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/09/27/381-Insert-Delete-GetRandom-O(1)-Duplicates-allowed.html" class="badge badge-warning">[Leetcode解題]  381. Insert Delete GetRandom O(1) - Duplicates allowed</a>
+  
+  
+  <!--
+  <div>[Leetcode解題]  381. Insert Delete GetRandom O(1) - Duplicates allowed</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">hashmap</i>
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/01/06/416-Partition-equal-subset-sums.html" class="badge badge-warning">[Leetcode解題] 416. Partition Equal Subset Sum</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 416. Partition Equal Subset Sum</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">hashmap</i>
+		
+		<i href="#" class="badge badge-dark">dp</i>
+		
+		<i href="#" class="badge badge-dark">marked</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+  </div>
+</div>
+		</div>
+		<div class="col-md-2 col-sm-0">
+		</div>
+	</div>
+</div>
+
+		</main>
+		<footer class="footer">
+			<!-- No -->
+
+<!--This is the footer of the website-->
+
+<div class="footer-window container-fluid footer-color">
+	<div class="row">
+		<div class="footer-view footer-left col-md-4 text-left">
+			<div class="footer-section">
+				<div class="account-box">
+			</div>
+			</div>
+		</div>
+		<div class="footer-view footer-center col-md-4 text-center">
+			<div class="footer-section">
+				<div class="footer-copyright">
+					解題愛好者
+					<br><br>
+					歡迎來到刷題貓！我們是兩位熱愛程式設計的工程師，在此分享Leetcode刷題心得以及整理主題式的文章
+					<br><br>
+					© 2023 CATXCODER All Rights Reserved
+				</div>
+				<div>
+				</div>
+			</div>
+		</div>
+		<div class="footer-view footer-right col-md-4 text-center">
+			<div class="footer-section">
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--
+log
+<p>Version 0.0.2</p>
+			<p>0.0.2 - 配色完成</p>
+			<p>0.0.2 - 基本模板完成</p>
+			<p>0.0.2 - 自我介紹新增打字效果</p>
+
+
+
+
+-->
+
+		</footer>
+		</div>
+	</body>
+</html>
+
+<script>
+$(".badge-info").hover(function(){
+    $(this).hide(1000);
+});
+
+
+</script>

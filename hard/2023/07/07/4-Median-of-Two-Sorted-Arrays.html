@@ -1,0 +1,1462 @@
+<!-- OK -->
+
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="utf-8">
+	<link rel="icon" type="image/x-icon" href="/res/catxcoder.ico">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>[Leetcode解題] Median of Two Sorted Arrays  - 使用分治法(Divide-and-conquer)算法</title>
+	<meta name="description" content="[Leetcode解題] Median of Two Sorted Arrays  - 使用分治法(Divide-and-conquer)算法" />
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<!-- My CSS -->
+<link href="/res/css/common.css" rel="stylesheet">
+
+	</head>
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-MHQH8LKZYV"></script>
+	<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+
+	gtag('config', 'G-MHQH8LKZYV');
+	</script>
+	<body>		
+				<!-- JQeury -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+    
+	<!-- Font Awesome -->
+	<!--<script defer src="https://use.fontawesome.com/releases/v6.4.2/js/all.js" integrity="	sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe" crossorigin="anonymous"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" integrity="sha512-uKQ39gEGiyUJl4AI6L+ekBdGKpGw4xJ55+xyJG7YFlJokPNYegn9KwQ3P8A7aFQAUtUsAQHep+d/lrGqrbPIDQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<!-- support MathJax -->
+	<style TYPE="text/css">
+	code.has-jax {font: inherit; font-size: 100%; background: inherit; border: inherit;}
+	</style>
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	    tex2jax: {
+	        inlineMath: [['$','$'], ['\\(','\\)']],
+	        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'] // removed 'code' entry
+	    }
+	});
+	MathJax.Hub.Queue(function() {
+	    var all = MathJax.Hub.getAllJax(), i;
+	    for(i = 0; i < all.length; i += 1) {
+	        all[i].SourceElement().parentNode.className += ' has-jax';
+	    }
+	});
+	</script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<!-- A patch to fix mathjax -->
+<!-- https://github.com/mathjax/MathJax/issues/1737 -->
+	<script type="text/x-mathjax-config">
+if (MathJax.Hub.Browser.isSafari && parseInt(MathJax.Hub.Browser.webkit) >= 603) {
+  MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready", function () {
+    var HTMLCSS = MathJax.OutputJax["HTML-CSS"];
+    var MML = MathJax.ElementJax.mml;
+    var toHTML = MML.mo.prototype.toHTML;
+    MML.mo.Augment({
+      toHTML: function (span) {
+        span = toHTML.call(this,span);
+        if (span.bbox.w === 0 && span.bbox.lw < 0 && span.firstChild) {
+          span.style.marginLeft = HTMLCSS.Em(span.bbox.lw);
+        }
+        return span;
+      }
+    });
+  });
+}
+</script>
+
+		<header>
+			<!-- OK -->
+
+<div class="container">
+  <nav class="navbar navbar-expand-lg navbar-default nav-color" >
+    <a href="/index.html">
+      <img src="/res/catxcoder.ico" class="img-fluid" style="width: 32px; margin-right: 10px;">
+    </a>
+    <a class="navbar-item" href="/index.html">
+      刷題貓
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span><i class="fas fa-bars" ></i></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <ul class="navbar-nav ml-auto navbar-right">
+          <li class="nav-item">
+             <a class="nav-link" href="/index.html">首頁</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/posts/categories">難度</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/posts/algorithms">演算法</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/works">主題式</a>
+          </li>
+        </ul>
+    </div>
+  </nav>
+</div>
+
+		</header>
+		<main>
+			<!-- OK -->
+
+<div class="container-fluid text-center bg-color">
+	<div class="row bg-icon">
+		<div class="col-md-2 col-sm-0">
+
+		</div>
+		<div class="view-home col-md-8 col-sm-12 post-home-color">
+			<div class="post-view-color post-view-window">
+	
+	<!-- title -->
+	<div class="post-view-title text-left" >
+		<p>[Leetcode解題] Median of Two Sorted Arrays  - 使用分治法(Divide-and-conquer)算法</p>
+	</div>
+	
+	<!-- date -->
+	<div class="post-view-date">
+			7 July 2023
+	</div>
+
+	<!-- tags -->
+	<div class="post-view-tags">
+		
+      
+      
+      
+		<a href="/posts/categories/hard/" class="badge badge-danger">hard</a>
+  	  
+		
+		
+		<i href="#" class="badge badge-dark">divide-and-conquer</i>
+		
+		<i href="#" class="badge badge-dark">apple</i>
+		
+		<i href="#" class="badge badge-dark">amazon</i>
+		
+	</div>
+	<hr>
+
+	<!-- excerpt -->
+	<div class="post-view-excerpt text-left">
+		<p>
+			<h1 id="題目">題目</h1>
+<p><a href="https://leetcode.com/problems/median-of-two-sorted-arrays/">4. Median of Two Sorted Arrays</a>
+兩個已排序陣列的中位數</p>
+
+<p>給定兩個大小分別為 $m$ 和 $n$ 的已排序陣列 $nums1$ 和 $nums2$，找出這兩個陣列的中位數。</p>
+
+<p>整體運行時間複雜度應為 $O(log(m+n))$。</p>
+
+<!--more-->
+
+<h1 id="解題思路">解題思路</h1>
+
+<p>這個問題可以轉換為在兩個已排序陣列中尋找第 $K$ 個元素，其中 $K$ 為兩個陣列元素總數的中位數位置。</p>
+
+<p>為了達到 $O(log(m+n))$ 的時間複雜度，我們可以使用一種分治法(Divide-and-conquer)的思路。</p>
+
+<ol>
+  <li>首先，我們找到兩個陣列的中間元素($K/2$)，分別為 $mid1$ 和 $mid2$。</li>
+  <li>比較 $mid1$ 和 $mid2$ 的值：
+    <ul>
+      <li>如果 $mid1$ 小於 $mid2$，那麼 $nums1$ 中的前半部分不可能包含第 $K$ 大的元素。所以，我們可以將 $nums1$ 的前半部分丟棄，並更新 $K$ 的值。</li>
+      <li>如果 $mid1$ 大於等於 $mid2$，那麼 $nums2$ 中的前半部分不可能包含第 $K$ 大的元素。所以，我們可以將 $nums2$ 的前半部分丟棄，並更新 $K$ 的值。</li>
+    </ul>
+  </li>
+  <li>重複上述步驟，直到 $K$ 的值等於 $1$。</li>
+  <li>當 $K$ 的值等於 $1$ 時，我們找到了第 $K$ 大的元素，即為 $min(nums1[mid1], nums2[mid2])$。</li>
+</ol>
+
+<h2 id="範例">範例</h2>
+<p>在這個例子中，我們可以根據上述步驟找到第 5 大的元素：</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nums1 = [1, 3, 5, 7, 9]
+nums2 = [2, 4, 6, 8, 10]
+</code></pre></div></div>
+
+<ol>
+  <li>$mid1$ 為 $nums1[k/2] = 5$，$mid2$ 為 $nums2[k/2] = 6$。</li>
+  <li>$mid1$ 小於 $mid2$，所以我們丟棄 $nums1$ 的前半部分，更新 $K$ 的值為 $5-2=3$。</li>
+  <li>再次進行比較，$mid1$ 為 $nums1[k/2] = 7$，$mid2$ 為 $nums2[k/2] = 6$。
+    <ul>
+      <li>$mid1$ 大於等於 $mid2$，所以我們丟棄 $nums2$ 的前半部分，更新 $K$ 的值為 3-2=1。</li>
+    </ul>
+  </li>
+  <li>當 $K$ 的值等於 $1$ 時，我們找到了第 $K$ 大的元素，即為 $5$。
+所以，在這個例子中，兩個已排序陣列中的第 $5$ 大元素為 $5$。</li>
+</ol>
+
+<h1 id="算法">算法</h1>
+<ol>
+  <li>定義一個輔助函數 <code class="language-plaintext highlighter-rouge">findKthInSortedArrays(nums1, nums2, s1, s2, k)</code>。</li>
+  <li>在 <code class="language-plaintext highlighter-rouge">findKthInSortedArrays</code> 中，處理特殊情況：如果 nums1 中沒有剩餘元素，則返回 <code class="language-plaintext highlighter-rouge">nums2[s2+k]</code>；如果 nums2 中沒有剩餘元素，則返回 <code class="language-plaintext highlighter-rouge">nums1[s1+k]</code>。</li>
+  <li>如果 <code class="language-plaintext highlighter-rouge">k=0</code>，則返回 $min(nums1[s1], nums2[s2])$。</li>
+  <li>計算 $mid = (k-1)/2$。</li>
+  <li>防止 $mid1$ 和 $mid2$ 超出陣列界限，設置 $mid1 = min(s1+mid, nums1.size()-1)$ 和 $mid2 = min(s2+mid, nums2.size()-1)$。</li>
+  <li>如果 $nums1[mid1] &gt; nums2[mid2]$，則遞歸調用 <code class="language-plaintext highlighter-rouge">findKthInSortedArrays(nums1, nums2, s1, mid2+1, k-(mid2-s2+1))</code>。</li>
+  <li>如果 $nums1[mid1] &lt;= nums2[mid2]$，則遞歸調用 <code class="language-plaintext highlighter-rouge">findKthInSortedArrays(nums1, nums2, mid1+1, s2, k-(mid1-s1+1))</code>。</li>
+  <li>在主函數 <code class="language-plaintext highlighter-rouge">findMedianSortedArrays(nums1, nums2)</code> 中，計算 <code class="language-plaintext highlighter-rouge">mid_left = findKthInSortedArrays(nums1, nums2, 0, 0, (nums1.size()+nums2.size()-1)/2)</code> 和 <code class="language-plaintext highlighter-rouge">mid_right = findKthInSortedArrays(nums1, nums2, 0, 0, (nums1.size()+nums2.size())/2)</code>。</li>
+  <li>返回 (mid_left+mid_right)/2 作為中位數。</li>
+</ol>
+
+<h1 id="實作">實作</h1>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">findKthInSortedArrays</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nums1</span><span class="p">,</span> <span class="n">nums2</span><span class="p">,</span> <span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums1</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">s1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">nums2</span><span class="p">[</span><span class="n">s2</span> <span class="o">+</span> <span class="n">k</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums2</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">s2</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">nums1</span><span class="p">[</span><span class="n">s1</span> <span class="o">+</span> <span class="n">k</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">k</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">min</span><span class="p">(</span><span class="n">nums1</span><span class="p">[</span><span class="n">s1</span><span class="p">],</span> <span class="n">nums2</span><span class="p">[</span><span class="n">s2</span><span class="p">])</span>
+
+        <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+        <span class="n">mid1</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">s1</span> <span class="o">+</span> <span class="n">mid</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums1</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">mid2</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">s2</span> <span class="o">+</span> <span class="n">mid</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums2</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">nums1</span><span class="p">[</span><span class="n">mid1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">nums2</span><span class="p">[</span><span class="n">mid2</span><span class="p">]:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">findKthInSortedArrays</span><span class="p">(</span><span class="n">nums1</span><span class="p">,</span> <span class="n">nums2</span><span class="p">,</span> <span class="n">s1</span><span class="p">,</span> <span class="n">mid2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">k</span> <span class="o">-</span> <span class="p">(</span><span class="n">mid2</span> <span class="o">-</span> <span class="n">s2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">findKthInSortedArrays</span><span class="p">(</span><span class="n">nums1</span><span class="p">,</span> <span class="n">nums2</span><span class="p">,</span> <span class="n">mid1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">k</span> <span class="o">-</span> <span class="p">(</span><span class="n">mid1</span> <span class="o">-</span> <span class="n">s1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">findMedianSortedArrays</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nums1</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">nums2</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="n">mid_left</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">findKthInSortedArrays</span><span class="p">(</span><span class="n">nums1</span><span class="p">,</span> <span class="n">nums2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">nums1</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums2</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">mid_right</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">findKthInSortedArrays</span><span class="p">(</span><span class="n">nums1</span><span class="p">,</span> <span class="n">nums2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">nums1</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums2</span><span class="p">))</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">mid_left</span> <span class="o">+</span> <span class="n">mid_right</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+
+
+</code></pre></div></div>
+<h1 id="複雜度">複雜度</h1>
+<ul>
+  <li>時間複雜度：由於使用了分治法，每次遞歸將問題規模縮小為原來的一半，因此運行時間複雜度為 $O(log(m+n))$。</li>
+  <li>空間複雜度：遞歸過程中需要使用額外的堆疊空間，空間複雜度為 $O(log(m+n))$。</li>
+</ul>
+
+		</p>
+	</div>		
+  <div style="text-align: left; padding: 25px;">
+  <h1>相關文章</h1>
+  
+  
+
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  
+  <a href="/hard/2023/07/07/4-Median-of-Two-Sorted-Arrays.html" class="badge badge-danger">[Leetcode解題] Median of Two Sorted Arrays  - 使用分治法(Divide-and-conquer)算法</a>
+  
+  <!--
+  <div>[Leetcode解題] Median of Two Sorted Arrays  - 使用分治法(Divide-and-conquer)算法</div>
+  <div class="post-view-tags">
+		
+      
+      
+      
+		<a href="/posts/categories/hard/" class="badge badge-danger">hard</a>
+  	  
+		
+		
+		<i href="#" class="badge badge-dark">divide-and-conquer</i>
+		
+		<i href="#" class="badge badge-dark">apple</i>
+		
+		<i href="#" class="badge badge-dark">amazon</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  
+  <a href="/hard/2022/02/11/42-Trapping-Rain-Water.html" class="badge badge-danger">[Leetcode解題] Trapping Rain Water</a>
+  
+  <!--
+  <div>[Leetcode解題] Trapping Rain Water</div>
+  <div class="post-view-tags">
+		
+      
+      
+      
+		<a href="/posts/categories/hard/" class="badge badge-danger">hard</a>
+  	  
+		
+		
+		<i href="#" class="badge badge-dark">greedy</i>
+		
+		<i href="#" class="badge badge-dark">amazon</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2022/11/26/15-3sum.html" class="badge badge-warning">[Leetcode解題] 3Sum - 前後指針解</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 3Sum - 前後指針解</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">two-pointers</i>
+		
+		<i href="#" class="badge badge-dark">bs</i>
+		
+		<i href="#" class="badge badge-dark">apple</i>
+		
+		<i href="#" class="badge badge-dark">amazon</i>
+		
+		<i href="#" class="badge badge-dark">microsoft</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2022/02/11/56-merge-interval.markdown.html" class="badge badge-warning">[Leetcode解題] Merge Intervals - greedy解</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] Merge Intervals - greedy解</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">greedy</i>
+		
+		<i href="#" class="badge badge-dark">apple</i>
+		
+		<i href="#" class="badge badge-dark">amazon</i>
+		
+		<i href="#" class="badge badge-dark">meta</i>
+		
+		<i href="#" class="badge badge-dark">google</i>
+		
+		<i href="#" class="badge badge-dark">nvidia</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2022/02/11/3-Longest-Substring-Without-Repeating-Characters.html" class="badge badge-warning">[Leetcode解題] Longest Substring Without Repeating Characters - 用暴力法、DP法和前後指針解決</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] Longest Substring Without Repeating Characters - 用暴力法、DP法和前後指針解決</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">dp</i>
+		
+		<i href="#" class="badge badge-dark">two-pointers</i>
+		
+		<i href="#" class="badge badge-dark">python</i>
+		
+		<i href="#" class="badge badge-dark">apple</i>
+		
+		<i href="#" class="badge badge-dark">amazon</i>
+		
+		<i href="#" class="badge badge-dark">microsoft</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+  </div>
+</div>
+		</div>
+		<div class="col-md-2 col-sm-0">
+		</div>
+	</div>
+</div>
+
+		</main>
+		<footer class="footer">
+			<!-- No -->
+
+<!--This is the footer of the website-->
+
+<div class="footer-window container-fluid footer-color">
+	<div class="row">
+		<div class="footer-view footer-left col-md-4 text-left">
+			<div class="footer-section">
+				<div class="account-box">
+			</div>
+			</div>
+		</div>
+		<div class="footer-view footer-center col-md-4 text-center">
+			<div class="footer-section">
+				<div class="footer-copyright">
+					解題愛好者
+					<br><br>
+					歡迎來到刷題貓！我們是兩位熱愛程式設計的工程師，在此分享Leetcode刷題心得以及整理主題式的文章
+					<br><br>
+					© 2023 CATXCODER All Rights Reserved
+				</div>
+				<div>
+				</div>
+			</div>
+		</div>
+		<div class="footer-view footer-right col-md-4 text-center">
+			<div class="footer-section">
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--
+log
+<p>Version 0.0.2</p>
+			<p>0.0.2 - 配色完成</p>
+			<p>0.0.2 - 基本模板完成</p>
+			<p>0.0.2 - 自我介紹新增打字效果</p>
+
+
+
+
+-->
+
+		</footer>
+		</div>
+	</body>
+</html>
+
+<script>
+$(".badge-info").hover(function(){
+    $(this).hide(1000);
+});
+
+
+</script>

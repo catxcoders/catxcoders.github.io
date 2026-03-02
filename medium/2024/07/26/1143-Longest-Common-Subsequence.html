@@ -1,0 +1,1667 @@
+<!-- OK -->
+
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="utf-8">
+	<link rel="icon" type="image/x-icon" href="/res/catxcoder.ico">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>[Leetcode解題] 1143. Longest Common Subsequence - 使用 Rolling DP 指針解</title>
+	<meta name="description" content="[Leetcode解題] 1143. Longest Common Subsequence - 使用 Rolling DP 指針解" />
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<!-- My CSS -->
+<link href="/res/css/common.css" rel="stylesheet">
+
+	</head>
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-MHQH8LKZYV"></script>
+	<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+
+	gtag('config', 'G-MHQH8LKZYV');
+	</script>
+	<body>		
+				<!-- JQeury -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+    
+	<!-- Font Awesome -->
+	<!--<script defer src="https://use.fontawesome.com/releases/v6.4.2/js/all.js" integrity="	sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe" crossorigin="anonymous"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" integrity="sha512-uKQ39gEGiyUJl4AI6L+ekBdGKpGw4xJ55+xyJG7YFlJokPNYegn9KwQ3P8A7aFQAUtUsAQHep+d/lrGqrbPIDQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<!-- support MathJax -->
+	<style TYPE="text/css">
+	code.has-jax {font: inherit; font-size: 100%; background: inherit; border: inherit;}
+	</style>
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	    tex2jax: {
+	        inlineMath: [['$','$'], ['\\(','\\)']],
+	        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'] // removed 'code' entry
+	    }
+	});
+	MathJax.Hub.Queue(function() {
+	    var all = MathJax.Hub.getAllJax(), i;
+	    for(i = 0; i < all.length; i += 1) {
+	        all[i].SourceElement().parentNode.className += ' has-jax';
+	    }
+	});
+	</script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<!-- A patch to fix mathjax -->
+<!-- https://github.com/mathjax/MathJax/issues/1737 -->
+	<script type="text/x-mathjax-config">
+if (MathJax.Hub.Browser.isSafari && parseInt(MathJax.Hub.Browser.webkit) >= 603) {
+  MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready", function () {
+    var HTMLCSS = MathJax.OutputJax["HTML-CSS"];
+    var MML = MathJax.ElementJax.mml;
+    var toHTML = MML.mo.prototype.toHTML;
+    MML.mo.Augment({
+      toHTML: function (span) {
+        span = toHTML.call(this,span);
+        if (span.bbox.w === 0 && span.bbox.lw < 0 && span.firstChild) {
+          span.style.marginLeft = HTMLCSS.Em(span.bbox.lw);
+        }
+        return span;
+      }
+    });
+  });
+}
+</script>
+
+		<header>
+			<!-- OK -->
+
+<div class="container">
+  <nav class="navbar navbar-expand-lg navbar-default nav-color" >
+    <a href="/index.html">
+      <img src="/res/catxcoder.ico" class="img-fluid" style="width: 32px; margin-right: 10px;">
+    </a>
+    <a class="navbar-item" href="/index.html">
+      刷題貓
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span><i class="fas fa-bars" ></i></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <ul class="navbar-nav ml-auto navbar-right">
+          <li class="nav-item">
+             <a class="nav-link" href="/index.html">首頁</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/posts/categories">難度</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/posts/algorithms">演算法</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/works">主題式</a>
+          </li>
+        </ul>
+    </div>
+  </nav>
+</div>
+
+		</header>
+		<main>
+			<!-- OK -->
+
+<div class="container-fluid text-center bg-color">
+	<div class="row bg-icon">
+		<div class="col-md-2 col-sm-0">
+
+		</div>
+		<div class="view-home col-md-8 col-sm-12 post-home-color">
+			<div class="post-view-color post-view-window">
+	
+	<!-- title -->
+	<div class="post-view-title text-left" >
+		<p>[Leetcode解題] 1143. Longest Common Subsequence - 使用 Rolling DP 指針解</p>
+	</div>
+	
+	<!-- date -->
+	<div class="post-view-date">
+			26 July 2024
+	</div>
+
+	<!-- tags -->
+	<div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">dp</i>
+		
+	</div>
+	<hr>
+
+	<!-- excerpt -->
+	<div class="post-view-excerpt text-left">
+		<p>
+			<h2 id="題目">題目</h2>
+<p><a href="https://leetcode.com/problems/longest-common-subsequence/">1143. Longest Common Subsequence</a>
+給定兩個字串 <code class="language-plaintext highlighter-rouge">text1</code> 和 <code class="language-plaintext highlighter-rouge">text2</code>，返回它們的最長共同子序列的長度。如果沒有共同的子序列，返回 0。
+<!--more--></p>
+
+<h2 id="解題思路---dp">解題思路 - DP</h2>
+
+<p>這題的目的是找出兩個字串的最長共同子序列。我們可以使用動態規劃來解決這個問題。</p>
+
+<p>具體步驟如下：</p>
+<ol>
+  <li>建立一個二維的 DP 陣列，其中 <code class="language-plaintext highlighter-rouge">dp[i][j]</code> 表示 <code class="language-plaintext highlighter-rouge">text1</code> 的前 <code class="language-plaintext highlighter-rouge">i</code> 個字符和 <code class="language-plaintext highlighter-rouge">text2</code> 的前 <code class="language-plaintext highlighter-rouge">j</code> 個字符的最長共同子序列的長度。</li>
+  <li>初始化邊界條件，即當 <code class="language-plaintext highlighter-rouge">i</code> 或 <code class="language-plaintext highlighter-rouge">j</code> 為 0 時，<code class="language-plaintext highlighter-rouge">dp[i][j]</code> 應該為 0，因為一個字串和空字串的最長共同子序列長度為 0。</li>
+  <li>遍歷 <code class="language-plaintext highlighter-rouge">text1</code> 和 <code class="language-plaintext highlighter-rouge">text2</code>，如果 <code class="language-plaintext highlighter-rouge">text1[i-1]</code> 等於 <code class="language-plaintext highlighter-rouge">text2[j-1]</code>，則 <code class="language-plaintext highlighter-rouge">dp[i][j] = dp[i-1][j-1] + 1</code>，否則 <code class="language-plaintext highlighter-rouge">dp[i][j] = max(dp[i-1][j], dp[i][j-1])</code>。</li>
+  <li>最後，<code class="language-plaintext highlighter-rouge">dp[m][n]</code> 即為最長共同子序列的長度，其中 <code class="language-plaintext highlighter-rouge">m</code> 和 <code class="language-plaintext highlighter-rouge">n</code> 分別是 <code class="language-plaintext highlighter-rouge">text1</code> 和 <code class="language-plaintext highlighter-rouge">text2</code> 的長度。</li>
+</ol>
+
+<h2 id="範例">範例</h2>
+
+<p>假設有兩個字串：</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">text1 = "abcde"</code></li>
+  <li><code class="language-plaintext highlighter-rouge">text2 = "ace"</code></li>
+</ul>
+
+<h4 id="1-建立一個-2d-dp-陣列初始化為-0">1. 建立一個 2D DP 陣列，初始化為 0</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th> </th>
+      <th>a</th>
+      <th>c</th>
+      <th>e</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> </td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>a</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>b</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>c</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>d</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>e</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="2-逐步填充-dp-陣列">2. 逐步填充 DP 陣列</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th> </th>
+      <th>a</th>
+      <th>c</th>
+      <th>e</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> </td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>a</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>b</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>c</td>
+      <td>0</td>
+      <td>1</td>
+      <td>2</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>d</td>
+      <td>0</td>
+      <td>1</td>
+      <td>2</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>e</td>
+      <td>0</td>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>當 <code class="language-plaintext highlighter-rouge">text1[i-1]</code> 等於 <code class="language-plaintext highlighter-rouge">text2[j-1]</code>，代表當前字符是共同字符，<code class="language-plaintext highlighter-rouge">dp[i-1][j-1]</code> 是不包括這個共同字符之前的 LCS 長度，因此<code class="language-plaintext highlighter-rouge">dp[i][j]</code> 是 <code class="language-plaintext highlighter-rouge">dp[i-1][j-1]</code> 加 1*
+    <ul>
+      <li>e.g. <code class="language-plaintext highlighter-rouge">"ac"</code>與<code class="language-plaintext highlighter-rouge">"abcd"</code>的LCS是2，如果兩個字串都加上<code class="language-plaintext highlighter-rouge">'e'</code>， <em><code class="language-plaintext highlighter-rouge">"ace"</code>與<code class="language-plaintext highlighter-rouge">"abcde"</code>的LCS</em> 是 <em><code class="language-plaintext highlighter-rouge">"ac"</code>與<code class="language-plaintext highlighter-rouge">"abcd"</code>的LCS</em>加1</li>
+    </ul>
+  </li>
+  <li>否則，<code class="language-plaintext highlighter-rouge">dp[i][j] = max(dp[i-1][j], dp[i][j-1])</code>
+    <ul>
+      <li>這表示當 <code class="language-plaintext highlighter-rouge">text1[i-1]</code> 不等於 <code class="language-plaintext highlighter-rouge">text2[j-1]</code> 時，LCS 的長度不會增加。</li>
+      <li>我們需要在兩個選擇中取最大的 LCS 長度：<code class="language-plaintext highlighter-rouge">dp[i-1][j]</code> 或 <code class="language-plaintext highlighter-rouge">dp[i][j-1]</code>。
+        <ul>
+          <li><code class="language-plaintext highlighter-rouge">dp[i-1][j]</code> 是忽略 <code class="language-plaintext highlighter-rouge">text1[i-1]</code>，只考慮 <code class="language-plaintext highlighter-rouge">text1</code> 的前 $i-1$ 個字符和 <code class="language-plaintext highlighter-rouge">text2</code> 的前 $j$ 個字符的 LCS。</li>
+          <li><code class="language-plaintext highlighter-rouge">dp[i][j-1]</code> 是忽略 <code class="language-plaintext highlighter-rouge">text2[j-1]</code>，只考慮 <code class="language-plaintext highlighter-rouge">text1</code> 的前 $i$ 個字符和 <code class="language-plaintext highlighter-rouge">text2</code> 的前 $j-1$ 個字符的 LCS。</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="3-輸出結果">3. 輸出結果</h4>
+
+<p>最後 DP 陣列中的右下角 <code class="language-plaintext highlighter-rouge">dp[5][3]</code> 就是 “abcde” 和 “ace” 的最長共同子序列的長度，即 3。</p>
+
+<h2 id="python-代碼實現">Python 代碼實現</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">longestCommonSubsequence</span><span class="p">(</span><span class="n">text1</span><span class="p">,</span> <span class="n">text2</span><span class="p">):</span>
+    <span class="n">m</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">text1</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">text2</span><span class="p">)</span>
+    <span class="n">dp</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">m</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">text1</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">text2</span><span class="p">[</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]:</span>
+                <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">],</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">dp</span><span class="p">[</span><span class="n">m</span><span class="p">][</span><span class="n">n</span><span class="p">]</span>
+</code></pre></div></div>
+
+<h2 id="複雜度分析">複雜度分析</h2>
+
+<ul>
+  <li>時間複雜度：O(m * n)，其中 m 和 n 分別是 <code class="language-plaintext highlighter-rouge">text1</code> 和 <code class="language-plaintext highlighter-rouge">text2</code> 的長度。我們需要遍歷 DP 陣列中的每一個元素。</li>
+  <li>空間複雜度：O(m * n)，我們使用了一個二維陣列來存儲中間結果。</li>
+</ul>
+
+<hr />
+
+<h2 id="解題思路---rolling-dp">解題思路 - rolling DP</h2>
+
+<p><strong><em>避免重複計算。使用 rolling DP（滾動動態規劃）的方法可以節省空間。</em></strong></p>
+
+<h3 id="具體步驟">具體步驟</h3>
+
+<ol>
+  <li>
+    <p><strong>建立 DP 陣列</strong>：我們只需要兩個一維陣列 <code class="language-plaintext highlighter-rouge">previous</code> 和 <code class="language-plaintext highlighter-rouge">current</code> 來儲存每一步的計算結果。<code class="language-plaintext highlighter-rouge">previous</code> 保存上一行的 DP 值，<code class="language-plaintext highlighter-rouge">current</code> 保存當前行的 DP 值。</p>
+  </li>
+  <li>
+    <p><strong>初始化</strong>：初始化 <code class="language-plaintext highlighter-rouge">previous</code> 和 <code class="language-plaintext highlighter-rouge">current</code> 陣列為 0，長度為 <code class="language-plaintext highlighter-rouge">text1</code> 的長度加 1。</p>
+  </li>
+  <li>
+    <p><strong>遍歷字符</strong>：遍歷 <code class="language-plaintext highlighter-rouge">text2</code> 的每個字符，對每個字符再遍歷 <code class="language-plaintext highlighter-rouge">text1</code> 的每個字符進行比較。如果字符相同，則 <code class="language-plaintext highlighter-rouge">current[i] = previous[i-1] + 1</code>；否則，<code class="language-plaintext highlighter-rouge">current[i] = max(previous[i], current[i-1])</code>。</p>
+  </li>
+  <li>
+    <p><strong>更新陣列</strong>：每次內層循環結束後，將 <code class="language-plaintext highlighter-rouge">current</code> 複製到 <code class="language-plaintext highlighter-rouge">previous</code>，以便進行下一輪比較。</p>
+  </li>
+  <li>
+    <p><strong>結果</strong>：最終，<code class="language-plaintext highlighter-rouge">previous</code> 陣列的最後一個元素就是最長共同子序列的長度。</p>
+  </li>
+</ol>
+
+<h2 id="python-代碼實現-1">Python 代碼實現</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">longestCommonSubsequence</span><span class="p">(</span><span class="n">text1</span><span class="p">,</span> <span class="n">text2</span><span class="p">):</span>
+    <span class="n">m</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">text1</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">text2</span><span class="p">)</span>
+    <span class="n">previous</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">m</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">current</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">m</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">m</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">text1</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">text2</span><span class="p">[</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]:</span>
+                <span class="n">current</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">previous</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">current</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">previous</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">current</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="n">previous</span> <span class="o">=</span> <span class="n">current</span><span class="p">[:]</span>
+
+    <span class="k">return</span> <span class="n">previous</span><span class="p">[</span><span class="n">m</span><span class="p">]</span>
+</code></pre></div></div>
+
+<h2 id="複雜度分析-1">複雜度分析</h2>
+
+<ul>
+  <li><strong>時間複雜度</strong>：O(m * n)，其中 m 和 n 分別是 <code class="language-plaintext highlighter-rouge">text1</code> 和 <code class="language-plaintext highlighter-rouge">text2</code> 的長度。我們需要遍歷 DP 陣列中的每一個元素。</li>
+  <li><strong>空間複雜度</strong>：O(m)，使用了兩個長度為 m + 1 的一維陣列來存儲中間結果。</li>
+</ul>
+
+
+		</p>
+	</div>		
+  <div style="text-align: left; padding: 25px;">
+  <h1>相關文章</h1>
+  
+  
+
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  
+  <a href="/hard/2024/09/13/10-Regular-Expression-Matching.html" class="badge badge-danger">[Leetcode解題]  10. Regular Expression Matching - DP解</a>
+  
+  <!--
+  <div>[Leetcode解題]  10. Regular Expression Matching - DP解</div>
+  <div class="post-view-tags">
+		
+      
+      
+      
+		<a href="/posts/categories/hard/" class="badge badge-danger">hard</a>
+  	  
+		
+		
+		<i href="#" class="badge badge-dark">dp</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2026/01/30/2771-Longest-Non-decreasing-Subarray-From-Two-Arrays.html" class="badge badge-warning">[Leetcode解題] 2771. Longest Non-decreasing Subarray From Two Arrays</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 2771. Longest Non-decreasing Subarray From Two Arrays</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">dp</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2025/10/11/3186-maximum-total-damage-with-spell-casting.html" class="badge badge-warning">[Leetcode解題] 3186. Maximum Total Damage With Spell Casting</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 3186. Maximum Total Damage With Spell Casting</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">dp</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/12/28/62-Unique-Paths.html" class="badge badge-warning">[Leetcode解題] 62. Unique Paths</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 62. Unique Paths</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">dp</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/08/30/1105-Filling-Bookcase-Shelves.html" class="badge badge-warning">[Leetcode解題]  1105. Filling Bookcase Shelves</a>
+  
+  
+  <!--
+  <div>[Leetcode解題]  1105. Filling Bookcase Shelves</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">dp</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/07/26/1143-Longest-Common-Subsequence.html" class="badge badge-warning">[Leetcode解題] 1143. Longest Common Subsequence - 使用 Rolling DP 指針解</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 1143. Longest Common Subsequence - 使用 Rolling DP 指針解</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">dp</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/03/03/368-Largest-Divisible-Subset.html" class="badge badge-warning">[Leetcode解題] 368. Largest Divisible Subset - 使用dp 算法 </a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 368. Largest Divisible Subset - 使用dp 算法 </div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">dp</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2023/05/20/1626-Best-Team-With-No-Conflicts.html" class="badge badge-warning">[Leetcode解題] Best Team With No Conflicts - dp解</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] Best Team With No Conflicts - dp解</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">dp</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2022/02/11/300-Longest-Increasing-Subsequence.html" class="badge badge-warning">[Leetcode解題] Longest Increasing Subsequence - dp解</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] Longest Increasing Subsequence - dp解</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">dp</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+  </div>
+</div>
+		</div>
+		<div class="col-md-2 col-sm-0">
+		</div>
+	</div>
+</div>
+
+		</main>
+		<footer class="footer">
+			<!-- No -->
+
+<!--This is the footer of the website-->
+
+<div class="footer-window container-fluid footer-color">
+	<div class="row">
+		<div class="footer-view footer-left col-md-4 text-left">
+			<div class="footer-section">
+				<div class="account-box">
+			</div>
+			</div>
+		</div>
+		<div class="footer-view footer-center col-md-4 text-center">
+			<div class="footer-section">
+				<div class="footer-copyright">
+					解題愛好者
+					<br><br>
+					歡迎來到刷題貓！我們是兩位熱愛程式設計的工程師，在此分享Leetcode刷題心得以及整理主題式的文章
+					<br><br>
+					© 2023 CATXCODER All Rights Reserved
+				</div>
+				<div>
+				</div>
+			</div>
+		</div>
+		<div class="footer-view footer-right col-md-4 text-center">
+			<div class="footer-section">
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--
+log
+<p>Version 0.0.2</p>
+			<p>0.0.2 - 配色完成</p>
+			<p>0.0.2 - 基本模板完成</p>
+			<p>0.0.2 - 自我介紹新增打字效果</p>
+
+
+
+
+-->
+
+		</footer>
+		</div>
+	</body>
+</html>
+
+<script>
+$(".badge-info").hover(function(){
+    $(this).hide(1000);
+});
+
+
+</script>

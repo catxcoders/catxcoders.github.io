@@ -1,0 +1,493 @@
+<!-- OK -->
+
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="utf-8">
+	<link rel="icon" type="image/x-icon" href="/res/catxcoder.ico">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>隊列(Queue)和堆疊(Stack)</title>
+	<meta name="description" content="" />
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<!-- My CSS -->
+<link href="/res/css/common.css" rel="stylesheet">
+
+	</head>
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-MHQH8LKZYV"></script>
+	<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+
+	gtag('config', 'G-MHQH8LKZYV');
+	</script>
+	<body>		
+				<!-- JQeury -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+    
+	<!-- Font Awesome -->
+	<!--<script defer src="https://use.fontawesome.com/releases/v6.4.2/js/all.js" integrity="	sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe" crossorigin="anonymous"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" integrity="sha512-uKQ39gEGiyUJl4AI6L+ekBdGKpGw4xJ55+xyJG7YFlJokPNYegn9KwQ3P8A7aFQAUtUsAQHep+d/lrGqrbPIDQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<!-- support MathJax -->
+	<style TYPE="text/css">
+	code.has-jax {font: inherit; font-size: 100%; background: inherit; border: inherit;}
+	</style>
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	    tex2jax: {
+	        inlineMath: [['$','$'], ['\\(','\\)']],
+	        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'] // removed 'code' entry
+	    }
+	});
+	MathJax.Hub.Queue(function() {
+	    var all = MathJax.Hub.getAllJax(), i;
+	    for(i = 0; i < all.length; i += 1) {
+	        all[i].SourceElement().parentNode.className += ' has-jax';
+	    }
+	});
+	</script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<!-- A patch to fix mathjax -->
+<!-- https://github.com/mathjax/MathJax/issues/1737 -->
+	<script type="text/x-mathjax-config">
+if (MathJax.Hub.Browser.isSafari && parseInt(MathJax.Hub.Browser.webkit) >= 603) {
+  MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready", function () {
+    var HTMLCSS = MathJax.OutputJax["HTML-CSS"];
+    var MML = MathJax.ElementJax.mml;
+    var toHTML = MML.mo.prototype.toHTML;
+    MML.mo.Augment({
+      toHTML: function (span) {
+        span = toHTML.call(this,span);
+        if (span.bbox.w === 0 && span.bbox.lw < 0 && span.firstChild) {
+          span.style.marginLeft = HTMLCSS.Em(span.bbox.lw);
+        }
+        return span;
+      }
+    });
+  });
+}
+</script>
+
+		<header>
+			<!-- OK -->
+
+<div class="container">
+  <nav class="navbar navbar-expand-lg navbar-default nav-color" >
+    <a href="/index.html">
+      <img src="/res/catxcoder.ico" class="img-fluid" style="width: 32px; margin-right: 10px;">
+    </a>
+    <a class="navbar-item" href="/index.html">
+      刷題貓
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span><i class="fas fa-bars" ></i></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <ul class="navbar-nav ml-auto navbar-right">
+          <li class="nav-item">
+             <a class="nav-link" href="/index.html">首頁</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/posts/categories">難度</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/posts/algorithms">演算法</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/works">主題式</a>
+          </li>
+        </ul>
+    </div>
+  </nav>
+</div>
+
+		</header>
+		<main>
+			<!-- OK -->
+
+<div class="container-fluid text-center bg-color">
+	<div class="row bg-icon">
+		<div class="col-md-2 col-sm-0">
+
+		</div>
+		<div class="view-home col-md-8 col-sm-12 work-home-color">
+			<!-- 暫時沿用 post -->
+
+<div class="post-view-color post-view-window">
+	
+	<!-- title -->
+	<div class="post-view-title text-left" >
+		<p>隊列(Queue)和堆疊(Stack)</p>
+	</div>
+	
+	<!-- date -->
+	<div class="post-view-date">
+			31 March 2022
+	</div>
+
+	<!-- tags -->
+	<div class="post-view-tags">
+		
+		<i href="#" class="badge badge-dark">Queue</i>
+		
+		<i href="#" class="badge badge-dark">Stack</i>
+		
+	</div>
+	<hr>
+
+	<!-- excerpt -->
+	<div class="post-view-excerpt text-left">
+		<p>
+			<h1 id="隊列queue和堆疊stack">隊列(Queue)和堆疊(Stack)</h1>
+
+<p>序列是一種線性數據結構，就是元素會按照一定的順序排列。今天我們要介紹兩種基本的序列，就是隊列(Queue)和堆疊(Stack)。</p>
+
+<!--more-->
+
+<h1 id="什麼是隊列queue">什麼是隊列（Queue）？</h1>
+
+<p>隊列是一種先進先出（FIFO）的數據結構，其中添加到隊列的元素位於隊列的末尾，而從隊列中刪除的元素位於隊列的前端。換句話說，隊列是一個按照先進先出原則排列元素的容器。</p>
+
+<p>以下是隊列的一些基本操作：</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">enqueue(item)</code>：將一個元素添加到隊列的末尾</li>
+  <li><code class="language-plaintext highlighter-rouge">dequeue()</code>：從隊列的前端刪除一個元素</li>
+  <li><code class="language-plaintext highlighter-rouge">isEmpty()</code>：檢查隊列是否為空</li>
+  <li><code class="language-plaintext highlighter-rouge">size()</code>：返回隊列中元素的數量</li>
+</ul>
+
+<div class="graphviz-wrapper">
+
+<!-- Generated by graphviz version 14.1.2 (0)
+ -->
+<!-- Title: G Pages: 1 -->
+<svg role="img" aria-label="graphviz-5064c8559097131d46f09cd615851555" width="233pt" height="220pt" viewBox="0.00 0.00 233.00 220.00">
+<title>graphviz-5064c8559097131d46f09cd615851555</title>
+<desc>
+digraph G {
+    node [shape=record, style=filled, fillcolor=grey93]
+    front[style=invis]
+    front -&gt; node1:f1 [headlabel=&quot;front&quot;, color=white, style=dotted, arrowhead=none, labelangle=0]
+    back[style=invis]
+    back -&gt; node1:f5 [headlabel=&quot;back&quot;, color=white, style=dotted, arrowhead=none, labelangle=0]
+    node1 [label=&quot;&lt;f1&gt; 1 |&lt;f2&gt; 2 |&lt;f3&gt; 3 | &lt;f4&gt; 4 | &lt;f5&gt; 5 &quot;]
+    6 [width=0.2, fillcolor=slategray1]
+    6:s -&gt; node1:e [label=&quot;  enqueue()&quot;, style=dashed]
+    0 [width=0.2, fillcolor=slategray1]
+    node1:w -&gt; 0:n [label=&quot;  dequeue()&quot;, style=dashed]
+}
+</desc>
+
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 215.5)">
+<title>G</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-215.5 229.3,-215.5 229.3,4 -4,4" />
+<!-- front -->
+<!-- node1 -->
+<g id="node2" class="node">
+<title>node1</title>
+<polygon fill="#ededed" stroke="black" points="15.12,-87.75 15.12,-123.75 128.88,-123.75 128.88,-87.75 15.12,-87.75" />
+<text xml:space="preserve" text-anchor="middle" x="26.5" y="-99.58" font-family="Times,serif" font-size="14.00">1</text>
+<polyline fill="none" stroke="black" points="37.88,-87.75 37.88,-123.75" />
+<text xml:space="preserve" text-anchor="middle" x="49.25" y="-99.58" font-family="Times,serif" font-size="14.00">2</text>
+<polyline fill="none" stroke="black" points="60.62,-87.75 60.62,-123.75" />
+<text xml:space="preserve" text-anchor="middle" x="72" y="-99.58" font-family="Times,serif" font-size="14.00">3</text>
+<polyline fill="none" stroke="black" points="83.38,-87.75 83.38,-123.75" />
+<text xml:space="preserve" text-anchor="middle" x="94.75" y="-99.58" font-family="Times,serif" font-size="14.00">4</text>
+<polyline fill="none" stroke="black" points="106.12,-87.75 106.12,-123.75" />
+<text xml:space="preserve" text-anchor="middle" x="117.5" y="-99.58" font-family="Times,serif" font-size="14.00">5</text>
+</g>
+<!-- front&#45;&gt;node1 -->
+<g id="edge1" class="edge">
+<title>front&#45;&gt;node1:f1</title>
+<path fill="none" stroke="white" stroke-dasharray="1,5" d="M26.8,-174.74C26.66,-161.04 26.5,-141.42 26.5,-124.25" />
+<text xml:space="preserve" text-anchor="middle" x="26.51" y="-128.07" font-family="Times,serif" font-size="14.00">front</text>
+</g>
+<!-- 0 -->
+<g id="node5" class="node">
+<title>0</title>
+<polygon fill="#c6e2ff" stroke="black" points="4.62,-0.5 4.62,-36.5 27.38,-36.5 27.38,-0.5 4.62,-0.5" />
+<text xml:space="preserve" text-anchor="middle" x="16" y="-12.32" font-family="Times,serif" font-size="14.00">0</text>
+</g>
+<!-- node1&#45;&gt;0 -->
+<g id="edge4" class="edge">
+<title>node1:w&#45;&gt;0:n</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M14.12,-105.75C-12.74,-105.75 9.07,-76.25 14.74,-48.36" />
+<polygon fill="black" stroke="black" points="18.21,-48.83 15.83,-38.5 11.25,-48.06 18.21,-48.83" />
+<text xml:space="preserve" text-anchor="middle" x="43.62" y="-55.95" font-family="Times,serif" font-size="14.00"> &#160;dequeue()</text>
+</g>
+<!-- back -->
+<!-- back&#45;&gt;node1 -->
+<g id="edge2" class="edge">
+<title>back&#45;&gt;node1:f5</title>
+<path fill="none" stroke="white" stroke-dasharray="1,5" d="M111.81,-174.55C114.45,-160.92 117.5,-141.47 117.5,-124.25" />
+<text xml:space="preserve" text-anchor="middle" x="117.33" y="-128.07" font-family="Times,serif" font-size="14.00">back</text>
+</g>
+<!-- 6 -->
+<g id="node4" class="node">
+<title>6</title>
+<polygon fill="#c6e2ff" stroke="black" points="152.62,-175 152.62,-211 175.38,-211 175.38,-175 152.62,-175" />
+<text xml:space="preserve" text-anchor="middle" x="164" y="-186.82" font-family="Times,serif" font-size="14.00">6</text>
+</g>
+<!-- 6&#45;&gt;node1 -->
+<g id="edge3" class="edge">
+<title>6:s&#45;&gt;node1:e</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M164,-174.5C164,-144.65 163.99,-114.4 141.14,-107.3" />
+<polygon fill="black" stroke="black" points="141.76,-103.86 131.37,-105.96 140.8,-110.79 141.76,-103.86" />
+<text xml:space="preserve" text-anchor="middle" x="194.55" y="-143.2" font-family="Times,serif" font-size="14.00"> &#160;enqueue()</text>
+</g>
+</g>
+</svg>
+</div>
+
+<h2 id="python中的隊列queue">Python中的隊列(Queue)</h2>
+
+<p>以下是 Python 中 Queue 常用的函數和方法：</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">queue.Queue(maxsize=0)</code>：創建一個新的隊列。maxsize 可以用來限制隊列的大小，如果 maxsize &lt; 0 或者為 0，則隊列大小沒有限制。</li>
+  <li><code class="language-plaintext highlighter-rouge">qsize()</code>：返回隊列的大小。</li>
+  <li><code class="language-plaintext highlighter-rouge">empty()</code>：如果隊列為空，則返回 True，否則返回 False。</li>
+  <li><code class="language-plaintext highlighter-rouge">full()</code>：如果隊列已滿，則返回 True，否則返回 False。</li>
+  <li><code class="language-plaintext highlighter-rouge">put(item, block=True, timeout=None)</code>：將一個元素添加到隊列的末尾。如果隊列已滿且 block 為 True，則會等待 timeout 秒，如果還是沒有空位則會報錯。如果 block 為 False，則會立即報錯。</li>
+  <li><code class="language-plaintext highlighter-rouge">get(block=True, timeout=None)</code>：從隊列的前端刪除一個元素。如果隊列為空且 block 為 True，則會等待 timeout 秒，如果還是沒有元素則會報錯。如果 block 為 False，則會立即報錯。</li>
+</ul>
+
+<p>以下是 Python 的範例：</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">queue</span> <span class="kn">import</span> <span class="n">Queue</span>
+
+<span class="c1"># 創建一個隊列
+</span><span class="n">q</span> <span class="o">=</span> <span class="n">Queue</span><span class="p">()</span>
+
+<span class="c1"># 添加元素
+</span><span class="n">q</span><span class="p">.</span><span class="n">put</span><span class="p">(</span><span class="s">'a'</span><span class="p">)</span>
+<span class="n">q</span><span class="p">.</span><span class="n">put</span><span class="p">(</span><span class="s">'b'</span><span class="p">)</span>
+<span class="n">q</span><span class="p">.</span><span class="n">put</span><span class="p">(</span><span class="s">'c'</span><span class="p">)</span>
+
+<span class="c1"># 刪除元素
+</span><span class="n">q</span><span class="p">.</span><span class="n">get</span><span class="p">()</span>  <span class="c1"># 'a'
+</span>
+<span class="c1"># 查看隊列大小
+</span><span class="n">q</span><span class="p">.</span><span class="n">qsize</span><span class="p">()</span>  <span class="c1"># 2
+</span>
+<span class="c1"># 檢查隊列是否為空
+</span><span class="n">q</span><span class="p">.</span><span class="n">empty</span><span class="p">()</span>  <span class="c1"># False
+</span></code></pre></div></div>
+
+<h1 id="什麼是堆疊stack">什麼是堆疊（Stack）？</h1>
+
+<p>堆疊是一種後進先出（LIFO）的數據結構，其中添加到堆疊的元素位於堆疊的頂部，而從堆疊中刪除的元素也位於堆疊的頂部。換句話說，堆疊是一個按照後進先出原則排列元素的容器。</p>
+
+<p>以下是堆疊的一些基本操作：</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">push(item)</code>：將一個元素添加到堆疊的頂部</li>
+  <li><code class="language-plaintext highlighter-rouge">pop()</code>：從堆疊的頂部刪除一個元素</li>
+  <li><code class="language-plaintext highlighter-rouge">isEmpty()</code>：檢查堆疊是否為空</li>
+  <li><code class="language-plaintext highlighter-rouge">size()</code>：返回堆疊中元素的數量</li>
+</ul>
+
+<div class="graphviz-wrapper">
+
+<!-- Generated by graphviz version 14.1.2 (0)
+ -->
+<!-- Title: G Pages: 1 -->
+<svg role="img" aria-label="graphviz-abb3c8a41a66747efbe4e8ace1747775" width="211pt" height="220pt" viewBox="0.00 0.00 211.00 220.00">
+<title>graphviz-abb3c8a41a66747efbe4e8ace1747775</title>
+<desc>
+digraph G {
+    node [shape=record, style=filled, fillcolor=grey93]
+    front[style=invis]
+    front -&gt; node1:f1 [headlabel=&quot;front&quot;, color=white, style=dotted, arrowhead=none, labelangle=0]
+    back[style=invis]
+    back -&gt; node1:f5 [headlabel=&quot;back&quot;, color=white, style=dotted, arrowhead=none, labelangle=0]
+    node1 [label=&quot;&lt;f1&gt; 1 |&lt;f2&gt; 2 |&lt;f3&gt; 3 | &lt;f4&gt; 4 | &lt;f5&gt; 5 &quot;]
+    6 [width=0.2, fillcolor=slategray1]
+    6:s -&gt; node1:ne [label=&quot;  push()&quot;, style=dashed]
+    0 [width=0.2, fillcolor=slategray1]
+    node1:e -&gt; 0:n [label=&quot;  pop()&quot;, style=dashed]
+}
+</desc>
+
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 215.5)">
+<title>G</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-215.5 206.54,-215.5 206.54,4 -4,4" />
+<!-- front -->
+<!-- node1 -->
+<g id="node2" class="node">
+<title>node1</title>
+<polygon fill="#ededed" stroke="black" points="15.12,-87.75 15.12,-123.75 128.88,-123.75 128.88,-87.75 15.12,-87.75" />
+<text xml:space="preserve" text-anchor="middle" x="26.5" y="-99.58" font-family="Times,serif" font-size="14.00">1</text>
+<polyline fill="none" stroke="black" points="37.88,-87.75 37.88,-123.75" />
+<text xml:space="preserve" text-anchor="middle" x="49.25" y="-99.58" font-family="Times,serif" font-size="14.00">2</text>
+<polyline fill="none" stroke="black" points="60.62,-87.75 60.62,-123.75" />
+<text xml:space="preserve" text-anchor="middle" x="72" y="-99.58" font-family="Times,serif" font-size="14.00">3</text>
+<polyline fill="none" stroke="black" points="83.38,-87.75 83.38,-123.75" />
+<text xml:space="preserve" text-anchor="middle" x="94.75" y="-99.58" font-family="Times,serif" font-size="14.00">4</text>
+<polyline fill="none" stroke="black" points="106.12,-87.75 106.12,-123.75" />
+<text xml:space="preserve" text-anchor="middle" x="117.5" y="-99.58" font-family="Times,serif" font-size="14.00">5</text>
+</g>
+<!-- front&#45;&gt;node1 -->
+<g id="edge1" class="edge">
+<title>front&#45;&gt;node1:f1</title>
+<path fill="none" stroke="white" stroke-dasharray="1,5" d="M26.8,-174.74C26.66,-161.04 26.5,-141.42 26.5,-124.25" />
+<text xml:space="preserve" text-anchor="middle" x="26.51" y="-128.07" font-family="Times,serif" font-size="14.00">front</text>
+</g>
+<!-- 0 -->
+<g id="node5" class="node">
+<title>0</title>
+<polygon fill="#c6e2ff" stroke="black" points="116.62,-0.5 116.62,-36.5 139.38,-36.5 139.38,-0.5 116.62,-0.5" />
+<text xml:space="preserve" text-anchor="middle" x="128" y="-12.32" font-family="Times,serif" font-size="14.00">0</text>
+</g>
+<!-- node1&#45;&gt;0 -->
+<g id="edge4" class="edge">
+<title>node1:e&#45;&gt;0:n</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M129.88,-105.75C156.74,-105.75 134.93,-76.25 129.26,-48.36" />
+<polygon fill="black" stroke="black" points="132.75,-48.06 128.17,-38.5 125.79,-48.83 132.75,-48.06" />
+<text xml:space="preserve" text-anchor="middle" x="153.87" y="-55.95" font-family="Times,serif" font-size="14.00"> &#160;pop()</text>
+</g>
+<!-- back -->
+<!-- back&#45;&gt;node1 -->
+<g id="edge2" class="edge">
+<title>back&#45;&gt;node1:f5</title>
+<path fill="none" stroke="white" stroke-dasharray="1,5" d="M111.81,-174.55C114.45,-160.92 117.5,-141.47 117.5,-124.25" />
+<text xml:space="preserve" text-anchor="middle" x="117.33" y="-128.07" font-family="Times,serif" font-size="14.00">back</text>
+</g>
+<!-- 6 -->
+<g id="node4" class="node">
+<title>6</title>
+<polygon fill="#c6e2ff" stroke="black" points="152.62,-175 152.62,-211 175.38,-211 175.38,-175 152.62,-175" />
+<text xml:space="preserve" text-anchor="middle" x="164" y="-186.82" font-family="Times,serif" font-size="14.00">6</text>
+</g>
+<!-- 6&#45;&gt;node1 -->
+<g id="edge3" class="edge">
+<title>6:s&#45;&gt;node1:ne</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M164,-174.5C164,-151.3 152.5,-145.14 137.19,-131.93" />
+<polygon fill="black" stroke="black" points="139.71,-129.49 129.99,-125.28 134.96,-134.63 139.71,-129.49" />
+<text xml:space="preserve" text-anchor="middle" x="181.54" y="-143.2" font-family="Times,serif" font-size="14.00"> &#160;push()</text>
+</g>
+</g>
+</svg>
+</div>
+
+<h2 id="python中的堆疊stack">Python中的堆疊（Stack）</h2>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">list.append(item)</code>：將一個元素添加到列表的末尾，相當於 push(item)</li>
+  <li><code class="language-plaintext highlighter-rouge">list.pop()</code>：從列表的末尾刪除一個元素，相當於 pop()</li>
+  <li><code class="language-plaintext highlighter-rouge">len(list)</code>：返回列表的大小，相當於 size()</li>
+  <li><code class="language-plaintext highlighter-rouge">not list</code>：如果列表為空，則返回 True，否則返回 False，相當於 isEmpty()</li>
+</ul>
+
+<p>以下是 Python 的範例：</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 創建一個堆疊
+</span><span class="n">stack</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1"># 添加元素
+</span><span class="n">stack</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="s">'a'</span><span class="p">)</span>
+<span class="n">stack</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="s">'b'</span><span class="p">)</span>
+<span class="n">stack</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="s">'c'</span><span class="p">)</span>
+
+<span class="c1"># 刪除元素
+</span><span class="n">stack</span><span class="p">.</span><span class="n">pop</span><span class="p">()</span>  <span class="c1"># 'c'
+</span>
+<span class="c1"># 查看堆疊大小
+</span><span class="nb">len</span><span class="p">(</span><span class="n">stack</span><span class="p">)</span>  <span class="c1"># 2
+</span>
+<span class="c1"># 檢查堆疊是否為空
+</span><span class="ow">not</span> <span class="n">stack</span>  <span class="c1"># False
+</span></code></pre></div></div>
+
+<h1 id="隊列queue和堆疊stack的運用">隊列(Queue)和堆疊(Stack)的運用</h1>
+
+<p>隊列(Queue)和堆疊(Stack)是計算機科學中最基本的資料結構之一。它們廣泛用於算法設計和程式開發中。</p>
+
+<p>其中一個常見的例子是瀏覽器的歷史記錄。當您在瀏覽器中打開一個新的網頁時，該網頁的 URL 將被添加到瀏覽器的歷史記錄中。如果您想返回上一頁，則瀏覽器將從歷史記錄的末尾（即最後一個訪問的 URL）開始向後瀏覽。</p>
+
+<p>另一個例子是遞迴函數。當一個函數被調用時，它的局部變量和參數被存儲在堆疊中。當函數返回時，這些變量和參數將被從堆疊中刪除。</p>
+
+<h1 id="練習">練習</h1>
+
+<p>以下是隊列和堆疊的一些練習：</p>
+
+<ul>
+  <li><a href="https://www.catxcoder.com/easy/2022/02/11/20-Valid-Parentheses.html">20-Valid-Parentheses</a></li>
+  <li><a href="https://www.catxcoder.com/medium/2023/05/26/32-Longest-Valid-Parentheses.html">32-Longest-Valid-Parentheses</a></li>
+</ul>
+
+		</p>
+	</div>		
+</div>
+
+
+		</div>
+		<div class="col-md-2 col-sm-0">
+		</div>
+	</div>
+</div>
+
+		</main>
+		<footer class="footer">
+			<!-- No -->
+
+<!--This is the footer of the website-->
+
+<div class="footer-window container-fluid footer-color">
+	<div class="row">
+		<div class="footer-view footer-left col-md-4 text-left">
+			<div class="footer-section">
+				<div class="account-box">
+			</div>
+			</div>
+		</div>
+		<div class="footer-view footer-center col-md-4 text-center">
+			<div class="footer-section">
+				<div class="footer-copyright">
+					解題愛好者
+					<br><br>
+					歡迎來到刷題貓！我們是兩位熱愛程式設計的工程師，在此分享Leetcode刷題心得以及整理主題式的文章
+					<br><br>
+					© 2023 CATXCODER All Rights Reserved
+				</div>
+				<div>
+				</div>
+			</div>
+		</div>
+		<div class="footer-view footer-right col-md-4 text-center">
+			<div class="footer-section">
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--
+log
+<p>Version 0.0.2</p>
+			<p>0.0.2 - 配色完成</p>
+			<p>0.0.2 - 基本模板完成</p>
+			<p>0.0.2 - 自我介紹新增打字效果</p>
+
+
+
+
+-->
+
+		</footer>
+		</div>
+	</body>
+</html>
+
+<script>
+$(".badge-info").hover(function(){
+    $(this).hide(1000);
+});
+
+
+</script>

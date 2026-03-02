@@ -1,0 +1,1736 @@
+<!-- OK -->
+
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="utf-8">
+	<link rel="icon" type="image/x-icon" href="/res/catxcoder.ico">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>[Leetcode解題] Detonate the Maximum Bombs - 使用圖算法</title>
+	<meta name="description" content="[Leetcode解題] Detonate the Maximum Bombs - 使用圖算法" />
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<!-- My CSS -->
+<link href="/res/css/common.css" rel="stylesheet">
+
+	</head>
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-MHQH8LKZYV"></script>
+	<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+
+	gtag('config', 'G-MHQH8LKZYV');
+	</script>
+	<body>		
+				<!-- JQeury -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+    
+	<!-- Font Awesome -->
+	<!--<script defer src="https://use.fontawesome.com/releases/v6.4.2/js/all.js" integrity="	sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe" crossorigin="anonymous"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" integrity="sha512-uKQ39gEGiyUJl4AI6L+ekBdGKpGw4xJ55+xyJG7YFlJokPNYegn9KwQ3P8A7aFQAUtUsAQHep+d/lrGqrbPIDQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<!-- support MathJax -->
+	<style TYPE="text/css">
+	code.has-jax {font: inherit; font-size: 100%; background: inherit; border: inherit;}
+	</style>
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	    tex2jax: {
+	        inlineMath: [['$','$'], ['\\(','\\)']],
+	        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'] // removed 'code' entry
+	    }
+	});
+	MathJax.Hub.Queue(function() {
+	    var all = MathJax.Hub.getAllJax(), i;
+	    for(i = 0; i < all.length; i += 1) {
+	        all[i].SourceElement().parentNode.className += ' has-jax';
+	    }
+	});
+	</script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<!-- A patch to fix mathjax -->
+<!-- https://github.com/mathjax/MathJax/issues/1737 -->
+	<script type="text/x-mathjax-config">
+if (MathJax.Hub.Browser.isSafari && parseInt(MathJax.Hub.Browser.webkit) >= 603) {
+  MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready", function () {
+    var HTMLCSS = MathJax.OutputJax["HTML-CSS"];
+    var MML = MathJax.ElementJax.mml;
+    var toHTML = MML.mo.prototype.toHTML;
+    MML.mo.Augment({
+      toHTML: function (span) {
+        span = toHTML.call(this,span);
+        if (span.bbox.w === 0 && span.bbox.lw < 0 && span.firstChild) {
+          span.style.marginLeft = HTMLCSS.Em(span.bbox.lw);
+        }
+        return span;
+      }
+    });
+  });
+}
+</script>
+
+		<header>
+			<!-- OK -->
+
+<div class="container">
+  <nav class="navbar navbar-expand-lg navbar-default nav-color" >
+    <a href="/index.html">
+      <img src="/res/catxcoder.ico" class="img-fluid" style="width: 32px; margin-right: 10px;">
+    </a>
+    <a class="navbar-item" href="/index.html">
+      刷題貓
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span><i class="fas fa-bars" ></i></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <ul class="navbar-nav ml-auto navbar-right">
+          <li class="nav-item">
+             <a class="nav-link" href="/index.html">首頁</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/posts/categories">難度</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/posts/algorithms">演算法</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/works">主題式</a>
+          </li>
+        </ul>
+    </div>
+  </nav>
+</div>
+
+		</header>
+		<main>
+			<!-- OK -->
+
+<div class="container-fluid text-center bg-color">
+	<div class="row bg-icon">
+		<div class="col-md-2 col-sm-0">
+
+		</div>
+		<div class="view-home col-md-8 col-sm-12 post-home-color">
+			<div class="post-view-color post-view-window">
+	
+	<!-- title -->
+	<div class="post-view-title text-left" >
+		<p>[Leetcode解題] Detonate the Maximum Bombs - 使用圖算法</p>
+	</div>
+	
+	<!-- date -->
+	<div class="post-view-date">
+			3 June 2023
+	</div>
+
+	<!-- tags -->
+	<div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">dfs</i>
+		
+		<i href="#" class="badge badge-dark">graph</i>
+		
+	</div>
+	<hr>
+
+	<!-- excerpt -->
+	<div class="post-view-excerpt text-left">
+		<p>
+			<h1 id="題目">題目</h1>
+<p><a href="https://leetcode.com/problems/detonate-the-maximum-bombs/">2101. Detonate the Maximum Bombs</a>
+給定一個列表，列表中的每個元素有三個組成元素，$(x, y, r)$表示圓中心點的位置，以及其半徑$r$，每個點表示一顆炸彈，圓的面積表示炸彈可以炸的範圍，爆炸時會引爆其他炸彈，題目要求，若只能引爆一顆炸彈，最多可以引爆幾顆炸彈。</p>
+
+<!--more-->
+
+<h1 id="解題思路">解題思路</h1>
+
+<p>這題一開始會想說能不能使用貪婪算法(greedy)，因為如果是一維的狀況，確實可以透過排序(sort)+貪婪(greedy)的方法求。</p>
+
+<p>我們發現，炸彈引爆的關係，其實可以透過圖來表示，如果炸彈$A$可以引爆炸彈$B$，那麼我們給$A \rightarrow B$，此圖為有向圖，因為$A \rightarrow B$不一定表示$B \rightarrow A$。我們求的是，從圖上某一個點，能夠走到的點的數量最多，這是比較特別的，因為通常圖的問題是要求最長路徑等等，就能透過深度搜尋來求。</p>
+
+<p>所以，我們要求「從圖上某一個點，能夠走到的點的數量最多」，可以試過從所有的點出發，然後計算能踏過的所有的點的數量，最後再求最大值。</p>
+
+<p>我們可以看下圖的一個狀況，假如我們先選引爆$D$，我們知道$D$可以引爆$A, B, C$，假如我們是用一般$DFS$的話，我們紀錄引爆的數量為4，但是下一回合，假如我們選到$E$，我們不能直接用紀錄的D數量，因為這樣的話$B$這個點會被重複計算到。</p>
+
+<div class="graphviz-wrapper">
+
+<!-- Generated by graphviz version 14.1.2 (0)
+ -->
+<!-- Pages: 1 -->
+<svg role="img" aria-label="graphviz-5622c78924ff771b78601a294104e038" width="134pt" height="174pt" viewBox="0.00 0.00 134.00 174.00">
+<title>graphviz-5622c78924ff771b78601a294104e038</title>
+<desc>
+digraph {
+node [style=&quot;filled&quot; height=0.3]
+node [fillcolor=lightblue] D
+node [fillcolor=lightgray]
+D -&gt; C
+C-&gt;A
+C-&gt;B
+}
+</desc>
+
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 170.4)">
+<polygon fill="white" stroke="none" points="-4,4 -4,-170.4 130,-170.4 130,4 -4,4" />
+<!-- D -->
+<g id="node1" class="node">
+<title>D</title>
+<ellipse fill="lightblue" stroke="black" cx="63" cy="-150.67" rx="27" ry="15.73" />
+<text xml:space="preserve" text-anchor="middle" x="63" y="-144.49" font-family="Times,serif" font-size="14.00">D</text>
+</g>
+<!-- C -->
+<g id="node2" class="node">
+<title>C</title>
+<ellipse fill="lightgray" stroke="black" cx="63" cy="-83.2" rx="27" ry="15.73" />
+<text xml:space="preserve" text-anchor="middle" x="63" y="-77.02" font-family="Times,serif" font-size="14.00">C</text>
+</g>
+<!-- D&#45;&gt;C -->
+<g id="edge1" class="edge">
+<title>D&#45;&gt;C</title>
+<path fill="none" stroke="black" d="M63,-134.48C63,-127.38 63,-118.7 63,-110.57" />
+<polygon fill="black" stroke="black" points="66.5,-110.81 63,-100.81 59.5,-110.81 66.5,-110.81" />
+</g>
+<!-- A -->
+<g id="node3" class="node">
+<title>A</title>
+<ellipse fill="lightgray" stroke="black" cx="27" cy="-15.73" rx="27" ry="15.73" />
+<text xml:space="preserve" text-anchor="middle" x="27" y="-9.56" font-family="Times,serif" font-size="14.00">A</text>
+</g>
+<!-- C&#45;&gt;A -->
+<g id="edge2" class="edge">
+<title>C&#45;&gt;A</title>
+<path fill="none" stroke="black" d="M55.01,-67.67C50.72,-59.87 45.32,-50.05 40.41,-41.12" />
+<polygon fill="black" stroke="black" points="43.58,-39.62 35.7,-32.55 37.45,-43 43.58,-39.62" />
+</g>
+<!-- B -->
+<g id="node4" class="node">
+<title>B</title>
+<ellipse fill="lightgray" stroke="black" cx="99" cy="-15.73" rx="27" ry="15.73" />
+<text xml:space="preserve" text-anchor="middle" x="99" y="-9.56" font-family="Times,serif" font-size="14.00">B</text>
+</g>
+<!-- C&#45;&gt;B -->
+<g id="edge3" class="edge">
+<title>C&#45;&gt;B</title>
+<path fill="none" stroke="black" d="M70.99,-67.67C75.28,-59.87 80.68,-50.05 85.59,-41.12" />
+<polygon fill="black" stroke="black" points="88.55,-43 90.3,-32.55 82.42,-39.62 88.55,-43" />
+</g>
+</g>
+</svg>
+</div>
+
+<div class="graphviz-wrapper">
+
+<!-- Generated by graphviz version 14.1.2 (0)
+ -->
+<!-- Pages: 1 -->
+<svg role="img" aria-label="graphviz-54a76a16021ec7b29d863cd5067dd8fd" width="134pt" height="242pt" viewBox="0.00 0.00 134.00 242.00">
+<title>graphviz-54a76a16021ec7b29d863cd5067dd8fd</title>
+<desc>
+digraph {
+node [style=&quot;filled&quot; height=0.3]
+node [fillcolor=lightblue] E
+node [fillcolor=lightgray]
+E -&gt; D
+E -&gt; B
+D -&gt; C
+C-&gt;A
+C-&gt;B
+}
+</desc>
+
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 237.87)">
+<polygon fill="white" stroke="none" points="-4,4 -4,-237.87 130,-237.87 130,4 -4,4" />
+<!-- E -->
+<g id="node1" class="node">
+<title>E</title>
+<ellipse fill="lightblue" stroke="black" cx="71" cy="-218.13" rx="27" ry="15.73" />
+<text xml:space="preserve" text-anchor="middle" x="71" y="-211.96" font-family="Times,serif" font-size="14.00">E</text>
+</g>
+<!-- D -->
+<g id="node2" class="node">
+<title>D</title>
+<ellipse fill="lightgray" stroke="black" cx="44" cy="-150.67" rx="27" ry="15.73" />
+<text xml:space="preserve" text-anchor="middle" x="44" y="-144.49" font-family="Times,serif" font-size="14.00">D</text>
+</g>
+<!-- E&#45;&gt;D -->
+<g id="edge1" class="edge">
+<title>E&#45;&gt;D</title>
+<path fill="none" stroke="black" d="M65.01,-202.6C61.86,-194.97 57.92,-185.41 54.3,-176.64" />
+<polygon fill="black" stroke="black" points="57.6,-175.46 50.55,-167.55 51.13,-178.13 57.6,-175.46" />
+</g>
+<!-- B -->
+<g id="node3" class="node">
+<title>B</title>
+<ellipse fill="lightgray" stroke="black" cx="99" cy="-15.73" rx="27" ry="15.73" />
+<text xml:space="preserve" text-anchor="middle" x="99" y="-9.56" font-family="Times,serif" font-size="14.00">B</text>
+</g>
+<!-- E&#45;&gt;B -->
+<g id="edge2" class="edge">
+<title>E&#45;&gt;B</title>
+<path fill="none" stroke="black" d="M73.87,-202.07C75.75,-191.99 78.17,-178.43 80,-166.4 86.58,-123.16 92.66,-72.65 96.09,-42.75" />
+<polygon fill="black" stroke="black" points="99.53,-43.47 97.18,-33.14 92.58,-42.68 99.53,-43.47" />
+</g>
+<!-- C -->
+<g id="node4" class="node">
+<title>C</title>
+<ellipse fill="lightgray" stroke="black" cx="44" cy="-83.2" rx="27" ry="15.73" />
+<text xml:space="preserve" text-anchor="middle" x="44" y="-77.02" font-family="Times,serif" font-size="14.00">C</text>
+</g>
+<!-- D&#45;&gt;C -->
+<g id="edge3" class="edge">
+<title>D&#45;&gt;C</title>
+<path fill="none" stroke="black" d="M44,-134.48C44,-127.38 44,-118.7 44,-110.57" />
+<polygon fill="black" stroke="black" points="47.5,-110.81 44,-100.81 40.5,-110.81 47.5,-110.81" />
+</g>
+<!-- C&#45;&gt;B -->
+<g id="edge5" class="edge">
+<title>C&#45;&gt;B</title>
+<path fill="none" stroke="black" d="M55.4,-68.63C62.62,-60.03 72.14,-48.7 80.44,-38.82" />
+<polygon fill="black" stroke="black" points="82.89,-41.35 86.64,-31.44 77.53,-36.84 82.89,-41.35" />
+</g>
+<!-- A -->
+<g id="node5" class="node">
+<title>A</title>
+<ellipse fill="lightgray" stroke="black" cx="27" cy="-15.73" rx="27" ry="15.73" />
+<text xml:space="preserve" text-anchor="middle" x="27" y="-9.56" font-family="Times,serif" font-size="14.00">A</text>
+</g>
+<!-- C&#45;&gt;A -->
+<g id="edge4" class="edge">
+<title>C&#45;&gt;A</title>
+<path fill="none" stroke="black" d="M40.14,-67.34C38.23,-59.98 35.86,-50.87 33.67,-42.42" />
+<polygon fill="black" stroke="black" points="37.12,-41.79 31.22,-32.99 30.35,-43.55 37.12,-41.79" />
+</g>
+</g>
+</svg>
+</div>
+
+<h1 id="實作">實作</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">math</span>
+
+<span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+
+    <span class="k">def</span> <span class="nf">traverse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cur</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">count</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">v</span><span class="p">[</span><span class="n">cur</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span>
+        <span class="c1"># v[cur] == 0
+</span>        <span class="n">v</span><span class="p">[</span><span class="n">cur</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">g</span><span class="p">[</span><span class="n">cur</span><span class="p">][</span><span class="n">i</span><span class="p">]:</span>
+                <span class="n">count</span> <span class="o">+=</span> <span class="bp">self</span><span class="p">.</span><span class="n">traverse</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">count</span>
+
+
+    <span class="k">def</span> <span class="nf">maximumDetonation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bombs</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="n">g</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">False</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">bombs</span><span class="p">))]</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">bombs</span><span class="p">))]</span>
+
+        <span class="k">for</span> <span class="n">idxA</span><span class="p">,</span> <span class="n">bombA</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">bombs</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">idxB</span><span class="p">,</span> <span class="n">bombB</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">bombs</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">idxA</span> <span class="o">==</span> <span class="n">idxB</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="n">dist</span> <span class="o">=</span> <span class="n">math</span><span class="p">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">pow</span><span class="p">(</span><span class="n">bombB</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">bombA</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="nb">pow</span><span class="p">(</span><span class="n">bombB</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">bombA</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">2</span><span class="p">))</span>
+                <span class="k">if</span> <span class="n">dist</span> <span class="o">&lt;=</span> <span class="n">bombA</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span>
+                    <span class="n">g</span><span class="p">[</span><span class="n">idxA</span><span class="p">][</span><span class="n">idxB</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
+
+
+        <span class="n">maximum</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">bombs</span><span class="p">)):</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">bombs</span><span class="p">))]</span>
+            <span class="n">num_of_bombs</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">traverse</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">bombs</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">num_of_bombs</span> <span class="o">&gt;</span> <span class="n">maximum</span><span class="p">:</span>
+                <span class="n">maximum</span> <span class="o">=</span> <span class="n">num_of_bombs</span>
+        <span class="k">return</span> <span class="n">maximum</span>
+
+</code></pre></div></div>
+
+<h1 id="複雜度">複雜度</h1>
+
+<p>假設炸彈的數量為$n$，我們要先求炸彈之間能不能互相引爆，所以為$O(n^2)$，再來，我們要試從$n$個點出發，最多走過$n$個點，也是$O(n^2)$，所以時間複雜度為$O(n^2)$</p>
+
+<p>空間複雜度需用一個二維矩陣來記錄炸彈引爆關係，故也是$O(n^2)$</p>
+
+		</p>
+	</div>		
+  <div style="text-align: left; padding: 25px;">
+  <h1>相關文章</h1>
+  
+  
+
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  
+  <a href="/hard/2024/05/03/514-freedom-trail.html" class="badge badge-danger">[Leetcode解題] 514. Freedom Trail - 用DP結合BFS解</a>
+  
+  <!--
+  <div>[Leetcode解題] 514. Freedom Trail - 用DP結合BFS解</div>
+  <div class="post-view-tags">
+		
+      
+      
+      
+		<a href="/posts/categories/hard/" class="badge badge-danger">hard</a>
+  	  
+		
+		
+		<i href="#" class="badge badge-dark">dfs</i>
+		
+		<i href="#" class="badge badge-dark">dp</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2025/10/10/2477-Minimum-Fuel-Cost-to-Report-to-the-Capital.html" class="badge badge-warning">[Leetcode解題] 2477. Minimum Fuel Cost to Report to the Capital</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 2477. Minimum Fuel Cost to Report to the Capital</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">dfs</i>
+		
+		<i href="#" class="badge badge-dark">graph</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2025/09/20/753-is-graph-bipartite.html" class="badge badge-warning">[Leetcode解題] 785. Is Graph Bipartite?</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 785. Is Graph Bipartite?</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">greedy</i>
+		
+		<i href="#" class="badge badge-dark">graph</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2025/08/16/743-network-delay-time.html" class="badge badge-warning">[Leetcode解題] 743. Network Delay Time</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 743. Network Delay Time</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">shortest-path</i>
+		
+		<i href="#" class="badge badge-dark">graph</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2025/06/28/433-minimum-genetic-mutation.html" class="badge badge-warning">[Leetcode解題] 433. Minimum Genetic Mutation</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 433. Minimum Genetic Mutation</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">bfs</i>
+		
+		<i href="#" class="badge badge-dark">graph</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/05/18/979-Distribute-Coins-in-Binary-Tree.html" class="badge badge-warning">[Leetcode解題] 979. Distribute Coins in Binary Tree</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 979. Distribute Coins in Binary Tree</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">dfs</i>
+		
+		<i href="#" class="badge badge-dark">binary-tree</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/02/18/199-Binary-Tree-Right-Side-View.html" class="badge badge-warning">[Leetcode解題] 199. Binary Tree Right Side View - BFS解</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 199. Binary Tree Right Side View - BFS解</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">dfs</i>
+		
+		<i href="#" class="badge badge-dark">bfs</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2023/11/17/994-rotted-oranges.html" class="badge badge-warning">[Leetcode解題] 994. rotted oranges - BFS</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 994. rotted oranges - BFS</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">graph</i>
+		
+		<i href="#" class="badge badge-dark">bfs</i>
+		
+		<i href="#" class="badge badge-dark">graph</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2023/06/09/990-Satisfiability-of-Equality-Equations.html" class="badge badge-warning">[Leetcode解題] Satisfiability of Equality Equations - 使用DisjoinSet算法</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] Satisfiability of Equality Equations - 使用DisjoinSet算法</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">disjointSet</i>
+		
+		<i href="#" class="badge badge-dark">graph</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2023/06/03/2101-detonate-the-maximum-bombs.html" class="badge badge-warning">[Leetcode解題] Detonate the Maximum Bombs - 使用圖算法</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] Detonate the Maximum Bombs - 使用圖算法</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">dfs</i>
+		
+		<i href="#" class="badge badge-dark">graph</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/amazon/microsoft/apple/google/nvidia/2024/02/03/200-Number-of-Islands.html" class="badge badge-warning">[Leetcode解題] 200. Number of Islands - DFS解</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 200. Number of Islands - DFS解</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+      
+      
+      
+		
+      
+      
+      
+		
+      
+      
+      
+		
+      
+      
+      
+		
+      
+      
+      
+		
+		
+		<i href="#" class="badge badge-dark">dfs</i>
+		
+		<i href="#" class="badge badge-dark">bfs</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+  </div>
+</div>
+		</div>
+		<div class="col-md-2 col-sm-0">
+		</div>
+	</div>
+</div>
+
+		</main>
+		<footer class="footer">
+			<!-- No -->
+
+<!--This is the footer of the website-->
+
+<div class="footer-window container-fluid footer-color">
+	<div class="row">
+		<div class="footer-view footer-left col-md-4 text-left">
+			<div class="footer-section">
+				<div class="account-box">
+			</div>
+			</div>
+		</div>
+		<div class="footer-view footer-center col-md-4 text-center">
+			<div class="footer-section">
+				<div class="footer-copyright">
+					解題愛好者
+					<br><br>
+					歡迎來到刷題貓！我們是兩位熱愛程式設計的工程師，在此分享Leetcode刷題心得以及整理主題式的文章
+					<br><br>
+					© 2023 CATXCODER All Rights Reserved
+				</div>
+				<div>
+				</div>
+			</div>
+		</div>
+		<div class="footer-view footer-right col-md-4 text-center">
+			<div class="footer-section">
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--
+log
+<p>Version 0.0.2</p>
+			<p>0.0.2 - 配色完成</p>
+			<p>0.0.2 - 基本模板完成</p>
+			<p>0.0.2 - 自我介紹新增打字效果</p>
+
+
+
+
+-->
+
+		</footer>
+		</div>
+	</body>
+</html>
+
+<script>
+$(".badge-info").hover(function(){
+    $(this).hide(1000);
+});
+
+
+</script>
