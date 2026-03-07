@@ -1,7 +1,7 @@
 ---
 layout: article_post
 title:  "[Leetcode解題] 3203. Find Minimum Diameter After Merging Two Trees"
-description:  "同餘定理"
+description:  "[Leetcode解題] 3203. Find Minimum Diameter After Merging Two Trees"
 categories: hard
 tags: tree, dfs, bfs
 langs: python
@@ -9,7 +9,7 @@ excerpt_separator: <!--more-->
 ---
 
 ## 題目描述
-
+[3203. Find Minimum Diameter After Merging Two Trees](https://leetcode.com/problems/find-minimum-diameter-after-merging-two-trees)
 給予兩棵獨立的無向樹（分別有 $n$ 個與 $m$ 個節點）。你必須從第一棵樹挑選一個點，從第二棵樹挑選一個點，並在兩點間連上一條邊。
 **目標：** 找出連接後，新樹的**最小可能直徑**。
 
