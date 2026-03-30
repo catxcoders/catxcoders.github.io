@@ -1,0 +1,936 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="https://www.catxcoder.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.catxcoder.com/" rel="alternate" type="text/html" /><updated>2026-03-30T06:05:44+00:00</updated><id>https://www.catxcoder.com/feed.xml</id><entry><title type="html">[Leetcode解題] 2573. Find the String with LCP</title><link href="https://www.catxcoder.com/hard/2026/03/28/2573-Find-the-String-with-LCP.html" rel="alternate" type="text/html" title="[Leetcode解題] 2573. Find the String with LCP" /><published>2026-03-28T00:00:00+00:00</published><updated>2026-03-28T00:00:00+00:00</updated><id>https://www.catxcoder.com/hard/2026/03/28/2573-Find-the-String-with-LCP</id><content type="html" xml:base="https://www.catxcoder.com/hard/2026/03/28/2573-Find-the-String-with-LCP.html"><![CDATA[<h1 id="2573-find-the-string-with-lcp">2573. Find the String with LCP</h1>
+
+<h2 id="題目">題目</h2>
+<p><a href="https://leetcode.com/problems/find-the-string-with-lcp/description/">2573. Find the String with LCP</a></p>
+
+<!--more-->
+
+<h2 id="解題思路">解題思路</h2>
+
+<p>這題考驗的是對於字串的 Longest Common Prefix (LCP) 的理解。
+給定一個 LCP 的二維矩陣，我們需要構造出原本的字串，若無法構造則回傳空字串。
+首先可以觀察到，<code class="language-plaintext highlighter-rouge">lcp[i][j]</code> 可以幫助我們推斷 <code class="language-plaintext highlighter-rouge">s[i]</code> 和 <code class="language-plaintext highlighter-rouge">s[j]</code> 是否相同。如果 <code class="language-plaintext highlighter-rouge">lcp[i][j] &gt; 0</code>，代表從索引 <code class="language-plaintext highlighter-rouge">i</code> 開始和從索引 <code class="language-plaintext highlighter-rouge">j</code> 開始的子字串至少有共同的前綴長度為 1，因此 <code class="language-plaintext highlighter-rouge">s[i] == s[j]</code>。</p>
+
+<p>我們可以利用貪婪構造法（Greedy Approach）：</p>
+<ol>
+  <li>建立長度為 <code class="language-plaintext highlighter-rouge">n</code> 的目標字串陣列 <code class="language-plaintext highlighter-rouge">chars</code>，初始為空。</li>
+  <li>從頭開始遍歷，如果遇到尚未被填寫的字元，就從可用的英文字母（由 ‘a’ 開始往下遞增）指派給它。</li>
+  <li>因為若 <code class="language-plaintext highlighter-rouge">lcp[i][j] &gt; 0</code> 代表 <code class="language-plaintext highlighter-rouge">s[i]</code> 與 <code class="language-plaintext highlighter-rouge">s[j]</code> 一定是相同的字元，所以我們可以把後面所有符合此條件的 <code class="language-plaintext highlighter-rouge">chars[j]</code> 都填上相同的字母。</li>
+  <li>如果所需字母數量超過 26 個，代表無法合法構造，回傳空字串。若還有字元沒有被填寫到（<code class="language-plaintext highlighter-rouge">None</code>），同樣也不合法。</li>
+</ol>
+
+<p>在構造完字串之後，因為一開始提供的 LCP 矩陣不一定保證完全相符且合法（可能存在矛盾），所以我們必須再做一次「驗證」。
+我們重頭計算一次構造出來字串的 LCP，利用字尾遞迴（倒序遍歷）的方式：
+只要 <code class="language-plaintext highlighter-rouge">s[i] == s[j]</code>，則 <code class="language-plaintext highlighter-rouge">_lcp = lcp[i+1][j+1] + 1</code>，確認計算結果是否與輸入的 <code class="language-plaintext highlighter-rouge">lcp</code> 矩陣完全相同，若有任何不合就回傳空字串。</p>
+
+<h2 id="python-實作">Python 實作</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">findTheString</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lcp</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">lcp</span><span class="p">)</span>
+        <span class="n">chars</span> <span class="o">=</span> <span class="p">[</span><span class="bp">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
+        <span class="n">cur</span> <span class="o">=</span> <span class="mi">0</span>
+        
+        <span class="c1"># 假設LCP是合法的，可以這樣構造
+</span>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">chars</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">cur</span> <span class="o">&gt;=</span> <span class="mi">26</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="s">''</span>
+                <span class="n">char</span> <span class="o">=</span> <span class="nb">chr</span><span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="s">'a'</span><span class="p">)</span> <span class="o">+</span> <span class="n">cur</span><span class="p">)</span>
+                <span class="n">cur</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">lcp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="n">chars</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">char</span>
+        
+        <span class="k">if</span> <span class="bp">None</span> <span class="ow">in</span> <span class="n">chars</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s">''</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="s">''</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">chars</span><span class="p">)</span>
+        
+        <span class="c1"># 驗證
+</span>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+                <span class="n">_lcp</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">s</span><span class="p">[</span><span class="n">j</span><span class="p">]:</span>
+                    <span class="n">_lcp</span> <span class="o">=</span> <span class="n">lcp</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">&lt;</span> <span class="n">n</span> <span class="ow">and</span> <span class="n">j</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">&lt;</span> <span class="n">n</span> <span class="k">else</span> <span class="mi">1</span>
+                
+                <span class="k">if</span> <span class="n">_lcp</span> <span class="o">!=</span> <span class="n">lcp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]:</span>
+                    <span class="k">return</span> <span class="s">''</span>
+        <span class="k">return</span> <span class="n">s</span>
+</code></pre></div></div>
+
+<h2 id="時間複雜度">時間複雜度</h2>
+
+<p>字串構造需遍歷 $n^2$，驗證的過程也是遍歷 $n^2$ 次。
+因此總體時間複雜度為 $O(n^2)$。</p>]]></content><author><name></name></author><category term="hard" /><category term="string" /><summary type="html"><![CDATA[2573. Find the String with LCP]]></summary></entry><entry><title type="html">[Leetcode解題] 901. Online Stock Span</title><link href="https://www.catxcoder.com/medium/2026/03/27/901-Online-Stock-Span.html" rel="alternate" type="text/html" title="[Leetcode解題] 901. Online Stock Span" /><published>2026-03-27T00:00:00+00:00</published><updated>2026-03-27T00:00:00+00:00</updated><id>https://www.catxcoder.com/medium/2026/03/27/901-Online-Stock-Span</id><content type="html" xml:base="https://www.catxcoder.com/medium/2026/03/27/901-Online-Stock-Span.html"><![CDATA[<h2 id="題目">題目</h2>
+<p><a href="https://leetcode.com/problems/online-stock-span/">901. Online Stock Span</a>
+設計一個資料結構 <code class="language-plaintext highlighter-rouge">StockSpanner</code>，用來處理股票每日價格，並回傳當天的 <strong>span（跨度）</strong>。</p>
+
+<h3 id="span-定義">Span 定義</h3>
+<p>某一天的 span 是：</p>
+<blockquote>
+  <p>從今天往前數，<strong>連續幾天的股價 ≤ 今天價格</strong>
+<!--more--></p>
+</blockquote>
+
+<h3 id="範例">範例</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>輸入: [7, 2, 1, 2]
+今天 price = 2
+→ span = 4
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>輸入: [7, 34, 1, 2]
+今天 price = 8
+→ span = 3
+</code></pre></div></div>
+
+<h3 id="需要實作的類別">需要實作的類別</h3>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">StockSpanner</span><span class="p">()</span>
+
+<span class="kt">int</span> <span class="n">next</span><span class="p">(</span><span class="kt">int</span> <span class="n">price</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="解題思路monotonic-stack">解題思路（Monotonic Stack）</h2>
+
+<h3 id="暴力解法不建議">暴力解法（不建議）</h3>
+
+<p>每次往回掃描：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>while (前一天價格 &lt;= 今天價格)
+</code></pre></div></div>
+
+<p>最壞情況 O(n²)（例如單調遞增）</p>
+
+<h3 id="最佳解單調遞減棧monotonic-decreasing-stack">最佳解：單調遞減棧（Monotonic Decreasing Stack）</h3>
+
+<ul>
+  <li>核心觀察: 當今天價格 <code class="language-plaintext highlighter-rouge">price</code> 出現時： 所有「比它小或等於的歷史價格」都可以被合併，因為它們 <strong>不會再影響未來答案</strong></li>
+  <li>Stack 存什麼？
+我們不只存價格，而是：<code class="language-plaintext highlighter-rouge">(pair: price, span)</code>
+表示：這個價格往前已經 cover 多少天</li>
+</ul>
+
+<h1 id="範例推演">範例推演</h1>
+
+<p>輸入：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[100, 80, 60, 70, 60, 75, 85]
+</code></pre></div></div>
+
+<p>stack 變化：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>100 → [(100,1)]
+80  → [(100,1),(80,1)]
+60  → [(100,1),(80,1),(60,1)]
+70  → pop 60 → [(100,1),(80,1),(70,2)]
+60  → [(100,1),(80,1),(70,2),(60,1)]
+75  → pop 60,70 → [(100,1),(80,1),(75,4)]
+85  → pop 75,80 → [(100,1),(80,6)]
+</code></pre></div></div>
+
+<h2 id="c-實作">C++ 實作</h2>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">StockSpanner</span> <span class="p">{</span>
+<span class="nl">public:</span>
+    <span class="n">stack</span><span class="o">&lt;</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">st</span><span class="p">;</span>
+
+    <span class="n">StockSpanner</span><span class="p">()</span> <span class="p">{</span>
+        
+    <span class="p">}</span>
+    
+    <span class="kt">int</span> <span class="n">next</span><span class="p">(</span><span class="kt">int</span> <span class="n">price</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">cnt</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        
+        <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">st</span><span class="p">.</span><span class="n">empty</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="n">st</span><span class="p">.</span><span class="n">top</span><span class="p">().</span><span class="n">first</span> <span class="o">&lt;=</span> <span class="n">price</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">cnt</span> <span class="o">+=</span> <span class="n">st</span><span class="p">.</span><span class="n">top</span><span class="p">().</span><span class="n">second</span><span class="p">;</span>
+            <span class="n">st</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+        <span class="p">}</span>
+        
+        <span class="n">st</span><span class="p">.</span><span class="n">push</span><span class="p">({</span><span class="n">price</span><span class="p">,</span> <span class="n">cnt</span><span class="p">});</span>
+        <span class="k">return</span> <span class="n">cnt</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<h2 id="python-實作">Python 實作</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">StockSpanner</span><span class="p">:</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">st</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># [(price, span)]
+</span>
+    <span class="k">def</span> <span class="nf">next</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">price</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="n">cnt</span> <span class="o">=</span> <span class="mi">1</span>
+        
+        <span class="k">while</span> <span class="bp">self</span><span class="p">.</span><span class="n">st</span> <span class="ow">and</span> <span class="bp">self</span><span class="p">.</span><span class="n">st</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">price</span><span class="p">:</span>
+            <span class="n">cnt</span> <span class="o">+=</span> <span class="bp">self</span><span class="p">.</span><span class="n">st</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">st</span><span class="p">.</span><span class="n">pop</span><span class="p">()</span>
+        
+        <span class="bp">self</span><span class="p">.</span><span class="n">st</span><span class="p">.</span><span class="n">append</span><span class="p">((</span><span class="n">price</span><span class="p">,</span> <span class="n">cnt</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">cnt</span>
+</code></pre></div></div>
+
+<h2 id="複雜度分析">複雜度分析</h2>
+<ul>
+  <li>時間複雜度</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>操作</th>
+      <th>複雜度</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>next() 單次</td>
+      <td>平均 $O(1)$</td>
+    </tr>
+    <tr>
+      <td>總體（n 次）</td>
+      <td><strong>$O(n)$</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>因為每個元素只會 <code class="language-plaintext highlighter-rouge">push</code> 跟 <code class="language-plaintext highlighter-rouge">pop</code> 一次</p>
+
+<ul>
+  <li>空間複雜度
+最壞情況完全遞減
+$O(n)$</li>
+</ul>]]></content><author><name></name></author><category term="medium" /><category term="monotonic-stack" /><summary type="html"><![CDATA[901. Online Stock Span]]></summary></entry><entry><title type="html">[Leetcode解題] 1888. Minimum Number of Flips to Make the Binary String Alternating</title><link href="https://www.catxcoder.com/medium/2026/03/07/1888-minimum-number-of-flips-to-make-the-binary-string-alternating.html" rel="alternate" type="text/html" title="[Leetcode解題] 1888. Minimum Number of Flips to Make the Binary String Alternating" /><published>2026-03-07T00:00:00+00:00</published><updated>2026-03-07T00:00:00+00:00</updated><id>https://www.catxcoder.com/medium/2026/03/07/1888-minimum-number-of-flips-to-make-the-binary-string-alternating</id><content type="html" xml:base="https://www.catxcoder.com/medium/2026/03/07/1888-minimum-number-of-flips-to-make-the-binary-string-alternating.html"><![CDATA[<h1 id="1888-minimum-number-of-flips-to-make-the-binary-string-alternating">1888. Minimum Number of Flips to Make the Binary String Alternating</h1>
+
+<h2 id="題目">題目</h2>
+<p><a href="https://leetcode.com/problems/minimum-number-of-flips-to-make-the-binary-string-alternating/description/">1888. Minimum Number of Flips to Make the Binary String Alternating</a></p>
+
+<!--more-->
+
+<h2 id="解題思路">解題思路</h2>
+
+<p>這題我們可以使用slideing window來解，在長度為偶數為狀況，其實只有兩種狀況<code class="language-plaintext highlighter-rouge">010101..</code>跟<code class="language-plaintext highlighter-rouge">1010101..</code>，不需要考慮<code class="language-plaintext highlighter-rouge">Type-1</code>的狀況，所以就可以直接算<code class="language-plaintext highlighter-rouge">Type-2</code>的數量即可。</p>
+
+<p>但是如果是長度為奇數的情況，<code class="language-plaintext highlighter-rouge">Type-1</code>的使用會大大影響<code class="language-plaintext highlighter-rouge">Type-2</code>可能的數目，所以我們想考慮使用不同的<code class="language-plaintext highlighter-rouge">Type-1</code>算出來的<code class="language-plaintext highlighter-rouge">Type-2</code>的數目，並且取最小值。</p>
+
+<p>這可以透過複製一次字串，再作sliding window即可。</p>
+
+<h2 id="python-實作">Python 實作</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">minFlips</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">n</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="n">s</span> <span class="o">+</span> <span class="n">s</span>
+        <span class="n">alt1</span><span class="p">,</span> <span class="n">alt2</span> <span class="o">=</span> <span class="s">""</span><span class="p">,</span> <span class="s">""</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)):</span>
+            <span class="n">alt1</span> <span class="o">+=</span> <span class="s">"0"</span> <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="s">"1"</span>
+            <span class="n">alt2</span> <span class="o">+=</span> <span class="s">"1"</span> <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="s">"0"</span>
+        
+        <span class="n">res</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+        <span class="n">diff1</span><span class="p">,</span> <span class="n">diff2</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+        <span class="n">l</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="n">r</span><span class="p">]</span> <span class="o">!=</span> <span class="n">alt1</span><span class="p">[</span><span class="n">r</span><span class="p">]:</span>
+                <span class="n">diff1</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="n">r</span><span class="p">]</span> <span class="o">!=</span> <span class="n">alt2</span><span class="p">[</span><span class="n">r</span><span class="p">]:</span>
+                <span class="n">diff2</span> <span class="o">+=</span> <span class="mi">1</span>
+            
+            <span class="c1"># 當窗口大小超過 n，左端縮小
+</span>            <span class="k">if</span> <span class="p">(</span><span class="n">r</span> <span class="o">-</span> <span class="n">l</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">n</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="o">!=</span> <span class="n">alt1</span><span class="p">[</span><span class="n">l</span><span class="p">]:</span>
+                    <span class="n">diff1</span> <span class="o">-=</span> <span class="mi">1</span>
+                <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="o">!=</span> <span class="n">alt2</span><span class="p">[</span><span class="n">l</span><span class="p">]:</span>
+                    <span class="n">diff2</span> <span class="o">-=</span> <span class="mi">1</span>
+                <span class="n">l</span> <span class="o">+=</span> <span class="mi">1</span>
+            
+            <span class="c1"># 當窗口剛好為 n，紀錄最小值
+</span>            <span class="k">if</span> <span class="p">(</span><span class="n">r</span> <span class="o">-</span> <span class="n">l</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="n">n</span><span class="p">:</span>
+                <span class="n">res</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">diff1</span><span class="p">,</span> <span class="n">diff2</span><span class="p">)</span>
+                
+        <span class="k">return</span> <span class="n">res</span>
+</code></pre></div></div>
+
+<h2 id="時間複雜度">時間複雜度</h2>
+
+<p>$O(n)$</p>]]></content><author><name></name></author><category term="medium" /><category term="sliding_window" /><summary type="html"><![CDATA[1888. Minimum Number of Flips to Make the Binary String Alternating]]></summary></entry><entry><title type="html">[Leetcode解題] 3203. Find Minimum Diameter After Merging Two Trees</title><link href="https://www.catxcoder.com/hard/2026/03/06/3203-Find-Minimum-Diameter-After-Merging-Two-Trees.html" rel="alternate" type="text/html" title="[Leetcode解題] 3203. Find Minimum Diameter After Merging Two Trees" /><published>2026-03-06T00:00:00+00:00</published><updated>2026-03-06T00:00:00+00:00</updated><id>https://www.catxcoder.com/hard/2026/03/06/3203-Find-Minimum-Diameter-After-Merging-Two-Trees</id><content type="html" xml:base="https://www.catxcoder.com/hard/2026/03/06/3203-Find-Minimum-Diameter-After-Merging-Two-Trees.html"><![CDATA[<h2 id="題目描述">題目描述</h2>
+<p><a href="https://leetcode.com/problems/find-minimum-diameter-after-merging-two-trees">3203. Find Minimum Diameter After Merging Two Trees</a>
+給予兩棵獨立的無向樹（分別有 $n$ 個與 $m$ 個節點）。你必須從第一棵樹挑選一個點，從第二棵樹挑選一個點，並在兩點間連上一條邊。
+<strong>目標：</strong> 找出連接後，新樹的<strong>最小可能直徑</strong>。</p>
+
+<ul>
+  <li><strong>直徑定義：</strong> 樹中任意兩點之間的最長路徑。
+<!--more--></li>
+</ul>
+
+<h2 id="解題思路">解題思路</h2>
+<h3 id="1-核心觀察連接在哪裡最划算">1. 核心觀察：連接在哪裡最划算？</h3>
+<p>要讓合併後的直徑最小，我們直覺上應該選擇兩棵樹的「<strong>中心</strong>」來進行連接。</p>
+
+<ul>
+  <li>當我們把兩棵樹連起來時，新的潛在直徑由三部分組成：
+    <ol>
+      <li><strong>第一棵樹內部的直徑</strong> ($d1$)。</li>
+      <li><strong>第二棵樹內部的直徑</strong> ($d2$)。</li>
+      <li><strong>跨越兩棵樹的路徑</strong>：(第一棵樹的半徑) + (第二棵樹的半徑) + 1 (新連的邊)。</li>
+    </ol>
+  </li>
+</ul>
+
+<p>因此，最終答案為：</p>
+
+\[\max(d1, d2, \text{radius1} + \text{radius2} + 1)\]
+
+<h3 id="2-如何定義半徑-radius">2. 如何定義半徑 (Radius)？</h3>
+
+<p>在樹中，半徑是「從中心點到最遠葉子的距離」。</p>
+
+<ul>
+  <li>如果直徑為 $D$，則半徑 $R = \lceil D / 2 \rceil$。</li>
+  <li>在程式中可以使用 <code class="language-plaintext highlighter-rouge">(D + 1) // 2</code> 來計算。</li>
+</ul>
+
+<h3 id="3-如何計算直徑剝洋蔥法--多源-bfs">3. 如何計算直徑？（剝洋蔥法 / 多源 BFS）</h3>
+
+<p>我們採用最直觀的「<strong>剝洋蔥法</strong>」（類似拓撲排序）：</p>
+
+<ol>
+  <li>找出所有度數（Degree）為 1 的節點（葉子）。</li>
+  <li>同時向內縮排，每一輪刪除所有當前的葉子。</li>
+  <li>每縮一層，距離就加 1，直到剩下 1 個或 2 個節點（這就是樹的中心）。</li>
+  <li><strong>直徑計算公式：</strong>
+    <ul>
+      <li>若最後剩 1 個點：$D = 2 \times \text{layers}$</li>
+      <li>若最後剩 2 個點：$D = 2 \times \text{layers} + 1$</li>
+    </ul>
+  </li>
+</ol>
+
+<h2 id="c-實作">C++ 實作</h2>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="nl">public:</span>
+    <span class="kt">int</span> <span class="n">minimumDiameterAfterMerge</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;&amp;</span> <span class="n">edges1</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;&amp;</span> <span class="n">edges2</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">d1</span> <span class="o">=</span> <span class="n">getDiameter</span><span class="p">(</span><span class="n">edges1</span><span class="p">);</span>
+        <span class="kt">int</span> <span class="n">d2</span> <span class="o">=</span> <span class="n">getDiameter</span><span class="p">(</span><span class="n">edges2</span><span class="p">);</span>
+        <span class="kt">int</span> <span class="n">r1</span> <span class="o">=</span> <span class="p">(</span><span class="n">d1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">r2</span> <span class="o">=</span> <span class="p">(</span><span class="n">d2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+        
+        <span class="k">return</span> <span class="n">max</span><span class="p">({</span><span class="n">d1</span><span class="p">,</span> <span class="n">d2</span><span class="p">,</span> <span class="n">r1</span> <span class="o">+</span> <span class="n">r2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">});</span>
+    <span class="p">}</span>
+
+<span class="nl">private:</span>
+    <span class="kt">int</span> <span class="n">getDiameter</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;&amp;</span> <span class="n">edges</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">edges</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span> <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+
+        <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">adj</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">degree</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+        <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="n">e</span> <span class="o">:</span> <span class="n">edges</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">adj</span><span class="p">[</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">]].</span><span class="n">push_back</span><span class="p">(</span><span class="n">e</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+            <span class="n">adj</span><span class="p">[</span><span class="n">e</span><span class="p">[</span><span class="mi">1</span><span class="p">]].</span><span class="n">push_back</span><span class="p">(</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+            <span class="n">degree</span><span class="p">[</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span><span class="o">++</span><span class="p">;</span>
+            <span class="n">degree</span><span class="p">[</span><span class="n">e</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span><span class="o">++</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="n">queue</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">q</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">degree</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="kt">int</span> <span class="n">layers</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">remainingNodes</span> <span class="o">=</span> <span class="n">n</span><span class="p">;</span>
+
+        <span class="k">while</span> <span class="p">(</span><span class="n">remainingNodes</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kt">int</span> <span class="n">currentLayerSize</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+            <span class="n">remainingNodes</span> <span class="o">-=</span> <span class="n">currentLayerSize</span><span class="p">;</span>
+            <span class="n">layers</span><span class="o">++</span><span class="p">;</span>
+
+            <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">currentLayerSize</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                <span class="kt">int</span> <span class="n">u</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">front</span><span class="p">();</span>
+                <span class="n">q</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+
+                <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">v</span> <span class="o">:</span> <span class="n">adj</span><span class="p">[</span><span class="n">u</span><span class="p">])</span> <span class="p">{</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="o">--</span><span class="n">degree</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">v</span><span class="p">);</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="c1">// 根據最後剩下的節點數決定直徑</span>
+        <span class="c1">// 剩 2 個點代表中心是一條邊 (2*layers + 1)</span>
+        <span class="c1">// 剩 1 個點代表中心是一個點 (2*layers)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">remainingNodes</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span> <span class="o">?</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">layers</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">:</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">layers</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<h2 id="python-實作">Python 實作</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">minimumDiameterAfterMerge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">edges1</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span> <span class="n">edges2</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        
+        <span class="k">def</span> <span class="nf">get_diameter</span><span class="p">(</span><span class="n">edges</span><span class="p">):</span>
+            <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">edges</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span> <span class="k">return</span> <span class="mi">0</span>
+            <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span> <span class="k">return</span> <span class="mi">1</span>
+            
+            <span class="c1"># 建立鄰接表與度數統計
+</span>            <span class="n">adj</span> <span class="o">=</span> <span class="p">[[]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
+            <span class="n">degree</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
+            <span class="k">for</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">edges</span><span class="p">:</span>
+                <span class="n">adj</span><span class="p">[</span><span class="n">u</span><span class="p">].</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+                <span class="n">adj</span><span class="p">[</span><span class="n">v</span><span class="p">].</span><span class="n">append</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+                <span class="n">degree</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="n">degree</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+            
+            <span class="c1"># 將所有葉子加入隊列
+</span>            <span class="n">queue</span> <span class="o">=</span> <span class="n">deque</span><span class="p">([</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="k">if</span> <span class="n">degree</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">])</span>
+            
+            <span class="n">layers</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">remaining_nodes</span> <span class="o">=</span> <span class="n">n</span>
+            
+            <span class="c1"># 剝洋蔥：向內縮減直到剩下 1 或 2 個節點
+</span>            <span class="k">while</span> <span class="n">remaining_nodes</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="n">layer_size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">queue</span><span class="p">)</span>
+                <span class="n">remaining_nodes</span> <span class="o">-=</span> <span class="n">layer_size</span>
+                <span class="n">layers</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">layer_size</span><span class="p">):</span>
+                    <span class="n">u</span> <span class="o">=</span> <span class="n">queue</span><span class="p">.</span><span class="n">popleft</span><span class="p">()</span>
+                    <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">adj</span><span class="p">[</span><span class="n">u</span><span class="p">]:</span>
+                        <span class="n">degree</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">1</span>
+                        <span class="k">if</span> <span class="n">degree</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                            <span class="n">queue</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+            
+            <span class="c1"># 根據剩餘節點數計算直徑
+</span>            <span class="k">return</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">layers</span> <span class="o">+</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">remaining_nodes</span> <span class="o">==</span> <span class="mi">2</span> <span class="k">else</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">layers</span>
+
+        <span class="c1"># 1. 分別計算兩棵樹的直徑
+</span>        <span class="n">d1</span> <span class="o">=</span> <span class="n">get_diameter</span><span class="p">(</span><span class="n">edges1</span><span class="p">)</span>
+        <span class="n">d2</span> <span class="o">=</span> <span class="n">get_diameter</span><span class="p">(</span><span class="n">edges2</span><span class="p">)</span>
+        
+        <span class="c1"># 2. 計算兩棵樹的半徑 (向上取整)
+</span>        <span class="n">r1</span> <span class="o">=</span> <span class="p">(</span><span class="n">d1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+        <span class="n">r2</span> <span class="o">=</span> <span class="p">(</span><span class="n">d2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+        
+        <span class="c1"># 3. 回傳三種可能的最大值
+</span>        <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="n">d1</span><span class="p">,</span> <span class="n">d2</span><span class="p">,</span> <span class="n">r1</span> <span class="o">+</span> <span class="n">r2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="複雜度分析">複雜度分析</h2>
+<h3 id="時間複雜度on--m">時間複雜度：$O(N + M)$</h3>
+<ul>
+  <li><strong>建立圖：</strong> 走訪兩棵樹的所有邊，分別需要 $O(N)$ 與 $O(M)$。</li>
+  <li><strong>剝洋蔥 BFS：</strong> 每個節點與每條邊都只會被處理一次，複雜度為 $O(N + M)$。</li>
+  <li><strong>總結：</strong> 整體為線性時間，非常高效。</li>
+</ul>
+
+<h3 id="空間複雜度on--m">空間複雜度：$O(N + M)$</h3>
+<ul>
+  <li>我們需要存儲鄰接表（Adjacency List）來記錄節點關係。</li>
+  <li>需要額外的 <code class="language-plaintext highlighter-rouge">degree</code> 陣列與 <code class="language-plaintext highlighter-rouge">queue</code>，空間消耗與節點數成正比。</li>
+</ul>]]></content><author><name></name></author><category term="hard" /><category term="tree," /><category term="dfs," /><category term="bfs" /><summary type="html"><![CDATA[[Leetcode解題] 3203. Find Minimum Diameter After Merging Two Trees]]></summary></entry><entry><title type="html">[Leetcode解題] 1680. Concatenation of Consecutive Binary Numbers</title><link href="https://www.catxcoder.com/medium/2026/02/28/1680-concatenation-of-consecutive-binary-numbers.html" rel="alternate" type="text/html" title="[Leetcode解題] 1680. Concatenation of Consecutive Binary Numbers" /><published>2026-02-28T00:00:00+00:00</published><updated>2026-02-28T00:00:00+00:00</updated><id>https://www.catxcoder.com/medium/2026/02/28/1680-concatenation-of-consecutive-binary-numbers</id><content type="html" xml:base="https://www.catxcoder.com/medium/2026/02/28/1680-concatenation-of-consecutive-binary-numbers.html"><![CDATA[<h1 id="1680-concatenation-of-consecutive-binary-numbers">1680. Concatenation of Consecutive Binary Numbers</h1>
+
+<h2 id="題目">題目</h2>
+<p><a href="https://leetcode.com/problems/concatenation-of-consecutive-binary-numbers/description/">1680. Concatenation of Consecutive Binary Numbers</a></p>
+
+<p>給定一個整數n，要回傳從1到n以二進位相連接起來的數（以十進位表示）</p>
+
+<p>舉例來說，n=3</p>
+
+<p>1 + 10 + 11 = 11011，回傳27</p>
+
+<p>回傳的數字要對$10^9+7$取餘數</p>
+
+<!--more-->
+
+<h2 id="解題思路">解題思路</h2>
+
+<p>這題我們可以從餘數定理推出來，我們每次相加，都把當前的數字往左移x位，然後再加上新的值</p>
+
+<p>因為左移是一個乘法運算，加上新值是個加法運算，都能適用於餘數定理，所以我們可以每次再直接取餘數</p>
+
+<h2 id="bit_length">bit_length</h2>
+
+<p>我們在這題會使用的bit_length這個函式來得知要左移幾位，這底層實作是直接去調用CPU的operation像LZCNT(Leading Zero Count)或CLZ(Counting Leading Zeros)</p>
+
+<p>如果透過<code class="language-plaintext highlighter-rouge">math.ceiling(math.log2(x))+1</code>就會比較慢</p>
+
+<h2 id="同餘定理">同餘定理</h2>
+
+<p>同餘定理就是「在除以 $M$ 的世界裡，先運算再取餘數，等於先取餘數再運算」。這能讓你在數字變得巨大之前，先把縮小它們。</p>
+
+<p>比如加法</p>
+
+\[(a+b) (mod M) = [(a (mod M)) + (b (mod M))]\]
+
+<p>乘法</p>
+
+\[(a \times b) (mod M) = [(a (mod M)) \times (b (mod M))]\]
+
+<p>指數的情況，可以先對底數取餘數再進行指數運算（可由乘法推導）</p>
+
+\[(a^b) (mod M) = [(a (mod M))^b]\]
+
+<h2 id="python-實作">Python 實作</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">concatenatedBinary</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="n">MOD</span> <span class="o">=</span> <span class="nb">pow</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span> <span class="o">+</span> <span class="mi">7</span>
+        <span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+            <span class="n">num_shifts</span> <span class="o">=</span> <span class="n">i</span><span class="p">.</span><span class="n">bit_length</span><span class="p">()</span>
+            <span class="n">ans</span> <span class="o">=</span> <span class="n">ans</span> <span class="o">&lt;&lt;</span> <span class="n">num_shifts</span> <span class="o">|</span> <span class="n">i</span>
+            <span class="n">ans</span> <span class="o">=</span> <span class="n">ans</span> <span class="o">%</span> <span class="n">MOD</span>
+        <span class="k">return</span> <span class="n">ans</span>
+</code></pre></div></div>
+
+<h2 id="時間複雜度">時間複雜度</h2>
+
+<p>$O(n)$</p>]]></content><author><name></name></author><category term="medium" /><category term="bit," /><category term="bit_operations" /><summary type="html"><![CDATA[同餘定理]]></summary></entry><entry><title type="html">[Leetcode解題] 3021. Alice and Bob Playing Flower Game</title><link href="https://www.catxcoder.com/eamediumsy/2026/02/07/3021-Alice-and-Bob-Playing-Flower-Game.html" rel="alternate" type="text/html" title="[Leetcode解題] 3021. Alice and Bob Playing Flower Game" /><published>2026-02-07T00:00:00+00:00</published><updated>2026-02-07T00:00:00+00:00</updated><id>https://www.catxcoder.com/eamediumsy/2026/02/07/3021-Alice-and-Bob-Playing-Flower-Game</id><content type="html" xml:base="https://www.catxcoder.com/eamediumsy/2026/02/07/3021-Alice-and-Bob-Playing-Flower-Game.html"><![CDATA[<h1 id="3021-alice-and-bob-playing-flower-game">3021. Alice and Bob Playing Flower Game</h1>
+
+<h2 id="題目">題目</h2>
+<p><a href="https://leetcode.com/problems/alice-and-bob-playing-flower-game/">3021. Alice and Bob Playing Flower Game</a>
+Alice 和 Bob 在玩一個回合制遊戲。</p>
+
+<p>在他們之間有兩條花道：</p>
+
+<ul>
+  <li>第一條有 <code class="language-plaintext highlighter-rouge">x</code> 朵花</li>
+  <li>第二條有 <code class="language-plaintext highlighter-rouge">y</code> 朵花</li>
+</ul>
+
+<p>給定兩個整數 <code class="language-plaintext highlighter-rouge">n</code> 和 <code class="language-plaintext highlighter-rouge">m</code>：</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">1 ≤ x ≤ n</code></li>
+  <li><code class="language-plaintext highlighter-rouge">1 ≤ y ≤ m</code></li>
+</ul>
+
+<p>請你計算：
+在所有可能的 <code class="language-plaintext highlighter-rouge">(x, y)</code> 組合中，有多少組會讓 <strong>Alice 獲勝</strong>？</p>
+
+<p>遊戲流程如下：</p>
+<ul>
+  <li>Alice先走。</li>
+  <li>每一輪，玩家必須選擇其中一條通道，並從該通道的一側摘取一朵花。</li>
+  <li>回合結束時，如果兩條賽道上都沒有花，則當前玩家捕獲對手並贏得比賽。
+<!--more--></li>
+</ul>
+
+<h2 id="解題思路">解題思路</h2>
+<p>經過分析可得：<strong>Alice 會贏 ⟺ <code class="language-plaintext highlighter-rouge">x + y</code> 是奇數</strong></p>
+
+<h3 id="什麼時候和是奇數">什麼時候和是奇數？</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>x</th>
+      <th>y</th>
+      <th>x+y</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>奇</td>
+      <td>偶</td>
+      <td>奇</td>
+    </tr>
+    <tr>
+      <td>偶</td>
+      <td>奇</td>
+      <td>奇</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>也就是：一奇一偶 才會贏</strong></p>
+
+<h3 id="問題轉換">問題轉換</h3>
+
+<p>我們現在只需要計算：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(第一條是奇數 且 第二條是偶數)
++
+(第一條是偶數 且 第二條是奇數)
+</code></pre></div></div>
+
+<ul>
+  <li>對於 1 ~ n：
+    <ul>
+      <li>偶數個數 = <code class="language-plaintext highlighter-rouge">n // 2</code></li>
+      <li>奇數個數 = <code class="language-plaintext highlighter-rouge">(n + 1) // 2</code></li>
+    </ul>
+  </li>
+</ul>
+
+<p>對於 1 ~ m 同理。</p>
+
+<p>組合計算:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nEven * mOdd
++
+nOdd * mEven
+</code></pre></div></div>
+
+<h1 id="python-實作">Python 實作</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">flowerGame</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">m</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="n">n_even</span> <span class="o">=</span> <span class="n">n</span> <span class="o">//</span> <span class="mi">2</span>
+        <span class="n">n_odd</span> <span class="o">=</span> <span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+        
+        <span class="n">m_even</span> <span class="o">=</span> <span class="n">m</span> <span class="o">//</span> <span class="mi">2</span>
+        <span class="n">m_odd</span> <span class="o">=</span> <span class="p">(</span><span class="n">m</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+        
+        <span class="k">return</span> <span class="n">n_even</span> <span class="o">*</span> <span class="n">m_odd</span> <span class="o">+</span> <span class="n">n_odd</span> <span class="o">*</span> <span class="n">m_even</span>
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="c-實作">C++ 實作</h1>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="nl">public:</span>
+    <span class="kt">long</span> <span class="kt">long</span> <span class="n">flowerGame</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="kt">int</span> <span class="n">m</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">long</span> <span class="kt">long</span> <span class="n">nEven</span> <span class="o">=</span> <span class="n">n</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+        <span class="kt">long</span> <span class="kt">long</span> <span class="n">nOdd</span> <span class="o">=</span> <span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+        <span class="kt">long</span> <span class="kt">long</span> <span class="n">mEven</span> <span class="o">=</span> <span class="n">m</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+        <span class="kt">long</span> <span class="kt">long</span> <span class="n">mOdd</span> <span class="o">=</span> <span class="p">(</span><span class="n">m</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+
+        <span class="k">return</span> <span class="n">nEven</span> <span class="o">*</span> <span class="n">mOdd</span> <span class="o">+</span> <span class="n">nOdd</span> <span class="o">*</span> <span class="n">mEven</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<h2 id="複雜度分析">複雜度分析</h2>
+<ul>
+  <li>Time Complexity: $O(1)$, 只有常數次運算。</li>
+  <li>Space Complexity: $O(1)$, 沒有使用額外資料結構。</li>
+</ul>]]></content><author><name></name></author><category term="eamediumsy" /><category term="math" /><summary type="html"><![CDATA[3021. Alice and Bob Playing Flower Game - 使用數學解]]></summary></entry><entry><title type="html">[Leetcode解題] 744. Find Smallest Letter Greater Than Target</title><link href="https://www.catxcoder.com/easy/2026/01/31/744-find-smallest-letter-greater-than-target.html" rel="alternate" type="text/html" title="[Leetcode解題] 744. Find Smallest Letter Greater Than Target" /><published>2026-01-31T00:00:00+00:00</published><updated>2026-01-31T00:00:00+00:00</updated><id>https://www.catxcoder.com/easy/2026/01/31/744-find-smallest-letter-greater-than-target</id><content type="html" xml:base="https://www.catxcoder.com/easy/2026/01/31/744-find-smallest-letter-greater-than-target.html"><![CDATA[<h1 id="911-online-election">911. Online Election</h1>
+
+<h2 id="題目">題目</h2>
+<p><a href="https://leetcode.com/problems/find-smallest-letter-greater-than-target/description/">744. Find Smallest Letter Greater Than Target</a></p>
+
+<p>給定一個字元序列跟一個目標字元，回傳在序列中第一個比目標字元大的字元，如果沒有的話就回傳第一個字元</p>
+
+<!--more-->
+
+<h2 id="解題思路">解題思路</h2>
+
+<p>這題就是考二分搜尋法，我們找第一個比目標值大的值，也可以用<code class="language-plaintext highlighter-rouge">bisect.bisect_right</code>來解</p>
+
+<h2 id="python-實作">Python 實作</h2>
+
+<p>```python
+class Solution:
+    def nextGreatestLetter(self, letters: List[str], target: str) -&gt; str:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    lower = 0
+    upper = len(letters)
+    while lower &lt; upper:
+        mid = (lower + upper) // 2
+
+        if letters[mid] &lt;= target:
+            lower = mid + 1
+        elif letters[mid] &gt; target:
+            upper = mid
+    if upper == len(letters):
+        return letters[0]
+    return letters[lower]```
+</code></pre></div></div>
+
+<h2 id="時間複雜度">時間複雜度</h2>
+
+<p>$O(logn)$</p>]]></content><author><name></name></author><category term="easy" /><category term="binary_search," /><category term="bs" /><summary type="html"><![CDATA[744. Find Smallest Letter Greater Than Target - 使用Binary Search解]]></summary></entry><entry><title type="html">[Leetcode解題] 2771. Longest Non-decreasing Subarray From Two Arrays</title><link href="https://www.catxcoder.com/medium/2026/01/30/2771-Longest-Non-decreasing-Subarray-From-Two-Arrays.html" rel="alternate" type="text/html" title="[Leetcode解題] 2771. Longest Non-decreasing Subarray From Two Arrays" /><published>2026-01-30T00:00:00+00:00</published><updated>2026-01-30T00:00:00+00:00</updated><id>https://www.catxcoder.com/medium/2026/01/30/2771-Longest-Non-decreasing-Subarray-From-Two-Arrays</id><content type="html" xml:base="https://www.catxcoder.com/medium/2026/01/30/2771-Longest-Non-decreasing-Subarray-From-Two-Arrays.html"><![CDATA[<h2 id="題目說明">題目說明</h2>
+
+<p>給定兩個長度為 <code class="language-plaintext highlighter-rouge">n</code> 的 <strong>0-indexed</strong> 整數陣列 <code class="language-plaintext highlighter-rouge">nums1</code> 與 <code class="language-plaintext highlighter-rouge">nums2</code>。</p>
+
+<p>我們要構造另一個陣列 <code class="language-plaintext highlighter-rouge">nums3</code>（長度同為 <code class="language-plaintext highlighter-rouge">n</code>）：</p>
+
+<ul>
+  <li>對每個 index <code class="language-plaintext highlighter-rouge">i</code>，可以 <strong>選擇</strong>
+<code class="language-plaintext highlighter-rouge">nums3[i] = nums1[i]</code> <strong>或</strong> <code class="language-plaintext highlighter-rouge">nums2[i]</code></li>
+</ul>
+
+<h3 id="目標">目標</h3>
+
+<p>請你 <strong>最佳化選擇方式</strong>，使得 <code class="language-plaintext highlighter-rouge">nums3</code> 中
+<strong>最長「非遞減（non-decreasing）」子陣列的長度最大</strong></p>
+
+<p>回傳這個最大長度。</p>
+
+<blockquote>
+  <p><strong>非遞減</strong>：<code class="language-plaintext highlighter-rouge">a[i] &lt;= a[i+1]</code>
+<strong>子陣列</strong>：必須是連續、且非空
+<!--more--></p>
+</blockquote>
+
+<h2 id="解題思路dynamic-programming">解題思路（Dynamic Programming）</h2>
+
+<p>這題的關鍵在於：</p>
+
+<blockquote>
+  <p>在每個位置 <code class="language-plaintext highlighter-rouge">i</code>，我們有 <strong>兩種選擇</strong>，但選擇會影響能否「延續」前一段非遞減子陣列。</p>
+</blockquote>
+
+<h3 id="狀態定義">狀態定義</h3>
+
+<p>在每個 index <code class="language-plaintext highlighter-rouge">i</code>，我們維護兩個狀態：</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">dp1[i]</code>：
+<strong>若 <code class="language-plaintext highlighter-rouge">nums3[i] = nums1[i]</code></strong>，以 <code class="language-plaintext highlighter-rouge">i</code> 結尾的最長非遞減子陣列長度</li>
+  <li><code class="language-plaintext highlighter-rouge">dp2[i]</code>：
+<strong>若 <code class="language-plaintext highlighter-rouge">nums3[i] = nums2[i]</code></strong>，以 <code class="language-plaintext highlighter-rouge">i</code> 結尾的最長非遞減子陣列長度</li>
+</ul>
+
+<h3 id="狀態轉移">狀態轉移</h3>
+
+<p>考慮從 <code class="language-plaintext highlighter-rouge">i-1</code> 延續到 <code class="language-plaintext highlighter-rouge">i</code>：</p>
+
+<h4 id="更新-dp1i選-nums1i">更新 <code class="language-plaintext highlighter-rouge">dp1[i]</code>（選 nums1[i]）</h4>
+
+<ul>
+  <li>若 <code class="language-plaintext highlighter-rouge">nums1[i] &gt;= nums1[i-1]</code> → 可從 <code class="language-plaintext highlighter-rouge">dp1[i-1]</code> 延續</li>
+  <li>若 <code class="language-plaintext highlighter-rouge">nums1[i] &gt;= nums2[i-1]</code> → 可從 <code class="language-plaintext highlighter-rouge">dp2[i-1]</code> 延續</li>
+  <li>否則只能重新開始（長度 = 1）</li>
+</ul>
+
+<h4 id="更新-dp2i選-nums2i">更新 <code class="language-plaintext highlighter-rouge">dp2[i]</code>（選 nums2[i]）</h4>
+
+<ul>
+  <li>若 <code class="language-plaintext highlighter-rouge">nums2[i] &gt;= nums1[i-1]</code></li>
+  <li>若 <code class="language-plaintext highlighter-rouge">nums2[i] &gt;= nums2[i-1]</code></li>
+</ul>
+
+<p>取上述可行來源的最大值 + 1。</p>
+
+<h3 id="初始化">初始化</h3>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">dp1[0] = dp2[0] = 1</code>
+（第一個元素本身就是長度 1 的子陣列）</li>
+</ul>
+
+<h3 id="答案">答案</h3>
+
+<p>整個過程中，答案是：</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>max(dp1[i], dp2[i]) 的最大值
+</code></pre></div></div>
+
+<h2 id="python-實作空間最佳化版">Python 實作（空間最佳化版）</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">maxNonDecreasingLength</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nums1</span><span class="p">,</span> <span class="n">nums2</span><span class="p">):</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums1</span><span class="p">)</span>
+        
+        <span class="c1"># dp1, dp2 分別代表上一個位置選 nums1 / nums2 的最佳長度
+</span>        <span class="n">dp1</span> <span class="o">=</span> <span class="n">dp2</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">ans</span> <span class="o">=</span> <span class="mi">1</span>
+        
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+            <span class="n">new_dp1</span> <span class="o">=</span> <span class="n">new_dp2</span> <span class="o">=</span> <span class="mi">1</span>
+            
+            <span class="c1"># 選 nums1[i]
+</span>            <span class="k">if</span> <span class="n">nums1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">nums1</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]:</span>
+                <span class="n">new_dp1</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">new_dp1</span><span class="p">,</span> <span class="n">dp1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">nums1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">nums2</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]:</span>
+                <span class="n">new_dp1</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">new_dp1</span><span class="p">,</span> <span class="n">dp2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+            
+            <span class="c1"># 選 nums2[i]
+</span>            <span class="k">if</span> <span class="n">nums2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">nums1</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]:</span>
+                <span class="n">new_dp2</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">new_dp2</span><span class="p">,</span> <span class="n">dp1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">nums2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">nums2</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]:</span>
+                <span class="n">new_dp2</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">new_dp2</span><span class="p">,</span> <span class="n">dp2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+            
+            <span class="n">dp1</span><span class="p">,</span> <span class="n">dp2</span> <span class="o">=</span> <span class="n">new_dp1</span><span class="p">,</span> <span class="n">new_dp2</span>
+            <span class="n">ans</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">ans</span><span class="p">,</span> <span class="n">dp1</span><span class="p">,</span> <span class="n">dp2</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">ans</span>
+</code></pre></div></div>
+
+<h2 id="c-實作">C++ 實作</h2>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="nl">public:</span>
+    <span class="kt">int</span> <span class="n">maxNonDecreasingLength</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">nums1</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">nums2</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">nums1</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+        
+        <span class="kt">int</span> <span class="n">dp1</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">dp2</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>  <span class="c1">// 上一個位置的狀態</span>
+        <span class="kt">int</span> <span class="n">ans</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kt">int</span> <span class="n">new_dp1</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">new_dp2</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+            
+            <span class="c1">// 選 nums1[i]</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">nums1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">nums1</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>
+                <span class="n">new_dp1</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">new_dp1</span><span class="p">,</span> <span class="n">dp1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">nums1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">nums2</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>
+                <span class="n">new_dp1</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">new_dp1</span><span class="p">,</span> <span class="n">dp2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+            
+            <span class="c1">// 選 nums2[i]</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">nums2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">nums1</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>
+                <span class="n">new_dp2</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">new_dp2</span><span class="p">,</span> <span class="n">dp1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">nums2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">nums2</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>
+                <span class="n">new_dp2</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">new_dp2</span><span class="p">,</span> <span class="n">dp2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+            
+            <span class="n">dp1</span> <span class="o">=</span> <span class="n">new_dp1</span><span class="p">;</span>
+            <span class="n">dp2</span> <span class="o">=</span> <span class="n">new_dp2</span><span class="p">;</span>
+            <span class="n">ans</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">ans</span><span class="p">,</span> <span class="n">max</span><span class="p">(</span><span class="n">dp1</span><span class="p">,</span> <span class="n">dp2</span><span class="p">));</span>
+        <span class="p">}</span>
+        
+        <span class="k">return</span> <span class="n">ans</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<h2 id="時間與空間複雜度">時間與空間複雜度</h2>
+<ul>
+  <li><strong>時間複雜度</strong>：<code class="language-plaintext highlighter-rouge">O(n)</code>
+每個 index 僅做常數次比較</li>
+  <li><strong>空間複雜度</strong>：<code class="language-plaintext highlighter-rouge">O(1)</code>
+只使用常數個變數（已做 DP 空間壓縮）</li>
+</ul>]]></content><author><name></name></author><category term="medium" /><category term="dp" /><summary type="html"><![CDATA[2771. Longest Non-decreasing Subarray From Two Arrays - 使用dp解]]></summary></entry><entry><title type="html">[Leetcode解題] 2817. Minimum Absolute Difference Between Elements With Constraint</title><link href="https://www.catxcoder.com/medium/2026/01/16/2817-Minimum-Absolute-Difference-Between-Elements-With-Constraint.html" rel="alternate" type="text/html" title="[Leetcode解題] 2817. Minimum Absolute Difference Between Elements With Constraint" /><published>2026-01-16T00:00:00+00:00</published><updated>2026-01-16T00:00:00+00:00</updated><id>https://www.catxcoder.com/medium/2026/01/16/2817-Minimum-Absolute-Difference-Between-Elements-With-Constraint</id><content type="html" xml:base="https://www.catxcoder.com/medium/2026/01/16/2817-Minimum-Absolute-Difference-Between-Elements-With-Constraint.html"><![CDATA[<h2 id="題目">題目：</h2>
+<p><a href="https://leetcode.com/problems/minimum-absolute-difference-between-elements-with-constraint/description/">2817. Minimum Absolute Difference Between Elements With Constraint</a></p>
+
+<p>給定一個 0-indexed 整數陣列 <code class="language-plaintext highlighter-rouge">nums</code> 與整數 <code class="language-plaintext highlighter-rouge">x</code>。</p>
+
+<p>請找出兩個索引 <code class="language-plaintext highlighter-rouge">i, j</code>，使得：</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">abs(i - j) &gt;= x</code></li>
+  <li><code class="language-plaintext highlighter-rouge">abs(nums[i] - nums[j])</code> 盡可能小</li>
+</ul>
+
+<p>回傳滿足條件下的最小絕對差。
+<!--more--></p>
+
+<h2 id="解題思路">解題思路</h2>
+<h3 id="把距離至少-x轉成左側可選集合">把「距離至少 x」轉成「左側可選集合」</h3>
+<p>我們從左到右掃描索引 <code class="language-plaintext highlighter-rouge">i</code>：</p>
+
+<ul>
+  <li>當我們在處理 <code class="language-plaintext highlighter-rouge">i</code> 時，只允許配對的 <code class="language-plaintext highlighter-rouge">j</code> 必須滿足 <code class="language-plaintext highlighter-rouge">j &lt;= i - x</code>（這樣 <code class="language-plaintext highlighter-rouge">i - j &gt;= x</code> 自然成立）。</li>
+  <li>因此，我們可以維護一個資料結構 <code class="language-plaintext highlighter-rouge">elements</code>，存放所有 <code class="language-plaintext highlighter-rouge">nums[0..i-x]</code> 的值（即「離 i 至少 x 的左側候選值」）。</li>
+</ul>
+
+<p>每到一個新的 <code class="language-plaintext highlighter-rouge">i</code>：</p>
+
+<ol>
+  <li>先把 <code class="language-plaintext highlighter-rouge">nums[i-x]</code> 加進 <code class="language-plaintext highlighter-rouge">elements</code>（讓它成為之後索引的候選）。</li>
+  <li>針對 <code class="language-plaintext highlighter-rouge">nums[i]</code>，在 <code class="language-plaintext highlighter-rouge">elements</code> 中找出「最接近它」的值，更新答案。</li>
+</ol>
+
+<h3 id="在有序集合裡找最接近的值只要看前一個與後一個">在有序集合裡找最接近的值：只要看前一個與後一個</h3>
+<p>若 <code class="language-plaintext highlighter-rouge">elements</code> 是<strong>有序</strong>的：</p>
+
+<ul>
+  <li>用二分（或 <code class="language-plaintext highlighter-rouge">upper_bound</code> / <code class="language-plaintext highlighter-rouge">bisect</code>）找到第一個 <code class="language-plaintext highlighter-rouge">&gt; nums[i]</code> 的位置。</li>
+  <li>那它的前一個元素就是 <code class="language-plaintext highlighter-rouge">&lt;= nums[i]</code> 的最大值。</li>
+</ul>
+
+<p>最小差只可能出現在：</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">nums[i] - predecessor</code></li>
+  <li><code class="language-plaintext highlighter-rouge">successor - nums[i]</code></li>
+</ul>
+
+<p>因此每次查詢只需 O(log n)。</p>
+
+<h2 id="c-實作">C++ 實作</h2>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="nl">public:</span>
+    <span class="kt">int</span> <span class="n">minAbsoluteDifference</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">nums</span><span class="p">,</span> <span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">set</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">elements</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">minAbs</span> <span class="o">=</span> <span class="n">INT_MAX</span><span class="p">;</span>
+
+        <span class="k">for</span><span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span><span class="o">=</span><span class="n">x</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+            <span class="n">elements</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="n">x</span><span class="p">]);</span>
+            <span class="k">auto</span> <span class="n">it</span> <span class="o">=</span> <span class="n">elements</span><span class="p">.</span><span class="n">upper_bound</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">it</span> <span class="o">!=</span> <span class="n">elements</span><span class="p">.</span><span class="n">begin</span><span class="p">())</span>
+                <span class="n">minAbs</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">minAbs</span><span class="p">,</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-*</span><span class="n">prev</span><span class="p">(</span><span class="n">it</span><span class="p">));</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">it</span> <span class="o">!=</span> <span class="n">elements</span><span class="p">.</span><span class="n">end</span><span class="p">())</span>
+                <span class="n">minAbs</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">minAbs</span><span class="p">,</span> <span class="o">*</span><span class="n">it</span><span class="o">-</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">minAbs</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<h2 id="python-實作">Python 實作</h2>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">minAbsoluteDifference</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nums</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="n">sl</span> <span class="o">=</span> <span class="n">SortedList</span><span class="p">()</span>
+        <span class="n">ans</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s">"inf"</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)):</span>
+            <span class="n">sl</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="n">x</span><span class="p">])</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+            <span class="n">pos</span> <span class="o">=</span> <span class="n">sl</span><span class="p">.</span><span class="n">bisect_left</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>  <span class="c1"># 第一個 &gt;= v 的位置
+</span>            <span class="k">if</span> <span class="n">pos</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">sl</span><span class="p">):</span>
+                <span class="n">ans</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">ans</span><span class="p">,</span> <span class="n">sl</span><span class="p">[</span><span class="n">pos</span><span class="p">]</span> <span class="o">-</span> <span class="n">v</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">pos</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">ans</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">ans</span><span class="p">,</span> <span class="n">v</span> <span class="o">-</span> <span class="n">sl</span><span class="p">[</span><span class="n">pos</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="n">ans</span>
+</code></pre></div></div>
+
+<h2 id="時間與空間複雜度">時間與空間複雜度</h2>
+<ul>
+  <li>每步插入 O(log n)，查詢前一個/後一個 O(log n)</li>
+  <li><strong>時間複雜度：O(n log n)</strong></li>
+  <li><strong>空間複雜度：O(n)</strong>（最差存進約 n 個元素）</li>
+</ul>]]></content><author><name></name></author><category term="medium" /><category term="binary_search," /><category term="bs" /><summary type="html"><![CDATA[2817. Minimum Absolute Difference Between Elements With Constraint - 使用Binary Search解]]></summary></entry><entry><title type="html">[Leetcode解題] 367. Valid Perfect Square</title><link href="https://www.catxcoder.com/medium/2026/01/10/367-valid-perfect-square.html" rel="alternate" type="text/html" title="[Leetcode解題] 367. Valid Perfect Square" /><published>2026-01-10T00:00:00+00:00</published><updated>2026-01-10T00:00:00+00:00</updated><id>https://www.catxcoder.com/medium/2026/01/10/367-valid-perfect-square</id><content type="html" xml:base="https://www.catxcoder.com/medium/2026/01/10/367-valid-perfect-square.html"><![CDATA[<h1 id="911-online-election">911. Online Election</h1>
+
+<h2 id="題目">題目</h2>
+<p><a href="https://leetcode.com/problems/valid-perfect-square/description/?envType=problem-list-v2&amp;envId=binary-search">367. Valid Perfect Square</a></p>
+
+<p>這題給一個正數字，要判斷是不是平方數</p>
+
+<!--more-->
+
+<h2 id="解題思路">解題思路</h2>
+
+<p>這題我們就使用binary search找看有沒有相乘後剛好等於目標值的數字，有一個點是，因為有可能相乘後會超出int的範圍，如果用python的話沒有差別，但c++可能需要注意型別，使用long之類的來存。</p>
+
+<p>又或者可以用除的方式來比較，當餘數等於0，且<code class="language-plaintext highlighter-rouge">num//mid==mid</code>的時候就<code class="language-plaintext highlighter-rouge">return True</code>。</p>
+
+<h2 id="python-實作">Python 實作</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">isPerfectSquare</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+
+        <span class="k">if</span> <span class="n">num</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">True</span>
+
+        <span class="n">lb</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">ub</span> <span class="o">=</span> <span class="n">num</span> <span class="o">//</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span>
+
+        <span class="k">while</span> <span class="n">lb</span> <span class="o">&lt;</span> <span class="n">ub</span><span class="p">:</span>
+            <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">lb</span><span class="o">+</span><span class="n">ub</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+
+            <span class="n">value</span> <span class="o">=</span> <span class="n">num</span> <span class="o">//</span> <span class="n">mid</span>
+            <span class="n">remainder</span> <span class="o">=</span> <span class="n">num</span> <span class="o">%</span> <span class="n">mid</span>
+
+            <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="n">mid</span> <span class="ow">and</span> <span class="n">remainder</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">True</span>
+            <span class="k">elif</span> <span class="n">value</span> <span class="o">&gt;</span> <span class="n">mid</span> <span class="ow">or</span> <span class="p">(</span><span class="n">value</span> <span class="o">==</span> <span class="n">mid</span> <span class="ow">and</span> <span class="n">remainder</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
+                <span class="n">lb</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">ub</span> <span class="o">=</span> <span class="n">mid</span>
+        <span class="k">return</span> <span class="bp">False</span>
+</code></pre></div></div>
+
+<h2 id="時間複雜度">時間複雜度</h2>
+
+<p>$O(logn)$</p>]]></content><author><name></name></author><category term="medium" /><category term="binary_search," /><category term="bs" /><summary type="html"><![CDATA[367. Valid Perfect Square - 使用Binary Search解]]></summary></entry></feed>
