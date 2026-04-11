@@ -8,15 +8,15 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
-<!--more-->
-
 # 231. Power of Two
 
 ## 題目
 
 [231. Power of Two](https://leetcode.com/problems/power-of-two/description/?envType=daily-question&envId=2025-08-09)，給定一個int，判定它是不是2的次方數
 
- ## 解題思路
+ <!--more-->
+
+## 解題思路
 
 這題看似一個很簡單的題目，但我們卻可以複習到蠻多觀念的，大家看下去之前，可以先一起思考有哪些可能的方法
 

@@ -8,8 +8,6 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
-<!--more-->
-
 # 3186. Maximum Total Damage With Spell Casting
 
 # 題目
@@ -30,6 +28,8 @@ excerpt_separator: <!--more-->
 如果選擇傷害為 3 的法術，總傷害是 3。那就不能選 1 和 4。總傷害就是 3。
 
 比較之下，最大總傷害是 6。
+
+<!--more-->
 
 # 解題思路
 

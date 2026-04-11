@@ -18,7 +18,6 @@ excerpt_separator: <!--more-->
 * `abs(nums[i] - nums[j])` 盡可能小
 
 回傳滿足條件下的最小絕對差。
-
 <!--more-->
 
 ## 解題思路

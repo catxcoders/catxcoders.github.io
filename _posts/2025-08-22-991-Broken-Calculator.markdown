@@ -17,7 +17,6 @@ excerpt_separator: <!--more-->
 2. 將螢幕上的數字減去 1
 
 給定兩個整數 `startValue` 與 `target`，請回傳從 `startValue` 轉換到 `target` 所需的最少操作次數。
-
 <!--more-->
 
 ## 解題思路

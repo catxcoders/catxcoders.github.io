@@ -8,8 +8,6 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
-<!--more-->
-
 # 753. Cracking the Safe
 
 ## 題目
@@ -18,7 +16,9 @@ excerpt_separator: <!--more-->
 
 
 
- ## 解題思路
+ <!--more-->
+
+## 解題思路
 
 這題我們要用`Eulerian Path`的思路來解，也就是我們能不能用一筆劃來走完所有的edge跟node。
 

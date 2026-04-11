@@ -13,7 +13,6 @@ excerpt_separator: <!--more-->
 ## 題目
 [1110. Delete Nodes And Return Forest](https://leetcode.com/problems/delete-nodes-and-return-forest/description/)
 當你有一棵二元樹，其中每個節點的值都不一樣，我們的目標是刪除一些節點，這些節點的值在一個叫 `to_delete` 的列表裡。當這些節點被刪除後，樹會被分成幾個不連接的小樹，這些小樹被稱為森林。你需要返回這些小樹的根節點，順序沒有關係。
-
 <!--more-->
 
 ## 解題思路

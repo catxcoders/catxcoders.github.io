@@ -21,6 +21,7 @@ excerpt_separator: <!--more-->
 
 <!--more-->
 
+
 ## 解題思路
 
 為了實現 $O(1)$ 的平均時間複雜度，我們可以使用有序字典 (*OrderedDict*) 來儲存cache的內容，以保持**插入順序**。

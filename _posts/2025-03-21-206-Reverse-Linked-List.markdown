@@ -11,7 +11,6 @@ excerpt_separator: <!--more-->
 ## 題目
 [206. Reverse Linked List](https://leetcode.com/problems/reverse-linked-list/)
 給定一個單向鏈結串列的頭節點 `head`，請你將整個鏈結串列反轉，並回傳反轉後的頭節點。
-
 <!--more-->
 
 ### 範例

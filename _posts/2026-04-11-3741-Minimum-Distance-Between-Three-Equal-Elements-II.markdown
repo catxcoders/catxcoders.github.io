@@ -8,12 +8,12 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
-<!--more-->
-
 # 3741. Minimum Distance Between Three Equal Elements II
 
 ## 題目
 [3741. Minimum Distance Between Three Equal Elements II](https://leetcode.com/problems/minimum-distance-between-three-equal-elements-ii/description/)
+
+<!--more-->
 
 ## 解題思路
 

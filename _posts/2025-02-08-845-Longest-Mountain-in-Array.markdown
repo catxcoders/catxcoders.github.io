@@ -18,7 +18,6 @@ excerpt_separator: <!--more-->
    - `arr[i] > arr[i + 1] > ... > arr[arr.length - 1]`
 
 現在，給你一個數列 `arr`，請返回最長山脈子數列的長度。如果沒有山脈子數列，則返回 `0`。
-
 <!--more-->
 
 ## 解題思路

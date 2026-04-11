@@ -17,8 +17,8 @@ excerpt_separator: <!--more-->
 
 現在，給你總玩家數 n，firstPlayer 和 secondPlayer 的編號，請回傳一個包含兩個數字的陣列，分別代表這兩位最強玩家「最早」和「最晚」可能在哪個回合中對戰。
 
-<!--more-->
-
+ <!--more-->
+ 
 ## 解題思路
 
 因為如果對戰中沒有包含firstPlayer跟secondPlayer，會衍生出兩種可能

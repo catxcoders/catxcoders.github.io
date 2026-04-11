@@ -8,12 +8,12 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
-<!--more-->
-
 # 150. Evaluate Reverse Polish Notation
 ## 題目
 [150. Evaluate Reverse Polish Notation](https://leetcode.com/problems/evaluate-reverse-polish-notation/)
 給你一個以 **逆波蘭表示法（Reverse Polish Notation, RPN）** 表示的算術運算式，`tokens` 是一個字串陣列，代表這個算術表達式。請你計算並回傳該運算式的結果，保證結果和中間運算過程中的所有數字都可以用 32 位元整數表示。
+<!--more-->
+
 ## 解題思路：
 1. **理解逆波蘭表示法**：
    - 它是一種後序表示法，操作數先出現，接著是操作符。

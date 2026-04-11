@@ -16,7 +16,6 @@ excerpt_separator: <!--more-->
 * `void put(int key, int value)`：插入 (key, value)，若 key 已存在則更新 value
 * `int get(int key)`：回傳 key 對應的 value；若不存在回傳 `-1`
 * `void remove(int key)`：刪除 key 與其對應的 value（若存在）
-
 <!--more-->
 
 ## 解題思路

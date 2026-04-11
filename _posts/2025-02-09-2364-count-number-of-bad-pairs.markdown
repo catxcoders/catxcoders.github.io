@@ -18,7 +18,7 @@ excerpt_separator: <!--more-->
 
 求總共有幾組bad pairs
 
-<!--more-->
+ <!--more-->
 
 # 解題心得
 

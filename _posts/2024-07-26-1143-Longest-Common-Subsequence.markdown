@@ -11,7 +11,6 @@ excerpt_separator: <!--more-->
 ## 題目
 [1143. Longest Common Subsequence](https://leetcode.com/problems/longest-common-subsequence/)
 給定兩個字串 `text1` 和 `text2`，返回它們的最長共同子序列的長度。如果沒有共同的子序列，返回 0。
-
 <!--more-->
 
 ## 解題思路 - DP

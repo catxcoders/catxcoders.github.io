@@ -12,7 +12,6 @@ excerpt_separator: <!--more-->
 [1161. Maximum Level Sum of a Binary Tree](https://leetcode.com/problems/maximum-level-sum-of-a-binary-tree/)
 給你一棵二元樹的根節點，根節點的層級為 1，它的child為第 2 層，以此類推。
 請回傳「節點值總和最大」的最小層級 `x`。
-
 <!--more-->
 
 ## 解題思路

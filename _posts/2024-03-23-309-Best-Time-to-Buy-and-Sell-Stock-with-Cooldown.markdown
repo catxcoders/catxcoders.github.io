@@ -8,8 +8,6 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
-<!--more-->
-
 # 309. Best Time to Buy and Sell Stock with Cooldown
 
 # 題目
@@ -17,7 +15,9 @@ excerpt_separator: <!--more-->
 [309. Best Time to Buy and Sell Stock with Cooldown](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/)
 
 想像你在買賣股票，給定一個股票價格的序列表示每天的股價，每次可以選擇買或是賣，如果賣出的時候，會有一天的cooldown不能買，每次只能持有一個股票。
- # 解題思路
+ <!--more-->
+
+# 解題思路
 
 這題我們可以從有限狀態機(finite state machine)的想法來切入，每天我們會有三種可能的狀態，`hold(持有股票)`、`not_hold(沒有股票)`、`cooldown(不能買賣的一天)`，同時，每天可以的三種行為（買、賣、不動），可以改變狀態。
 

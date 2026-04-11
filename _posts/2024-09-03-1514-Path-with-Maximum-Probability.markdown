@@ -14,7 +14,7 @@ excerpt_separator: <!--more-->
 
 給定一個無向圖，圖的每條Edge上表示一個機率，求從起始點到終點經過，有最大機率的那條路徑，若不存在則回傳0。
 
-<!--more-->
+ <!--more-->
 
 # Dijkstra's Algorithm思考
 

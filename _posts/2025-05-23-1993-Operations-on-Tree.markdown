@@ -20,7 +20,6 @@ excerpt_separator: <!--more-->
    * `num` 目前是沒有被鎖的
    * 它的子孫(descendants)中至少有一個節點是被鎖的（不管是誰鎖的）
    * 它的祖先(ancestors)中沒有任何節點被鎖住
-
 <!--more-->
 
 ## 解題思路

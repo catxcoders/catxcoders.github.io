@@ -8,14 +8,14 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
-<!--more-->
-
 # 911. Online Election
 
 ## 題目
 [367. Valid Perfect Square](https://leetcode.com/problems/valid-perfect-square/description/?envType=problem-list-v2&envId=binary-search)
 
 這題給一個正數字，要判斷是不是平方數
+
+<!--more-->
 
 ## 解題思路
 

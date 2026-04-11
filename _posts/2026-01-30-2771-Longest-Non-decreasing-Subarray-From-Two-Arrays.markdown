@@ -17,8 +17,6 @@ excerpt_separator: <!--more-->
 * 對每個 index `i`，可以 **選擇**
   `nums3[i] = nums1[i]` **或** `nums2[i]`
 
-<!--more-->
-
 ### 目標
 
 請你 **最佳化選擇方式**，使得 `nums3` 中
@@ -28,6 +26,8 @@ excerpt_separator: <!--more-->
 
 > **非遞減**：`a[i] <= a[i+1]`
 > **子陣列**：必須是連續、且非空
+<!--more-->
+
 ## 解題思路（Dynamic Programming）
 
 這題的關鍵在於：

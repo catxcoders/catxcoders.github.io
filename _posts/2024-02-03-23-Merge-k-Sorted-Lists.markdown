@@ -13,8 +13,8 @@ excerpt_separator: <!--more-->
 [23. Merge k Sorted Lists](https://leetcode.com/problems/merge-k-sorted-lists/description/)
 
 給定 $k$ 個已經排序的 `linked-lists`，將它們合併成一個排序的 `linked-list`，並返回。
-
 <!--more-->
+
 
 ## 解題思路：
 1. 我們可以使用*Priority Queue*（優先級佇列）來維護每個list的head節點。

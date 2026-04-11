@@ -8,8 +8,6 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
-<!--more-->
-
 # 381. Insert Delete GetRandom O(1) - Duplicates allowed
 
 ## 題目描述
@@ -21,7 +19,8 @@ excerpt_separator: <!--more-->
 3. `int getRandom()`：隨機返回集合中的一個元素。每個元素被返回的機率應與它在集合中的出現次數成正比。
 
 要求所有操作在平均 $O(1)$ 的時間複雜度內完成。
- ## 解題思路
+ <!--more-->
+## 解題思路
 
 這題與[380. Insert Delete GetRandom O(1) ](https://www.catxcoder.com/medium/2024/09/06/380-Insert-Delete-GetRandom-O(1).html)非常類似，只差在能否重複，本題也是藉由與陣列中最後一個交換的思路去做刪除元素的。
 

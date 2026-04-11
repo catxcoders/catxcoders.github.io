@@ -18,7 +18,7 @@ excerpt_separator: <!--more-->
 
 給定一個數組 `rooms`，其中 `rooms[i]` 表示訪問房間 i 時可以獲得的鑰匙集合，如果你能訪問所有房間，返回 true，否則返回 false。
 
-<!--more-->
+ <!--more-->
 
 ## 解題心得
 

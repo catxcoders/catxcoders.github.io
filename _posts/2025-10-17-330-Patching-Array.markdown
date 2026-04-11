@@ -12,7 +12,6 @@ excerpt_separator: <!--more-->
 [330. Patching Array](https://leetcode.com/problems/patching-array)
 給定一個已排序的整數陣列 nums 與一個整數 n。你可以在陣列中新增（patch）一些正整數，使得區間 [1, n] 內的每個數都能被陣列中某些元素的和表示。
 請回傳最少需要新增的元素個數。
-
 <!--more-->
 
 ## 解題思路（Greedy 貪心）

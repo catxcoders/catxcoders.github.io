@@ -8,8 +8,6 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
-<!--more-->
-
 # 911. Online Election
 
 ## 題目
@@ -30,6 +28,8 @@ excerpt_separator: <!--more-->
 
 * `TopVotedCandidate(persons, times)`：初始化
 * `q(t)`：回傳時間 `t` 時的領先者
+
+<!--more-->
 
 ## 解題思路
 

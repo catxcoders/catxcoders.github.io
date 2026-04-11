@@ -8,14 +8,13 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
-<!--more-->
-
 # 84. Largest Rectangle in Histogram
 
 ## 題目
 [84. Largest Rectangle in Histogram](https://leetcode.com/problems/largest-rectangle-in-histogram/)
 給定一個由整數組成的數組 `heights`，這個數組代表直方圖的柱子高度，其中每個柱子的寬度為 1。請返回直方圖中最大矩形的面積。
 
+<!--more-->
 ## 解題思路
 
 為了找到最大矩形的面積，我們可以使用一種稱為*monotonic stack*(單調棧)的資料結構來輔助解題。

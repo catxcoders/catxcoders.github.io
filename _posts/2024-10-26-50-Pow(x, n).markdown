@@ -10,7 +10,6 @@ excerpt_separator: <!--more-->
 
 ## 題目描述
 [50. Pow(x, n)](https://leetcode.com/problems/powx-n/) 這題要實作一個指數計算函數 `pow(x, n)`，這個函數會計算並回傳 `x` 的 `n` 次方，也就是 $x^n$。`n` 可以是正數、零、或負數，並且 `x` 可能是小數（例如 2.5）。
-
 <!--more-->
 
 ## 解題思路

@@ -14,8 +14,6 @@ excerpt_separator: <!--more-->
 
 這題給定一顆Binary Tree，要求最深的Leaves值的總和
 
-<!--more-->
-
 ## 解題思路
 
 這題最直觀的解法是先Traverse一次樹得到最深深度，然後再Traverse一次去計算最深深度的Leaves的總和
@@ -27,6 +25,8 @@ excerpt_separator: <!--more-->
 但如果發現還可以往下的話，就洗掉這個總和，所以它永遠存的是最深的level(depth)點的總和
 
 另外，也能透過多加一個內層迴圈，每次都只對當層來做和，這樣就不用像下面的程式碼存level的值了，大家有興趣可以自己implement看看
+
+<!--more-->
 
 ## 程式碼
 

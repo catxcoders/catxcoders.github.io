@@ -19,7 +19,6 @@ excerpt_separator: <!--more-->
 **MedianFinder():** 初始化 MedianFinder。
 **void addNum(int num):** 將整數 `num` 從資料流添加到資料結構中。
 **double findMedian():** 返回到目前為止所有元素的中位數。
-
 <!--more-->
 
 ## 解題思路：

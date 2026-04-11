@@ -12,8 +12,6 @@ excerpt_separator: <!--more-->
 [1895. Largest Magic Square](https://leetcode.com/problems/largest-magic-square/)
 給定一個大小為 **m × n** 的整數網格 `grid`，請找出其中 **最大邊長 k 的 k × k 魔方陣**。
 
-<!--more-->
-
 ### 魔方陣（magic square）的定義
 
 一個 k × k 區塊是魔方陣，需滿足：

@@ -15,7 +15,6 @@ excerpt_separator: <!--more-->
 提供一個統一的 API `bool isBadVersion(version)`，該函數會判斷指定版本是否是壞的。
 
 請寫一個函數，用來找出第一個壞的版本，以保證呼叫 API 的次數最少。
-
 <!--more-->
 
 ## 解題思路

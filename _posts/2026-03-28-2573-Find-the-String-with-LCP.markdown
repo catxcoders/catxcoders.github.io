@@ -8,12 +8,12 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
-<!--more-->
-
 # 2573. Find the String with LCP
 
 ## 題目
 [2573. Find the String with LCP](https://leetcode.com/problems/find-the-string-with-lcp/description/)
+
+<!--more-->
 
 ## 解題思路
 
