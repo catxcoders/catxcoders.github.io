@@ -8,6 +8,8 @@ langs: python c++
 excerpt_separator: <!--more-->
 ---
 
+<!--more-->
+
 # 452. Minimum Number of Arrows to Burst Balloons
 
 ## 題目
@@ -16,8 +18,6 @@ excerpt_separator: <!--more-->
 給定一個二維陣列 `points`，其中 `points[i] = [x_start, x_end]` 代表一個氣球的水平位置。
 你可以從 X 軸的任意位置向上射出箭，若箭的 X 座標落在氣球的範圍內（並且包含邊界），該氣球就會被射破。
 求：最少需要射出幾支箭才能將所有的氣球射破？
-
-<!--more-->
 
 ## 解題思路
 

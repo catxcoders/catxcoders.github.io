@@ -10,8 +10,6 @@ excerpt_separator: <!--more-->
 
 [2560. House Robber IV](https://leetcode.com/problems/house-robber-iv/description/)
 
-<!--more-->
-
 # 題目
 
 這題的題目非常繞，給定一個矩陣表示房屋內的金錢，小偷不能偷相鄰的房屋，而且至少要偷`k`間房屋
@@ -19,6 +17,8 @@ excerpt_separator: <!--more-->
 小偷的`capability`表示小偷偷的房屋中最多錢的數目
 
 因為小偷在符合條件下，可以有多種不同的偷法，題目要求小偷最小的capacbility為何
+
+<!--more-->
 
 # 解題心得
 

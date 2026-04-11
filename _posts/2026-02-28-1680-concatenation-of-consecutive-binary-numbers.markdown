@@ -8,6 +8,8 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
+<!--more-->
+
 # 1680. Concatenation of Consecutive Binary Numbers
 
 ## 題目
@@ -20,8 +22,6 @@ excerpt_separator: <!--more-->
 1 + 10 + 11 = 11011，回傳27
 
 回傳的數字要對$10^9+7$取餘數
-
-<!--more-->
 
 ## 解題思路
 

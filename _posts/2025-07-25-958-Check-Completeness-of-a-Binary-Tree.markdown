@@ -11,14 +11,14 @@ excerpt_separator: <!--more-->
 ## 題目
 [958. Check Completeness of a Binary Tree](https://leetcode.com/problems/check-completeness-of-a-binary-tree/)
 給定一個二元樹的根節點 `root`，判斷這棵樹是否為**完全二元樹** (Complete Binary Tree)。
-<!--more-->
-
 **Complete Binary Tree 完全二元樹的定義**
 
 1. 除了最後一層之外，其他層都必須被完全填滿。
 2. 最後一層的節點必須從左到右依序填滿，不能出現右邊有節點但左邊空缺的情況。
 
 換句話說，完全二元樹的節點在「層序遍歷 (BFS)」中，**一旦出現 `null`，後面不應再出現非空節點**，否則不是完全二元樹。
+
+<!--more-->
 
 ## 解題思路
 * 完全二元樹在層序遍歷時，**不能在 `null` 之後出現非 `null` 節點**。

@@ -8,6 +8,8 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
+<!--more-->
+
 # 133. Clone Graph
 
 ## 題目描述
@@ -24,8 +26,6 @@ class Node:
         self.val = val
         self.neighbors = neighbors
 ```
-<!--more-->
-
 ## 解題思路
 
 1. **使用*hash-table*(哈希表)記錄節點的對應關系**：我們需要一個辦法來記錄每個已經訪問過的節點，以防止無限迴圈的發生。同時hash-table來存儲原節點和對應克隆節點的映射關系，這樣可以方便地查找和避免重複創建節點。

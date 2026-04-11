@@ -10,9 +10,9 @@ excerpt_separator: <!--more-->
 
 # 題目
 [1615. Maximal Network Rank](https://leetcode.com/problems/maximal-network-rank/)
-給定$n$個城市，每個城市之間可以連結道路，給定一個陣列$roads$描述任兩城市之間的道路，求最大的`network rank`為何? 
+給定$n$個城市，每個城市之間可以連結道路，給定一個陣列$roads$描述任兩城市之間的道路，求最大的`network rank`為何?
 
- <!--more-->
+<!--more-->
 
 # 解題思路
 

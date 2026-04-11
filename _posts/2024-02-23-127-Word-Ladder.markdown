@@ -16,6 +16,7 @@ excerpt_separator: <!--more-->
 - 轉換序列中的每個單字都必須在 wordList 中，但 beginWord 不一定需要在 wordList 中。
 - 最後一個單字必須是 endWord。
 如果無法找到這樣的轉換序列，則返回 0。
+
 <!--more-->
 
 ## 解題思路

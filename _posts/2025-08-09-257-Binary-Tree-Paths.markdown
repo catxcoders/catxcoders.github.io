@@ -12,6 +12,7 @@ excerpt_separator: <!--more-->
 [257. Binary Tree Paths](https://leetcode.com/problems/binary-tree-paths/)
 給定一棵binary tree的 `root`，請回傳所有「從`root`到`leaf`」的路徑，順序不限。
 `leaf`的定義是：該節點沒有任何子節點（`left` 與 `right` 都為空）。
+
 <!--more-->
 
 ## 解題思路

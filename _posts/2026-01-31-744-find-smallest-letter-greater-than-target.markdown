@@ -8,14 +8,14 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
+<!--more-->
+
 # 911. Online Election
 
 ## 題目
 [744. Find Smallest Letter Greater Than Target](https://leetcode.com/problems/find-smallest-letter-greater-than-target/description/)
 
 給定一個字元序列跟一個目標字元，回傳在序列中第一個比目標字元大的字元，如果沒有的話就回傳第一個字元
-
-<!--more-->
 
 ## 解題思路
 

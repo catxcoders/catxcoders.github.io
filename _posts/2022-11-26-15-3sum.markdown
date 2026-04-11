@@ -9,7 +9,7 @@ excerpt_separator: <!--more-->
 ---
 
 # 題目
-[15. 3Sum](https://leetcode.com/problems/3sum/) 
+[15. 3Sum](https://leetcode.com/problems/3sum/)
 
 <!--more-->
 

@@ -14,6 +14,7 @@ excerpt_separator: <!--more-->
 $answer[i] \% answer[j] == 0$，或者 $answer[j] \% answer[i] == 0$
 
 如果有多個解，返回其中任意一個。
+
 <!--more-->
 
 # 解題思路

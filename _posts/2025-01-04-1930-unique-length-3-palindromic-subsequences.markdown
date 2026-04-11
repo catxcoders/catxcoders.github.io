@@ -8,6 +8,8 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
+<!--more-->
+
 # 1930. Unique Length-3 Palindromic Subsequences
 
 # 題目
@@ -16,9 +18,7 @@ excerpt_separator: <!--more-->
 
 這題給一個字串，我們要求所有長度為3的回文sub-sequence，並且如果重複的話只算一次，求有幾種可能？
 
- <!--more-->
-
-# 解題思路
+ # 解題思路
 
 這題我們一開始會想要用前後指針解，但遇到一個問題，在下面這個狀況：
 

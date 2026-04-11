@@ -8,12 +8,12 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
+<!--more-->
+
 # 1888. Minimum Number of Flips to Make the Binary String Alternating
 
 ## 題目
 [1888. Minimum Number of Flips to Make the Binary String Alternating](https://leetcode.com/problems/minimum-number-of-flips-to-make-the-binary-string-alternating/description/)
-
-<!--more-->
 
 ## 解題思路
 

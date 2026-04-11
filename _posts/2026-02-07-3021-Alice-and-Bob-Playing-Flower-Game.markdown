@@ -8,6 +8,8 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
+<!--more-->
+
 # 3021. Alice and Bob Playing Flower Game
 
 ## 題目
@@ -31,8 +33,6 @@ Alice 和 Bob 在玩一個回合制遊戲。
 - Alice先走。
 - 每一輪，玩家必須選擇其中一條通道，並從該通道的一側摘取一朵花。
 - 回合結束時，如果兩條賽道上都沒有花，則當前玩家捕獲對手並贏得比賽。
-<!--more-->
-
 ## 解題思路
 經過分析可得：**Alice 會贏 ⟺ `x + y` 是奇數**
 

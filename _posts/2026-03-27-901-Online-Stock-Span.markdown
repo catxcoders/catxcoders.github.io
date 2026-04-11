@@ -12,11 +12,11 @@ excerpt_separator: <!--more-->
 [901. Online Stock Span](https://leetcode.com/problems/online-stock-span/)
 設計一個資料結構 `StockSpanner`，用來處理股票每日價格，並回傳當天的 **span（跨度）**。
 
+<!--more-->
+
 ### Span 定義
 某一天的 span 是：
 > 從今天往前數，**連續幾天的股價 ≤ 今天價格**
-<!--more-->
-
 ### 範例
 
 ```

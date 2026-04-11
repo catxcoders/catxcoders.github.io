@@ -8,6 +8,8 @@ langs: python
 excerpt_separator: <!--more-->
 ---
 
+<!--more-->
+
 # 1106. Parsing A Boolean Expression
 
 # 題目
@@ -16,8 +18,6 @@ excerpt_separator: <!--more-->
 ](https://leetcode.com/problems/parsing-a-boolean-expression/)
 
 這題我們給一個`boolean expression`，然後要判斷最後的結果，有可能的`operation`有`!`, `&`, `|`，這邊題目給的字串一定符合規則。
-
-<!--more-->
 
 # 解題思路
 

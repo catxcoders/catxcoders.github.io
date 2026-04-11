@@ -16,8 +16,9 @@ excerpt_separator: <!--more-->
 2. `set(index, val)`: 設置給定索引`index`的元素為 `val`。
 3. `snap()`: 拍攝陣列的快照並返回`快照 ID`，即我們呼叫 `snap()` 的總次數減去1。
 4. `get(index, snap_id)`: 返回在給定`快照 ID` 時給定`index`的值。
-<!--more-->
 ---
+
+<!--more-->
 
 ### 範例：
 ```python

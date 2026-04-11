@@ -12,6 +12,8 @@ excerpt_separator: <!--more-->
 [2034. Stock Price Fluctuation](https://leetcode.com/problems/stock-price-fluctuation/)
 你會拿到一堆股票價格的記錄，每個記錄包含一個時間戳記和對應的股價。不幸的是，這些記錄不是按照順序來的。更糟糕的是，有些記錄可能是錯誤的。之後可能會有一條相同時間戳記的記錄出現在流中，用來更正之前錯誤的記錄價格。
 
+<!--more-->
+
 ### 你需要設計一個算法：
 1. 更新特定時間的股票價格，從之前的任何記錄中更正該時間的價格。
 2. 基於當前記錄找到股票的最新價格。最新價格是記錄的最新時間的價格。
@@ -25,8 +27,6 @@ excerpt_separator: <!--more-->
 - `int current()`: 返回股票的最新價格。
 - `int maximum()`: 返回股票的最高價格。
 - `int minimum()`: 返回股票的最低價格。
-<!--more-->
-
 # 解題思路：
 
 - 我們使用一個*hash table*來存儲每個時間戳對應的股票價格。

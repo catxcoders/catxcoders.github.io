@@ -12,6 +12,7 @@ excerpt_separator: <!--more-->
 
 [199. Binary Tree Right Side View](https://leetcode.com/problems/binary-tree-right-side-view/)
 給定一棵二元樹的根節點，想像自己站在樹的右側，然後要返回你能看到的節點值，並且按照從上到下的順序排列。
+
 <!--more-->
 
 ## 解題思路

@@ -16,7 +16,8 @@ excerpt_separator: <!--more-->
 * `pop()`: 移除stack頂端元素
 * `top()`: 回傳stack頂端元素
 * `getMin()`: 取得目前stack中的**最小值**
- <!--more-->
+
+<!--more-->
 
 ## 解題思路（兩個stack）
 
