@@ -1,6 +1,6 @@
 ---
 layout: article_post
-title:  "[Leetcode解題] Uncrossed Lines - DP + scrolling array解"
+title: "[Leetcode解題] 1035. Uncrossed Lines - DP + scrolling array解"
 description:  "[Leetcode解題] Uncrossed Lines - DP + scrolling array解"
 categories: medium
 tags: dp scrolling-array

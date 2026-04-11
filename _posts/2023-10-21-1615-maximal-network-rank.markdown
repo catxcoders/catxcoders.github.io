@@ -1,6 +1,6 @@
 ---
 layout: article_post
-title:  "[Leetcode解題] Maximal Network Rank - 圖算法"
+title: "[Leetcode解題] 1615. Maximal Network Rank - 圖算法"
 description: "[Leetcode解題] 經典Leetcode必刷題目"
 categories: medium
 tags: graph rank

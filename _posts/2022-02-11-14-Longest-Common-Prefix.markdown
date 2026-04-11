@@ -1,6 +1,6 @@
 ---
 layout: article_post
-title:  "[Leetcode解題] Longest Common Prefix - 暴力解"
+title: "[Leetcode解題] 14. Longest Common Prefix - 暴力解"
 description: "[Leetcode解題] Longest Common Prefix - 暴力解"
 categories: medium
 tags: string apple

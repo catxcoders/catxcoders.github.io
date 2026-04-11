@@ -1,6 +1,6 @@
 ---
 layout: article_post
-title:  "[Leetcode解題] 239. Sliding Window Maximum"
+title: "[Leetcode解題] 239. Sliding Window Maximum"
 description:  "[Leetcode解題] 239. Sliding Window Maximum"
 categories: hard 
 tags: monotonic-queue deque queue

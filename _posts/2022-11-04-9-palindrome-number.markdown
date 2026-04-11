@@ -1,6 +1,6 @@
 ---
 layout: article_post
-title:  "[Leetcode解題] Palindrome Number - 前後指針解"
+title: "[Leetcode解題] 9. Palindrome Number - 前後指針解"
 description:  "[Leetcode解題] Palindrome Number - 前後指針解"
 categories: easy
 tags: two-pointers

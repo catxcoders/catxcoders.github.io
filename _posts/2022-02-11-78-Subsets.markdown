@@ -1,6 +1,6 @@
 ---
 layout: article_post
-title:  "[Leetcode解題] Subsets - dfs解"
+title: "[Leetcode解題] 78. Subsets - dfs解"
 description:  "[Leetcode解題] Subsets - dfs解"
 categories: medium
 tags: recusion dfs

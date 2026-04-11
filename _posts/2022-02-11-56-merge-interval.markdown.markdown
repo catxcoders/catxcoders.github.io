@@ -1,6 +1,6 @@
 ---
 layout: article_post
-title:  "[Leetcode解題] Merge Intervals - greedy解"
+title: "[Leetcode解題] 56. Merge Intervals - greedy解"
 description:  "[Leetcode解題] Merge Intervals - greedy解"
 categories: medium
 tags: greedy apple amazon meta google nvidia

@@ -1,6 +1,6 @@
 ---
 layout: article_post
-title:  "[Leetcode解題] 785. Is Graph Bipartite?"
+title: "[Leetcode解題] 785. Is Graph Bipartite?"
 description:  "785. Is Graph Bipartite?"
 categories: medium
 tags: greedy graph

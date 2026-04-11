@@ -1,6 +1,6 @@
 ---
 layout: article_post
-title:  "[Leetcode解題] 753. Cracking the Safe"
+title: "[Leetcode解題] 753. Cracking the Safe"
 description:  "753. Cracking the Safe - Use Eulerian Path"
 categories: medium
 tags: graph 

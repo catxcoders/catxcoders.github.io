@@ -1,0 +1,239 @@
+---
+layout: home_post
+title: "文章搜尋"
+permalink: /search/
+---
+
+<style>
+.search-container {
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.search-header {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 25px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.search-input-wrapper {
+    flex: 1;
+    min-width: 250px;
+}
+
+.custom-input {
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 16px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.custom-input:focus {
+    border-color: #4a90e2;
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+}
+
+.sort-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.custom-select {
+    padding: 12px 15px;
+    font-size: 16px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: #fff;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.custom-select:focus {
+    border-color: #4a90e2;
+}
+
+.post-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.post-item {
+    padding: 15px 20px;
+    background: #fdfdfd;
+    border: 1px solid #f0f0f0;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    transition: all 0.2s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+}
+
+.post-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    border-color: #e8e8e8;
+}
+
+.post-item a {
+    font-size: 1.15em;
+    color: #333;
+    text-decoration: none;
+    font-weight: 500;
+    flex: 1;
+}
+
+.post-item:hover a {
+    color: #4a90e2;
+}
+
+.post-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-left: 15px;
+}
+
+.post-num {
+    font-size: 0.85em;
+    padding: 3px 8px;
+    background: #eef2f7;
+    color: #4a90e2;
+    border-radius: 12px;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.post-date {
+    font-size: 0.8em;
+    color: #888;
+}
+
+.no-results {
+    padding: 40px;
+    text-align: center;
+    color: #888;
+    font-size: 1.1em;
+    display: none;
+}
+</style>
+
+<div class="search-container">
+    <h2 style="text-align: left; margin-bottom: 20px; color: #333; font-weight: 600;">全部文章</h2>
+    
+    <div class="search-header">
+        <div class="search-input-wrapper">
+            <input type="text" id="search-input" class="custom-input" placeholder="輸入題號或關鍵字搜尋..." />
+        </div>
+        <div class="sort-wrapper">
+            <span style="color: #666; font-size: 14px;">排序方式：</span>
+            <select id="sort-select" class="custom-select">
+                <option value="date-desc">時間 (由新到舊)</option>
+                <option value="date-asc">時間 (由舊到新)</option>
+                <option value="num-asc">題號 (由小到大)</option>
+                <option value="num-desc">題號 (由大到小)</option>
+            </select>
+        </div>
+    </div>
+
+    <div id="no-results" class="no-results">
+        找不到符合的文章 😿
+    </div>
+
+    <ul id="post-list" class="post-list">
+    {% for post in site.posts %}
+        <li class="post-item" data-title="{{ post.title | escape }}" data-date="{{ post.date | date: '%Y%m%d%H%M%S' }}">
+            <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">{{ post.date | date: "%Y-%m-%d" }}</span>
+            </div>
+        </li>
+    {% endfor %}
+    </ul>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const postItems = Array.from(document.querySelectorAll('.post-item'));
+    
+    // Extract problem number for each node
+    postItems.forEach(item => {
+        const title = item.getAttribute('data-title');
+        // Match digits before a dot usually. Like "... 3741. ..." or "... 3741 ..."
+        const match = title.match(/(\d+)\./) || title.match(/\]\s*(\d+)/) || title.match(/\b(\d+)\b/);
+        const numText = match ? match[1] : "0";
+        const num = parseInt(numText, 10);
+        
+        item.setAttribute('data-num', num);
+        
+        // Update the display for the number badge
+        const numBadge = item.querySelector('.post-num');
+        if (num > 0) {
+            numBadge.textContent = 'LeetCode ' + num;
+        } else {
+            numBadge.style.display = 'none'; // Hide if no number is found
+        }
+    });
+    
+    const searchInput = document.getElementById("search-input");
+    const sortSelect = document.getElementById("sort-select");
+    const postList = document.getElementById("post-list");
+    const noResults = document.getElementById("no-results");
+
+    function updateList() {
+        const query = searchInput.value.toLowerCase().trim();
+        const sortVal = sortSelect.value;
+        
+        let visibleItems = postItems.filter(item => {
+            const title = item.getAttribute('data-title').toLowerCase();
+            const num = item.getAttribute('data-num');
+            // search by problem number or title
+            return title.includes(query) || (num > 0 && num.toString().includes(query));
+        });
+
+        visibleItems.sort((a, b) => {
+            if (sortVal === "date-desc") {
+                return b.getAttribute('data-date').localeCompare(a.getAttribute('data-date'));
+            } else if (sortVal === "date-asc") {
+                return a.getAttribute('data-date').localeCompare(b.getAttribute('data-date'));
+            } else if (sortVal === "num-asc") {
+                return parseInt(a.getAttribute('data-num')) - parseInt(b.getAttribute('data-num'));
+            } else if (sortVal === "num-desc") {
+                return parseInt(b.getAttribute('data-num')) - parseInt(a.getAttribute('data-num'));
+            }
+            return 0;
+        });
+
+        // Detach all and append sorted
+        postList.innerHTML = "";
+        
+        if (visibleItems.length === 0) {
+            noResults.style.display = "block";
+        } else {
+            noResults.style.display = "none";
+            visibleItems.forEach(item => postList.appendChild(item));
+        }
+    }
+
+    searchInput.addEventListener("input", updateList);
+    sortSelect.addEventListener("change", updateList);
+    
+    // Initial setup
+    updateList();
+});
+</script>

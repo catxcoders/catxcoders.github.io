@@ -1,6 +1,6 @@
 ---
 layout: article_post
-title:  "[Leetcode解題] Flatten Binary Tree to Linked List - 遍歷二叉樹"
+title: "[Leetcode解題] 114. Flatten Binary Tree to Linked List - 遍歷二叉樹"
 description:  "[Leetcode解題] Flatten Binary Tree to Linked List - 遍歷二叉樹"
 categories: medium
 tags: tree linked-list

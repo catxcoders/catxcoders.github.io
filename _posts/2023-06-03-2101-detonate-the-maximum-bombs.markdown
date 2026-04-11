@@ -1,6 +1,6 @@
 ---
 layout: article_post
-title:  "[Leetcode解題] Detonate the Maximum Bombs - 使用圖算法"
+title: "[Leetcode解題] 2101. Detonate the Maximum Bombs - 使用圖算法"
 description: "[Leetcode解題] Detonate the Maximum Bombs - 使用圖算法"
 categories: medium
 tags: dfs graph

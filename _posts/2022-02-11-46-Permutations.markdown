@@ -1,6 +1,6 @@
 ---
 layout: article_post
-title:  "[Leetcode解題] Permutations - 遞迴/backtrace解"
+title: "[Leetcode解題] 46. Permutations - 遞迴/backtrace解"
 description:  "[Leetcode解題] Permutations - 遞迴/backtrace解"
 categories: medium
 tags: recursion backtrace

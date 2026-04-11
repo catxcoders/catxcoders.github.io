@@ -1,6 +1,6 @@
 ---
 layout: article_post
-title: "[Leetcode解題] Merge Two Sorted Lists - 指針解"
+title: "[Leetcode解題] 21. Merge Two Sorted Lists - 指針解"
 description: "[Leetcode解題] Merge Two Sorted Lists - 指針解"
 categories: easy
 tags: linked-list pointer

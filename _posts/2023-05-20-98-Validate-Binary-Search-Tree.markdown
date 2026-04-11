@@ -1,6 +1,6 @@
 ---
 layout: article_post
-title:  "[Leetcode解題] Validate Binary Search Tree - 遞迴解"
+title: "[Leetcode解題] 98. Validate Binary Search Tree - 遞迴解"
 description:  "[Leetcode解題] Validate Binary Search Tree - 遞迴解"
 categories: medium
 tags: bst binary-tree binary-search-tree recursion

@@ -1,6 +1,6 @@
 ---
 layout: article_post
-title:  "[Leetcode解題] Bulls and Cows - 暴力解"
+title: "[Leetcode解題] 299. Bulls and Cows - 暴力解"
 description:  "[Leetcode解題] Bulls and Cows - 暴力解"
 categories: medium
 tags: enum

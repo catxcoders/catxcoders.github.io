@@ -1,6 +1,6 @@
 ---
 layout: article_post
-title:  "[Leetcode解題] Edit Distance - dp解"
+title: "[Leetcode解題] 72. Edit Distance - dp解"
 description:  "[Leetcode解題] Edit Distance - dp解"
 categories: hard
 tags: dp string

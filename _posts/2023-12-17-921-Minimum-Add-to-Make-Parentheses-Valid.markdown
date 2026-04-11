@@ -1,6 +1,6 @@
 ---
 layout: article_post
-title:  "[Leetcode解題] Minimum Add to Make Parentheses Valid - stack解"
+title: "[Leetcode解題] 921. Minimum Add to Make Parentheses Valid - stack解"
 description:  "[Leetcode解題] Minimum Add to Make Parentheses Valid - stack解"
 categories: medium meta
 tags: stack

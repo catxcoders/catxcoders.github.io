@@ -1,6 +1,6 @@
 ---
 layout: article_post
-title:  "[Leetcode解題] Subarray Sum Equals K - presum解"
+title: "[Leetcode解題] 560. Subarray Sum Equals K - presum解"
 description:  "[Leetcode解題] Subarray Sum Equals K - presum解"
 categories: medium
 tags: presum meta google nvidia

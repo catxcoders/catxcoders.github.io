@@ -1,6 +1,6 @@
 ---
 layout: article_post
-title:  "[Leetcode解題] Generate Parentheses - Backtrace解"
+title: "[Leetcode解題] 22. Generate Parentheses - Backtrace解"
 description:  "[Leetcode解題] Generate Parentheses - Backtrace解"
 categories: medium
 tags: recursion backtrace apple

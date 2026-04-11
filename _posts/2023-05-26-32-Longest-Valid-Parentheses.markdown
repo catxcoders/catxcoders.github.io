@@ -1,6 +1,6 @@
 ---
 layout: article_post
-title:  "[Leetcode解題] Longest Valid Parentheses - Stack解"
+title: "[Leetcode解題] 32. Longest Valid Parentheses - Stack解"
 description:  "[Leetcode解題] Longest Valid Parentheses - Stack解"
 categories: medium
 tags: stack

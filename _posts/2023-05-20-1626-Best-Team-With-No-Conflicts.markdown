@@ -1,6 +1,6 @@
 ---
 layout: article_post
-title: "[Leetcode解題] Best Team With No Conflicts - dp解"
+title: "[Leetcode解題] 1626. Best Team With No Conflicts - dp解"
 description: "[Leetcode解題] Best Team With No Conflicts - dp解"
 categories: medium
 tags: dp

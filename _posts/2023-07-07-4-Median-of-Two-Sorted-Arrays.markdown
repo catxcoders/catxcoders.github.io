@@ -1,6 +1,6 @@
 ---
 layout: article_post
-title:  "[Leetcode解題] Median of Two Sorted Arrays  - 使用分治法(Divide-and-conquer)算法"
+title: "[Leetcode解題] 4. Median of Two Sorted Arrays  - 使用分治法(Divide-and-conquer)算法"
 description: "[Leetcode解題] Median of Two Sorted Arrays  - 使用分治法(Divide-and-conquer)算法"
 categories: hard
 tags: divide-and-conquer apple amazon

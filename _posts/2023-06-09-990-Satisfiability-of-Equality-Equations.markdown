@@ -1,6 +1,6 @@
 ---
 layout: article_post
-title:  "[Leetcode解題] Satisfiability of Equality Equations - 使用DisjoinSet算法"
+title: "[Leetcode解題] 990. Satisfiability of Equality Equations - 使用DisjoinSet算法"
 description: "[Leetcode解題] Satisfiability of Equality Equations - 使用DisjoinSet算法"
 categories: medium
 tags: disjointSet graph

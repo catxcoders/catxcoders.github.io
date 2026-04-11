@@ -1,6 +1,6 @@
 ---
 layout: article_post
-title:  "[Leetcode解題] 1900. The Earliest and Latest Rounds Where Players Compete"
+title: "[Leetcode解題] 1900. The Earliest and Latest Rounds Where Players Compete"
 description:  "1900. The Earliest and Latest Rounds Where Players Compete"
 categories: hard
 tags: bit-operation bit

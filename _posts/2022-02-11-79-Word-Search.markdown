@@ -1,6 +1,6 @@
 ---
 layout: article_post
-title:  "[Leetcode解題] Word Search - bfs/dfs解"
+title: "[Leetcode解題] 79. Word Search - bfs/dfs解"
 description:  "[Leetcode解題] Word Search - bfs/dfs解"
 categories: medium
 tags: dp dfs bfs

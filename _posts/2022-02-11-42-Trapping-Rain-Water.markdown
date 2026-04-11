@@ -1,6 +1,6 @@
 ---
 layout: article_post
-title:  "[Leetcode解題] Trapping Rain Water"
+title: "[Leetcode解題] 42. Trapping Rain Water"
 description:  "[Leetcode解題] Trapping Rain Water"
 categories: hard
 tags: greedy amazon

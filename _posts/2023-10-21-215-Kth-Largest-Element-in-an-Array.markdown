@@ -1,6 +1,6 @@
 ---
 layout: article_post
-title:  "[Leetcode解題] Kth Largest Element in an Array - 最小堆（Min Heap）& Quick Select 解 "
+title: "[Leetcode解題] 215. Kth Largest Element in an Array - 最小堆（Min Heap）& Quick Select 解"
 description: "[Leetcode解題] 經典Leetcode必刷題目"
 categories: medium
 tags: heap quick-select meta

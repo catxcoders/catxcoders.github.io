@@ -1,6 +1,6 @@
 ---
 layout: article_post
-title:  "[Leetcode解題] Maximum Subarray - presum解"
+title: "[Leetcode解題] 53. Maximum Subarray - presum解"
 description:  "[Leetcode解題] Maximum Subarray - presum解"
 categories: medium
 tags: dp presum apple

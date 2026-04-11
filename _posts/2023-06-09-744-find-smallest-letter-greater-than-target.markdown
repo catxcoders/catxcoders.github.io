@@ -1,6 +1,6 @@
 ---
 layout: article_post
-title:  "[Leetcode解題] Find Smallest Letter Greater Than Target - 使用二分搜尋法"
+title: "[Leetcode解題] 744. Find Smallest Letter Greater Than Target - 使用二分搜尋法"
 description: "[Leetcode解題] Find Smallest Letter Greater Than Target - 使用二分搜尋法"
 categories: easy
 tags: binary-search bs

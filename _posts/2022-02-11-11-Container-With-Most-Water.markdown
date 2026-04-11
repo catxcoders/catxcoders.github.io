@@ -1,6 +1,6 @@
 ---
 layout: article_post
-title:  "[Leetcode解題] Container With Most Water - 使用前後指針解"
+title: "[Leetcode解題] 11. Container With Most Water - 使用前後指針解"
 description: "[Leetcode解題] Container With Most Water - 使用前後指針解"
 categories: medium
 tags: greedy two-pointers

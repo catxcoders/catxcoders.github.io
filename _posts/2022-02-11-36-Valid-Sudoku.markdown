@@ -1,6 +1,6 @@
 ---
 layout: article_post
-title:  "[Leetcode解題] Valid Sudoku - 迴圈解"
+title: "[Leetcode解題] 36. Valid Sudoku - 迴圈解"
 description:  "[Leetcode解題] Valid Sudoku - 迴圈解"
 categories: medium
 tags: loop nvidia

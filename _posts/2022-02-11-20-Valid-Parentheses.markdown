@@ -1,6 +1,6 @@
 ---
 layout: article_post
-title:  "[Leetcode解題] Valid Parentheses - Stack解"
+title: "[Leetcode解題] 20. Valid Parentheses - Stack解"
 description: "[Leetcode解題] Valid Parentheses - Stack解"
 categories: easy
 tags: stack amazon microsoft

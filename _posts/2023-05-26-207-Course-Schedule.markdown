@@ -1,6 +1,6 @@
 ---
 layout: article_post
-title:  "[Leetcode解題] Course Schedule - 使用DFS解法"
+title: "[Leetcode解題] 207. Course Schedule - 使用DFS解法"
 description: "[Leetcode解題] Course Schedule - 使用DFS解法"
 categories: medium
 tags: dfs

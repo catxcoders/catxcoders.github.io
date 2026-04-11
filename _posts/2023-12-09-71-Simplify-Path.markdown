@@ -1,6 +1,6 @@
 ---
 layout: article_post
-title:  "[Leetcode解題] Simplify Path - stack解"
+title: "[Leetcode解題] 71. Simplify Path - stack解"
 description:  "[Leetcode解題] Simplify Path - stack解"
 categories: medium
 tags: stack

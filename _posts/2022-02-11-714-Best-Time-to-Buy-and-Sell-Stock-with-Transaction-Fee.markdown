@@ -1,6 +1,6 @@
 ---
 layout: article_post
-title:  "[Leetcode解題] Best Time to Buy and Sell Stock with Transaction Fee - greedy解"
+title: "[Leetcode解題] 714. Best Time to Buy and Sell Stock with Transaction Fee - greedy解"
 description:  "[Leetcode解題] Best Time to Buy and Sell Stock with Transaction Fee - greedy解"
 categories: medium
 tags: greedy
