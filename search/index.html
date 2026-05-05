@@ -1,0 +1,1808 @@
+<!-- OK -->
+
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="utf-8">
+	<link rel="icon" type="image/x-icon" href="/res/catxcoder.ico">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>文章搜尋</title>
+	<meta name="description" content="" />
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<!-- My CSS -->
+<link href="/res/css/common.css" rel="stylesheet">
+
+	</head>
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-MHQH8LKZYV"></script>
+	<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+
+	gtag('config', 'G-MHQH8LKZYV');
+	</script>
+	<body>		
+				<!-- JQeury -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+    
+	<!-- Font Awesome -->
+	<!--<script defer src="https://use.fontawesome.com/releases/v6.4.2/js/all.js" integrity="	sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe" crossorigin="anonymous"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" integrity="sha512-uKQ39gEGiyUJl4AI6L+ekBdGKpGw4xJ55+xyJG7YFlJokPNYegn9KwQ3P8A7aFQAUtUsAQHep+d/lrGqrbPIDQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<!-- support MathJax -->
+	<style TYPE="text/css">
+	code.has-jax {font: inherit; font-size: 100%; background: inherit; border: inherit;}
+	</style>
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	    tex2jax: {
+	        inlineMath: [['$','$'], ['\\(','\\)']],
+	        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'] // removed 'code' entry
+	    }
+	});
+	MathJax.Hub.Queue(function() {
+	    var all = MathJax.Hub.getAllJax(), i;
+	    for(i = 0; i < all.length; i += 1) {
+	        all[i].SourceElement().parentNode.className += ' has-jax';
+	    }
+	});
+	</script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<!-- A patch to fix mathjax -->
+<!-- https://github.com/mathjax/MathJax/issues/1737 -->
+	<script type="text/x-mathjax-config">
+if (MathJax.Hub.Browser.isSafari && parseInt(MathJax.Hub.Browser.webkit) >= 603) {
+  MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready", function () {
+    var HTMLCSS = MathJax.OutputJax["HTML-CSS"];
+    var MML = MathJax.ElementJax.mml;
+    var toHTML = MML.mo.prototype.toHTML;
+    MML.mo.Augment({
+      toHTML: function (span) {
+        span = toHTML.call(this,span);
+        if (span.bbox.w === 0 && span.bbox.lw < 0 && span.firstChild) {
+          span.style.marginLeft = HTMLCSS.Em(span.bbox.lw);
+        }
+        return span;
+      }
+    });
+  });
+}
+</script>
+
+		<header>
+			<!-- OK -->
+
+<div class="container">
+  <nav class="navbar navbar-expand-lg navbar-default nav-color" >
+    <a href="/index.html">
+      <img src="/res/catxcoder.ico" class="img-fluid" style="width: 32px; margin-right: 10px;">
+    </a>
+    <a class="navbar-item" href="/index.html">
+      刷題貓
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span><i class="fas fa-bars" ></i></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <ul class="navbar-nav ml-auto navbar-right">
+          <li class="nav-item">
+             <a class="nav-link" href="/index.html">首頁</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/posts/categories">難度</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/posts/algorithms">演算法</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/works">主題式</a>
+          </li>
+        </ul>
+    </div>
+  </nav>
+</div>
+
+		</header>
+		<main>
+			<!-- OK -->
+
+<div class="container-fluid text-center bg-color">
+	<div class="row bg-icon">
+		<div class="col-md-2 col-sm-0">
+
+		</div>
+		<div class="view-home col-md-8 col-sm-12 post-home-color">
+			<style>
+.search-container {
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.search-header {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 25px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.search-input-wrapper {
+    flex: 1;
+    min-width: 250px;
+}
+
+.custom-input {
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 16px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.custom-input:focus {
+    border-color: #4a90e2;
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+}
+
+.sort-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.custom-select {
+    padding: 12px 15px;
+    font-size: 16px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: #fff;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.custom-select:focus {
+    border-color: #4a90e2;
+}
+
+.post-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.post-item {
+    padding: 15px 20px;
+    background: #fdfdfd;
+    border: 1px solid #f0f0f0;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    transition: all 0.2s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+}
+
+.post-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    border-color: #e8e8e8;
+}
+
+.post-item a {
+    font-size: 1.15em;
+    color: #333;
+    text-decoration: none;
+    font-weight: 500;
+    flex: 1;
+}
+
+.post-item:hover a {
+    color: #4a90e2;
+}
+
+.post-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-left: 15px;
+}
+
+.post-num {
+    font-size: 0.85em;
+    padding: 3px 8px;
+    background: #eef2f7;
+    color: #4a90e2;
+    border-radius: 12px;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.post-date {
+    font-size: 0.8em;
+    color: #888;
+}
+
+.no-results {
+    padding: 40px;
+    text-align: center;
+    color: #888;
+    font-size: 1.1em;
+    display: none;
+}
+</style>
+
+<div class="search-container">
+    <h2 style="text-align: left; margin-bottom: 20px; color: #333; font-weight: 600;">全部文章</h2>
+    
+    <div class="search-header">
+        <div class="search-input-wrapper">
+            <input type="text" id="search-input" class="custom-input" placeholder="輸入題號或關鍵字搜尋..." />
+        </div>
+        <div class="sort-wrapper">
+            <span style="color: #666; font-size: 14px;">排序方式：</span>
+            <select id="sort-select" class="custom-select">
+                <option value="date-desc">時間 (由新到舊)</option>
+                <option value="date-asc">時間 (由舊到新)</option>
+                <option value="num-asc">題號 (由小到大)</option>
+                <option value="num-desc">題號 (由大到小)</option>
+            </select>
+        </div>
+    </div>
+
+    <div id="no-results" class="no-results">
+        找不到符合的文章 😿
+    </div>
+
+    <ul id="post-list" class="post-list">
+    
+        <li class="post-item" data-title="[Leetcode解題] 3464. Maximize the Distance Between Points on a Square" data-date="20260426000000">
+            <a href="/medium/2026/04/26/3464-Maximize-the-Distance-Between-Points-on-a-Square.html">[Leetcode解題] 3464. Maximize the Distance Between Points on a Square</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2026-04-26</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 392. Is Subsequence" data-date="20260424000000">
+            <a href="/easy/2026/04/24/392-Is-Subsequence.html">[Leetcode解題] 392. Is Subsequence</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2026-04-24</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 3783. Mirror Distance of an Integer" data-date="20260418000000">
+            <a href="/easy/2026/04/18/3783-Mirror-Distance-of-an-Integer.html">[Leetcode解題] 3783. Mirror Distance of an Integer</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2026-04-18</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 1493. Longest Subarray of 1&#39;s After Deleting One Element" data-date="20260417000000">
+            <a href="/medium/2026/04/17/1493-Longest-Subarray-of-1s-After-Deleting-One-Element.html">[Leetcode解題] 1493. Longest Subarray of 1's After Deleting One Element</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2026-04-17</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 3741. Minimum Distance Between Three Equal Elements II" data-date="20260411000000">
+            <a href="/medium/2026/04/11/3741-Minimum-Distance-Between-Three-Equal-Elements-II.html">[Leetcode解題] 3741. Minimum Distance Between Three Equal Elements II</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2026-04-11</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 452. Minimum Number of Arrows to Burst Balloons" data-date="20260410000000">
+            <a href="/medium/2026/04/10/452-Minimum-Number-of-Arrows-to-Burst-Balloons.html">[Leetcode解題] 452. Minimum Number of Arrows to Burst Balloons</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2026-04-10</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 2573. Find the String with LCP" data-date="20260328000000">
+            <a href="/hard/2026/03/28/2573-Find-the-String-with-LCP.html">[Leetcode解題] 2573. Find the String with LCP</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2026-03-28</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 901. Online Stock Span" data-date="20260327000000">
+            <a href="/medium/2026/03/27/901-Online-Stock-Span.html">[Leetcode解題] 901. Online Stock Span</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2026-03-27</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 1888. Minimum Number of Flips to Make the Binary String Alternating" data-date="20260307000000">
+            <a href="/medium/2026/03/07/1888-minimum-number-of-flips-to-make-the-binary-string-alternating.html">[Leetcode解題] 1888. Minimum Number of Flips to Make the Binary String Alternating</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2026-03-07</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 3203. Find Minimum Diameter After Merging Two Trees" data-date="20260306000000">
+            <a href="/hard/2026/03/06/3203-Find-Minimum-Diameter-After-Merging-Two-Trees.html">[Leetcode解題] 3203. Find Minimum Diameter After Merging Two Trees</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2026-03-06</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 1680. Concatenation of Consecutive Binary Numbers" data-date="20260228000000">
+            <a href="/medium/2026/02/28/1680-concatenation-of-consecutive-binary-numbers.html">[Leetcode解題] 1680. Concatenation of Consecutive Binary Numbers</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2026-02-28</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 3021. Alice and Bob Playing Flower Game" data-date="20260207000000">
+            <a href="/eamediumsy/2026/02/07/3021-Alice-and-Bob-Playing-Flower-Game.html">[Leetcode解題] 3021. Alice and Bob Playing Flower Game</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2026-02-07</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 744. Find Smallest Letter Greater Than Target" data-date="20260131000000">
+            <a href="/easy/2026/01/31/744-find-smallest-letter-greater-than-target.html">[Leetcode解題] 744. Find Smallest Letter Greater Than Target</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2026-01-31</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 2771. Longest Non-decreasing Subarray From Two Arrays" data-date="20260130000000">
+            <a href="/medium/2026/01/30/2771-Longest-Non-decreasing-Subarray-From-Two-Arrays.html">[Leetcode解題] 2771. Longest Non-decreasing Subarray From Two Arrays</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2026-01-30</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 2817. Minimum Absolute Difference Between Elements With Constraint" data-date="20260116000000">
+            <a href="/medium/2026/01/16/2817-Minimum-Absolute-Difference-Between-Elements-With-Constraint.html">[Leetcode解題] 2817. Minimum Absolute Difference Between Elements With Constraint</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2026-01-16</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 367. Valid Perfect Square" data-date="20260110000000">
+            <a href="/medium/2026/01/10/367-valid-perfect-square.html">[Leetcode解題] 367. Valid Perfect Square</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2026-01-10</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 911. Online Election" data-date="20260109000000">
+            <a href="/medium/2026/01/09/911-Online-Election.html">[Leetcode解題] 911. Online Election</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2026-01-09</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 475. Heaters" data-date="20260103000000">
+            <a href="/medium/2026/01/03/475-Heaters.html">[Leetcode解題] 475. Heaters</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2026-01-03</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 1869. Longer Contiguous Segments of Ones than Zeros" data-date="20260102000000">
+            <a href="/easy/2026/01/02/1869-Longer-Contiguous-Segments-of-Ones-than-Zeros.html">[Leetcode解題] 1869. Longer Contiguous Segments of Ones than Zeros</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2026-01-02</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 1895. Largest Magic Square" data-date="20251206000000">
+            <a href="/medium/2025/12/06/1895-Largest-Magic-Square.html">[Leetcode解題] 1895. Largest Magic Square</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2025-12-06</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 978. Longest Turbulent Subarray" data-date="20251122000000">
+            <a href="/medium/2025/11/22/978-longest-turbulent-subarray.html">[Leetcode解題] 978. Longest Turbulent Subarray</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2025-11-22</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 1513. Number of Substrings With Only 1s" data-date="20251116000000">
+            <a href="/medium/2025/11/16/1513-number-of-substrings-with-only-1s.html">[Leetcode解題] 1513. Number of Substrings With Only 1s</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2025-11-16</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 419. Battleships in a Board" data-date="20251115000000">
+            <a href="/medium/2025/11/15/419-Battleships-in-a-Board.html">[Leetcode解題] 419. Battleships in a Board</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2025-11-15</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 1716. Calculate Money in Leetcode Bank" data-date="20251025000000">
+            <a href="/easy/2025/10/25/1716-calculate-money-in-leetcode-bank.html">[Leetcode解題] 1716. Calculate Money in Leetcode Bank</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2025-10-25</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 706. Design HashMap" data-date="20251024000000">
+            <a href="/easy/2025/10/24/706-Design-HashMap.html">[Leetcode解題] 706. Design HashMap</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2025-10-24</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 3397. Maximum Number of Distinct Elements After Operations" data-date="20251018000000">
+            <a href="/medium/2025/10/18/3397-maximum-number-of-distinct-elements-after-operations.html">[Leetcode解題] 3397. Maximum Number of Distinct Elements After Operations</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2025-10-18</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 330. Patching Array" data-date="20251017000000">
+            <a href="/hard/2025/10/17/330-Patching-Array.html">[Leetcode解題] 330. Patching Array</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2025-10-17</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 3186. Maximum Total Damage With Spell Casting" data-date="20251011000000">
+            <a href="/medium/2025/10/11/3186-maximum-total-damage-with-spell-casting.html">[Leetcode解題] 3186. Maximum Total Damage With Spell Casting</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2025-10-11</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 2477. Minimum Fuel Cost to Report to the Capital" data-date="20251010000000">
+            <a href="/medium/2025/10/10/2477-Minimum-Fuel-Cost-to-Report-to-the-Capital.html">[Leetcode解題] 2477. Minimum Fuel Cost to Report to the Capital</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2025-10-10</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 785. Is Graph Bipartite?" data-date="20250920000000">
+            <a href="/medium/2025/09/20/753-is-graph-bipartite.html">[Leetcode解題] 785. Is Graph Bipartite?</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2025-09-20</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 155. Min Stack" data-date="20250919000000">
+            <a href="/medium/2025/09/19/155-min-stack.html">[Leetcode解題] 155. Min Stack</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2025-09-19</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 753. Cracking the Safe" data-date="20250823000000">
+            <a href="/medium/2025/08/23/991-broken-calculator.html">[Leetcode解題] 753. Cracking the Safe</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2025-08-23</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 991. Broken Calculator" data-date="20250822000000">
+            <a href="/medium/2025/08/22/991-Broken-Calculator.html">[Leetcode解題] 991. Broken Calculator</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2025-08-22</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 743. Network Delay Time" data-date="20250816000000">
+            <a href="/medium/2025/08/16/743-network-delay-time.html">[Leetcode解題] 743. Network Delay Time</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2025-08-16</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 257. Binary Tree Paths" data-date="20250809000000">
+            <a href="/medium/2025/08/09/257-Binary-Tree-Paths.html">[Leetcode解題] 257. Binary Tree Paths</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2025-08-09</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 231. Power of Two" data-date="20250809000000">
+            <a href="/medium/2025/08/09/231-power-of-two.html">[Leetcode解題] 231. Power of Two</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2025-08-09</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 1161. Maximum Level Sum of a Binary Tree" data-date="20250808000000">
+            <a href="/medium/2025/08/08/1161-Maximum-Level-Sum-of-a-Binary-Tree.html">[Leetcode解題] 1161. Maximum Level Sum of a Binary Tree</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2025-08-08</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 3480. Maximize Subarrays After Removing One Conflicting Pair" data-date="20250727000000">
+            <a href="/hard/2025/07/27/3480-maximize-subarrays-after-removing-one-conflicting-pair.html">[Leetcode解題] 3480. Maximize Subarrays After Removing One Conflicting Pair</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2025-07-27</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 958. Check Completeness of a Binary Treer" data-date="20250725000000">
+            <a href="/medium/2025/07/25/958-Check-Completeness-of-a-Binary-Tree.html">[Leetcode解題] 958. Check Completeness of a Binary Treer</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2025-07-25</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 138. Copy List with Random Pointer" data-date="20250718000000">
+            <a href="/medium/2025/07/18/138-Copy-List-with-Random-Pointer.html">[Leetcode解題] 138. Copy List with Random Pointer</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2025-07-18</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 1900. The Earliest and Latest Rounds Where Players Compete" data-date="20250713000000">
+            <a href="/hard/2025/07/13/1990-the-earliest-and-latest-rounds-where-players-compete.html">[Leetcode解題] 1900. The Earliest and Latest Rounds Where Players Compete</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2025-07-13</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 2260. Minimum Consecutive Cards to Pick Up" data-date="20250711000000">
+            <a href="/medium/2025/07/11/2260-Minimum-Consecutive-Cards-to-Pick-Up.html">[Leetcode解題] 2260. Minimum Consecutive Cards to Pick Up</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2025-07-11</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 433. Minimum Genetic Mutation" data-date="20250628000000">
+            <a href="/medium/2025/06/28/433-minimum-genetic-mutation.html">[Leetcode解題] 433. Minimum Genetic Mutation</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2025-06-28</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 109. Convert Sorted List to Binary Search Tree" data-date="20250627000000">
+            <a href="/medium/2025/06/27/109.-Convert-Sorted-List-to-Binary-Search-Tree.html">[Leetcode解題] 109. Convert Sorted List to Binary Search Tree</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2025-06-27</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 368. Largest Divisible Subset" data-date="20250614000000">
+            <a href="/medium/2025/06/14/368-largest-divisible-subset.html">[Leetcode解題] 368. Largest Divisible Subset</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2025-06-14</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 3309. Maximum Possible Number by Binary Concatenation" data-date="20250606000000">
+            <a href="/medium/2025/06/06/3309-Maximum-Possible-Number-by-Binary-Concatenation.html">[Leetcode解題] 3309. Maximum Possible Number by Binary Concatenation</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2025-06-06</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 2302. Count Subarrays With Score Less Than K" data-date="20250530000000">
+            <a href="/hard/2025/05/30/2302-Count-Subarrays-With-Score-Less-Than-K.html">[Leetcode解題] 2302. Count Subarrays With Score Less Than K</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2025-05-30</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 2368. Reachable Nodes With Restrictions" data-date="20250524000000">
+            <a href="/medium/2025/05/24/2368-reachable-nodes-with-restrictions.html">[Leetcode解題] 2368. Reachable Nodes With Restrictions</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2025-05-24</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 1993. Operations on Trees" data-date="20250523000000">
+            <a href="/medium/2025/05/23/1993-Operations-on-Tree.html">[Leetcode解題] 1993. Operations on Trees</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2025-05-23</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 2918. Minimum Equal Sum of Two Arrays After Replacing Zeros" data-date="20250510000000">
+            <a href="/medium/2025/05/10/2918-minimum-equal-sum-of-two-arrays-after-replacing-zeros.html">[Leetcode解題] 2918. Minimum Equal Sum of Two Arrays After Replacing Zeros</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2025-05-10</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 1007. Minimum Domino Rotations For Equal Row" data-date="20250503000000">
+            <a href="/medium/2025/05/03/1007-minimum-domino-rotations-for-equal-row.html">[Leetcode解題] 1007. Minimum Domino Rotations For Equal Row</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2025-05-03</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 2261. K Divisible Elements Subarrays" data-date="20250426000000">
+            <a href="/medium/2025/04/26/2261-k-divisible-elements-subarrays.html">[Leetcode解題] 2261. K Divisible Elements Subarrays</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2025-04-26</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 2563. Count the Number of Fair Pairs" data-date="20250419000000">
+            <a href="/medium/2025/04/19/2563-count-the-number-of-fair-pairs.html">[Leetcode解題] 2563. Count the Number of Fair Pairs</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2025-04-19</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 391. Perfect Rectangle" data-date="20250418000000">
+            <a href="/hard/2025/04/18/391-Perfect-Rectangle.html">[Leetcode解題] 391. Perfect Rectangle</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2025-04-18</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 2818. Apply Operations to Maximize Score" data-date="20250411000000">
+            <a href="/hard/2025/04/11/2818-Apply-Operations-to-Maximize-Score.html">[Leetcode解題] 2818. Apply Operations to Maximize Score</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2025-04-11</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 92. Reverse Linked List II" data-date="20250321000000">
+            <a href="/medium/2025/03/21/92-Reverse-Linked-List-II.html">[Leetcode解題] 92. Reverse Linked List II</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2025-03-21</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 206. Reverse Linked List" data-date="20250321000000">
+            <a href="/easy/2025/03/21/206-Reverse-Linked-List.html">[Leetcode解題] 206. Reverse Linked List</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2025-03-21</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 2560. House Robber IV" data-date="20250316000000">
+            <a href="/medium/2025/03/16/2560-house-robber-iv.html">[Leetcode解題] 2560. House Robber IV</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2025-03-16</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 2460. Apply Operations to an Array" data-date="20250301000000">
+            <a href="/easy/2025/03/01/2460-apply-operations-to-an-array.html">[Leetcode解題] 2460. Apply Operations to an Array</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2025-03-01</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 1028. Recover a Tree From Preorder Traversal" data-date="20250222000000">
+            <a href="/hard/2025/02/22/1028-recover-a-tree-from-preorder-traversal.html">[Leetcode解題] 1028. Recover a Tree From Preorder Traversal</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2025-02-22</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 1894. Find the Student that Will Replace the Chalk" data-date="20250221000000">
+            <a href="/medium/2025/02/21/1894-Find-the-Student-that-Will-Replace-the-Chalk.html">[Leetcode解題] 1894. Find the Student that Will Replace the Chalk</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2025-02-21</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 2364. Count Number of Bad Pairs" data-date="20250209000000">
+            <a href="/medium/2025/02/09/2364-count-number-of-bad-pairs.html">[Leetcode解題] 2364. Count Number of Bad Pairs</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2025-02-09</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 845. Longest Mountain in Array" data-date="20250208000000">
+            <a href="/medium/2025/02/08/845-Longest-Mountain-in-Array.html">[Leetcode解題] 845. Longest Mountain in Array</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2025-02-08</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 278. First Bad Version" data-date="20250111000000">
+            <a href="/easy/2025/01/11/278-First-Bad-Version.html">[Leetcode解題] 278. First Bad Version</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2025-01-11</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 1400. Construct K Palindrome Strings" data-date="20250111000000">
+            <a href="/medium/2025/01/11/1400-construct-k-palindrome-strings.html">[Leetcode解題] 1400. Construct K Palindrome Strings</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2025-01-11</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 80. Remove Duplicates from Sorted Array II" data-date="20250104000000">
+            <a href="/medium/2025/01/04/80-Remove-Duplicates-from-Sorted-Array-II.html">[Leetcode解題] 80. Remove Duplicates from Sorted Array II</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2025-01-04</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 1930. Unique Length-3 Palindromic Subsequences" data-date="20250104000000">
+            <a href="/medium/2025/01/04/1930-unique-length-3-palindromic-subsequences.html">[Leetcode解題] 1930. Unique Length-3 Palindromic Subsequences</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2025-01-04</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 62. Unique Paths" data-date="20241228000000">
+            <a href="/medium/2024/12/28/62-Unique-Paths.html">[Leetcode解題] 62. Unique Paths</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2024-12-28</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 1702. Maximum Binary String After Change" data-date="20241228000000">
+            <a href="/medium/2024/12/28/1702-Maximum-Binary-String-After-Change.html">[Leetcode解題] 1702. Maximum Binary String After Change</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2024-12-28</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 2872. Maximum Number of K-Divisible Components" data-date="20241221000000">
+            <a href="/hard/2024/12/21/2872-Maximum-Number-of-K-Divisible-Components.html">[Leetcode解題] 2872. Maximum Number of K-Divisible Components</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2024-12-21</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 150. Evaluate Reverse Polish Notation" data-date="20241221000000">
+            <a href="/medium/2024/12/21/150-Evaluate-Reverse-Polish-Notation.html">[Leetcode解題] 150. Evaluate Reverse Polish Notation</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2024-12-21</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題]  2554. Maximum Number of Integers to Choose From a Range I" data-date="20241206000000">
+            <a href="/medium/2024/12/06/2554-Maximum-Number-of-Integers-to-Choose-From-a-Range-I.html">[Leetcode解題]  2554. Maximum Number of Integers to Choose From a Range I</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2024-12-06</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題]  2055. Plates Between Candles" data-date="20241206000000">
+            <a href="/medium/2024/12/06/2055.-Plates-Between-Candles.html">[Leetcode解題]  2055. Plates Between Candles</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2024-12-06</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題]  3254. Find the Power of K-Size Subarrays I" data-date="20241102000000">
+            <a href="/medium/2024/11/02/3254-Find-the-Power-of-k-Size-Subarrays-i.html">[Leetcode解題]  3254. Find the Power of K-Size Subarrays I</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2024-11-02</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題]  75. Sort Colors" data-date="20241101000000">
+            <a href="/medium/2024/11/01/75.-Sort-Colors.html">[Leetcode解題]  75. Sort Colors</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2024-11-01</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題]  2458. Height of Binary Tree After Subtree Removal Queries" data-date="20241027000000">
+            <a href="/hard/2024/10/27/2458-Height-of-Binary-Tree-After-Subtree-Removal-Queries.html">[Leetcode解題]  2458. Height of Binary Tree After Subtree Removal Queries</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2024-10-27</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題]  50. Pow(x, n)" data-date="20241026000000">
+            <a href="/medium/2024/10/26/50-Pow(x,-n).html">[Leetcode解題]  50. Pow(x, n)</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2024-10-26</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題]  210. Course Schedule II" data-date="20241019000000">
+            <a href="/medium/2024/10/19/210-Course-Schedule-II.html">[Leetcode解題]  210. Course Schedule II</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2024-10-19</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題]  1106. Parsing A Boolean Expression" data-date="20241019000000">
+            <a href="/hard/2024/10/19/1106-Parsing-A-Boolean-Expression.html">[Leetcode解題]  1106. Parsing A Boolean Expression</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2024-10-19</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題]  1302. Deepest Leaves Sum" data-date="20241005000000">
+            <a href="/medium/2024/10/05/1302-Deepest-Leaves-Sum.html">[Leetcode解題]  1302. Deepest Leaves Sum</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2024-10-05</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題]  1110. Delete Nodes And Return Forest - DFS解" data-date="20241004000000">
+            <a href="/medium/2024/10/04/1110-Delete-Nodes-And-Return-Forest.html">[Leetcode解題]  1110. Delete Nodes And Return Forest - DFS解</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2024-10-04</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題]  641. Design Circular Deque" data-date="20240928000000">
+            <a href="/medium/2024/09/28/641-Design-Circular-Deque.html">[Leetcode解題]  641. Design Circular Deque</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2024-09-28</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題]  381. Insert Delete GetRandom O(1) - Duplicates allowed" data-date="20240927000000">
+            <a href="/medium/2024/09/27/381-Insert-Delete-GetRandom-O(1)-Duplicates-allowed.html">[Leetcode解題]  381. Insert Delete GetRandom O(1) - Duplicates allowed</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2024-09-27</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題]  2419. Longest Subarray With Maximum Bitwise AND" data-date="20240914000000">
+            <a href="/medium/2024/09/14/2419-Longest-Subarray-With-Maximum-Bitwise-AND-copy.html">[Leetcode解題]  2419. Longest Subarray With Maximum Bitwise AND</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2024-09-14</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題]  10. Regular Expression Matching - DP解" data-date="20240913000000">
+            <a href="/hard/2024/09/13/10-Regular-Expression-Matching.html">[Leetcode解題]  10. Regular Expression Matching - DP解</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2024-09-13</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題]  841. Keys and Rooms" data-date="20240907000000">
+            <a href="/medium/2024/09/07/841-Keys-and-Rooms.html">[Leetcode解題]  841. Keys and Rooms</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2024-09-07</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題]  380. Insert Delete GetRandom O(1)" data-date="20240906000000">
+            <a href="/medium/2024/09/06/380-Insert-Delete-GetRandom-O(1).html">[Leetcode解題]  380. Insert Delete GetRandom O(1)</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2024-09-06</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題]  1514. Path with Maximum Probability" data-date="20240903000000">
+            <a href="/medium/2024/09/03/1514-Path-with-Maximum-Probability.html">[Leetcode解題]  1514. Path with Maximum Probability</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2024-09-03</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題]  1105. Filling Bookcase Shelves" data-date="20240830000000">
+            <a href="/medium/2024/08/30/1105-Filling-Bookcase-Shelves.html">[Leetcode解題]  1105. Filling Bookcase Shelves</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2024-08-30</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題]  3169. Count Days Without Meetings" data-date="20240824000000">
+            <a href="/medium/2024/08/24/3169-Count-Days-Without-Meetings.html">[Leetcode解題]  3169. Count Days Without Meetings</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2024-08-24</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題]  1004. Max Consecutive Ones III" data-date="20240824000000">
+            <a href="/medium/2024/08/24/1004-Max-Consecutive-Ones-III.html">[Leetcode解題]  1004. Max Consecutive Ones III</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2024-08-24</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題]  959. Regions Cut By Slashes 以DFS解" data-date="20240810000000">
+            <a href="/medium/2024/08/10/959-Regions-Cut-By-Slashes.html">[Leetcode解題]  959. Regions Cut By Slashes 以DFS解</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2024-08-10</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 31. Next Permutation" data-date="20240809000000">
+            <a href="/medium/2024/08/09/31-Next-Permutation.html">[Leetcode解題] 31. Next Permutation</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2024-08-09</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 3143. Maximum Points Inside the Square" data-date="20240803000000">
+            <a href="/medium/2024/08/03/3143-Maximum-Points-Inside-the-Square.html">[Leetcode解題] 3143. Maximum Points Inside the Square</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2024-08-03</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 1460. Make Two Arrays Equal by Reversing Subarrays" data-date="20240803000000">
+            <a href="/easy/2024/08/03/1460-Make-Two-Arrays-Equal-by-Reversing-Subarrays.html">[Leetcode解題] 1460. Make Two Arrays Equal by Reversing Subarrays</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2024-08-03</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 133. Clone Graph - 使用 DFS 解" data-date="20240802000000">
+            <a href="/medium/2024/08/02/133-Clone-Graph.html">[Leetcode解題] 133. Clone Graph - 使用 DFS 解</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2024-08-02</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 1143. Longest Common Subsequence - 使用 Rolling DP 指針解" data-date="20240726000000">
+            <a href="/medium/2024/07/26/1143-Longest-Common-Subsequence.html">[Leetcode解題] 1143. Longest Common Subsequence - 使用 Rolling DP 指針解</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2024-07-26</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 1605. Find Valid Matrix Given Row and Column Sums - 使用Greedy+雙指針解" data-date="20240720000000">
+            <a href="/medium/2024/07/20/1605-Find-Valid-Matrix-Given-Row-and-Column-Sums.html">[Leetcode解題] 1605. Find Valid Matrix Given Row and Column Sums - 使用Greedy+雙指針解</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2024-07-20</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 543. Diameter of Binary Tree - 使用DFS解" data-date="20240719000000">
+            <a href="/easy/2024/07/19/543-Diameter-of-Binary-Tree.html">[Leetcode解題] 543. Diameter of Binary Tree - 使用DFS解</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2024-07-19</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 2751. Robot Collisions - 使用stack解" data-date="20240713000000">
+            <a href="/hard/2024/07/13/2751-Robot-Collisions.html">[Leetcode解題] 2751. Robot Collisions - 使用stack解</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2024-07-13</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 986. Interval List Intersections - 雙指針解" data-date="20240712000000">
+            <a href="/medium/2024/07/12/986-Interval-List-Intersections.html">[Leetcode解題] 986. Interval List Intersections - 雙指針解</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2024-07-12</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 187. Repeated DNA Sequences - 使用hashtable解+4進位" data-date="20240630000000">
+            <a href="/medium/2024/06/30/187-Repeated-DNS-Sequences.html">[Leetcode解題] 187. Repeated DNA Sequences - 使用hashtable解+4進位</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2024-06-30</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 1438. Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit - 使用deque+ two pointer解" data-date="20240629000000">
+            <a href="/medium/2024/06/29/1438-Longest-Continuous-Subarray-With-Absolute-Diff-Less-Than-or-Equal-to-Limit.html">[Leetcode解題] 1438. Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit - 使用deque+ two pointer解</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2024-06-29</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 1248. Count Number of Nice Subarrays - 使用presum+hashtable解" data-date="20240622000000">
+            <a href="/medium/2024/06/22/1248-Count-Number-of-Nice-Subarrays.html">[Leetcode解題] 1248. Count Number of Nice Subarrays - 使用presum+hashtable解</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2024-06-22</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 1482. Minimum Number of Days to Make m Bouquets - binary-search解" data-date="20240621000000">
+            <a href="/medium/2024/06/21/1482.-Minimum-Number-of-Days-to-Make-m-Bouquets.html">[Leetcode解題] 1482. Minimum Number of Days to Make m Bouquets - binary-search解</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2024-06-21</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 84. Largest Rectangle in Histogram - monotonic-stack解" data-date="20240608000000">
+            <a href="/hard/2024/06/08/84.-Largest-Rectangle-in-Histogram.html">[Leetcode解題] 84. Largest Rectangle in Histogram - monotonic-stack解</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2024-06-08</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 979. Distribute Coins in Binary Tree" data-date="20240518000000">
+            <a href="/medium/2024/05/18/979-Distribute-Coins-in-Binary-Tree.html">[Leetcode解題] 979. Distribute Coins in Binary Tree</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2024-05-18</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 523. Continuous Subarray Sum" data-date="20240518000000">
+            <a href="/medium/2024/05/18/523-Continuous-subarray-sum.html">[Leetcode解題] 523. Continuous Subarray Sum</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2024-05-18</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 1423. Maximum Points You Can Obtain from Cards" data-date="20240518000000">
+            <a href="/medium/2024/05/18/1423-Maximum-Points-You-Can-Obtain-from-Cards.html">[Leetcode解題] 1423. Maximum Points You Can Obtain from Cards</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2024-05-18</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 402. Remove K Digits" data-date="20240510000000">
+            <a href="/medium/2024/05/10/402-Remove-Digits.html">[Leetcode解題] 402. Remove K Digits</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2024-05-10</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 514. Freedom Trail - 用DP結合BFS解" data-date="20240503000000">
+            <a href="/hard/2024/05/03/514-freedom-trail.html">[Leetcode解題] 514. Freedom Trail - 用DP結合BFS解</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2024-05-03</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 2034. Stock Price Fluctuation" data-date="20240503000000">
+            <a href="/medium/2024/05/03/2034-Stock-Price-Fluctuation.html">[Leetcode解題] 2034. Stock Price Fluctuation</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2024-05-03</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 394. Decode String - 用stack解" data-date="20240420000000">
+            <a href="/medium/2024/04/20/394-Decode-string.html">[Leetcode解題] 394. Decode String - 用stack解</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2024-04-20</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 1146. Snapshot Array" data-date="20240420000000">
+            <a href="/medium/2024/04/20/1146-Snapshot-Array.html">[Leetcode解題] 1146. Snapshot Array</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2024-04-20</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 992. Subarrays with K Different Integers" data-date="20240414000000">
+            <a href="/hard/2024/04/14/992-Subarrays-with-K-Different-Integers.html">[Leetcode解題] 992. Subarrays with K Different Integers</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2024-04-14</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 41. First Missing Positive" data-date="20240405000000">
+            <a href="/hard/2024/04/05/41-First-Missing-Positive.html">[Leetcode解題] 41. First Missing Positive</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2024-04-05</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 309. Best Time to Buy and Sell Stock with Cooldown" data-date="20240323000000">
+            <a href="/medium/2024/03/23/309-Best-Time-to-Buy-and-Sell-Stock-with-Cooldown.html">[Leetcode解題] 309. Best Time to Buy and Sell Stock with Cooldown</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2024-03-23</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 295. Find Median from Data Stream - 使用heap解" data-date="20240323000000">
+            <a href="/hard/2024/03/23/295-Find-Median-from-Data-Stream.html">[Leetcode解題] 295. Find Median from Data Stream - 使用heap解</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2024-03-23</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 140. Word Break II" data-date="20240323000000">
+            <a href="/hard/2024/03/23/140-Word-Break-II.html">[Leetcode解題] 140. Word Break II</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2024-03-23</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 139. Word Break - 使用dp解" data-date="20240323000000">
+            <a href="/medium/2024/03/23/139-Word-Break.html">[Leetcode解題] 139. Word Break - 使用dp解</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2024-03-23</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 2009. Minimum Number of Operations to Make Array Continuous - 使用 Binary Search 算法 " data-date="20240309000000">
+            <a href="/hard/2024/03/09/2009-Minimum-Number-of-Operations-to-Make-Array-Continuous.html">[Leetcode解題] 2009. Minimum Number of Operations to Make Array Continuous - 使用 Binary Search 算法 </a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2024-03-09</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 368. Largest Divisible Subset - 使用dp 算法 " data-date="20240303000000">
+            <a href="/medium/2024/03/03/368-Largest-Divisible-Subset.html">[Leetcode解題] 368. Largest Divisible Subset - 使用dp 算法 </a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2024-03-03</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 239. Sliding Window Maximum" data-date="20240223000000">
+            <a href="/hard/2024/02/23/249-sliding-window-maximum.html">[Leetcode解題] 239. Sliding Window Maximum</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2024-02-23</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 189. Rotate Array" data-date="20240223000000">
+            <a href="/medium/2024/02/23/189-rotate-array.html">[Leetcode解題] 189. Rotate Array</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2024-02-23</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 127. Word Ladder - BFS解" data-date="20240223000000">
+            <a href="/hard/amazon/2024/02/23/127-Word-Ladder.html">[Leetcode解題] 127. Word Ladder - BFS解</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2024-02-23</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 199. Binary Tree Right Side View - BFS解" data-date="20240218000000">
+            <a href="/medium/2024/02/18/199-Binary-Tree-Right-Side-View.html">[Leetcode解題] 199. Binary Tree Right Side View - BFS解</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2024-02-18</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 23. Merge k Sorted Lists - heap(Priority Queue)解" data-date="20240203000000">
+            <a href="/hard/amazon/microsoft/apple/2024/02/03/23-Merge-k-Sorted-Lists.html">[Leetcode解題] 23. Merge k Sorted Lists - heap(Priority Queue)解</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2024-02-03</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 200. Number of Islands - DFS解" data-date="20240203000000">
+            <a href="/medium/amazon/microsoft/apple/google/nvidia/2024/02/03/200-Number-of-Islands.html">[Leetcode解題] 200. Number of Islands - DFS解</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2024-02-03</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 438. Find All Anagrams in a String" data-date="20240106000000">
+            <a href="/medium/2024/01/06/438-Find-All-Anagrams-in-a-String.html">[Leetcode解題] 438. Find All Anagrams in a String</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2024-01-06</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 416. Partition Equal Subset Sum" data-date="20240106000000">
+            <a href="/medium/2024/01/06/416-Partition-equal-subset-sums.html">[Leetcode解題] 416. Partition Equal Subset Sum</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2024-01-06</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 146. LRU Cache" data-date="20240106000000">
+            <a href="/medium/2024/01/06/146-LRU-Cache.html">[Leetcode解題] 146. LRU Cache</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2024-01-06</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 567. Premutation in String" data-date="20231223000000">
+            <a href="/medium/2023/12/23/567-Permutation-in-String.html">[Leetcode解題] 567. Premutation in String</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2023-12-23</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 973. K Closest Points to Origin - Quick Select解" data-date="20231222000000">
+            <a href="/medium/2023/12/22/973-K-Closest-Points-to-Origin.html">[Leetcode解題] 973. K Closest Points to Origin - Quick Select解</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2023-12-22</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 921. Minimum Add to Make Parentheses Valid - stack解" data-date="20231217000000">
+            <a href="/medium/meta/2023/12/17/921-Minimum-Add-to-Make-Parentheses-Valid.html">[Leetcode解題] 921. Minimum Add to Make Parentheses Valid - stack解</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2023-12-17</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 71. Simplify Path - stack解" data-date="20231209000000">
+            <a href="/medium/2023/12/09/71-Simplify-Path.html">[Leetcode解題] 71. Simplify Path - stack解</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2023-12-09</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 739. Daily Temperatures - 單調佇列(monotonic stack)解" data-date="20231124000000">
+            <a href="/medium/2023/11/24/739-daily-temperatures.html">[Leetcode解題] 739. Daily Temperatures - 單調佇列(monotonic stack)解</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2023-11-24</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 227. Basic Calculator II - stack解" data-date="20231124000000">
+            <a href="/medium/2023/11/24/227-Basic-Calculator-II.html">[Leetcode解題] 227. Basic Calculator II - stack解</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2023-11-24</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 994. rotted oranges - BFS" data-date="20231117000000">
+            <a href="/medium/2023/11/17/994-rotted-oranges.html">[Leetcode解題] 994. rotted oranges - BFS</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2023-11-17</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 215. Kth Largest Element in an Array - 最小堆（Min Heap）&amp; Quick Select 解" data-date="20231021000000">
+            <a href="/medium/2023/10/21/215-Kth-Largest-Element-in-an-Array.html">[Leetcode解題] 215. Kth Largest Element in an Array - 最小堆（Min Heap）& Quick Select 解</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2023-10-21</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 1615. Maximal Network Rank - 圖算法" data-date="20231021000000">
+            <a href="/medium/2023/10/21/1615-maximal-network-rank.html">[Leetcode解題] 1615. Maximal Network Rank - 圖算法</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2023-10-21</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 1319. Number of Operations to Make Network Connected - DisjointSet解法" data-date="20231021000000">
+            <a href="/medium/2023/10/21/1319-Number-of-Operations-to-Make-Network-Connected.html">[Leetcode解題] 1319. Number of Operations to Make Network Connected - DisjointSet解法</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2023-10-21</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 4. Median of Two Sorted Arrays  - 使用分治法(Divide-and-conquer)算法" data-date="20230707000000">
+            <a href="/hard/2023/07/07/4-Median-of-Two-Sorted-Arrays.html">[Leetcode解題] 4. Median of Two Sorted Arrays  - 使用分治法(Divide-and-conquer)算法</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2023-07-07</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 209. Minimum Size Subarray Sum - Presum + 前後指針解法" data-date="20230707000000">
+            <a href="/medium/2023/07/07/209-Minimum-Size-Subarray-Sum.html">[Leetcode解題] 209. Minimum Size Subarray Sum - Presum + 前後指針解法</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2023-07-07</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 990. Satisfiability of Equality Equations - 使用DisjoinSet算法" data-date="20230609000000">
+            <a href="/medium/2023/06/09/990-Satisfiability-of-Equality-Equations.html">[Leetcode解題] 990. Satisfiability of Equality Equations - 使用DisjoinSet算法</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2023-06-09</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 744. Find Smallest Letter Greater Than Target - 使用二分搜尋法" data-date="20230609000000">
+            <a href="/easy/2023/06/09/744-find-smallest-letter-greater-than-target.html">[Leetcode解題] 744. Find Smallest Letter Greater Than Target - 使用二分搜尋法</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2023-06-09</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 2101. Detonate the Maximum Bombs - 使用圖算法" data-date="20230603000000">
+            <a href="/medium/2023/06/03/2101-detonate-the-maximum-bombs.html">[Leetcode解題] 2101. Detonate the Maximum Bombs - 使用圖算法</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2023-06-03</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 1035. Uncrossed Lines - DP + scrolling array解" data-date="20230603000000">
+            <a href="/medium/2023/06/03/1035-Uncrossed-Lines.html">[Leetcode解題] 1035. Uncrossed Lines - DP + scrolling array解</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2023-06-03</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 32. Longest Valid Parentheses - Stack解" data-date="20230526000000">
+            <a href="/medium/2023/05/26/32-Longest-Valid-Parentheses.html">[Leetcode解題] 32. Longest Valid Parentheses - Stack解</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2023-05-26</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 207. Course Schedule - 使用DFS解法" data-date="20230526000000">
+            <a href="/medium/2023/05/26/207-Course-Schedule.html">[Leetcode解題] 207. Course Schedule - 使用DFS解法</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2023-05-26</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 98. Validate Binary Search Tree - 遞迴解" data-date="20230520000000">
+            <a href="/medium/2023/05/20/98-Validate-Binary-Search-Tree.html">[Leetcode解題] 98. Validate Binary Search Tree - 遞迴解</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2023-05-20</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 1626. Best Team With No Conflicts - dp解" data-date="20230520000000">
+            <a href="/medium/2023/05/20/1626-Best-Team-With-No-Conflicts.html">[Leetcode解題] 1626. Best Team With No Conflicts - dp解</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2023-05-20</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 15. 3Sum - 前後指針解" data-date="20221126000000">
+            <a href="/medium/2022/11/26/15-3sum.html">[Leetcode解題] 15. 3Sum - 前後指針解</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2022-11-26</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 9. Palindrome Number - 前後指針解" data-date="20221104000000">
+            <a href="/easy/2022/11/04/9-palindrome-number.html">[Leetcode解題] 9. Palindrome Number - 前後指針解</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2022-11-04</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 560. Subarray Sum Equals K - presum解" data-date="20221104000000">
+            <a href="/medium/2022/11/04/560-Subarray-Sum-Equals-K.html">[Leetcode解題] 560. Subarray Sum Equals K - presum解</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2022-11-04</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 79. Word Search - bfs/dfs解" data-date="20220211000000">
+            <a href="/medium/2022/02/11/79-Word-Search.html">[Leetcode解題] 79. Word Search - bfs/dfs解</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2022-02-11</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 78. Subsets - dfs解" data-date="20220211000000">
+            <a href="/medium/2022/02/11/78-Subsets.html">[Leetcode解題] 78. Subsets - dfs解</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2022-02-11</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 72. Edit Distance - dp解" data-date="20220211000000">
+            <a href="/hard/2022/02/11/72-edit-distance.html">[Leetcode解題] 72. Edit Distance - dp解</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2022-02-11</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 714. Best Time to Buy and Sell Stock with Transaction Fee - greedy解" data-date="20220211000000">
+            <a href="/medium/2022/02/11/714-Best-Time-to-Buy-and-Sell-Stock-with-Transaction-Fee.html">[Leetcode解題] 714. Best Time to Buy and Sell Stock with Transaction Fee - greedy解</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2022-02-11</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 68. Text Justification - greedy解" data-date="20220211000000">
+            <a href="/hard/2022/02/11/68-Text-Justification.html">[Leetcode解題] 68. Text Justification - greedy解</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2022-02-11</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 56. Merge Intervals - greedy解" data-date="20220211000000">
+            <a href="/medium/2022/02/11/56-merge-interval.markdown.html">[Leetcode解題] 56. Merge Intervals - greedy解</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2022-02-11</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 53. Maximum Subarray - presum解" data-date="20220211000000">
+            <a href="/medium/2022/02/11/53-Maximum-Subarray.html">[Leetcode解題] 53. Maximum Subarray - presum解</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2022-02-11</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 46. Permutations - 遞迴/backtrace解" data-date="20220211000000">
+            <a href="/medium/2022/02/11/46-Permutations.html">[Leetcode解題] 46. Permutations - 遞迴/backtrace解</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2022-02-11</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 42. Trapping Rain Water" data-date="20220211000000">
+            <a href="/hard/2022/02/11/42-Trapping-Rain-Water.html">[Leetcode解題] 42. Trapping Rain Water</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2022-02-11</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 39. Combination Sum - 遞迴/backtrace解" data-date="20220211000000">
+            <a href="/medium/2022/02/11/39-Combination-Sum.html">[Leetcode解題] 39. Combination Sum - 遞迴/backtrace解</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2022-02-11</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 36. Valid Sudoku - 迴圈解" data-date="20220211000000">
+            <a href="/medium/2022/02/11/36-Valid-Sudoku.html">[Leetcode解題] 36. Valid Sudoku - 迴圈解</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2022-02-11</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 300. Longest Increasing Subsequence - dp解" data-date="20220211000000">
+            <a href="/medium/2022/02/11/300-Longest-Increasing-Subsequence.html">[Leetcode解題] 300. Longest Increasing Subsequence - dp解</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2022-02-11</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 3. Longest Substring Without Repeating Characters - 用暴力法、DP法和前後指針解決" data-date="20220211000000">
+            <a href="/medium/2022/02/11/3-Longest-Substring-Without-Repeating-Characters.html">[Leetcode解題] 3. Longest Substring Without Repeating Characters - 用暴力法、DP法和前後指針解決</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2022-02-11</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 299. Bulls and Cows - 暴力解" data-date="20220211000000">
+            <a href="/medium/2022/02/11/299-Bulls-and-Cows.html">[Leetcode解題] 299. Bulls and Cows - 暴力解</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2022-02-11</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 22. Generate Parentheses - Backtrace解" data-date="20220211000000">
+            <a href="/medium/2022/02/11/22-Generate-Parentheses.html">[Leetcode解題] 22. Generate Parentheses - Backtrace解</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2022-02-11</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 21. Merge Two Sorted Lists - 指針解" data-date="20220211000000">
+            <a href="/easy/2022/02/11/21-Merge-Two-Sorted-Lists.html">[Leetcode解題] 21. Merge Two Sorted Lists - 指針解</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2022-02-11</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 20. Valid Parentheses - Stack解" data-date="20220211000000">
+            <a href="/easy/2022/02/11/20-Valid-Parentheses.html">[Leetcode解題] 20. Valid Parentheses - Stack解</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2022-02-11</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 17. Letter Combinations of a Phone Number - 遞迴解" data-date="20220211000000">
+            <a href="/medium/2022/02/11/17-Letter-Combinations-of-a-Phone-Number.html">[Leetcode解題] 17. Letter Combinations of a Phone Number - 遞迴解</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2022-02-11</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 14. Longest Common Prefix - 暴力解" data-date="20220211000000">
+            <a href="/medium/2022/02/11/14-Longest-Common-Prefix.html">[Leetcode解題] 14. Longest Common Prefix - 暴力解</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2022-02-11</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 114. Flatten Binary Tree to Linked List - 遍歷二叉樹" data-date="20220211000000">
+            <a href="/medium/2022/02/11/114-Flatten-Binary-Tree-to-Linked-List.html">[Leetcode解題] 114. Flatten Binary Tree to Linked List - 遍歷二叉樹</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2022-02-11</span>
+            </div>
+        </li>
+    
+        <li class="post-item" data-title="[Leetcode解題] 11. Container With Most Water - 使用前後指針解" data-date="20220211000000">
+            <a href="/medium/2022/02/11/11-Container-With-Most-Water.html">[Leetcode解題] 11. Container With Most Water - 使用前後指針解</a>
+            <div class="post-meta">
+                <span class="post-num">Num</span>
+                <span class="post-date">2022-02-11</span>
+            </div>
+        </li>
+    
+    </ul>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const postItems = Array.from(document.querySelectorAll('.post-item'));
+    
+    // Extract problem number for each node
+    postItems.forEach(item => {
+        const title = item.getAttribute('data-title');
+        // Match digits before a dot usually. Like "... 3741. ..." or "... 3741 ..."
+        const match = title.match(/(\d+)\./) || title.match(/\]\s*(\d+)/) || title.match(/\b(\d+)\b/);
+        const numText = match ? match[1] : "0";
+        const num = parseInt(numText, 10);
+        
+        item.setAttribute('data-num', num);
+        
+        // Update the display for the number badge
+        const numBadge = item.querySelector('.post-num');
+        if (num > 0) {
+            numBadge.textContent = 'LeetCode ' + num;
+        } else {
+            numBadge.style.display = 'none'; // Hide if no number is found
+        }
+    });
+    
+    const searchInput = document.getElementById("search-input");
+    const sortSelect = document.getElementById("sort-select");
+    const postList = document.getElementById("post-list");
+    const noResults = document.getElementById("no-results");
+
+    function updateList() {
+        const query = searchInput.value.toLowerCase().trim();
+        const sortVal = sortSelect.value;
+        
+        let visibleItems = postItems.filter(item => {
+            const title = item.getAttribute('data-title').toLowerCase();
+            const num = item.getAttribute('data-num');
+            // search by problem number or title
+            return title.includes(query) || (num > 0 && num.toString().includes(query));
+        });
+
+        visibleItems.sort((a, b) => {
+            if (sortVal === "date-desc") {
+                return b.getAttribute('data-date').localeCompare(a.getAttribute('data-date'));
+            } else if (sortVal === "date-asc") {
+                return a.getAttribute('data-date').localeCompare(b.getAttribute('data-date'));
+            } else if (sortVal === "num-asc") {
+                return parseInt(a.getAttribute('data-num')) - parseInt(b.getAttribute('data-num'));
+            } else if (sortVal === "num-desc") {
+                return parseInt(b.getAttribute('data-num')) - parseInt(a.getAttribute('data-num'));
+            }
+            return 0;
+        });
+
+        // Detach all and append sorted
+        postList.innerHTML = "";
+        
+        if (visibleItems.length === 0) {
+            noResults.style.display = "block";
+        } else {
+            noResults.style.display = "none";
+            visibleItems.forEach(item => postList.appendChild(item));
+        }
+    }
+
+    searchInput.addEventListener("input", updateList);
+    sortSelect.addEventListener("change", updateList);
+    
+    // Initial setup
+    updateList();
+});
+</script>
+
+		</div>
+		<div class="col-md-2 col-sm-0">
+		</div>
+	</div>
+</div>
+
+		</main>
+		<footer class="footer">
+			<!-- No -->
+
+<!--This is the footer of the website-->
+
+<div class="footer-window container-fluid footer-color">
+	<div class="row">
+		<div class="footer-view footer-left col-md-4 text-left">
+			<div class="footer-section">
+				<div class="account-box">
+			</div>
+			</div>
+		</div>
+		<div class="footer-view footer-center col-md-4 text-center">
+			<div class="footer-section">
+				<div class="footer-copyright">
+					解題愛好者
+					<br><br>
+					歡迎來到刷題貓！我們是兩位熱愛程式設計的工程師，在此分享Leetcode刷題心得以及整理主題式的文章
+					<br><br>
+					© 2023 CATXCODER All Rights Reserved
+				</div>
+				<div>
+				</div>
+			</div>
+		</div>
+		<div class="footer-view footer-right col-md-4 text-center">
+			<div class="footer-section">
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--
+log
+<p>Version 0.0.2</p>
+			<p>0.0.2 - 配色完成</p>
+			<p>0.0.2 - 基本模板完成</p>
+			<p>0.0.2 - 自我介紹新增打字效果</p>
+
+
+
+
+-->
+
+		</footer>
+		</div>
+	</body>
+</html>
+
+<script>
+$(".badge-info").hover(function(){
+    $(this).hide(1000);
+});
+
+
+</script>
