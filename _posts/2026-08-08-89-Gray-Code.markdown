@@ -1,0 +1,64 @@
+---
+layout: article_post
+title:  "[Leetcode解題] 89. Gray Code"
+description:  "89. Gray Code - 鏡射構造法 (Recursion / Bit Manipulation)"
+categories: medium
+tags: bit recursion bit_operations
+langs: python
+excerpt_separator: <!--more-->
+---
+
+# 89. Gray Code
+
+## 題目
+
+[89. Gray Code](https://leetcode.com/problems/gray-code/)
+
+格雷碼（Gray Code）是一個由 $2^n$ 個整數組成的序列，符合以下條件：
+- 每個整數都在 $[0, 2^n - 1]$ 的範圍內。
+- 第一個整數是 0。
+- 序列中每個整數僅出現一次。
+- 序列中任意相鄰兩個整數的二進位表示恰好只有一個位元（1 bit）不同。
+- 第一個和最後一個整數的二進位表示也恰好只有一個位元不同（循環格雷碼）。
+
+給定一個整數 $n$，回傳任意一個有效的 $n$ 位元格雷碼序列。
+
+<!--more-->
+
+## 解題思路
+
+我們可以利用格雷碼經典的 **鏡射構造法（Reflected Gray Code Construction）**，利用遞迴從 $n-1$ 位元的格雷碼推導出 $n$ 位元的格雷碼：
+
+1. **基本情況（Base Case）**：
+   - 當 $n = 0$ 時，只有 `[0]`。
+2. **遞迴推導**：
+   - 先取得 $(n-1)$ 位元的格雷碼序列 `arr1`。
+   - 前半段直接使用 `arr1`（相當於最高位元 MSB 補 0）。
+   - 後半段則是將 `arr1` **反轉（reversed）**，並將最高位元（`mask = 1 << (n - 1)`）設為 1（透過 `x | mask`）。
+
+### 為什麼反轉後拼接能符合格雷碼定義？
+
+- **交界處相鄰**：`arr1` 的最後一個元素與 `reversed(arr1)` 的第一個元素數值相同。在後半段補上最高位元的 1 後，交界處這兩個相鄰數字就只有最高位元（MSB）不同。
+- **後半段內部相鄰**：因為 `arr1` 原本相鄰的元素就只差 1 個位元，反轉後相鄰元素依舊只差 1 個位元，加上最高位元的 1 並不影響低位元的差異數。
+- **首尾相鄰**：`arr1[0]` 是 `0`，後半段最後一個元素是 `arr1[0] | mask`（即 `1 << (n-1)`），這兩者也恰好只差最高位元這 1 個 bit。
+
+因此拼接出來的長度 $2^n$ 序列即為合法的格雷碼。
+
+## Python 實作
+
+```python
+class Solution:
+    def grayCode(self, n: int) -> List[int]:        
+        if n == 0:
+            return [0]
+        arr1 = self.grayCode(n-1)
+        mask = 1 << (n-1)
+        return arr1 + [x | mask for x in reversed(arr1)]
+```
+
+## 複雜度分析
+
+- **時間複雜度**：$O(2^n)$
+  長度為 $n$ 的格雷碼序列共有 $2^n$ 個數字。遞迴深度為 $n$，總處理元素個數為 $1 + 2 + 4 + ... + 2^n = O(2^n)$。
+- **空間複雜度**：$O(2^n)$
+  包含遞迴呼叫堆疊深度 $O(n)$ 以及儲存 $2^n$ 個元素的解答序列空間。
