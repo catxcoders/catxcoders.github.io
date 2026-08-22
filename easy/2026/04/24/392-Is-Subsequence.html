@@ -1,0 +1,1615 @@
+<!-- OK -->
+
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="utf-8">
+	<link rel="icon" type="image/x-icon" href="/res/catxcoder.ico">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>[Leetcode解題] 392. Is Subsequence</title>
+	<meta name="description" content="392. Is Subsequence" />
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<!-- My CSS -->
+<link href="/res/css/common.css" rel="stylesheet">
+
+	</head>
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-MHQH8LKZYV"></script>
+	<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+
+	gtag('config', 'G-MHQH8LKZYV');
+	</script>
+	<body>		
+				<!-- JQeury -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+    
+	<!-- Font Awesome -->
+	<!--<script defer src="https://use.fontawesome.com/releases/v6.4.2/js/all.js" integrity="	sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe" crossorigin="anonymous"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" integrity="sha512-uKQ39gEGiyUJl4AI6L+ekBdGKpGw4xJ55+xyJG7YFlJokPNYegn9KwQ3P8A7aFQAUtUsAQHep+d/lrGqrbPIDQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<!-- support MathJax -->
+	<style TYPE="text/css">
+	code.has-jax {font: inherit; font-size: 100%; background: inherit; border: inherit;}
+	</style>
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	    tex2jax: {
+	        inlineMath: [['$','$'], ['\\(','\\)']],
+	        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'] // removed 'code' entry
+	    }
+	});
+	MathJax.Hub.Queue(function() {
+	    var all = MathJax.Hub.getAllJax(), i;
+	    for(i = 0; i < all.length; i += 1) {
+	        all[i].SourceElement().parentNode.className += ' has-jax';
+	    }
+	});
+	</script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<!-- A patch to fix mathjax -->
+<!-- https://github.com/mathjax/MathJax/issues/1737 -->
+	<script type="text/x-mathjax-config">
+if (MathJax.Hub.Browser.isSafari && parseInt(MathJax.Hub.Browser.webkit) >= 603) {
+  MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready", function () {
+    var HTMLCSS = MathJax.OutputJax["HTML-CSS"];
+    var MML = MathJax.ElementJax.mml;
+    var toHTML = MML.mo.prototype.toHTML;
+    MML.mo.Augment({
+      toHTML: function (span) {
+        span = toHTML.call(this,span);
+        if (span.bbox.w === 0 && span.bbox.lw < 0 && span.firstChild) {
+          span.style.marginLeft = HTMLCSS.Em(span.bbox.lw);
+        }
+        return span;
+      }
+    });
+  });
+}
+</script>
+
+		<header>
+			<!-- OK -->
+
+<div class="container">
+  <nav class="navbar navbar-expand-lg navbar-default nav-color" >
+    <a href="/index.html">
+      <img src="/res/catxcoder.ico" class="img-fluid" style="width: 32px; margin-right: 10px;">
+    </a>
+    <a class="navbar-item" href="/index.html">
+      刷題貓
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span><i class="fas fa-bars" ></i></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <ul class="navbar-nav ml-auto navbar-right">
+          <li class="nav-item">
+             <a class="nav-link" href="/index.html">首頁</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/posts/categories">難度</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/posts/algorithms">演算法</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/works">主題式</a>
+          </li>
+        </ul>
+    </div>
+  </nav>
+</div>
+
+		</header>
+		<main>
+			<!-- OK -->
+
+<div class="container-fluid text-center bg-color">
+	<div class="row bg-icon">
+		<div class="col-md-2 col-sm-0">
+
+		</div>
+		<div class="view-home col-md-8 col-sm-12 post-home-color">
+			<div class="post-view-color post-view-window">
+	
+	<!-- title -->
+	<div class="post-view-title text-left" >
+		<p>[Leetcode解題] 392. Is Subsequence</p>
+	</div>
+	
+	<!-- date -->
+	<div class="post-view-date">
+			24 April 2026
+	</div>
+
+	<!-- tags -->
+	<div class="post-view-tags">
+		
+      
+		<a href="/posts/categories/easy/" class="badge badge-success">easy</a>
+  	  
+      
+      
+		
+		
+		<i href="#" class="badge badge-dark">string</i>
+		
+		<i href="#" class="badge badge-dark">two-pointers</i>
+		
+	</div>
+	<hr>
+
+	<!-- excerpt -->
+	<div class="post-view-excerpt text-left">
+		<p>
+			<h2 id="題目">題目</h2>
+<p><a href="https://leetcode.com/problems/is-subsequence/description/">392. Is Subsequence</a></p>
+
+<p>給定兩個字串 <code class="language-plaintext highlighter-rouge">s</code> 和 <code class="language-plaintext highlighter-rouge">t</code>，如果 <code class="language-plaintext highlighter-rouge">s</code> 是 <code class="language-plaintext highlighter-rouge">t</code> 的<strong>子序列</strong>，則回傳 <code class="language-plaintext highlighter-rouge">true</code>，否則回傳 <code class="language-plaintext highlighter-rouge">false</code>。</p>
+
+<p>字串的子序列是透過刪除原字串中的某些字元（也可以不刪除）後，不改變剩餘字元相對位置所形成的新字串。（例如，<code class="language-plaintext highlighter-rouge">"ace"</code> 是 <code class="language-plaintext highlighter-rouge">"abcde"</code> 的子序列，而 <code class="language-plaintext highlighter-rouge">"aec"</code> 則不是）。</p>
+
+<!--more-->
+
+<h2 id="解題思路">解題思路</h2>
+
+<p>這是一道典型的雙指標（Two Pointers）問題。我們需要檢查字串 <code class="language-plaintext highlighter-rouge">s</code> 的所有字元是否按順序出現在字串 <code class="language-plaintext highlighter-rouge">t</code> 中。</p>
+
+<p>我們可以使用兩個指標來實作：</p>
+<ol>
+  <li>定義指標 <code class="language-plaintext highlighter-rouge">p1</code> 指向字串 <code class="language-plaintext highlighter-rouge">s</code> 的開頭，指標 <code class="language-plaintext highlighter-rouge">p2</code> 指向字串 <code class="language-plaintext highlighter-rouge">t</code> 的開頭。</li>
+  <li>當 <code class="language-plaintext highlighter-rouge">p1</code> 與 <code class="language-plaintext highlighter-rouge">p2</code> 皆未走訪完所屬的字串時，進行迴圈處理：
+    <ul>
+      <li>比較 <code class="language-plaintext highlighter-rouge">s[p1]</code> 和 <code class="language-plaintext highlighter-rouge">t[p2]</code>：如果兩字元相同，代表我們在 <code class="language-plaintext highlighter-rouge">t</code> 中找到了 <code class="language-plaintext highlighter-rouge">s</code> 目前的字元，此時將 <code class="language-plaintext highlighter-rouge">p1</code> 和 <code class="language-plaintext highlighter-rouge">p2</code> 同時向右移動。</li>
+      <li>如果兩字元不同，代表 <code class="language-plaintext highlighter-rouge">t</code> 目前的字元無法配對，我們只需將 <code class="language-plaintext highlighter-rouge">p2</code> 向右移動，繼續在 <code class="language-plaintext highlighter-rouge">t</code> 中尋找下一個配對的字元。</li>
+    </ul>
+  </li>
+  <li>迴圈結束後，檢查 <code class="language-plaintext highlighter-rouge">p1</code> 是否走訪完了字串 <code class="language-plaintext highlighter-rouge">s</code>。如果 <code class="language-plaintext highlighter-rouge">p1</code> 等於 <code class="language-plaintext highlighter-rouge">s</code> 的長度，代表 <code class="language-plaintext highlighter-rouge">s</code> 的所有字元都已經在 <code class="language-plaintext highlighter-rouge">t</code> 中依序找到，回傳 <code class="language-plaintext highlighter-rouge">true</code>；否則回傳 <code class="language-plaintext highlighter-rouge">false</code>。</li>
+</ol>
+
+<p>特別留意字串長度的邊界條件，例如當 <code class="language-plaintext highlighter-rouge">s</code> 為空字串時，空字串永遠是任何字串的子序列，此寫法也能正確處理到。</p>
+
+<h2 id="python-實作">Python 實作</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">isSubsequence</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">t</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="n">p1</span><span class="p">,</span> <span class="n">p2</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+        
+        <span class="k">while</span> <span class="n">p1</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="ow">and</span> <span class="n">p2</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="n">p1</span><span class="p">]</span> <span class="o">==</span> <span class="n">t</span><span class="p">[</span><span class="n">p2</span><span class="p">]:</span>
+                <span class="n">p1</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">p2</span> <span class="o">+=</span> <span class="mi">1</span>
+            
+        <span class="k">return</span> <span class="n">p1</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="c-實作">C++ 實作</h2>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="nl">public:</span>
+    <span class="kt">bool</span> <span class="n">isSubsequence</span><span class="p">(</span><span class="n">string</span> <span class="n">s</span><span class="p">,</span> <span class="n">string</span> <span class="n">t</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">p1</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">p2</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        
+        <span class="k">while</span> <span class="p">(</span><span class="n">p1</span> <span class="o">&lt;</span> <span class="n">s</span><span class="p">.</span><span class="n">length</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="n">p2</span> <span class="o">&lt;</span> <span class="n">t</span><span class="p">.</span><span class="n">length</span><span class="p">())</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">p1</span><span class="p">]</span> <span class="o">==</span> <span class="n">t</span><span class="p">[</span><span class="n">p2</span><span class="p">])</span> <span class="p">{</span>
+                <span class="n">p1</span><span class="o">++</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="n">p2</span><span class="o">++</span><span class="p">;</span>
+        <span class="p">}</span>
+        
+        <span class="k">return</span> <span class="n">p1</span> <span class="o">==</span> <span class="n">s</span><span class="p">.</span><span class="n">length</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<h2 id="時間複雜度">時間複雜度</h2>
+
+<p>兩個指標 <code class="language-plaintext highlighter-rouge">p1</code> 與 <code class="language-plaintext highlighter-rouge">p2</code> 走訪字串時，最多只會將字串 <code class="language-plaintext highlighter-rouge">s</code> 和字串 <code class="language-plaintext highlighter-rouge">t</code> 走訪一次。
+因此總體時間複雜度為 $O(|s| + |t|)$，其中 $|s|$ 與 $|t|$ 分別為字串 <code class="language-plaintext highlighter-rouge">s</code> 與 <code class="language-plaintext highlighter-rouge">t</code> 的長度。</p>
+
+<p>空間複雜度部分，由於只使用了常數個變數進行狀態維護，故空間複雜度為 $O(1)$。</p>
+
+		</p>
+	</div>		
+  <div style="text-align: left; padding: 25px;">
+  <h1>相關文章</h1>
+  
+  
+
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  <a href="/easy/2026/04/24/392-Is-Subsequence.html" class="badge badge-success">[Leetcode解題] 392. Is Subsequence</a>
+  
+  
+  
+  <!--
+  <div>[Leetcode解題] 392. Is Subsequence</div>
+  <div class="post-view-tags">
+		
+      
+		<a href="/posts/categories/easy/" class="badge badge-success">easy</a>
+  	  
+      
+      
+		
+		
+		<i href="#" class="badge badge-dark">string</i>
+		
+		<i href="#" class="badge badge-dark">two-pointers</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2025/01/11/1400-construct-k-palindrome-strings.html" class="badge badge-warning">[Leetcode解題] 1400. Construct K Palindrome Strings</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 1400. Construct K Palindrome Strings</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">string</i>
+		
+		<i href="#" class="badge badge-dark">greedy</i>
+		
+		<i href="#" class="badge badge-dark">hashmap</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2025/01/04/1930-unique-length-3-palindromic-subsequences.html" class="badge badge-warning">[Leetcode解題] 1930. Unique Length-3 Palindromic Subsequences</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 1930. Unique Length-3 Palindromic Subsequences</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">string</i>
+		
+		<i href="#" class="badge badge-dark">greedy</i>
+		
+		<i href="#" class="badge badge-dark">hashmap</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/12/28/1702-Maximum-Binary-String-After-Change.html" class="badge badge-warning">[Leetcode解題] 1702. Maximum Binary String After Change</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 1702. Maximum Binary String After Change</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">string</i>
+		
+		<i href="#" class="badge badge-dark">greedy</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/07/20/1605-Find-Valid-Matrix-Given-Row-and-Column-Sums.html" class="badge badge-warning">[Leetcode解題] 1605. Find Valid Matrix Given Row and Column Sums - 使用Greedy+雙指針解</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 1605. Find Valid Matrix Given Row and Column Sums - 使用Greedy+雙指針解</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">two-pointers</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/07/12/986-Interval-List-Intersections.html" class="badge badge-warning">[Leetcode解題] 986. Interval List Intersections - 雙指針解</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 986. Interval List Intersections - 雙指針解</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">two-pointers</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2023/07/07/209-Minimum-Size-Subarray-Sum.html" class="badge badge-warning">[Leetcode解題] 209. Minimum Size Subarray Sum - Presum + 前後指針解法</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 209. Minimum Size Subarray Sum - Presum + 前後指針解法</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">presum</i>
+		
+		<i href="#" class="badge badge-dark">two-pointers</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2022/02/11/14-Longest-Common-Prefix.html" class="badge badge-warning">[Leetcode解題] 14. Longest Common Prefix - 暴力解</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 14. Longest Common Prefix - 暴力解</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">string</i>
+		
+		<i href="#" class="badge badge-dark">apple</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2022/02/11/11-Container-With-Most-Water.html" class="badge badge-warning">[Leetcode解題] 11. Container With Most Water - 使用前後指針解</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 11. Container With Most Water - 使用前後指針解</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">greedy</i>
+		
+		<i href="#" class="badge badge-dark">two-pointers</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+  </div>
+</div>
+		</div>
+		<div class="col-md-2 col-sm-0">
+		</div>
+	</div>
+</div>
+
+		</main>
+		<footer class="footer">
+			<!-- No -->
+
+<!--This is the footer of the website-->
+
+<div class="footer-window container-fluid footer-color">
+	<div class="row">
+		<div class="footer-view footer-left col-md-4 text-left">
+			<div class="footer-section">
+				<div class="account-box">
+			</div>
+			</div>
+		</div>
+		<div class="footer-view footer-center col-md-4 text-center">
+			<div class="footer-section">
+				<div class="footer-copyright">
+					解題愛好者
+					<br><br>
+					歡迎來到刷題貓！我們是兩位熱愛程式設計的工程師，在此分享Leetcode刷題心得以及整理主題式的文章
+					<br><br>
+					© 2023 CATXCODER All Rights Reserved
+				</div>
+				<div>
+				</div>
+			</div>
+		</div>
+		<div class="footer-view footer-right col-md-4 text-center">
+			<div class="footer-section">
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--
+log
+<p>Version 0.0.2</p>
+			<p>0.0.2 - 配色完成</p>
+			<p>0.0.2 - 基本模板完成</p>
+			<p>0.0.2 - 自我介紹新增打字效果</p>
+
+
+
+
+-->
+
+		</footer>
+		</div>
+	</body>
+</html>
+
+<script>
+$(".badge-info").hover(function(){
+    $(this).hide(1000);
+});
+
+
+</script>
