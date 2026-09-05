@@ -1,0 +1,2230 @@
+<!-- OK -->
+
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="utf-8">
+	<link rel="icon" type="image/x-icon" href="/res/catxcoder.ico">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>[Leetcode解題] 1169. Invalid Transactions</title>
+	<meta name="description" content="1169. Invalid Transactions" />
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<!-- My CSS -->
+<link href="/res/css/common.css" rel="stylesheet">
+
+	</head>
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-MHQH8LKZYV"></script>
+	<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+
+	gtag('config', 'G-MHQH8LKZYV');
+	</script>
+	<body>		
+				<!-- JQeury -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+    
+	<!-- Font Awesome -->
+	<!--<script defer src="https://use.fontawesome.com/releases/v6.4.2/js/all.js" integrity="	sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe" crossorigin="anonymous"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" integrity="sha512-uKQ39gEGiyUJl4AI6L+ekBdGKpGw4xJ55+xyJG7YFlJokPNYegn9KwQ3P8A7aFQAUtUsAQHep+d/lrGqrbPIDQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<!-- support MathJax -->
+	<style TYPE="text/css">
+	code.has-jax {font: inherit; font-size: 100%; background: inherit; border: inherit;}
+	</style>
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	    tex2jax: {
+	        inlineMath: [['$','$'], ['\\(','\\)']],
+	        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'] // removed 'code' entry
+	    }
+	});
+	MathJax.Hub.Queue(function() {
+	    var all = MathJax.Hub.getAllJax(), i;
+	    for(i = 0; i < all.length; i += 1) {
+	        all[i].SourceElement().parentNode.className += ' has-jax';
+	    }
+	});
+	</script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<!-- A patch to fix mathjax -->
+<!-- https://github.com/mathjax/MathJax/issues/1737 -->
+	<script type="text/x-mathjax-config">
+if (MathJax.Hub.Browser.isSafari && parseInt(MathJax.Hub.Browser.webkit) >= 603) {
+  MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready", function () {
+    var HTMLCSS = MathJax.OutputJax["HTML-CSS"];
+    var MML = MathJax.ElementJax.mml;
+    var toHTML = MML.mo.prototype.toHTML;
+    MML.mo.Augment({
+      toHTML: function (span) {
+        span = toHTML.call(this,span);
+        if (span.bbox.w === 0 && span.bbox.lw < 0 && span.firstChild) {
+          span.style.marginLeft = HTMLCSS.Em(span.bbox.lw);
+        }
+        return span;
+      }
+    });
+  });
+}
+</script>
+
+		<header>
+			<!-- OK -->
+
+<div class="container">
+  <nav class="navbar navbar-expand-lg navbar-default nav-color" >
+    <a href="/index.html">
+      <img src="/res/catxcoder.ico" class="img-fluid" style="width: 32px; margin-right: 10px;">
+    </a>
+    <a class="navbar-item" href="/index.html">
+      刷題貓
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span><i class="fas fa-bars" ></i></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <ul class="navbar-nav ml-auto navbar-right">
+          <li class="nav-item">
+             <a class="nav-link" href="/index.html">首頁</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/posts/categories">難度</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/posts/algorithms">演算法</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/works">主題式</a>
+          </li>
+        </ul>
+    </div>
+  </nav>
+</div>
+
+		</header>
+		<main>
+			<!-- OK -->
+
+<div class="container-fluid text-center bg-color">
+	<div class="row bg-icon">
+		<div class="col-md-2 col-sm-0">
+
+		</div>
+		<div class="view-home col-md-8 col-sm-12 post-home-color">
+			<div class="post-view-color post-view-window">
+	
+	<!-- title -->
+	<div class="post-view-title text-left" >
+		<p>[Leetcode解題] 1169. Invalid Transactions</p>
+	</div>
+	
+	<!-- date -->
+	<div class="post-view-date">
+			21 August 2026
+	</div>
+
+	<!-- tags -->
+	<div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">string</i>
+		
+		<i href="#" class="badge badge-dark">simulation</i>
+		
+	</div>
+	<hr>
+
+	<!-- excerpt -->
+	<div class="post-view-excerpt text-left">
+		<p>
+			<h2 id="題目">題目</h2>
+
+<p><a href="https://leetcode.com/problems/invalid-transactions/description/">1169. Invalid Transactions</a></p>
+
+<p>給定一個字串陣列 <code class="language-plaintext highlighter-rouge">transactions</code>，每筆交易的格式為：</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>name,time,amount,city
+</code></pre></div></div>
+
+<p>一筆交易只要符合以下任一條件，就可能是無效交易：</p>
+
+<ol>
+  <li>交易金額 <code class="language-plaintext highlighter-rouge">amount</code> 大於 <code class="language-plaintext highlighter-rouge">1000</code>。</li>
+  <li>存在另一筆交易，兩者的 <code class="language-plaintext highlighter-rouge">name</code> 相同、<code class="language-plaintext highlighter-rouge">city</code> 不同，而且交易時間相差不超過 <code class="language-plaintext highlighter-rouge">60</code> 分鐘。</li>
+</ol>
+
+<p>請回傳所有可能無效的交易，順序不限。</p>
+
+<!--more-->
+
+<h3 id="範例">範例</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>輸入：transactions = ["alice,20,800,mtv", "alice,50,100,beijing"]
+輸出：["alice,20,800,mtv", "alice,50,100,beijing"]
+</code></pre></div></div>
+
+<p>兩筆交易都是 <code class="language-plaintext highlighter-rouge">alice</code>，時間相差 <code class="language-plaintext highlighter-rouge">30</code> 分鐘，且城市不同，因此兩筆都要標記為無效。</p>
+
+<h2 id="解題思路分組排序與滑動視窗">解題思路：分組、排序與滑動視窗</h2>
+
+<p>每筆交易包含四項資訊，若每次比較時都重新切割字串，程式會變得冗長。因此先將所有字串解析成方便使用的資料：</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">name</code>：交易者名稱。</li>
+  <li><code class="language-plaintext highlighter-rouge">time</code>：交易時間，轉成整數。</li>
+  <li><code class="language-plaintext highlighter-rouge">amount</code>：交易金額，轉成整數。</li>
+  <li><code class="language-plaintext highlighter-rouge">city</code>：交易城市。</li>
+</ul>
+
+<p>接著建立 boolean array <code class="language-plaintext highlighter-rouge">invalid</code>，其中 <code class="language-plaintext highlighter-rouge">invalid[i]</code> 表示第 <code class="language-plaintext highlighter-rouge">i</code> 筆交易是否無效，並使用原始索引保存交易順序。</p>
+
+<h3 id="條件一金額超過-1000">條件一：金額超過 1000</h3>
+
+<p>解析每筆交易時，若 <code class="language-plaintext highlighter-rouge">amount &gt; 1000</code>，直接將該筆交易標記為無效。</p>
+
+<p>注意題目使用的是「超過」1000，因此金額剛好等於 <code class="language-plaintext highlighter-rouge">1000</code> 仍然有效。</p>
+
+<h3 id="條件二同名不同城市相差不超過-60-分鐘">條件二：同名、不同城市、相差不超過 60 分鐘</h3>
+
+<p>直覺做法是枚舉任意兩筆交易，時間複雜度為 $O(n^2)$。我們可以進一步最佳化：</p>
+
+<ol>
+  <li>先依照 <code class="language-plaintext highlighter-rouge">name</code> 將交易分組，因為不同名稱之間不可能互相影響。</li>
+  <li>將同一組內的交易依 <code class="language-plaintext highlighter-rouge">time</code> 排序。</li>
+  <li>使用滑動視窗維護目前交易之前 <code class="language-plaintext highlighter-rouge">60</code> 分鐘內的所有交易。</li>
+  <li>使用雜湊表 <code class="language-plaintext highlighter-rouge">city_count</code> 記錄視窗內各城市的交易數量。</li>
+</ol>
+
+<p>假設視窗內共有 <code class="language-plaintext highlighter-rouge">window_size</code> 筆交易，而其中與目前交易同城市的有 <code class="language-plaintext highlighter-rouge">same_city_count</code> 筆，那麼不同城市的交易數量就是：</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>different_city_count = window_size - same_city_count
+</code></pre></div></div>
+
+<p>只要 <code class="language-plaintext highlighter-rouge">different_city_count &gt; 0</code>，就代表視窗中至少存在一筆不同城市的交易，目前交易應被標記為無效。換句話說，當 <code class="language-plaintext highlighter-rouge">window_size == same_city_count</code> 時，視窗中的交易全部來自相同城市，不會觸發這項無效條件。</p>
+
+<h3 id="為什麼要掃描兩次">為什麼要掃描兩次？</h3>
+
+<p>按照時間由小到大掃描時，視窗只包含目前交易之前的交易，因此只能判斷「過去 <code class="language-plaintext highlighter-rouge">60</code> 分鐘」是否有衝突。</p>
+
+<p>但一筆交易也可能只和未來的交易衝突。為了不漏掉這種情況，再將順序反轉，從時間由大到小掃描一次。第二次就能判斷「未來 <code class="language-plaintext highlighter-rouge">60</code> 分鐘」是否有衝突。</p>
+
+<p>兩次掃描合起來，便涵蓋目前交易前後 <code class="language-plaintext highlighter-rouge">60</code> 分鐘內的所有交易。</p>
+
+<p>這裡還有兩個容易忽略的細節：</p>
+
+<ul>
+  <li>「within 60 minutes」包含剛好相差 <code class="language-plaintext highlighter-rouge">60</code> 分鐘，所以只有時間差 <code class="language-plaintext highlighter-rouge">&gt; 60</code> 時才移出視窗。</li>
+  <li>交易可能重複出現，因此要以原始索引標記，而不能只用交易字串作為 key。</li>
+</ul>
+
+<h2 id="範例推演">範例推演</h2>
+
+<p>假設輸入為：</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>["alice,20,800,mtv",
+ "alice,50,1200,beijing",
+ "bob,80,900,mtv"]
+</code></pre></div></div>
+
+<p>首先檢查金額：</p>
+
+<ul>
+  <li>第 0 筆金額為 <code class="language-plaintext highlighter-rouge">800</code>，尚未被標記。</li>
+  <li>第 1 筆金額為 <code class="language-plaintext highlighter-rouge">1200</code>，標記為無效。</li>
+  <li>第 2 筆金額為 <code class="language-plaintext highlighter-rouge">900</code>，尚未被標記。</li>
+</ul>
+
+<p>接著將 <code class="language-plaintext highlighter-rouge">alice</code> 的交易依時間排序並掃描：</p>
+
+<ul>
+  <li>掃描第 1 筆時，視窗內包含第 0 筆。兩者城市不同，時間相差 <code class="language-plaintext highlighter-rouge">30</code> 分鐘，因此第 1 筆無效。</li>
+  <li>反向掃描第 0 筆時，視窗內包含第 1 筆，因此第 0 筆也無效。</li>
+  <li><code class="language-plaintext highlighter-rouge">bob</code> 會被放在另一組，不會與 <code class="language-plaintext highlighter-rouge">alice</code> 的交易比較。</li>
+</ul>
+
+<p>最後回傳前兩筆交易。</p>
+
+<h2 id="c-實作">C++ 實作</h2>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="nl">private:</span>
+    <span class="k">struct</span> <span class="nc">Transaction</span> <span class="p">{</span>
+        <span class="n">string</span> <span class="n">name</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">time</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">amount</span><span class="p">;</span>
+        <span class="n">string</span> <span class="n">city</span><span class="p">;</span>
+    <span class="p">};</span>
+
+    <span class="n">Transaction</span> <span class="n">parse</span><span class="p">(</span><span class="k">const</span> <span class="n">string</span><span class="o">&amp;</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">stringstream</span> <span class="n">ss</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+        <span class="n">string</span> <span class="n">name</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">amount</span><span class="p">,</span> <span class="n">city</span><span class="p">;</span>
+
+        <span class="n">getline</span><span class="p">(</span><span class="n">ss</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="sc">','</span><span class="p">);</span>
+        <span class="n">getline</span><span class="p">(</span><span class="n">ss</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="sc">','</span><span class="p">);</span>
+        <span class="n">getline</span><span class="p">(</span><span class="n">ss</span><span class="p">,</span> <span class="n">amount</span><span class="p">,</span> <span class="sc">','</span><span class="p">);</span>
+        <span class="n">getline</span><span class="p">(</span><span class="n">ss</span><span class="p">,</span> <span class="n">city</span><span class="p">,</span> <span class="sc">','</span><span class="p">);</span>
+
+        <span class="k">return</span> <span class="p">{</span><span class="n">name</span><span class="p">,</span> <span class="n">stoi</span><span class="p">(</span><span class="n">time</span><span class="p">),</span> <span class="n">stoi</span><span class="p">(</span><span class="n">amount</span><span class="p">),</span> <span class="n">city</span><span class="p">};</span>
+    <span class="p">}</span>
+
+<span class="nl">public:</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">invalidTransactions</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;&amp;</span> <span class="n">transactions</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">transactions</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="n">Transaction</span><span class="o">&gt;</span> <span class="n">records</span><span class="p">;</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span> <span class="n">invalid</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
+        <span class="n">unordered_map</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">indices_by_name</span><span class="p">;</span>
+
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">records</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">parse</span><span class="p">(</span><span class="n">transactions</span><span class="p">[</span><span class="n">i</span><span class="p">]));</span>
+            <span class="n">indices_by_name</span><span class="p">[</span><span class="n">records</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">name</span><span class="p">].</span><span class="n">push_back</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+
+            <span class="k">if</span> <span class="p">(</span><span class="n">records</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">amount</span> <span class="o">&gt;</span> <span class="mi">1000</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">invalid</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="k">auto</span> <span class="n">scan</span> <span class="o">=</span> <span class="p">[</span><span class="o">&amp;</span><span class="p">](</span><span class="k">const</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">order</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kt">int</span> <span class="n">left</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+            <span class="n">unordered_map</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">city_count</span><span class="p">;</span>
+
+            <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">right</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">right</span> <span class="o">&lt;</span> <span class="n">order</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">right</span><span class="p">)</span> <span class="p">{</span>
+                <span class="kt">int</span> <span class="n">current</span> <span class="o">=</span> <span class="n">order</span><span class="p">[</span><span class="n">right</span><span class="p">];</span>
+
+                <span class="k">while</span> <span class="p">(</span><span class="n">left</span> <span class="o">&lt;</span> <span class="n">right</span> <span class="o">&amp;&amp;</span>
+                       <span class="n">abs</span><span class="p">(</span><span class="n">records</span><span class="p">[</span><span class="n">current</span><span class="p">].</span><span class="n">time</span> <span class="o">-</span> <span class="n">records</span><span class="p">[</span><span class="n">order</span><span class="p">[</span><span class="n">left</span><span class="p">]].</span><span class="n">time</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">60</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="o">--</span><span class="n">city_count</span><span class="p">[</span><span class="n">records</span><span class="p">[</span><span class="n">order</span><span class="p">[</span><span class="n">left</span><span class="p">]].</span><span class="n">city</span><span class="p">];</span>
+                    <span class="o">++</span><span class="n">left</span><span class="p">;</span>
+                <span class="p">}</span>
+
+                <span class="kt">int</span> <span class="n">window_size</span> <span class="o">=</span> <span class="n">right</span> <span class="o">-</span> <span class="n">left</span><span class="p">;</span>
+                <span class="kt">int</span> <span class="n">same_city_count</span> <span class="o">=</span> <span class="n">city_count</span><span class="p">[</span><span class="n">records</span><span class="p">[</span><span class="n">current</span><span class="p">].</span><span class="n">city</span><span class="p">];</span>
+                <span class="kt">int</span> <span class="n">different_city_count</span> <span class="o">=</span> <span class="n">window_size</span> <span class="o">-</span> <span class="n">same_city_count</span><span class="p">;</span>
+
+                <span class="k">if</span> <span class="p">(</span><span class="n">different_city_count</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="n">invalid</span><span class="p">[</span><span class="n">current</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+                <span class="p">}</span>
+
+                <span class="o">++</span><span class="n">city_count</span><span class="p">[</span><span class="n">records</span><span class="p">[</span><span class="n">current</span><span class="p">].</span><span class="n">city</span><span class="p">];</span>
+            <span class="p">}</span>
+        <span class="p">};</span>
+
+        <span class="k">for</span> <span class="p">(</span><span class="k">auto</span><span class="o">&amp;</span> <span class="p">[</span><span class="n">name</span><span class="p">,</span> <span class="n">indices</span><span class="p">]</span> <span class="o">:</span> <span class="n">indices_by_name</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">sort</span><span class="p">(</span><span class="n">indices</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">indices</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="p">[</span><span class="o">&amp;</span><span class="p">](</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="n">records</span><span class="p">[</span><span class="n">a</span><span class="p">].</span><span class="n">time</span> <span class="o">&lt;</span> <span class="n">records</span><span class="p">[</span><span class="n">b</span><span class="p">].</span><span class="n">time</span><span class="p">;</span>
+            <span class="p">});</span>
+
+            <span class="n">scan</span><span class="p">(</span><span class="n">indices</span><span class="p">);</span>
+            <span class="n">reverse</span><span class="p">(</span><span class="n">indices</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">indices</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+            <span class="n">scan</span><span class="p">(</span><span class="n">indices</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">answer</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">invalid</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="p">{</span>
+                <span class="n">answer</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">transactions</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="n">answer</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<h2 id="python-實作">Python 實作</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+
+
+<span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">invalidTransactions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transactions</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+        <span class="n">records</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">invalid</span> <span class="o">=</span> <span class="p">[</span><span class="bp">False</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">transactions</span><span class="p">)</span>
+        <span class="n">indices_by_name</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">transaction</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">transactions</span><span class="p">):</span>
+            <span class="n">name</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">amount</span><span class="p">,</span> <span class="n">city</span> <span class="o">=</span> <span class="n">transaction</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="s">','</span><span class="p">)</span>
+            <span class="n">records</span><span class="p">.</span><span class="n">append</span><span class="p">((</span><span class="n">name</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">amount</span><span class="p">),</span> <span class="n">city</span><span class="p">))</span>
+            <span class="n">indices_by_name</span><span class="p">[</span><span class="n">name</span><span class="p">].</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">amount</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1000</span><span class="p">:</span>
+                <span class="n">invalid</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
+
+        <span class="k">def</span> <span class="nf">scan</span><span class="p">(</span><span class="n">order</span><span class="p">):</span>
+            <span class="n">left</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">city_count</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">right</span><span class="p">,</span> <span class="n">current</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">order</span><span class="p">):</span>
+                <span class="n">current_time</span> <span class="o">=</span> <span class="n">records</span><span class="p">[</span><span class="n">current</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+
+                <span class="k">while</span> <span class="p">(</span><span class="n">left</span> <span class="o">&lt;</span> <span class="n">right</span> <span class="ow">and</span>
+                       <span class="nb">abs</span><span class="p">(</span><span class="n">current_time</span> <span class="o">-</span> <span class="n">records</span><span class="p">[</span><span class="n">order</span><span class="p">[</span><span class="n">left</span><span class="p">]][</span><span class="mi">1</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">60</span><span class="p">):</span>
+                    <span class="n">city_count</span><span class="p">[</span><span class="n">records</span><span class="p">[</span><span class="n">order</span><span class="p">[</span><span class="n">left</span><span class="p">]][</span><span class="mi">3</span><span class="p">]]</span> <span class="o">-=</span> <span class="mi">1</span>
+                    <span class="n">left</span> <span class="o">+=</span> <span class="mi">1</span>
+
+                <span class="n">current_city</span> <span class="o">=</span> <span class="n">records</span><span class="p">[</span><span class="n">current</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span>
+                <span class="n">window_size</span> <span class="o">=</span> <span class="n">right</span> <span class="o">-</span> <span class="n">left</span>
+                <span class="n">same_city_count</span> <span class="o">=</span> <span class="n">city_count</span><span class="p">[</span><span class="n">current_city</span><span class="p">]</span>
+                <span class="n">different_city_count</span> <span class="o">=</span> <span class="n">window_size</span> <span class="o">-</span> <span class="n">same_city_count</span>
+
+                <span class="k">if</span> <span class="n">different_city_count</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">invalid</span><span class="p">[</span><span class="n">current</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
+
+                <span class="n">city_count</span><span class="p">[</span><span class="n">current_city</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="k">for</span> <span class="n">indices</span> <span class="ow">in</span> <span class="n">indices_by_name</span><span class="p">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">indices</span><span class="p">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">records</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+            <span class="n">scan</span><span class="p">(</span><span class="n">indices</span><span class="p">)</span>
+            <span class="n">scan</span><span class="p">(</span><span class="n">indices</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="p">[</span>
+            <span class="n">transactions</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">transactions</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">invalid</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="p">]</span>
+</code></pre></div></div>
+
+<h2 id="正確性說明">正確性說明</h2>
+
+<p>對於每筆交易，演算法會檢查所有可能使它無效的情況：</p>
+
+<ul>
+  <li>若金額大於 <code class="language-plaintext highlighter-rouge">1000</code>，演算法會在解析時將它標記。</li>
+  <li>若它與另一筆同名交易的時間相差不超過 <code class="language-plaintext highlighter-rouge">60</code> 分鐘，另一筆交易必定位於正向或反向掃描的視窗中。若兩者城市不同，視窗總數減去同城市數量必定大於零，因此這筆交易會被標記。</li>
+</ul>
+
+<p>因此，所有符合至少一項無效條件的交易都會被加入答案；不符合任何條件的交易則不會被標記，所以回傳結果正好是所有可能無效的交易。</p>
+
+<h2 id="複雜度分析">複雜度分析</h2>
+
+<ul>
+  <li>時間複雜度：$O(n \log n)$。分組內排序的總成本不超過 $O(n \log n)$，兩次滑動視窗掃描共為 $O(n)$。</li>
+  <li>空間複雜度：$O(n)$。需要儲存解析後的交易、分組、城市計數與標記陣列。</li>
+</ul>
+
+		</p>
+	</div>		
+  <div style="text-align: left; padding: 25px;">
+  <h1>相關文章</h1>
+  
+  
+
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  <a href="/easy/2026/01/02/1869-Longer-Contiguous-Segments-of-Ones-than-Zeros.html" class="badge badge-success">[Leetcode解題] 1869. Longer Contiguous Segments of Ones than Zeros</a>
+  
+  
+  
+  <!--
+  <div>[Leetcode解題] 1869. Longer Contiguous Segments of Ones than Zeros</div>
+  <div class="post-view-tags">
+		
+      
+		<a href="/posts/categories/easy/" class="badge badge-success">easy</a>
+  	  
+      
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">String</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  <a href="/easy/2024/08/03/1460-Make-Two-Arrays-Equal-by-Reversing-Subarrays.html" class="badge badge-success">[Leetcode解題] 1460. Make Two Arrays Equal by Reversing Subarrays</a>
+  
+  
+  
+  <!--
+  <div>[Leetcode解題] 1460. Make Two Arrays Equal by Reversing Subarrays</div>
+  <div class="post-view-tags">
+		
+      
+		<a href="/posts/categories/easy/" class="badge badge-success">easy</a>
+  	  
+      
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">hashtable</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  
+  <a href="/hard/2024/07/13/2751-Robot-Collisions.html" class="badge badge-danger">[Leetcode解題] 2751. Robot Collisions - 使用stack解</a>
+  
+  <!--
+  <div>[Leetcode解題] 2751. Robot Collisions - 使用stack解</div>
+  <div class="post-view-tags">
+		
+      
+      
+      
+		<a href="/posts/categories/hard/" class="badge badge-danger">hard</a>
+  	  
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">stack</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2026/08/21/1169-Invalid-Transactions.html" class="badge badge-warning">[Leetcode解題] 1169. Invalid Transactions</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 1169. Invalid Transactions</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">string</i>
+		
+		<i href="#" class="badge badge-dark">simulation</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2026/08/14/2962-Count-Subarrays-Where-Max-Element-Appears-at-Least-K-Times.html" class="badge badge-warning">[Leetcode解題] 2962. Count Subarrays Where Max Element Appears at Least K Times</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 2962. Count Subarrays Where Max Element Appears at Least K Times</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">sliding-window</i>
+		
+		<i href="#" class="badge badge-dark">two-pointer</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2026/04/17/1493-Longest-Subarray-of-1s-After-Deleting-One-Element.html" class="badge badge-warning">[Leetcode解題] 1493. Longest Subarray of 1's After Deleting One Element</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 1493. Longest Subarray of 1's After Deleting One Element</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">sliding-window</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2026/04/11/3741-Minimum-Distance-Between-Three-Equal-Elements-II.html" class="badge badge-warning">[Leetcode解題] 3741. Minimum Distance Between Three Equal Elements II</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 3741. Minimum Distance Between Three Equal Elements II</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">hash-table</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2026/04/10/452-Minimum-Number-of-Arrows-to-Burst-Balloons.html" class="badge badge-warning">[Leetcode解題] 452. Minimum Number of Arrows to Burst Balloons</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 452. Minimum Number of Arrows to Burst Balloons</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">greedy</i>
+		
+		<i href="#" class="badge badge-dark">sorting</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2025/12/06/1895-Largest-Magic-Square.html" class="badge badge-warning">[Leetcode解題] 1895. Largest Magic Square</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 1895. Largest Magic Square</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">preSum</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2025/11/15/419-Battleships-in-a-Board.html" class="badge badge-warning">[Leetcode解題] 419. Battleships in a Board</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 419. Battleships in a Board</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">dfs</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2025/04/26/2261-k-divisible-elements-subarrays.html" class="badge badge-warning">[Leetcode解題] 2261. K Divisible Elements Subarrays</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 2261. K Divisible Elements Subarrays</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">rolling-hash</i>
+		
+		<i href="#" class="badge badge-dark">hash</i>
+		
+		<i href="#" class="badge badge-dark">trie</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2025/04/19/2563-count-the-number-of-fair-pairs.html" class="badge badge-warning">[Leetcode解題] 2563. Count the Number of Fair Pairs</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 2563. Count the Number of Fair Pairs</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">binary-search</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2025/03/16/2560-house-robber-iv.html" class="badge badge-warning">[Leetcode解題] 2560. House Robber IV</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 2560. House Robber IV</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">greedy</i>
+		
+		<i href="#" class="badge badge-dark">binary-search</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/12/06/2554-Maximum-Number-of-Integers-to-Choose-From-a-Range-I.html" class="badge badge-warning">[Leetcode解題]  2554. Maximum Number of Integers to Choose From a Range I</a>
+  
+  
+  <!--
+  <div>[Leetcode解題]  2554. Maximum Number of Integers to Choose From a Range I</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">greedy</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/09/06/380-Insert-Delete-GetRandom-O(1).html" class="badge badge-warning">[Leetcode解題]  380. Insert Delete GetRandom O(1)</a>
+  
+  
+  <!--
+  <div>[Leetcode解題]  380. Insert Delete GetRandom O(1)</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">hashTable</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/08/03/3143-Maximum-Points-Inside-the-Square.html" class="badge badge-warning">[Leetcode解題] 3143. Maximum Points Inside the Square</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 3143. Maximum Points Inside the Square</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">sort</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/07/20/1605-Find-Valid-Matrix-Given-Row-and-Column-Sums.html" class="badge badge-warning">[Leetcode解題] 1605. Find Valid Matrix Given Row and Column Sums - 使用Greedy+雙指針解</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 1605. Find Valid Matrix Given Row and Column Sums - 使用Greedy+雙指針解</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">two-pointers</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/07/12/986-Interval-List-Intersections.html" class="badge badge-warning">[Leetcode解題] 986. Interval List Intersections - 雙指針解</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 986. Interval List Intersections - 雙指針解</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">two-pointers</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/06/30/187-Repeated-DNS-Sequences.html" class="badge badge-warning">[Leetcode解題] 187. Repeated DNA Sequences - 使用hashtable解+4進位</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 187. Repeated DNA Sequences - 使用hashtable解+4進位</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">hash</i>
+		
+		<i href="#" class="badge badge-dark">hashtable</i>
+		
+		<i href="#" class="badge badge-dark">bit</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/06/29/1438-Longest-Continuous-Subarray-With-Absolute-Diff-Less-Than-or-Equal-to-Limit.html" class="badge badge-warning">[Leetcode解題] 1438. Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit - 使用deque+ two pointer解</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 1438. Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit - 使用deque+ two pointer解</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">deque</i>
+		
+		<i href="#" class="badge badge-dark">sliding-window</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/06/22/1248-Count-Number-of-Nice-Subarrays.html" class="badge badge-warning">[Leetcode解題] 1248. Count Number of Nice Subarrays - 使用presum+hashtable解</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 1248. Count Number of Nice Subarrays - 使用presum+hashtable解</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">presum</i>
+		
+		<i href="#" class="badge badge-dark">hash</i>
+		
+		<i href="#" class="badge badge-dark">hashtable</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/05/18/523-Continuous-subarray-sum.html" class="badge badge-warning">[Leetcode解題] 523. Continuous Subarray Sum</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 523. Continuous Subarray Sum</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">presum</i>
+		
+		<i href="#" class="badge badge-dark">hash</i>
+		
+		<i href="#" class="badge badge-dark">hashtable</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/05/18/1423-Maximum-Points-You-Can-Obtain-from-Cards.html" class="badge badge-warning">[Leetcode解題] 1423. Maximum Points You Can Obtain from Cards</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 1423. Maximum Points You Can Obtain from Cards</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">presum</i>
+		
+		<i href="#" class="badge badge-dark">sliding-window</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/04/20/1146-Snapshot-Array.html" class="badge badge-warning">[Leetcode解題] 1146. Snapshot Array</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 1146. Snapshot Array</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">binary-search</i>
+		
+		<i href="#" class="badge badge-dark">bs</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+  </div>
+</div>
+		</div>
+		<div class="col-md-2 col-sm-0">
+		</div>
+	</div>
+</div>
+
+		</main>
+		<footer class="footer">
+			<!-- No -->
+
+<!--This is the footer of the website-->
+
+<div class="footer-window container-fluid footer-color">
+	<div class="row">
+		<div class="footer-view footer-left col-md-4 text-left">
+			<div class="footer-section">
+				<div class="account-box">
+			</div>
+			</div>
+		</div>
+		<div class="footer-view footer-center col-md-4 text-center">
+			<div class="footer-section">
+				<div class="footer-copyright">
+					解題愛好者
+					<br><br>
+					歡迎來到刷題貓！我們是兩位熱愛程式設計的工程師，在此分享Leetcode刷題心得以及整理主題式的文章
+					<br><br>
+					© 2023 CATXCODER All Rights Reserved
+				</div>
+				<div>
+				</div>
+			</div>
+		</div>
+		<div class="footer-view footer-right col-md-4 text-center">
+			<div class="footer-section">
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--
+log
+<p>Version 0.0.2</p>
+			<p>0.0.2 - 配色完成</p>
+			<p>0.0.2 - 基本模板完成</p>
+			<p>0.0.2 - 自我介紹新增打字效果</p>
+
+
+
+
+-->
+
+		</footer>
+		</div>
+	</body>
+</html>
+
+<script>
+$(".badge-info").hover(function(){
+    $(this).hide(1000);
+});
+
+
+</script>
