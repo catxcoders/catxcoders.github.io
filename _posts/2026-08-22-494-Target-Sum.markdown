@@ -1,0 +1,89 @@
+---
+layout: article_post
+title:  "[Leetcode解題] 494. Target Sum"
+description:  "494. Target Sum - 數學推導轉換為 0/1 背包問題 (Dynamic Programming)"
+categories: medium
+tags: dp knapsack dynamic-programming
+langs: python
+excerpt_separator: <!--more-->
+---
+
+# 494. Target Sum
+
+## 題目
+
+[494. Target Sum](https://leetcode.com/problems/target-sum/)
+
+給定一個整數陣列 `nums` 和一個目標整數 `target`。
+
+你需要在 `nums` 中的每個整數前面加上 `'+'` 或 `'-'`，將所有整數串連起來形成一個表達式。
+
+請回傳所有可以使表達式的計算結果等於 `target` 的不同組合方法數。
+
+<!--more-->
+
+## 解題思路
+
+直接使用 DFS / 遞迴窮舉時間複雜度為 $O(2^n)$，當 $n$ 較大時會超過時間限制。我們可以透過數學公式將此問題轉換為經典的 **0/1 背包問題（Subset Sum / Knapsack）**。
+
+### 數學推導
+
+假設我們將 `nums` 拆成兩個子集：
+- $P$：前面加上 `'+'` 的數字集合。
+- $N$：前面加上 `'-'` 的數字集合。
+
+根據定義：
+1. $\text{sum}(P) - \text{sum}(N) = \text{target}$
+2. $\text{sum}(P) + \text{sum}(N) = \text{total\_sum}$ (所有數字的總和)
+
+將兩式相加：
+$$2 \times \text{sum}(P) = \text{target} + \text{total\_sum}$$
+$$\text{sum}(P) = \frac{\text{target} + \text{total\_sum}}{2}$$
+
+因此，原問題成功轉化為：
+> **「從 `nums` 中挑選出一個子集 $P$，使其元素的和等於 $W = \frac{\text{target} + \text{total\_sum}}{2}$ 的方法有幾種？」**
+
+### 邊界條件 (Edge Cases)
+
+1. 如果 $\text{total\_sum} < |\text{target}|$：絕對無法組成目標值，回傳 `0`。
+2. 如果 $(\text{target} + \text{total\_sum})$ 為奇數（無法被 2 整除）：因為數字皆為整數，$\text{sum}(P)$ 必須為整數，故無解，回傳 `0`。
+
+### 動態規劃狀態定義 (DP State)
+
+- **`dp[j]`**：選擇數字組合出總和為 $j$ 的方法數。
+- **初始值**：`dp[0] = 1`（總和為 0 的方法數只有 1 種，即什麼都不選）。
+- **轉移方程式**：
+  $$\text{dp}[j] = \text{dp}[j] + \text{dp}[j - \text{num}]$$
+  為了避免同一個數字被重複使用（0/1 背包特性），內層迴圈需要從大到小倒序遍歷：從 $W$ 倒序計算至 $\text{num}$。
+
+## Python 實作
+
+```python
+class Solution:
+    def findTargetSumWays(self, nums: List[int], target: int) -> int:
+        total_sum = sum(nums)
+        
+        # 如果 target 的絕對值大於總和，或 (target + total_sum) 為奇數，則無解
+        if total_sum < abs(target) or (target + total_sum) % 2 != 0:
+            return 0
+        
+        # 轉換為背包問題目標容量 W
+        W = (target + total_sum) // 2
+        
+        dp = [0] * (W + 1)
+        dp[0] = 1  # 湊出 0 的方法數為 1
+
+        # 0/1 背包動態規劃 (倒序遍歷)
+        for num in nums:
+            for j in range(W, num - 1, -1):
+                dp[j] += dp[j - num]
+
+        return dp[W]
+```
+
+## 複雜度分析
+
+- **時間複雜度**：$O(n \times W)$
+  其中 $n$ 為 `nums` 陣列長度，$W = \frac{\text{target} + \text{total\_sum}}{2}$。我們有兩層迴圈，外層執行 $n$ 次，內層執行 $W$ 次。
+- **空間複雜度**：$O(W)$
+  使用了一維滾動陣列將空間優化至 $O(W)$。
