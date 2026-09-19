@@ -1,18 +1,18 @@
 ---
 layout: article_post
-title:  "[Leetcode解題] 3592. Find Coins"
-description:  "3592. Find Coins - 完全背包動態規劃 (Unbounded Knapsack DP) 與貪心面額推導"
+title:  "[Leetcode解題] 3592. Inverse Coin Change"
+description:  "3592. Inverse Coin Change - 完全背包動態規劃 (Unbounded Knapsack DP) 與貪心面額推導"
 categories: medium
 tags: dp dynamic-programming greedy knapsack
 langs: python
 excerpt_separator: <!--more-->
 ---
 
-# 3592. Find Coins
+# 3592. Inverse Coin Change
 
 ## 題目
 
-[3592. Find Coins](https://leetcode.com/problems/find-coins/)
+[3592. Inverse Coin Change](https://leetcode.com/problems/inverse-coin-change/)
 
 給定一個長度為 $n-1$ 的整數陣列 `numWays`，其中 `numWays[i]` 表示構造出總金額為 $i + 1$ 的硬幣組合數（組合中不考慮硬幣順序）。
 
@@ -33,7 +33,7 @@ excerpt_separator: <!--more-->
 當我們從小到大遍歷到金額 $s = i + 1$ 時：
 
 1. **僅用較小硬幣**：所有只包含面額 $< s$ 的硬幣組合，其湊出金額 $s$ 的方法數已經被完全計算在 `dp[s]` （即 `dp[i+1]`）中。
-2. **包含面額 $s$ 的硬幣**：如果硬幣集合中包含面額 $s$ 的硬幣，由於硬幣面額皆為正整數，使用一枚面額 $s$ 的硬幣後，剩餘金額為 $s - s = 0$。湊出金額 0 的方法數固定為 $dp[0] = 1$（即什麼都不選）。
+2. **包含面額 $s$ 的硬幣**：如果硬幣集合中包含面額 $s$ 的硬幣，由於硬幣面額皆為正整數，使用一枚面額 $s$ 的硬幣後，剩餘金額為 $s - s = 0$。湊出金額 0 的方法數固定為 $\text{dp}[0] = 1$（即什麼都不選）。
 3. **不可能使用 $> s$ 的硬幣**：因為硬幣面額大於金額 $s$，無法用來湊出金額 $s$。
 
 因此，對於金額 $s = i + 1$：
@@ -44,13 +44,13 @@ excerpt_separator: <!--more-->
 
 ### 貪心與 DP 狀態更新
 
-設 $\text{diff} = \text{numWays}[i] - \text{dp}[i+1]$：
+觀察 `numWays[i] - dp[i+1]` 的值：
 
-- **$\text{diff} == 0$**：說明單靠目前已知的較小硬幣就已經剛好湊出 `numWays[i]` 種方法。因此**不需要**面額為 $s = i + 1$ 的硬幣，直接檢查下一個金額（`i += 1`）。
-- **$\text{diff} == 1$**：說明目前已知的硬幣組合數比目標少 1 種，這代表**必須存在**一枚面額為 $s = i + 1$ 的硬幣。我們將 $s$ 加入 `coins` 列表中，並透過完全背包 DP 更新 `dp` 陣列：
+- **`numWays[i] - dp[i+1] == 0`**：說明單靠目前已知的較小硬幣就已經剛好湊出 `numWays[i]` 種方法。因此**不需要**面額為 $s = i + 1$ 的硬幣，直接檢查下一個金額（`i += 1`）。
+- **`numWays[i] - dp[i+1] == 1`**：說明目前已知的硬幣組合數比目標少 1 種，這代表**必須存在**一枚面額為 $s = i + 1$ 的硬幣。我們將 $s$ 加入 `coins` 列表中，並透過完全背包 DP 更新 `dp` 陣列：
   $$\text{dp}[j] = \text{dp}[j] + \text{dp}[j - s] \quad (\forall j \in [s, n-1])$$
-  更新完後，保持當前 `i` 繼續檢查（若有多枚相同面額硬幣可連續處理，直至 `diff == 0` 時才增長 `i`）。
-- **$\text{diff} \neq 0$ 且 $\text{diff} \neq 1$**：說明目前已知硬幣組合數與目標不符合，且無法透過新增硬幣來修正（$\text{diff} < 0$ 表示組合數已超載，$\text{diff} > 1$ 無法單靠合法的正整數硬幣補足），因此無解，直接回傳 `[]`。
+  更新完後，保持當前 `i` 繼續檢查（若有多枚相同面額硬幣可連續處理，直至 `numWays[i] - dp[i+1] == 0` 時才增長 `i`）。
+- **`numWays[i] - dp[i+1] != 0` 且 `numWays[i] - dp[i+1] != 1`**：說明目前已知硬幣組合數與目標不符合，且無法透過新增硬幣來修正，因此無解，直接回傳 `[]`。
 
 ---
 
@@ -62,26 +62,19 @@ class Solution:
         coins = []
         n = len(numWays) + 1
         dp = [0 for i in range(n)]
-        dp[0] = 1  # 金額 0 的組合數為 1 種
+        dp[0] = 1
         
         i = 0
         while i < len(numWays):
-            diff = numWays[i] - dp[i+1]
-            
-            # 若已有硬幣組合數剛好等於 numWays[i]，表示不需要面額 (i + 1) 的硬幣
-            if diff == 0:
+            if numWays[i] - dp[i+1] == 0:
                 i += 1
                 continue
-            
-            # 若差值不為 1，代表無法湊出該 numWays，回傳空陣列
-            if diff != 1:
+            if numWays[i] - dp[i+1] != 1:
                 return []
 
-            # 必須加入一枚面額為 (i + 1) 的硬幣
             coin = i + 1
             coins.append(coin)
 
-            # 完全背包 DP 狀態更新
             for j in range(coin, n):
                 dp[j] = dp[j] + dp[j-coin]
 
