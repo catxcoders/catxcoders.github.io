@@ -1,0 +1,218 @@
+---
+layout: article_post
+title:  "[Leetcode解題] 1609. Even Odd Tree"
+description:  "1609. Even Odd Tree - BFS 層序遍歷與奇偶檢查"
+categories: medium
+tags: tree bfs binary-tree
+langs: python c++
+excerpt_separator: <!--more-->
+---
+
+# 1609. Even Odd Tree
+
+## 題目
+
+[1609. Even Odd Tree](https://leetcode.com/problems/even-odd-tree/description/)
+
+給定二元樹的根節點 `root`，判斷整棵樹是否符合以下條件，符合回傳 `true`，否則回傳 `false`：
+
+| 層數（根節點為第 0 層） | 節點值 | 同一層由左到右的順序 |
+| --- | --- | --- |
+| 偶數層：0、2、4…… | 全部是奇數 | 嚴格遞增 |
+| 奇數層：1、3、5…… | 全部是偶數 | 嚴格遞減 |
+
+注意「層數的奇偶」與「節點值的奇偶」剛好相反，而且嚴格遞增或遞減都不允許相鄰值相等。
+
+題目限制：節點數介於 `1` 到 `10^5`，節點值介於 `1` 到 `10^6`。
+
+<!--more-->
+
+## 解題思路
+
+### 1. 用 BFS 按層、由左到右走訪
+
+題目要求比較同一層的節點，因此可以使用 **BFS（廣度優先搜尋）的層序遍歷**。
+
+使用佇列 `queue` 保存待處理的節點。每次取出節點後，依序加入它的左子節點、右子節點，便能保持下一層由左到右的順序。
+
+每層開始時，先記錄目前佇列長度 `size`，這就是本層的節點數。接著只取出 `size` 個節點；過程中新加入的子節點留到下一輪處理，才不會混在同一層。
+
+### 2. 只需要記住同層的前一個值
+
+要確認一串值嚴格遞增，只要每個值都大於前一個值即可；嚴格遞減同理。因此不必額外建立每層的陣列，只需要變數 `prev`。
+
+- 偶數層：若目前值是偶數，或 `value <= prev`，回傳 `false`。
+- 奇數層：若目前值是奇數，或 `value >= prev`，回傳 `false`。
+
+第一個節點沒有前一個值，可以利用題目給定的值域設定初始值：
+
+- 偶數層令 `prev = 0`，所有合法節點值都比它大。
+- 奇數層令 `prev = 1_000_001`，所有合法節點值都比它小。
+
+這樣第一個節點也能套用相同的判斷。每檢查完一個節點，再將 `prev` 更新成它的值。
+
+**每層開始時都要重設 `prev`**，因為不同層之間不需要比較大小。如果節點值域改變，也必須調整初始值，或改成單獨處理每層的第一個節點。
+
+### 3. 一發現違規就結束
+
+所有條件都必須成立，只要遇到任何奇偶或順序不符的節點，就能立即回傳 `false`。若完整走訪後都沒有違規，回傳 `true`。
+
+## 範例推演
+
+以這棵樹為例：
+
+```text
+        1
+       / \
+      8   4
+     /   / \
+    3   5   9
+```
+
+它的層序表示為 `root = [1,8,4,3,null,5,9]`。
+
+| 層數 | 由左到右的節點值 | 檢查結果 |
+| --- | --- | --- |
+| 0 | `[1]` | 奇數，只有一個值，不需要與其他節點比較 |
+| 1 | `[8, 4]` | 全為偶數，且 `8 > 4` |
+| 2 | `[3, 5, 9]` | 全為奇數，且 `3 < 5 < 9` |
+
+全部符合，回傳 `true`。
+
+以第 2 層為例，`prev` 一開始是 `0`，依序確認 `3 > 0`、`5 > 3`、`9 > 5`，每次檢查後更新 `prev`。
+
+若將節點 `5` 改成 `3`，這層變成 `[3, 3, 9]`，雖然都是奇數，但第二個 `3` 不大於前一個 `3`，因此回傳 `false`。
+
+若將第 1 層的 `8` 改成 `7`，即使 `7 > 4`，仍因奇數層出現奇數值而回傳 `false`。
+
+## 演算法步驟
+
+1. 將根節點放入佇列，設定 `level = 0`。
+2. 每層開始時，記錄佇列長度，並依層數奇偶初始化 `prev`。
+3. 依序取出本層節點，檢查值的奇偶與它和 `prev` 的大小關係；不符合就回傳 `false`。
+4. 更新 `prev`，並將存在的左、右子節點依序加入佇列。
+5. 本層結束後將 `level` 加一，繼續處理下一層。
+6. 佇列清空後回傳 `true`。
+
+## C++ 實作
+
+`TreeNode` 由 LeetCode 提供。題目保證根節點存在，因此可以直接入列。
+
+```cpp
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    bool isEvenOddTree(TreeNode* root) {
+        queue<TreeNode*> q;
+        q.push(root);
+        bool evenLevel = true;
+
+        while (!q.empty()) {
+            int size = q.size();
+            int prev = evenLevel ? 0 : INT_MAX;
+
+            for (int i = 0; i < size; ++i) {
+                TreeNode* node = q.front();
+                q.pop();
+                int value = node->val;
+
+                if (evenLevel) {
+                    if (value % 2 == 0 || value <= prev) {
+                        return false;
+                    }
+                } else {
+                    if (value % 2 != 0 || value >= prev) {
+                        return false;
+                    }
+                }
+
+                prev = value;
+
+                if (node->left) q.push(node->left);
+                if (node->right) q.push(node->right);
+            }
+
+            evenLevel = !evenLevel;
+        }
+
+        return true;
+    }
+};
+```
+
+## Python 實作
+
+使用 `deque.popleft()` 從佇列前端取出節點，避免 `list.pop(0)` 搬移其他元素的成本。`TreeNode` 同樣由 LeetCode 提供。
+
+```python
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def isEvenOddTree(self, root: 'TreeNode') -> bool:
+        q = deque([root])
+        level = 0
+
+        while q:
+            size = len(q)
+            even_level = (level % 2 == 0)
+            prev = 0 if even_level else 1_000_001
+
+            for _ in range(size):
+                node = q.popleft()
+                value = node.val
+
+                if even_level:
+                    if value % 2 == 0 or value <= prev:
+                        return False
+                else:
+                    if value % 2 != 0 or value >= prev:
+                        return False
+
+                prev = value
+
+                if node.left:
+                    q.append(node.left)
+                if node.right:
+                    q.append(node.right)
+
+            level += 1
+
+        return True
+```
+
+## 正確性說明
+
+BFS 每次固定處理本層的節點數，並按左子節點、右子節點的順序入列，因此每層的檢查順序就是題目要求的由左到右。
+
+處理本層第一個節點時，`prev` 的初始值保證大小比較通過，只需要確認奇偶性。之後每個節點都會檢查奇偶性，並與同層的前一個值比較。若每一對相鄰值都嚴格遞增或遞減，依大小關係的遞移性，整層就符合要求。
+
+因此，若演算法回傳 `false`，必定找到了違反題目條件的節點；若回傳 `true`，表示每層的奇偶與順序檢查都通過，整棵樹就是 Even-Odd Tree。
+
+## 複雜度分析
+
+令 $n$ 為節點總數，$w$ 為樹的最大寬度（單層最多的節點數）。
+
+- **時間複雜度**：$O(n)$。每個節點最多入列、出列一次，每次檢查只需要常數時間。
+- **空間複雜度**：$O(w)$，最壞為 $O(n)$。佇列可能同時保存本層尚未處理的節點與下一層已加入的節點，但總數不超過相鄰兩層的節點數之和，因此仍為 $O(w)$。
+
+## 常見錯誤
+
+- **根節點從第 1 層開始算**：本題從第 `0` 層開始，根節點必須是奇數。
+- **只檢查父子或兄弟節點**：大小關係是比較整個同層的相鄰節點；即使父節點不同，也需要比較。
+- **允許相等**：題目要求嚴格順序，所以 `value == prev` 也必須回傳 `false`。
+- **沒有重設 `prev`**：會誤將本層第一個值與上一層最後一個值比較。
+- **沒有固定每層的節點數**：新加入的子節點可能被套用本層規則。應先保存 `size`，再處理恰好 `size` 個節點。
