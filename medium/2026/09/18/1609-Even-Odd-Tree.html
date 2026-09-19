@@ -1,0 +1,1804 @@
+<!-- OK -->
+
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="utf-8">
+	<link rel="icon" type="image/x-icon" href="/res/catxcoder.ico">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>[Leetcode解題] 1609. Even Odd Tree</title>
+	<meta name="description" content="1609. Even Odd Tree - BFS 層序遍歷與奇偶檢查" />
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<!-- My CSS -->
+<link href="/res/css/common.css" rel="stylesheet">
+
+	</head>
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-MHQH8LKZYV"></script>
+	<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+
+	gtag('config', 'G-MHQH8LKZYV');
+	</script>
+	<body>		
+				<!-- JQeury -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+    
+	<!-- Font Awesome -->
+	<!--<script defer src="https://use.fontawesome.com/releases/v6.4.2/js/all.js" integrity="	sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe" crossorigin="anonymous"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" integrity="sha512-uKQ39gEGiyUJl4AI6L+ekBdGKpGw4xJ55+xyJG7YFlJokPNYegn9KwQ3P8A7aFQAUtUsAQHep+d/lrGqrbPIDQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<!-- support MathJax -->
+	<style TYPE="text/css">
+	code.has-jax {font: inherit; font-size: 100%; background: inherit; border: inherit;}
+	</style>
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	    tex2jax: {
+	        inlineMath: [['$','$'], ['\\(','\\)']],
+	        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'] // removed 'code' entry
+	    }
+	});
+	MathJax.Hub.Queue(function() {
+	    var all = MathJax.Hub.getAllJax(), i;
+	    for(i = 0; i < all.length; i += 1) {
+	        all[i].SourceElement().parentNode.className += ' has-jax';
+	    }
+	});
+	</script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<!-- A patch to fix mathjax -->
+<!-- https://github.com/mathjax/MathJax/issues/1737 -->
+	<script type="text/x-mathjax-config">
+if (MathJax.Hub.Browser.isSafari && parseInt(MathJax.Hub.Browser.webkit) >= 603) {
+  MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready", function () {
+    var HTMLCSS = MathJax.OutputJax["HTML-CSS"];
+    var MML = MathJax.ElementJax.mml;
+    var toHTML = MML.mo.prototype.toHTML;
+    MML.mo.Augment({
+      toHTML: function (span) {
+        span = toHTML.call(this,span);
+        if (span.bbox.w === 0 && span.bbox.lw < 0 && span.firstChild) {
+          span.style.marginLeft = HTMLCSS.Em(span.bbox.lw);
+        }
+        return span;
+      }
+    });
+  });
+}
+</script>
+
+		<header>
+			<!-- OK -->
+
+<div class="container">
+  <nav class="navbar navbar-expand-lg navbar-default nav-color" >
+    <a href="/index.html">
+      <img src="/res/catxcoder.ico" class="img-fluid" style="width: 32px; margin-right: 10px;">
+    </a>
+    <a class="navbar-item" href="/index.html">
+      刷題貓
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span><i class="fas fa-bars" ></i></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <ul class="navbar-nav ml-auto navbar-right">
+          <li class="nav-item">
+             <a class="nav-link" href="/index.html">首頁</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/posts/categories">難度</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/posts/algorithms">演算法</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/works">主題式</a>
+          </li>
+        </ul>
+    </div>
+  </nav>
+</div>
+
+		</header>
+		<main>
+			<!-- OK -->
+
+<div class="container-fluid text-center bg-color">
+	<div class="row bg-icon">
+		<div class="col-md-2 col-sm-0">
+
+		</div>
+		<div class="view-home col-md-8 col-sm-12 post-home-color">
+			<div class="post-view-color post-view-window">
+	
+	<!-- title -->
+	<div class="post-view-title text-left" >
+		<p>[Leetcode解題] 1609. Even Odd Tree</p>
+	</div>
+	
+	<!-- date -->
+	<div class="post-view-date">
+			18 September 2026
+	</div>
+
+	<!-- tags -->
+	<div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">tree</i>
+		
+		<i href="#" class="badge badge-dark">bfs</i>
+		
+		<i href="#" class="badge badge-dark">binary-tree</i>
+		
+	</div>
+	<hr>
+
+	<!-- excerpt -->
+	<div class="post-view-excerpt text-left">
+		<p>
+			<h1 id="1609-even-odd-tree">1609. Even Odd Tree</h1>
+
+<h2 id="題目">題目</h2>
+
+<p><a href="https://leetcode.com/problems/even-odd-tree/description/">1609. Even Odd Tree</a></p>
+
+<p>給定二元樹的根節點 <code class="language-plaintext highlighter-rouge">root</code>，判斷整棵樹是否符合以下條件，符合回傳 <code class="language-plaintext highlighter-rouge">true</code>，否則回傳 <code class="language-plaintext highlighter-rouge">false</code>：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>層數（根節點為第 0 層）</th>
+      <th>節點值</th>
+      <th>同一層由左到右的順序</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>偶數層：0、2、4……</td>
+      <td>全部是奇數</td>
+      <td>嚴格遞增</td>
+    </tr>
+    <tr>
+      <td>奇數層：1、3、5……</td>
+      <td>全部是偶數</td>
+      <td>嚴格遞減</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>注意「層數的奇偶」與「節點值的奇偶」剛好相反，而且嚴格遞增或遞減都不允許相鄰值相等。</p>
+
+<p>題目限制：節點數介於 <code class="language-plaintext highlighter-rouge">1</code> 到 <code class="language-plaintext highlighter-rouge">10^5</code>，節點值介於 <code class="language-plaintext highlighter-rouge">1</code> 到 <code class="language-plaintext highlighter-rouge">10^6</code>。</p>
+
+<!--more-->
+
+<h2 id="解題思路">解題思路</h2>
+
+<h3 id="1-用-bfs-按層由左到右走訪">1. 用 BFS 按層、由左到右走訪</h3>
+
+<p>題目要求比較同一層的節點，因此可以使用 <strong>BFS（廣度優先搜尋）的層序遍歷</strong>。</p>
+
+<p>使用佇列 <code class="language-plaintext highlighter-rouge">queue</code> 保存待處理的節點。每次取出節點後，依序加入它的左子節點、右子節點，便能保持下一層由左到右的順序。</p>
+
+<p>每層開始時，先記錄目前佇列長度 <code class="language-plaintext highlighter-rouge">size</code>，這就是本層的節點數。接著只取出 <code class="language-plaintext highlighter-rouge">size</code> 個節點；過程中新加入的子節點留到下一輪處理，才不會混在同一層。</p>
+
+<h3 id="2-只需要記住同層的前一個值">2. 只需要記住同層的前一個值</h3>
+
+<p>要確認一串值嚴格遞增，只要每個值都大於前一個值即可；嚴格遞減同理。因此不必額外建立每層的陣列，只需要變數 <code class="language-plaintext highlighter-rouge">prev</code>。</p>
+
+<ul>
+  <li>偶數層：若目前值是偶數，或 <code class="language-plaintext highlighter-rouge">value &lt;= prev</code>，回傳 <code class="language-plaintext highlighter-rouge">false</code>。</li>
+  <li>奇數層：若目前值是奇數，或 <code class="language-plaintext highlighter-rouge">value &gt;= prev</code>，回傳 <code class="language-plaintext highlighter-rouge">false</code>。</li>
+</ul>
+
+<p>第一個節點沒有前一個值，可以利用題目給定的值域設定初始值：</p>
+
+<ul>
+  <li>偶數層令 <code class="language-plaintext highlighter-rouge">prev = 0</code>，所有合法節點值都比它大。</li>
+  <li>奇數層令 <code class="language-plaintext highlighter-rouge">prev = 1_000_001</code>，所有合法節點值都比它小。</li>
+</ul>
+
+<p>這樣第一個節點也能套用相同的判斷。每檢查完一個節點，再將 <code class="language-plaintext highlighter-rouge">prev</code> 更新成它的值。</p>
+
+<p><strong>每層開始時都要重設 <code class="language-plaintext highlighter-rouge">prev</code></strong>，因為不同層之間不需要比較大小。如果節點值域改變，也必須調整初始值，或改成單獨處理每層的第一個節點。</p>
+
+<h3 id="3-一發現違規就結束">3. 一發現違規就結束</h3>
+
+<p>所有條件都必須成立，只要遇到任何奇偶或順序不符的節點，就能立即回傳 <code class="language-plaintext highlighter-rouge">false</code>。若完整走訪後都沒有違規，回傳 <code class="language-plaintext highlighter-rouge">true</code>。</p>
+
+<h2 id="範例推演">範例推演</h2>
+
+<p>以這棵樹為例：</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>        1
+       / \
+      8   4
+     /   / \
+    3   5   9
+</code></pre></div></div>
+
+<p>它的層序表示為 <code class="language-plaintext highlighter-rouge">root = [1,8,4,3,null,5,9]</code>。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>層數</th>
+      <th>由左到右的節點值</th>
+      <th>檢查結果</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td><code class="language-plaintext highlighter-rouge">[1]</code></td>
+      <td>奇數，只有一個值，不需要與其他節點比較</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td><code class="language-plaintext highlighter-rouge">[8, 4]</code></td>
+      <td>全為偶數，且 <code class="language-plaintext highlighter-rouge">8 &gt; 4</code></td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td><code class="language-plaintext highlighter-rouge">[3, 5, 9]</code></td>
+      <td>全為奇數，且 <code class="language-plaintext highlighter-rouge">3 &lt; 5 &lt; 9</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>全部符合，回傳 <code class="language-plaintext highlighter-rouge">true</code>。</p>
+
+<p>以第 2 層為例，<code class="language-plaintext highlighter-rouge">prev</code> 一開始是 <code class="language-plaintext highlighter-rouge">0</code>，依序確認 <code class="language-plaintext highlighter-rouge">3 &gt; 0</code>、<code class="language-plaintext highlighter-rouge">5 &gt; 3</code>、<code class="language-plaintext highlighter-rouge">9 &gt; 5</code>，每次檢查後更新 <code class="language-plaintext highlighter-rouge">prev</code>。</p>
+
+<p>若將節點 <code class="language-plaintext highlighter-rouge">5</code> 改成 <code class="language-plaintext highlighter-rouge">3</code>，這層變成 <code class="language-plaintext highlighter-rouge">[3, 3, 9]</code>，雖然都是奇數，但第二個 <code class="language-plaintext highlighter-rouge">3</code> 不大於前一個 <code class="language-plaintext highlighter-rouge">3</code>，因此回傳 <code class="language-plaintext highlighter-rouge">false</code>。</p>
+
+<p>若將第 1 層的 <code class="language-plaintext highlighter-rouge">8</code> 改成 <code class="language-plaintext highlighter-rouge">7</code>，即使 <code class="language-plaintext highlighter-rouge">7 &gt; 4</code>，仍因奇數層出現奇數值而回傳 <code class="language-plaintext highlighter-rouge">false</code>。</p>
+
+<h2 id="演算法步驟">演算法步驟</h2>
+
+<ol>
+  <li>將根節點放入佇列，設定 <code class="language-plaintext highlighter-rouge">level = 0</code>。</li>
+  <li>每層開始時，記錄佇列長度，並依層數奇偶初始化 <code class="language-plaintext highlighter-rouge">prev</code>。</li>
+  <li>依序取出本層節點，檢查值的奇偶與它和 <code class="language-plaintext highlighter-rouge">prev</code> 的大小關係；不符合就回傳 <code class="language-plaintext highlighter-rouge">false</code>。</li>
+  <li>更新 <code class="language-plaintext highlighter-rouge">prev</code>，並將存在的左、右子節點依序加入佇列。</li>
+  <li>本層結束後將 <code class="language-plaintext highlighter-rouge">level</code> 加一，繼續處理下一層。</li>
+  <li>佇列清空後回傳 <code class="language-plaintext highlighter-rouge">true</code>。</li>
+</ol>
+
+<h2 id="c-實作">C++ 實作</h2>
+
+<p><code class="language-plaintext highlighter-rouge">TreeNode</code> 由 LeetCode 提供。題目保證根節點存在，因此可以直接入列。</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */</span>
+<span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="nl">public:</span>
+    <span class="kt">bool</span> <span class="n">isEvenOddTree</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">root</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">queue</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">*&gt;</span> <span class="n">q</span><span class="p">;</span>
+        <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">root</span><span class="p">);</span>
+        <span class="kt">bool</span> <span class="n">evenLevel</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+
+        <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">q</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="p">{</span>
+            <span class="kt">int</span> <span class="n">size</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+            <span class="kt">int</span> <span class="n">prev</span> <span class="o">=</span> <span class="n">evenLevel</span> <span class="o">?</span> <span class="mi">0</span> <span class="o">:</span> <span class="n">INT_MAX</span><span class="p">;</span>
+
+            <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">size</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">TreeNode</span><span class="o">*</span> <span class="n">node</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">front</span><span class="p">();</span>
+                <span class="n">q</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+                <span class="kt">int</span> <span class="n">value</span> <span class="o">=</span> <span class="n">node</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">;</span>
+
+                <span class="k">if</span> <span class="p">(</span><span class="n">evenLevel</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">value</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">value</span> <span class="o">&lt;=</span> <span class="n">prev</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+                    <span class="p">}</span>
+                <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">value</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">!=</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">value</span> <span class="o">&gt;=</span> <span class="n">prev</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+
+                <span class="n">prev</span> <span class="o">=</span> <span class="n">value</span><span class="p">;</span>
+
+                <span class="k">if</span> <span class="p">(</span><span class="n">node</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">)</span> <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">node</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">);</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">node</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">)</span> <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">node</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">);</span>
+            <span class="p">}</span>
+
+            <span class="n">evenLevel</span> <span class="o">=</span> <span class="o">!</span><span class="n">evenLevel</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<h2 id="python-實作">Python 實作</h2>
+
+<p>使用 <code class="language-plaintext highlighter-rouge">deque.popleft()</code> 從佇列前端取出節點，避免 <code class="language-plaintext highlighter-rouge">list.pop(0)</code> 搬移其他元素的成本。<code class="language-plaintext highlighter-rouge">TreeNode</code> 同樣由 LeetCode 提供。</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+</span><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">isEvenOddTree</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">:</span> <span class="s">'TreeNode'</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="n">q</span> <span class="o">=</span> <span class="n">deque</span><span class="p">([</span><span class="n">root</span><span class="p">])</span>
+        <span class="n">level</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">while</span> <span class="n">q</span><span class="p">:</span>
+            <span class="n">size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+            <span class="n">even_level</span> <span class="o">=</span> <span class="p">(</span><span class="n">level</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="n">prev</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">even_level</span> <span class="k">else</span> <span class="mi">1_000_001</span>
+
+            <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">size</span><span class="p">):</span>
+                <span class="n">node</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">popleft</span><span class="p">()</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="n">node</span><span class="p">.</span><span class="n">val</span>
+
+                <span class="k">if</span> <span class="n">even_level</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">value</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">value</span> <span class="o">&lt;=</span> <span class="n">prev</span><span class="p">:</span>
+                        <span class="k">return</span> <span class="bp">False</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">value</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">value</span> <span class="o">&gt;=</span> <span class="n">prev</span><span class="p">:</span>
+                        <span class="k">return</span> <span class="bp">False</span>
+
+                <span class="n">prev</span> <span class="o">=</span> <span class="n">value</span>
+
+                <span class="k">if</span> <span class="n">node</span><span class="p">.</span><span class="n">left</span><span class="p">:</span>
+                    <span class="n">q</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="n">left</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">node</span><span class="p">.</span><span class="n">right</span><span class="p">:</span>
+                    <span class="n">q</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="n">right</span><span class="p">)</span>
+
+            <span class="n">level</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="k">return</span> <span class="bp">True</span>
+</code></pre></div></div>
+
+<h2 id="正確性說明">正確性說明</h2>
+
+<p>BFS 每次固定處理本層的節點數，並按左子節點、右子節點的順序入列，因此每層的檢查順序就是題目要求的由左到右。</p>
+
+<p>處理本層第一個節點時，<code class="language-plaintext highlighter-rouge">prev</code> 的初始值保證大小比較通過，只需要確認奇偶性。之後每個節點都會檢查奇偶性，並與同層的前一個值比較。若每一對相鄰值都嚴格遞增或遞減，依大小關係的遞移性，整層就符合要求。</p>
+
+<p>因此，若演算法回傳 <code class="language-plaintext highlighter-rouge">false</code>，必定找到了違反題目條件的節點；若回傳 <code class="language-plaintext highlighter-rouge">true</code>，表示每層的奇偶與順序檢查都通過，整棵樹就是 Even-Odd Tree。</p>
+
+<h2 id="複雜度分析">複雜度分析</h2>
+
+<p>令 $n$ 為節點總數，$w$ 為樹的最大寬度（單層最多的節點數）。</p>
+
+<ul>
+  <li><strong>時間複雜度</strong>：$O(n)$。每個節點最多入列、出列一次，每次檢查只需要常數時間。</li>
+  <li><strong>空間複雜度</strong>：$O(w)$，最壞為 $O(n)$。佇列可能同時保存本層尚未處理的節點與下一層已加入的節點，但總數不超過相鄰兩層的節點數之和，因此仍為 $O(w)$。</li>
+</ul>
+
+<h2 id="常見錯誤">常見錯誤</h2>
+
+<ul>
+  <li><strong>根節點從第 1 層開始算</strong>：本題從第 <code class="language-plaintext highlighter-rouge">0</code> 層開始，根節點必須是奇數。</li>
+  <li><strong>只檢查父子或兄弟節點</strong>：大小關係是比較整個同層的相鄰節點；即使父節點不同，也需要比較。</li>
+  <li><strong>允許相等</strong>：題目要求嚴格順序，所以 <code class="language-plaintext highlighter-rouge">value == prev</code> 也必須回傳 <code class="language-plaintext highlighter-rouge">false</code>。</li>
+  <li><strong>沒有重設 <code class="language-plaintext highlighter-rouge">prev</code></strong>：會誤將本層第一個值與上一層最後一個值比較。</li>
+  <li><strong>沒有固定每層的節點數</strong>：新加入的子節點可能被套用本層規則。應先保存 <code class="language-plaintext highlighter-rouge">size</code>，再處理恰好 <code class="language-plaintext highlighter-rouge">size</code> 個節點。</li>
+</ul>
+
+		</p>
+	</div>		
+  <div style="text-align: left; padding: 25px;">
+  <h1>相關文章</h1>
+  
+  
+
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  
+  <a href="/hard/2024/10/27/2458-Height-of-Binary-Tree-After-Subtree-Removal-Queries.html" class="badge badge-danger">[Leetcode解題]  2458. Height of Binary Tree After Subtree Removal Queries</a>
+  
+  <!--
+  <div>[Leetcode解題]  2458. Height of Binary Tree After Subtree Removal Queries</div>
+  <div class="post-view-tags">
+		
+      
+      
+      
+		<a href="/posts/categories/hard/" class="badge badge-danger">hard</a>
+  	  
+		
+		
+		<i href="#" class="badge badge-dark">preorder</i>
+		
+		<i href="#" class="badge badge-dark">tree</i>
+		
+		<i href="#" class="badge badge-dark">binary-tree</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2026/09/18/1609-Even-Odd-Tree.html" class="badge badge-warning">[Leetcode解題] 1609. Even Odd Tree</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 1609. Even Odd Tree</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">tree</i>
+		
+		<i href="#" class="badge badge-dark">bfs</i>
+		
+		<i href="#" class="badge badge-dark">binary-tree</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2025/05/24/2368-reachable-nodes-with-restrictions.html" class="badge badge-warning">[Leetcode解題] 2368. Reachable Nodes With Restrictions</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 2368. Reachable Nodes With Restrictions</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">tree</i>
+		
+		<i href="#" class="badge badge-dark">dfs</i>
+		
+		<i href="#" class="badge badge-dark">bfs</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2025/05/23/1993-Operations-on-Tree.html" class="badge badge-warning">[Leetcode解題] 1993. Operations on Trees</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 1993. Operations on Trees</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">tree</i>
+		
+		<i href="#" class="badge badge-dark">dfs</i>
+		
+		<i href="#" class="badge badge-dark">bfs</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/10/05/1302-Deepest-Leaves-Sum.html" class="badge badge-warning">[Leetcode解題]  1302. Deepest Leaves Sum</a>
+  
+  
+  <!--
+  <div>[Leetcode解題]  1302. Deepest Leaves Sum</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">tree</i>
+		
+		<i href="#" class="badge badge-dark">binary-tree</i>
+		
+		<i href="#" class="badge badge-dark">bfs</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/05/18/979-Distribute-Coins-in-Binary-Tree.html" class="badge badge-warning">[Leetcode解題] 979. Distribute Coins in Binary Tree</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 979. Distribute Coins in Binary Tree</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">dfs</i>
+		
+		<i href="#" class="badge badge-dark">binary-tree</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2023/11/17/994-rotted-oranges.html" class="badge badge-warning">[Leetcode解題] 994. rotted oranges - BFS</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 994. rotted oranges - BFS</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">graph</i>
+		
+		<i href="#" class="badge badge-dark">bfs</i>
+		
+		<i href="#" class="badge badge-dark">graph</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2022/02/11/114-Flatten-Binary-Tree-to-Linked-List.html" class="badge badge-warning">[Leetcode解題] 114. Flatten Binary Tree to Linked List - 遍歷二叉樹</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 114. Flatten Binary Tree to Linked List - 遍歷二叉樹</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">tree</i>
+		
+		<i href="#" class="badge badge-dark">linked-list</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+  </div>
+</div>
+		</div>
+		<div class="col-md-2 col-sm-0">
+		</div>
+	</div>
+</div>
+
+		</main>
+		<footer class="footer">
+			<!-- No -->
+
+<!--This is the footer of the website-->
+
+<div class="footer-window container-fluid footer-color">
+	<div class="row">
+		<div class="footer-view footer-left col-md-4 text-left">
+			<div class="footer-section">
+				<div class="account-box">
+			</div>
+			</div>
+		</div>
+		<div class="footer-view footer-center col-md-4 text-center">
+			<div class="footer-section">
+				<div class="footer-copyright">
+					解題愛好者
+					<br><br>
+					歡迎來到刷題貓！我們是兩位熱愛程式設計的工程師，在此分享Leetcode刷題心得以及整理主題式的文章
+					<br><br>
+					© 2023 CATXCODER All Rights Reserved
+				</div>
+				<div>
+				</div>
+			</div>
+		</div>
+		<div class="footer-view footer-right col-md-4 text-center">
+			<div class="footer-section">
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--
+log
+<p>Version 0.0.2</p>
+			<p>0.0.2 - 配色完成</p>
+			<p>0.0.2 - 基本模板完成</p>
+			<p>0.0.2 - 自我介紹新增打字效果</p>
+
+
+
+
+-->
+
+		</footer>
+		</div>
+	</body>
+</html>
+
+<script>
+$(".badge-info").hover(function(){
+    $(this).hide(1000);
+});
+
+
+</script>
