@@ -1,0 +1,1811 @@
+<!-- OK -->
+
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="utf-8">
+	<link rel="icon" type="image/x-icon" href="/res/catxcoder.ico">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>[Leetcode解題] 32. Longest Valid Parentheses</title>
+	<meta name="description" content="32. Longest Valid Parentheses - 三種極致解法：Stack計數、動態規劃 (DP) 與雙向正反掃描 (Parentheses Balance)" />
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<!-- My CSS -->
+<link href="/res/css/common.css" rel="stylesheet">
+
+	</head>
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-MHQH8LKZYV"></script>
+	<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+
+	gtag('config', 'G-MHQH8LKZYV');
+	</script>
+	<body>		
+				<!-- JQeury -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+    
+	<!-- Font Awesome -->
+	<!--<script defer src="https://use.fontawesome.com/releases/v6.4.2/js/all.js" integrity="	sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe" crossorigin="anonymous"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" integrity="sha512-uKQ39gEGiyUJl4AI6L+ekBdGKpGw4xJ55+xyJG7YFlJokPNYegn9KwQ3P8A7aFQAUtUsAQHep+d/lrGqrbPIDQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<!-- support MathJax -->
+	<style TYPE="text/css">
+	code.has-jax {font: inherit; font-size: 100%; background: inherit; border: inherit;}
+	</style>
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	    tex2jax: {
+	        inlineMath: [['$','$'], ['\\(','\\)']],
+	        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'] // removed 'code' entry
+	    }
+	});
+	MathJax.Hub.Queue(function() {
+	    var all = MathJax.Hub.getAllJax(), i;
+	    for(i = 0; i < all.length; i += 1) {
+	        all[i].SourceElement().parentNode.className += ' has-jax';
+	    }
+	});
+	</script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<!-- A patch to fix mathjax -->
+<!-- https://github.com/mathjax/MathJax/issues/1737 -->
+	<script type="text/x-mathjax-config">
+if (MathJax.Hub.Browser.isSafari && parseInt(MathJax.Hub.Browser.webkit) >= 603) {
+  MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready", function () {
+    var HTMLCSS = MathJax.OutputJax["HTML-CSS"];
+    var MML = MathJax.ElementJax.mml;
+    var toHTML = MML.mo.prototype.toHTML;
+    MML.mo.Augment({
+      toHTML: function (span) {
+        span = toHTML.call(this,span);
+        if (span.bbox.w === 0 && span.bbox.lw < 0 && span.firstChild) {
+          span.style.marginLeft = HTMLCSS.Em(span.bbox.lw);
+        }
+        return span;
+      }
+    });
+  });
+}
+</script>
+
+		<header>
+			<!-- OK -->
+
+<div class="container">
+  <nav class="navbar navbar-expand-lg navbar-default nav-color" >
+    <a href="/index.html">
+      <img src="/res/catxcoder.ico" class="img-fluid" style="width: 32px; margin-right: 10px;">
+    </a>
+    <a class="navbar-item" href="/index.html">
+      刷題貓
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span><i class="fas fa-bars" ></i></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <ul class="navbar-nav ml-auto navbar-right">
+          <li class="nav-item">
+             <a class="nav-link" href="/index.html">首頁</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/posts/categories">難度</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/posts/algorithms">演算法</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/works">主題式</a>
+          </li>
+        </ul>
+    </div>
+  </nav>
+</div>
+
+		</header>
+		<main>
+			<!-- OK -->
+
+<div class="container-fluid text-center bg-color">
+	<div class="row bg-icon">
+		<div class="col-md-2 col-sm-0">
+
+		</div>
+		<div class="view-home col-md-8 col-sm-12 post-home-color">
+			<div class="post-view-color post-view-window">
+	
+	<!-- title -->
+	<div class="post-view-title text-left" >
+		<p>[Leetcode解題] 32. Longest Valid Parentheses</p>
+	</div>
+	
+	<!-- date -->
+	<div class="post-view-date">
+			3 October 2026
+	</div>
+
+	<!-- tags -->
+	<div class="post-view-tags">
+		
+      
+      
+      
+		<a href="/posts/categories/hard/" class="badge badge-danger">hard</a>
+  	  
+		
+		
+		<i href="#" class="badge badge-dark">stack</i>
+		
+		<i href="#" class="badge badge-dark">dp</i>
+		
+		<i href="#" class="badge badge-dark">string</i>
+		
+		<i href="#" class="badge badge-dark">greedy</i>
+		
+	</div>
+	<hr>
+
+	<!-- excerpt -->
+	<div class="post-view-excerpt text-left">
+		<p>
+			<h1 id="32-longest-valid-parentheses">32. Longest Valid Parentheses</h1>
+
+<h2 id="題目">題目</h2>
+
+<p><a href="https://leetcode.com/problems/longest-valid-parentheses/">32. Longest Valid Parentheses</a></p>
+
+<p>給定一個僅包含 <code class="language-plaintext highlighter-rouge">'('</code> 和 <code class="language-plaintext highlighter-rouge">')'</code> 的字串 <code class="language-plaintext highlighter-rouge">s</code>，請找出最長有效（格式正確且連續）括號子字串的長度。</p>
+
+<!--more-->
+
+<h2 id="解題思路">解題思路</h2>
+
+<p>本題是括號配對問題中的經典 Hard 題目。我們可以使用 <strong>三種不同的思維與切入點</strong> 來解決：</p>
+
+<ol>
+  <li><strong>Stack 堆疊法（維護各層合法對數）</strong></li>
+  <li><strong>Dynamic Programming 動態規劃法</strong></li>
+  <li><strong>Parentheses Balance 雙向計數掃描法（空間 $O(1)$ 最優解）</strong></li>
+</ol>
+
+<hr />
+
+<h3 id="解法一stack-堆疊法記錄層級合法對數">解法一：Stack 堆疊法（記錄層級合法對數）</h3>
+
+<p>一般 Stack 解法通常記錄未匹配括號的索引值。這個解法採用更具巧思的方式：在 Stack 中維護當前未關閉左括號<strong>內部已經配對成功的括號對數</strong>。</p>
+
+<h4 id="演算法邏輯">演算法邏輯：</h4>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">st</code> 為一個列表（Stack），代表各層括號內部的配對對數。</li>
+  <li><code class="language-plaintext highlighter-rouge">outer</code> 記錄在最外層（沒有被任何 <code class="language-plaintext highlighter-rouge">'('</code> 包覆時）連續累積的合法對數。</li>
+  <li>遍歷字串：
+    <ul>
+      <li>遇到 <code class="language-plaintext highlighter-rouge">'('</code>：入棧 <code class="language-plaintext highlighter-rouge">0</code>（<code class="language-plaintext highlighter-rouge">st.append(0)</code>），開啟一層新的括號作用域。</li>
+      <li>遇到 <code class="language-plaintext highlighter-rouge">')'</code>：
+        <ul>
+          <li>若 <code class="language-plaintext highlighter-rouge">len(st) &gt; 1</code>：彈出頂層配對數 <code class="language-plaintext highlighter-rouge">counts</code>，代表當前括號閉合成功。將其與自身配對（+1）合併回上一層：<code class="language-plaintext highlighter-rouge">st[-1] += counts + 1</code>，並更新最大值 <code class="language-plaintext highlighter-rouge">max_valids</code>。</li>
+          <li>若 <code class="language-plaintext highlighter-rouge">len(st) == 1</code>：代表最外層括號閉合成功，彈出 <code class="language-plaintext highlighter-rouge">counts</code> 並加總到 <code class="language-plaintext highlighter-rouge">outer += counts + 1</code>，更新 <code class="language-plaintext highlighter-rouge">max_valids</code>。</li>
+          <li>若 <code class="language-plaintext highlighter-rouge">len(st) == 0</code>：代表遇到多餘無效的 <code class="language-plaintext highlighter-rouge">')'</code>，連續合法區域中斷，將最外層連擊數重置 <code class="language-plaintext highlighter-rouge">outer = 0</code>。</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>最後回傳 <code class="language-plaintext highlighter-rouge">max_valids * 2</code> 即為最長合法字串長度。</li>
+</ul>
+
+<hr />
+
+<h3 id="解法二動態規劃法-dynamic-programming">解法二：動態規劃法 (Dynamic Programming)</h3>
+
+<p>定義 <code class="language-plaintext highlighter-rouge">dp[i]</code> 為<strong>以索引 <code class="language-plaintext highlighter-rouge">i</code> 結尾的最長合法括號子字串長度</strong>。
+顯然，若 <code class="language-plaintext highlighter-rouge">s[i] == '('</code>，以其結尾不可能構成合法括號，故 <code class="language-plaintext highlighter-rouge">dp[i] = 0</code>。僅當 <code class="language-plaintext highlighter-rouge">s[i] == ')'</code> 時進行狀態轉移：</p>
+
+<h4 id="狀態轉移方程">狀態轉移方程：</h4>
+<ol>
+  <li><strong>Case 1: 形如 <code class="language-plaintext highlighter-rouge">...()</code></strong>（<code class="language-plaintext highlighter-rouge">s[i-1] == '('</code> 且 <code class="language-plaintext highlighter-rouge">s[i] == ')'</code>）
+    <ul>
+      <li>前一個字元與當前字元直接組成配對，長度為 <code class="language-plaintext highlighter-rouge">2</code>。</li>
+      <li>若前方還有合法子字串（即 <code class="language-plaintext highlighter-rouge">i &gt;= 2</code>），則拼接前方的長度：
+\(dp[i] = dp[i-2] + 2\)</li>
+    </ul>
+  </li>
+  <li><strong>Case 2: 形如 <code class="language-plaintext highlighter-rouge">...))</code></strong>（<code class="language-plaintext highlighter-rouge">s[i-1] == ')'</code> 且 <code class="language-plaintext highlighter-rouge">s[i] == ')'</code>）
+    <ul>
+      <li>若 <code class="language-plaintext highlighter-rouge">s[i-1]</code> 結尾的合法子字串長度為 <code class="language-plaintext highlighter-rouge">dp[i-1]</code>，則跨過這個合法區段前方的字元位置為 <code class="language-plaintext highlighter-rouge">i - dp[i-1] - 1</code>。</li>
+      <li>若 <code class="language-plaintext highlighter-rouge">s[i - dp[i-1] - 1] == '('</code>，說明與當前的 <code class="language-plaintext highlighter-rouge">s[i]</code> 恰好匹配成功！</li>
+      <li>長度包含：內部長度 <code class="language-plaintext highlighter-rouge">dp[i-1]</code> + 當前配對 <code class="language-plaintext highlighter-rouge">2</code> + 匹配左括號再之前的合法長度 <code class="language-plaintext highlighter-rouge">dp[i - dp[i-1] - 2]</code>：
+\(dp[i] = dp[i - dp[i-1] - 2] + dp[i-1] + 2\)</li>
+    </ul>
+  </li>
+</ol>
+
+<hr />
+
+<h3 id="解法三parentheses-balance-雙向計數掃描法o1-空間">解法三：Parentheses Balance 雙向計數掃描法（$O(1)$ 空間）</h3>
+
+<p>我們可以使用兩個計數器：<code class="language-plaintext highlighter-rouge">opening</code>（左括號數）與 <code class="language-plaintext highlighter-rouge">closing</code>（右括號數），進行<strong>正向</strong>與<strong>反向</strong>兩次掃描。</p>
+
+<h4 id="演算法邏輯-1">演算法邏輯：</h4>
+<ol>
+  <li><strong>從左至右正向掃描</strong>：
+    <ul>
+      <li>遇到 <code class="language-plaintext highlighter-rouge">'('</code> 增加 <code class="language-plaintext highlighter-rouge">opening</code>，遇到 <code class="language-plaintext highlighter-rouge">')'</code> 增加 <code class="language-plaintext highlighter-rouge">closing</code>。</li>
+      <li>若 <code class="language-plaintext highlighter-rouge">opening == closing</code>：表示左右括號數量相等且完全匹配，長度為 <code class="language-plaintext highlighter-rouge">2 * closing</code>，更新最大長度。</li>
+      <li>若 <code class="language-plaintext highlighter-rouge">closing &gt; opening</code>：表示右括號過多，後續無法與之前的左括號匹配，重置 <code class="language-plaintext highlighter-rouge">opening = closing = 0</code>。</li>
+    </ul>
+  </li>
+  <li><strong>從右至左反向掃描</strong>：
+    <ul>
+      <li>解決左括號一直多於右括號（例如 <code class="language-plaintext highlighter-rouge">((()</code>）在正向掃描時無法觸發 <code class="language-plaintext highlighter-rouge">opening == closing</code> 的問題。</li>
+      <li>遇 <code class="language-plaintext highlighter-rouge">'('</code> 增加 <code class="language-plaintext highlighter-rouge">opening</code>，遇 <code class="language-plaintext highlighter-rouge">')'</code> 增加 <code class="language-plaintext highlighter-rouge">closing</code>。</li>
+      <li>若 <code class="language-plaintext highlighter-rouge">opening == closing</code>：更新最大長度 <code class="language-plaintext highlighter-rouge">2 * opening</code>。</li>
+      <li>若 <code class="language-plaintext highlighter-rouge">opening &gt; closing</code>：左括號過多無效，重置 <code class="language-plaintext highlighter-rouge">opening = closing = 0</code>。</li>
+    </ul>
+  </li>
+</ol>
+
+<hr />
+
+<h2 id="python-實作">Python 實作</h2>
+
+<h3 id="1-stack-堆疊法">1. Stack 堆疊法</h3>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">longestValidParentheses</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">s</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="n">max_valids</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">outer</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">st</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">s</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="sh">'</span><span class="s">(</span><span class="sh">'</span><span class="p">:</span>
+                <span class="n">st</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="sh">'</span><span class="s">)</span><span class="sh">'</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nf">len</span><span class="p">(</span><span class="n">st</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">counts</span> <span class="o">=</span> <span class="n">st</span><span class="p">.</span><span class="nf">pop</span><span class="p">()</span>
+                    <span class="n">st</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">counts</span> <span class="o">+</span> <span class="mi">1</span>
+                    <span class="n">max_valids</span> <span class="o">=</span> <span class="nf">max</span><span class="p">(</span><span class="n">max_valids</span><span class="p">,</span> <span class="n">st</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+                <span class="k">elif</span> <span class="nf">len</span><span class="p">(</span><span class="n">st</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">counts</span> <span class="o">=</span> <span class="n">st</span><span class="p">.</span><span class="nf">pop</span><span class="p">()</span>
+                    <span class="n">outer</span> <span class="o">+=</span> <span class="n">counts</span> <span class="o">+</span> <span class="mi">1</span>
+                    <span class="n">max_valids</span> <span class="o">=</span> <span class="nf">max</span><span class="p">(</span><span class="n">max_valids</span><span class="p">,</span> <span class="n">outer</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">outer</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">return</span> <span class="n">max_valids</span> <span class="o">*</span> <span class="mi">2</span>
+</code></pre></div></div>
+
+<h3 id="2-動態規劃法-dp">2. 動態規劃法 (DP)</h3>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">longestValidParentheses</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
+        <span class="sh">"""</span><span class="s">
+        :type s: str
+        :rtype: int
+        </span><span class="sh">"""</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">s</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span>
+        <span class="n">dp</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="nf">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nf">len</span><span class="p">(</span><span class="n">s</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="sh">'</span><span class="s">(</span><span class="sh">'</span> <span class="ow">and</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="sh">'</span><span class="s">)</span><span class="sh">'</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="mi">2</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
+            <span class="k">elif</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="sh">'</span><span class="s">)</span><span class="sh">'</span> <span class="ow">and</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="sh">'</span><span class="s">)</span><span class="sh">'</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">i</span> <span class="o">-</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="sh">'</span><span class="s">(</span><span class="sh">'</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">i</span> <span class="o">-</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">2</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">2</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">return</span> <span class="nf">max</span><span class="p">(</span><span class="n">dp</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="3-parentheses-balance-雙向掃描法">3. Parentheses Balance 雙向掃描法</h3>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">longestValidParentheses</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">s</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="n">answer</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">opening</span> <span class="o">=</span> <span class="n">closing</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">for</span> <span class="n">ch</span> <span class="ow">in</span> <span class="n">s</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">ch</span> <span class="o">==</span> <span class="sh">"</span><span class="s">(</span><span class="sh">"</span><span class="p">:</span>
+                <span class="n">opening</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">closing</span> <span class="o">+=</span> <span class="mi">1</span>
+
+            <span class="k">if</span> <span class="n">opening</span> <span class="o">==</span> <span class="n">closing</span><span class="p">:</span>
+                <span class="n">answer</span> <span class="o">=</span> <span class="nf">max</span><span class="p">(</span><span class="n">answer</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">closing</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">closing</span> <span class="o">&gt;</span> <span class="n">opening</span><span class="p">:</span>
+                <span class="n">opening</span> <span class="o">=</span> <span class="n">closing</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="n">opening</span> <span class="o">=</span> <span class="n">closing</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">ch</span> <span class="ow">in</span> <span class="nf">reversed</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">ch</span> <span class="o">==</span> <span class="sh">"</span><span class="s">(</span><span class="sh">"</span><span class="p">:</span>
+                <span class="n">opening</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">closing</span> <span class="o">+=</span> <span class="mi">1</span>
+
+            <span class="k">if</span> <span class="n">opening</span> <span class="o">==</span> <span class="n">closing</span><span class="p">:</span>
+                <span class="n">answer</span> <span class="o">=</span> <span class="nf">max</span><span class="p">(</span><span class="n">answer</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">opening</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">opening</span> <span class="o">&gt;</span> <span class="n">closing</span><span class="p">:</span>
+                <span class="n">opening</span> <span class="o">=</span> <span class="n">closing</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">return</span> <span class="n">answer</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="複雜度分析">複雜度分析</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">解法</th>
+      <th style="text-align: left">時間複雜度</th>
+      <th style="text-align: left">空間複雜度</th>
+      <th style="text-align: left">備註</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><strong>1. Stack 堆疊法</strong></td>
+      <td style="text-align: left">$O(n)$</td>
+      <td style="text-align: left">$O(n)$</td>
+      <td style="text-align: left">僅需單次遍歷，Stack 紀錄各層狀態</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>2. 動態規劃 (DP)</strong></td>
+      <td style="text-align: left">$O(n)$</td>
+      <td style="text-align: left">$O(n)$</td>
+      <td style="text-align: left">需長度為 $n$ 的一維 <code class="language-plaintext highlighter-rouge">dp</code> 陣列</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>3. 雙向計數掃描</strong></td>
+      <td style="text-align: left">$O(n)$</td>
+      <td style="text-align: left">$O(1)$</td>
+      <td style="text-align: left">正反雙向掃描，空間最優</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li><strong>時間複雜度</strong>：三種方法皆只需遍歷字串 1 至 2 次，故時間複雜度均為 $O(n)$。</li>
+  <li><strong>空間複雜度</strong>：前兩種方法需額外 $O(n)$ 空間儲存 Stack 或 DP 陣列；第三種方法僅需常數個計數變數，達到 $O(1)$ 空間複雜度。</li>
+</ul>
+
+		</p>
+	</div>		
+  <div style="text-align: left; padding: 25px;">
+  <h1>相關文章</h1>
+  
+  
+
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  <a href="/easy/2022/02/11/20-Valid-Parentheses.html" class="badge badge-success">[Leetcode解題] 20. Valid Parentheses - Stack解</a>
+  
+  
+  
+  <!--
+  <div>[Leetcode解題] 20. Valid Parentheses - Stack解</div>
+  <div class="post-view-tags">
+		
+      
+		<a href="/posts/categories/easy/" class="badge badge-success">easy</a>
+  	  
+      
+      
+		
+		
+		<i href="#" class="badge badge-dark">stack</i>
+		
+		<i href="#" class="badge badge-dark">amazon</i>
+		
+		<i href="#" class="badge badge-dark">microsoft</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  
+  <a href="/hard/2026/10/03/32-Longest-Valid-Parentheses.html" class="badge badge-danger">[Leetcode解題] 32. Longest Valid Parentheses</a>
+  
+  <!--
+  <div>[Leetcode解題] 32. Longest Valid Parentheses</div>
+  <div class="post-view-tags">
+		
+      
+      
+      
+		<a href="/posts/categories/hard/" class="badge badge-danger">hard</a>
+  	  
+		
+		
+		<i href="#" class="badge badge-dark">stack</i>
+		
+		<i href="#" class="badge badge-dark">dp</i>
+		
+		<i href="#" class="badge badge-dark">string</i>
+		
+		<i href="#" class="badge badge-dark">greedy</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2026/08/21/1169-Invalid-Transactions.html" class="badge badge-warning">[Leetcode解題] 1169. Invalid Transactions</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 1169. Invalid Transactions</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">string</i>
+		
+		<i href="#" class="badge badge-dark">simulation</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/12/28/1702-Maximum-Binary-String-After-Change.html" class="badge badge-warning">[Leetcode解題] 1702. Maximum Binary String After Change</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 1702. Maximum Binary String After Change</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">string</i>
+		
+		<i href="#" class="badge badge-dark">greedy</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/12/06/2554-Maximum-Number-of-Integers-to-Choose-From-a-Range-I.html" class="badge badge-warning">[Leetcode解題]  2554. Maximum Number of Integers to Choose From a Range I</a>
+  
+  
+  <!--
+  <div>[Leetcode解題]  2554. Maximum Number of Integers to Choose From a Range I</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">greedy</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/08/24/3169-Count-Days-Without-Meetings.html" class="badge badge-warning">[Leetcode解題]  3169. Count Days Without Meetings</a>
+  
+  
+  <!--
+  <div>[Leetcode解題]  3169. Count Days Without Meetings</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">two-pointer</i>
+		
+		<i href="#" class="badge badge-dark">greedy</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/01/06/416-Partition-equal-subset-sums.html" class="badge badge-warning">[Leetcode解題] 416. Partition Equal Subset Sum</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 416. Partition Equal Subset Sum</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">hashmap</i>
+		
+		<i href="#" class="badge badge-dark">dp</i>
+		
+		<i href="#" class="badge badge-dark">marked</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2023/11/24/227-Basic-Calculator-II.html" class="badge badge-warning">[Leetcode解題] 227. Basic Calculator II - stack解</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 227. Basic Calculator II - stack解</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">stack</i>
+		
+		<i href="#" class="badge badge-dark">meta</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+  </div>
+</div>
+		</div>
+		<div class="col-md-2 col-sm-0">
+		</div>
+	</div>
+</div>
+
+		</main>
+		<footer class="footer">
+			<!-- No -->
+
+<!--This is the footer of the website-->
+
+<div class="footer-window container-fluid footer-color">
+	<div class="row">
+		<div class="footer-view footer-left col-md-4 text-left">
+			<div class="footer-section">
+				<div class="account-box">
+			</div>
+			</div>
+		</div>
+		<div class="footer-view footer-center col-md-4 text-center">
+			<div class="footer-section">
+				<div class="footer-copyright">
+					解題愛好者
+					<br><br>
+					歡迎來到刷題貓！我們是兩位熱愛程式設計的工程師，在此分享Leetcode刷題心得以及整理主題式的文章
+					<br><br>
+					© 2023 CATXCODER All Rights Reserved
+				</div>
+				<div>
+				</div>
+			</div>
+		</div>
+		<div class="footer-view footer-right col-md-4 text-center">
+			<div class="footer-section">
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--
+log
+<p>Version 0.0.2</p>
+			<p>0.0.2 - 配色完成</p>
+			<p>0.0.2 - 基本模板完成</p>
+			<p>0.0.2 - 自我介紹新增打字效果</p>
+
+
+
+
+-->
+
+		</footer>
+		</div>
+	</body>
+</html>
+
+<script>
+$(".badge-info").hover(function(){
+    $(this).hide(1000);
+});
+
+
+</script>
