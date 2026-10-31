@@ -140,10 +140,6 @@ nums = [1, 2, 3, 4, 4, 5]
 ## C++ 實作
 
 ```cpp
-#include <unordered_map>
-#include <vector>
-using namespace std;
-
 class Solution {
 public:
     bool isPossible(vector<int>& nums) {
@@ -179,10 +175,6 @@ public:
 `Counter` 對不存在的鍵回傳 `0`；`tail` 使用 `defaultdict(int)`，讓尚未出現的結尾數量也預設為 `0`。
 
 ```python
-from collections import Counter, defaultdict
-from typing import List
-
-
 class Solution:
     def isPossible(self, nums: List[int]) -> bool:
         count = Counter(nums)
