@@ -1,0 +1,8 @@
+# 3364. Minimum Positive Sum Subarray
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：3364. Minimum Positive Sum Subarray (https://leetcode.com/problems/minimum-positive-sum-subarray/) ，可挑戰看看挑戰!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 3364. Minimum Positive Sum Subarray，詳細可以參考 https://www.catxcoder.com/easy/2026/11/15/3364-Minimum-Positive-Sum-Subarray.html
