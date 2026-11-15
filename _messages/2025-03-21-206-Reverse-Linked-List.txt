@@ -1,0 +1,8 @@
+# 206. Reverse Linked List
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：206. Reverse Linked List (https://leetcode.com/problems/reverse-linked-list/)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 206. Reverse Linked List，這題的解法重點是206. Reverse Linked List，詳細可以參考 https://www.catxcoder.com/easy/2025/03/21/206-Reverse-Linked-List.html

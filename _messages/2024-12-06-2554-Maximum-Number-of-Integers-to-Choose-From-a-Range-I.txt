@@ -1,0 +1,8 @@
+# 2554. Maximum Number of Integers to Choose From a Range I
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：2554. Maximum Number of Integers to Choose From a Range I (https://leetcode.com/problems/maximum-number-of-integers-to-choose-from-a-range-i/)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 2554. Maximum Number of Integers to Choose From a Range I，這題的解法重點是2554. Maximum Number of Integers to Choose From a Range I，詳細可以參考 https://www.catxcoder.com/medium/2024/12/06/2554-Maximum-Number-of-Integers-to-Choose-From-a-Range-I.html

@@ -1,0 +1,8 @@
+# 1482. Minimum Number of Days to Make m Bouquets
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：1482. Minimum Number of Days to Make m Bouquets (https://leetcode.com/problems/minimum-number-of-days-to-make-m-bouquets)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 1482. Minimum Number of Days to Make m Bouquets，這題可以用binary-search解，詳細可以參考 https://www.catxcoder.com/medium/2024/06/21/1482.-Minimum-Number-of-Days-to-Make-m-Bouquets.html

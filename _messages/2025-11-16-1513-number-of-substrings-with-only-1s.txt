@@ -1,0 +1,8 @@
+# 1513. Number of Substrings With Only 1s
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：1513. Number of Substrings With Only 1s (https://leetcode.com/problems/number-of-substrings-with-only-1s/description/?envType=daily-question&envId=2025-11-16)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 1513. Number of Substrings With Only 1s，這題的解法重點是1513. Number of Substrings With Only 1s，詳細可以參考 https://www.catxcoder.com/medium/2025/11/16/1513-number-of-substrings-with-only-1s.html

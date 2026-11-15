@@ -1,0 +1,8 @@
+# 841. Keys and Rooms
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：841. Keys and Rooms (https://leetcode.com/problems/keys-and-rooms/)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 841. Keys and Rooms，這題的解法重點是DFS and BFS 造訪圖上所有點，詳細可以參考 https://www.catxcoder.com/medium/2024/09/07/841-Keys-and-Rooms.html

@@ -1,0 +1,8 @@
+# 543. Diameter of Binary Tree
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：543. Diameter of Binary Tree (https://leetcode.com/problems/diameter-of-binary-tree/)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 543. Diameter of Binary Tree，這題可以使用DFS解，詳細可以參考 https://www.catxcoder.com/easy/2024/07/19/543-Diameter-of-Binary-Tree.html

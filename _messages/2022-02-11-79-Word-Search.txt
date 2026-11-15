@@ -1,0 +1,8 @@
+# 79. Word Search
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：79. Word Search (https://leetcode.com/problems/word-search/)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 79. Word Search，這題可以用bfs/dfs解，詳細可以參考 https://www.catxcoder.com/medium/2022/02/11/79-Word-Search.html

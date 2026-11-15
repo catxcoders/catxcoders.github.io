@@ -1,0 +1,8 @@
+# 22. Generate Parentheses
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：22. Generate Parentheses (https://leetcode.com/problems/generate-parentheses/)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 22. Generate Parentheses，這題可以用Backtrace解，詳細可以參考 https://www.catxcoder.com/medium/2022/02/11/22-Generate-Parentheses.html

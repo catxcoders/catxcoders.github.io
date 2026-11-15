@@ -1,0 +1,8 @@
+# 2872. Maximum Number of K-Divisible Components
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：2872. Maximum Number of K-Divisible Components (https://leetcode.com/problems/maximum-number-of-k-divisible-components/)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 2872. Maximum Number of K-Divisible Components，這題的解法重點是2872. Maximum Number of K-Divisible Components，詳細可以參考 https://www.catxcoder.com/hard/2024/12/21/2872-Maximum-Number-of-K-Divisible-Components.html

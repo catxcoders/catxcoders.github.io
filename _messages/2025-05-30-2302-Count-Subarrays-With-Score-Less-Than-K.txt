@@ -1,0 +1,8 @@
+# 2302. Count Subarrays With Score Less Than K
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：2302. Count Subarrays With Score Less Than K (https://leetcode.com/problems/count-subarrays-with-score-less-than-k)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 2302. Count Subarrays With Score Less Than K，這題的解法重點是2302. Count Subarrays With Score Less Than K，詳細可以參考 https://www.catxcoder.com/hard/2025/05/30/2302-Count-Subarrays-With-Score-Less-Than-K.html

@@ -1,0 +1,8 @@
+# 84. Largest Rectangle in Histogram
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：84. Largest Rectangle in Histogram (https://leetcode.com/problems/largest-rectangle-in-histogram/)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 84. Largest Rectangle in Histogram，這題可以用monotonic-stack解，詳細可以參考 https://www.catxcoder.com/hard/2024/06/08/84. Largest Rectangle in Histogram.html

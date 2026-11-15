@@ -1,0 +1,8 @@
+# 743. Network Delay Time
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：743. Network Delay Time (https://leetcode.com/problems/network-delay-time/description/?envType=problem-list-v2&envId=shortest-path)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 743. Network Delay Time，這題的解法重點是743. Network Delay Time 經典求最小路徑題目，詳細可以參考 https://www.catxcoder.com/medium/2025/08/16/743-network-delay-time.html

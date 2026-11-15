@@ -1,0 +1,8 @@
+# 4. Median of Two Sorted Arrays
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：4. Median of Two Sorted Arrays (https://leetcode.com/problems/median-of-two-sorted-arrays/)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 4. Median of Two Sorted Arrays，這題可以使用分治法(Divide-and-conquer)算法，詳細可以參考 https://www.catxcoder.com/hard/2023/07/07/4-Median-of-Two-Sorted-Arrays.html

@@ -1,0 +1,8 @@
+# 1302. Deepest Leaves Sum
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：1302. Deepest Leaves Sum (https://leetcode.com/problems/deepest-leaves-sum/)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 1302. Deepest Leaves Sum，這題可以用用BFS解，詳細可以參考 https://www.catxcoder.com/medium/2024/10/05/1302-Deepest-Leaves-Sum.html

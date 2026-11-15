@@ -1,0 +1,8 @@
+# 567. Premutation in String
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：567. Premutation in String (https://leetcode.com/problems/permutation-in-string/)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 567. Premutation in String，這題的解法重點是[Leetcode解題] 567. Premutation in String，詳細可以參考 https://www.catxcoder.com/medium/2023/12/23/567-Permutation-in-String.html

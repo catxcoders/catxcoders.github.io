@@ -1,0 +1,8 @@
+# 139. Word Break
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：139. Word Break (https://leetcode.com/problems/word-break/)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 139. Word Break，這題的解法重點是Dynamic Programming, Topdown, Bottomup，詳細可以參考 https://www.catxcoder.com/medium/2024/03/23/139-Word-Break.html

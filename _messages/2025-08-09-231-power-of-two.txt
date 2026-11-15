@@ -1,0 +1,8 @@
+# 231. Power of Two
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：231. Power of Two (https://leetcode.com/problems/power-of-two/description/?envType=daily-question&envId=2025-08-09)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 231. Power of Two，這題的解法重點是231. Power of Two，詳細可以參考 https://www.catxcoder.com/medium/2025/08/09/231-power-of-two.html

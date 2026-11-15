@@ -1,0 +1,8 @@
+# 278. First Bad Version
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：278. First Bad Version (https://leetcode.com/problems/first-bad-version/)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 278. First Bad Version，這題的解法重點是278. First Bad Version，詳細可以參考 https://www.catxcoder.com/easy/2025/01/11/278-First Bad Version.html

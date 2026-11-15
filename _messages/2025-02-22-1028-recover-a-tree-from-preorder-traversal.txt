@@ -1,0 +1,8 @@
+# 1028. Recover a Tree From Preorder Traversal
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：1028. Recover a Tree From Preorder Traversal (https://leetcode.com/problems/recover-a-tree-from-preorder-traversal/description/?envType=daily-question&envId=2025-02-22)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 1028. Recover a Tree From Preorder Traversal，這題的解法重點是1028. Recover a Tree From Preorder Traversal，詳細可以參考 https://www.catxcoder.com/hard/2025/02/22/1028-recover-a-tree-from-preorder-traversal.html

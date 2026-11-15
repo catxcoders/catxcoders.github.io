@@ -1,0 +1,8 @@
+# 744. Find Smallest Letter Greater Than Target
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：744. Find Smallest Letter Greater Than Target (https://leetcode.com/problems/find-smallest-letter-greater-than-target)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 744. Find Smallest Letter Greater Than Target，這題可以使用二分搜尋法，詳細可以參考 https://www.catxcoder.com/easy/2023/06/09/744-find-smallest-letter-greater-than-target.html

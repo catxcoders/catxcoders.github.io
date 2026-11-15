@@ -1,0 +1,8 @@
+# 1807. Evaluate the Bracket Pairs of a String
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：1807. Evaluate the Bracket Pairs of a String (https://leetcode.com/problems/evaluate-the-bracket-pairs-of-a-string/)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 1807. Evaluate the Bracket Pairs of a String，這題的解法重點是哈希表與字串解析雙指針，將括號內鍵值快速替換，詳細可以參考 https://www.catxcoder.com/medium/2026/09/26/1807-Evaluate-the-Bracket-Pairs-of-a-String.html

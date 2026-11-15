@@ -1,0 +1,8 @@
+# 494. Target Sum
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：494. Target Sum (https://leetcode.com/problems/target-sum/)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 494. Target Sum，這題的解法重點是數學推導轉換為 0/1 背包問題 (Dynamic Programming)，詳細可以參考 https://www.catxcoder.com/medium/2026/08/22/494-Target-Sum.html

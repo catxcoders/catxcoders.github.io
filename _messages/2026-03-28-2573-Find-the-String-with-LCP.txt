@@ -1,0 +1,8 @@
+# 2573. Find the String with LCP
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：2573. Find the String with LCP (https://leetcode.com/problems/find-the-string-with-lcp/description/)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 2573. Find the String with LCP，這題的解法重點是2573. Find the String with LCP，詳細可以參考 https://www.catxcoder.com/hard/2026/03/28/2573-Find-the-String-with-LCP.html

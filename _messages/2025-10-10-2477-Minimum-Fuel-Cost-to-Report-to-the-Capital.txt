@@ -1,0 +1,8 @@
+# 2477. Minimum Fuel Cost to Report to the Capital
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：2477. Minimum Fuel Cost to Report to the Capital (https://leetcode.com/problems/minimum-fuel-cost-to-report-to-the-capital/)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 2477. Minimum Fuel Cost to Report to the Capital，這題的解法重點是2477. Minimum Fuel Cost to Report to the Capital，詳細可以參考 https://www.catxcoder.com/medium/2025/10/10/2477-Minimum-Fuel-Cost-to-Report-to-the-Capital.html

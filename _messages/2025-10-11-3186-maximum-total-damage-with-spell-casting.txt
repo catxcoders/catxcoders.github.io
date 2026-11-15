@@ -1,0 +1,8 @@
+# 3186. Maximum Total Damage With Spell Casting
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：3186. Maximum Total Damage With Spell Casting (https://leetcode.com/problems/maximum-total-damage-with-spell-casting/description/?envType=daily-question&envId=2025-10-11)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 3186. Maximum Total Damage With Spell Casting，這題的解法重點是3186. Maximum Total Damage With Spell Casting，詳細可以參考 https://www.catxcoder.com/medium/2025/10/11/3186-maximum-total-damage-with-spell-casting.html

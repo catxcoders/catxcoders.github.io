@@ -1,0 +1,8 @@
+# 2364. Count Number of Bad Pairs
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：2364. Count Number of Bad Pairs (https://leetcode.com/problems/count-number-of-bad-pairs/description/?envType=daily-question&envId=2025-02-09)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 2364. Count Number of Bad Pairs，這題的解法重點是2364. Count Number of Bad Pairs，詳細可以參考 https://www.catxcoder.com/medium/2025/02/09/2364-count-number-of-bad-pairs.html

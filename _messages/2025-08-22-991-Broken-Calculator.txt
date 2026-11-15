@@ -1,0 +1,8 @@
+# 991. Broken Calculator
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：991. Broken Calculator (https://leetcode.com/problems/broken-calculator/)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 991. Broken Calculator，這題的解法重點是991. Broken Calculator，詳細可以參考 https://www.catxcoder.com/medium/2025/08/22/991-Broken-Calculator.html

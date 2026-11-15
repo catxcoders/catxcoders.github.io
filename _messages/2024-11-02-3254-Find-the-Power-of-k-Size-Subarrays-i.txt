@@ -1,0 +1,8 @@
+# 3254. Find the Power of K-Size Subarrays I
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：3254. Find the Power of K-Size Subarrays I (https://leetcode.com/problems/find-the-power-of-k-size-subarrays-i/)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 3254. Find the Power of K-Size Subarrays I，這題的解法重點是3254. Find the Power of K-Size Subarrays I，詳細可以參考 https://www.catxcoder.com/medium/2024/11/02/3254-Find-the-Power-of-k-Size-Subarrays-i.html

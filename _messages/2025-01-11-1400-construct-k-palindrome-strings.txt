@@ -1,0 +1,8 @@
+# 1400. Construct K Palindrome Strings
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：1400. Construct K Palindrome Strings (https://leetcode.com/problems/construct-k-palindrome-strings/description/?envType=daily-question&envId=2025-01-11)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 1400. Construct K Palindrome Strings，這題的解法重點是1400. Construct K Palindrome Strings，詳細可以參考 https://www.catxcoder.com/medium/2025/01/11/1400-construct-k-palindrome-strings.html

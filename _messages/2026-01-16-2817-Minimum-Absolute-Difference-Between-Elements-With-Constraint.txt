@@ -1,0 +1,8 @@
+# 2817. Minimum Absolute Difference Between Elements With Constraint
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：2817. Minimum Absolute Difference Between Elements With Constraint (https://leetcode.com/problems/minimum-absolute-difference-between-elements-with-constraint/description/)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 2817. Minimum Absolute Difference Between Elements With Constraint，這題可以使用Binary Search解，詳細可以參考 https://www.catxcoder.com/medium/2026/01/16/2817-Minimum-Absolute-Difference-Between-Elements-With-Constraint.html

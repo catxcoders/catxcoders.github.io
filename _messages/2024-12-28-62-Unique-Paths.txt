@@ -1,0 +1,8 @@
+# 62. Unique Paths
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：62. Unique Paths (https://leetcode.com/problems/unique-paths/)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 62. Unique Paths，這題的解法重點是62. Unique Paths，詳細可以參考 https://www.catxcoder.com/medium/2024/12/28/62-Unique-Paths.html

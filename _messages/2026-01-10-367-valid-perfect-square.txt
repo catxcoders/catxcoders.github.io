@@ -1,0 +1,8 @@
+# 367. Valid Perfect Square
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：367. Valid Perfect Square (https://leetcode.com/problems/valid-perfect-square/description/?envType=problem-list-v2&envId=binary-search)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 367. Valid Perfect Square，這題可以使用Binary Search解，詳細可以參考 https://www.catxcoder.com/medium/2026/01/10/367-valid-perfect-square.html

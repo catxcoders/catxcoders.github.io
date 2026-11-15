@@ -1,0 +1,8 @@
+# 295. Find Median from Data Stream
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：295. Find Median from Data Stream (https://leetcode.com/problems/find-median-from-data-stream/)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 295. Find Median from Data Stream，這題可以使用heap解，詳細可以參考 https://www.catxcoder.com/hard/2024/03/23/295-Find-Median-from-Data-Stream.html

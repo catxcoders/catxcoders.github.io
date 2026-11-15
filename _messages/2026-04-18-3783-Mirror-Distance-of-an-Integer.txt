@@ -1,0 +1,8 @@
+# 3783. Mirror Distance of an Integer
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：3783. Mirror Distance of an Integer (https://leetcode.com/problems/mirror-distance-of-an-integer/description/)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 3783. Mirror Distance of an Integer，這題的解法重點是3783. Mirror Distance of an Integer，詳細可以參考 https://www.catxcoder.com/easy/2026/04/18/3783-Mirror-Distance-of-an-Integer.html

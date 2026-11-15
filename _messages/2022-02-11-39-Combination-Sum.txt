@@ -1,0 +1,8 @@
+# 39. Combination Sum
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：39. Combination Sum (https://leetcode.com/problems/combination-sum/)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 39. Combination Sum，這題可以用遞迴/backtrace解，詳細可以參考 https://www.catxcoder.com/medium/2022/02/11/39-Combination-Sum.html

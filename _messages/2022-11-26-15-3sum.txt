@@ -1,0 +1,8 @@
+# 15. 3Sum
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：15. 3Sum (https://leetcode.com/problems/3sum/)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 15. 3Sum，這題可以用前後指針解，詳細可以參考 https://www.catxcoder.com/medium/2022/11/26/15-3sum.html

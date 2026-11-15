@@ -1,0 +1,8 @@
+# 514. Freedom Trail
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：514. Freedom Trail (https://leetcode.com/problems/freedom-trail/)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 514. Freedom Trail，這題可以用用DP結合BFS解，詳細可以參考 https://www.catxcoder.com/hard/2024/05/03/514-freedom-trail.html

@@ -1,0 +1,8 @@
+# 2751. Robot Collisions
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：2751. Robot Collisions (https://leetcode.com/problems/robot-collisions/)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 2751. Robot Collisions，這題的解法重點是Robot Collisions，詳細可以參考 https://www.catxcoder.com/hard/2024/07/13/2751-Robot-Collisions.html

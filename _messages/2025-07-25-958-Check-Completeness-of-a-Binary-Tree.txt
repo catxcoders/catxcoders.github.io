@@ -1,0 +1,8 @@
+# 958. Check Completeness of a Binary Treer
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：958. Check Completeness of a Binary Treer (https://leetcode.com/problems/check-completeness-of-a-binary-tree/)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 958. Check Completeness of a Binary Treer，這題的解法重點是958. Check Completeness of a Binary Tree，詳細可以參考 https://www.catxcoder.com/medium/2025/07/25/958-Check-Completeness-of-a-Binary-Tree.html

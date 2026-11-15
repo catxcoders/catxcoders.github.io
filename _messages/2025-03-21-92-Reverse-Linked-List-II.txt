@@ -1,0 +1,8 @@
+# 92. Reverse Linked List II
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：92. Reverse Linked List II (https://leetcode.com/problems/reverse-linked-list-ii/)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 92. Reverse Linked List II，這題的解法重點是92. Reverse Linked List II，詳細可以參考 https://www.catxcoder.com/medium/2025/03/21/92-Reverse-Linked-List-II.html

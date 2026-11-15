@@ -1,0 +1,8 @@
+# 433. Minimum Genetic Mutation
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：433. Minimum Genetic Mutation (https://leetcode.com/problems/minimum-genetic-mutation/description/)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 433. Minimum Genetic Mutation，這題的解法重點是433. Minimum Genetic Mutation，詳細可以參考 https://www.catxcoder.com/medium/2025/06/28/433-minimum-genetic-mutation.html

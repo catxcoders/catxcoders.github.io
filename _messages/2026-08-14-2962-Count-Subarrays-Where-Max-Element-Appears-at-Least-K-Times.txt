@@ -1,0 +1,8 @@
+# 2962. Count Subarrays Where Max Element Appears at Least K Times
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：2962. Count Subarrays Where Max Element Appears at Least K Times (https://leetcode.com/problems/count-subarrays-where-max-element-appears-at-least-k-times/)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 2962. Count Subarrays Where Max Element Appears at Least K Times，這題的解法重點是2962. Count Subarrays Where Max Element Appears at Least K Times，詳細可以參考 https://www.catxcoder.com/medium/2026/08/14/2962-Count-Subarrays-Where-Max-Element-Appears-at-Least-K-Times.html

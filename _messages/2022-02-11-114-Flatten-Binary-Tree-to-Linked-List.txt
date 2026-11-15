@@ -1,0 +1,8 @@
+# 114. Flatten Binary Tree to Linked List
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：114. Flatten Binary Tree to Linked List (https://leetcode.com/problems/flatten-binary-tree-to-linked-list/description/)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 114. Flatten Binary Tree to Linked List，這題的解法重點是遍歷二叉樹，詳細可以參考 https://www.catxcoder.com/medium/2022/02/11/114-Flatten-Binary-Tree-to-Linked-List.html

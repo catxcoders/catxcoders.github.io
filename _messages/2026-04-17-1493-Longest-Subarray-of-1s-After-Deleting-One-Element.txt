@@ -1,0 +1,8 @@
+# 1493. Longest Subarray of 1's After Deleting One Element
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：1493. Longest Subarray of 1's After Deleting One Element (https://leetcode.com/problems/longest-subarray-of-1s-after-deleting-one-element/description/)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 1493. Longest Subarray of 1's After Deleting One Element，這題的解法重點是1493. Longest Subarray of 1's After Deleting One Element，詳細可以參考 https://www.catxcoder.com/medium/2026/04/17/1493-Longest-Subarray-of-1s-After-Deleting-One-Element.html

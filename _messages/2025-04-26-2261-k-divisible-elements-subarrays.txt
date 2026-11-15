@@ -1,0 +1,8 @@
+# 2261. K Divisible Elements Subarrays
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：2261. K Divisible Elements Subarrays (https://leetcode.com/problems/k-divisible-elements-subarrays/description/)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 2261. K Divisible Elements Subarrays，這題的解法重點是2261. K Divisible Elements Subarrays，詳細可以參考 https://www.catxcoder.com/medium/2025/04/26/2261-k-divisible-elements-subarrays.html

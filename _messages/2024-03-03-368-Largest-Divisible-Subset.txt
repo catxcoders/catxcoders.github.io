@@ -1,0 +1,8 @@
+# 368. Largest Divisible Subset
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：368. Largest Divisible Subset (https://leetcode.com/problems/largest-divisible-subset/)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 368. Largest Divisible Subset，這題可以使用dp 算法 ，詳細可以參考 https://www.catxcoder.com/medium/2024/03/03/368-Largest-Divisible-Subset.html

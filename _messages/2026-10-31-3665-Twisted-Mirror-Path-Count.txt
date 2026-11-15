@@ -1,8 +1,8 @@
 # 3665. Twisted Mirror Path Count
 
 ## Message 1: 本週挑戰題
-📢 本週挑戰題：3665. Twisted Mirror Path Count (https://leetcode.com/problems/twisted-mirror-path-count/) ，可挑戰看看挑戰!
+📢 本週挑戰題：3665. Twisted Mirror Path Count (https://leetcode.com/problems/twisted-mirror-path-count/)，大家有空可以挑戰看看!
 
 ## Message 2: 上週挑戰題解析
 📢上週挑戰題解析
-讓我們一起來看看上週挑戰題 3665. Twisted Mirror Path Count，詳細可以參考 https://www.catxcoder.com/medium/2026/10/31/3665-Twisted-Mirror-Path-Count.html
+讓我們一起來看看上週挑戰題 3665. Twisted Mirror Path Count，這題可以利用方向性狀態與動態規劃統計含鏡面反射的有效路徑數，詳細可以參考 https://www.catxcoder.com/medium/2026/10/31/3665-Twisted-Mirror-Path-Count.html

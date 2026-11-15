@@ -1,0 +1,8 @@
+# 1169. Invalid Transactions
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：1169. Invalid Transactions (https://leetcode.com/problems/invalid-transactions/description/)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 1169. Invalid Transactions，這題的解法重點是1169. Invalid Transactions，詳細可以參考 https://www.catxcoder.com/medium/2026/08/21/1169-Invalid-Transactions.html

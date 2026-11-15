@@ -1,0 +1,8 @@
+# 14. Longest Common Prefix
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：14. Longest Common Prefix (https://leetcode.com/problems/longest-common-prefix/)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 14. Longest Common Prefix，這題可以用暴力解，詳細可以參考 https://www.catxcoder.com/medium/2022/02/11/14-Longest-Common-Prefix.html

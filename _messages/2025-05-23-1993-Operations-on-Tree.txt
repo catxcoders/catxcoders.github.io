@@ -1,0 +1,8 @@
+# 1993. Operations on Trees
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：1993. Operations on Trees (https://leetcode.com/problems/operations-on-tree/)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 1993. Operations on Trees，這題的解法重點是1993. Operations on Tree，詳細可以參考 https://www.catxcoder.com/medium/2025/05/23/1993-Operations-on-Tree.html

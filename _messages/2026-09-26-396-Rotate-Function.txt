@@ -1,0 +1,8 @@
+# 396. Rotate Function
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：396. Rotate Function (https://leetcode.com/problems/rotate-function/)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 396. Rotate Function，這題的解法重點是旋轉函數的最大值，利用狀態轉移數學推導將時間複雜度優化至 O(n)，詳細可以參考 https://www.catxcoder.com/medium/2026/09/26/396-Rotate-Function.html

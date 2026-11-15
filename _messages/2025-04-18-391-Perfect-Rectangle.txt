@@ -1,0 +1,8 @@
+# 391. Perfect Rectangle
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：391. Perfect Rectangle (https://leetcode.com/problems/perfect-rectangle/description/)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 391. Perfect Rectangle，這題的解法重點是391. Perfect Rectangle，詳細可以參考 https://www.catxcoder.com/hard/2025/04/18/391-Perfect-Rectangle.html

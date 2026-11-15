@@ -1,0 +1,8 @@
+# 3143. Maximum Points Inside the Square
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：3143. Maximum Points Inside the Square (https://leetcode.com/problems/maximum-points-inside-the-square/)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 3143. Maximum Points Inside the Square，這題的解法重點是[Leetcode解題] 3143. Maximum Points Inside the Square，詳細可以參考 https://www.catxcoder.com/medium/2024/08/03/3143-Maximum-Points-Inside-the-Square.html

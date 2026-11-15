@@ -1,0 +1,8 @@
+# 1864. Minimum Number of Swaps to Make the Binary String Alternating
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：1864. Minimum Number of Swaps to Make the Binary String Alternating (https://leetcode.com/problems/minimum-number-of-swaps-to-make-the-binary-string-alternating/description/)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 1864. Minimum Number of Swaps to Make the Binary String Alternating，這題的解法重點是計數與貪婪，詳細可以參考 https://www.catxcoder.com/medium/2026/09/11/1864-Minimum-Number-of-Swaps-to-Make-the-Binary-String-Alternating.html

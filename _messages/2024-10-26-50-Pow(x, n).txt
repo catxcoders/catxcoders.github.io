@@ -1,0 +1,8 @@
+# 50. Pow(x, n)
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：50. Pow(x, n) (https://leetcode.com/problems/powx-n/)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 50. Pow(x, n)，這題可以用用Divide and conquer解，詳細可以參考 https://www.catxcoder.com/medium/2024/10/26/50-Pow(x, n).html

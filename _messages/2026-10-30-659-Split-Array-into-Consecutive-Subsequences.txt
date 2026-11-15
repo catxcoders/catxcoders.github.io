@@ -1,0 +1,8 @@
+# 659. Split Array into Consecutive Subsequences
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：659. Split Array into Consecutive Subsequences (https://leetcode.com/problems/split-array-into-consecutive-subsequences/description/)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 659. Split Array into Consecutive Subsequences，這題可以利用貪心與頻率表，優先延長既有的連續子序列，詳細可以參考 https://www.catxcoder.com/medium/2026/10/30/659-Split-Array-into-Consecutive-Subsequences.html

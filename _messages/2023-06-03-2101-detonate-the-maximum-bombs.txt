@@ -1,0 +1,8 @@
+# 2101. Detonate the Maximum Bombs
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：2101. Detonate the Maximum Bombs (https://leetcode.com/problems/detonate-the-maximum-bombs/)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 2101. Detonate the Maximum Bombs，這題可以使用圖算法，詳細可以參考 https://www.catxcoder.com/medium/2023/06/03/2101-detonate-the-maximum-bombs.html

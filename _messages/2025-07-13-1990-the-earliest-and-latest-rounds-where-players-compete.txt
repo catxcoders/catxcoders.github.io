@@ -1,0 +1,8 @@
+# 1900. The Earliest and Latest Rounds Where Players Compete
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：1900. The Earliest and Latest Rounds Where Players Compete (https://leetcode.com/problems/the-earliest-and-latest-rounds-where-players-compete/)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 1900. The Earliest and Latest Rounds Where Players Compete，這題的解法重點是1900. The Earliest and Latest Rounds Where Players Compete，詳細可以參考 https://www.catxcoder.com/hard/2025/07/13/1990-the-earliest-and-latest-rounds-where-players-compete.html

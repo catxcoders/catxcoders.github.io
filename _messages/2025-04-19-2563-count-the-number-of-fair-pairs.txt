@@ -1,0 +1,8 @@
+# 2563. Count the Number of Fair Pairs
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：2563. Count the Number of Fair Pairs (https://leetcode.com/problems/count-the-number-of-fair-pairs/description/?envType=daily-question&envId=2025-04-19)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 2563. Count the Number of Fair Pairs，這題的解法重點是2563. Count the Number of Fair Pairs，詳細可以參考 https://www.catxcoder.com/medium/2025/04/19/2563-count-the-number-of-fair-pairs.html

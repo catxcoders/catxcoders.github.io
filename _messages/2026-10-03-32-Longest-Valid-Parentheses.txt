@@ -1,0 +1,8 @@
+# 32. Longest Valid Parentheses
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：32. Longest Valid Parentheses (https://leetcode.com/problems/longest-valid-parentheses/)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 32. Longest Valid Parentheses，這題的解法重點是三種極致解法：Stack計數、動態規劃 (DP) 與雙向正反掃描 (Parentheses Balance)，詳細可以參考 https://www.catxcoder.com/hard/2026/10/03/32-Longest-Valid-Parentheses.html

@@ -1,0 +1,8 @@
+# 36. Valid Sudoku
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：36. Valid Sudoku (https://leetcode.com/problems/valid-sudoku/)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 36. Valid Sudoku，這題可以用迴圈解，詳細可以參考 https://www.catxcoder.com/medium/2022/02/11/36-Valid-Sudoku.html

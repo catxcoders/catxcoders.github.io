@@ -1,0 +1,8 @@
+# 3397. Maximum Number of Distinct Elements After Operations
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：3397. Maximum Number of Distinct Elements After Operations (https://leetcode.com/problems/maximum-number-of-distinct-elements-after-operations/description/?envType=daily-question)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 3397. Maximum Number of Distinct Elements After Operations，這題的解法重點是3397. Maximum Number of Distinct Elements After Operations，詳細可以參考 https://www.catxcoder.com/medium/2025/10/18/3397-maximum-number-of-distinct-elements-after-operations.html

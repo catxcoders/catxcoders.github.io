@@ -1,0 +1,8 @@
+# 138. Copy List with Random Pointer
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：138. Copy List with Random Pointer (https://leetcode.com/problems/copy-list-with-random-pointer/)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 138. Copy List with Random Pointer，這題的解法重點是138. Copy List with Random Pointer，詳細可以參考 https://www.catxcoder.com/medium/2025/07/18/138-Copy-List-with-Random-Pointer.html

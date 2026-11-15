@@ -1,0 +1,8 @@
+# 394. Decode String
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：394. Decode String (https://leetcode.com/problems/decode-string/)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 394. Decode String，這題可以用用stack解，詳細可以參考 https://www.catxcoder.com/medium/2024/04/20/394-Decode-string.html

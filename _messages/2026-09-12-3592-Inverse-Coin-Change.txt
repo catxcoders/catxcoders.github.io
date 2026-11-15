@@ -1,0 +1,8 @@
+# 3592. Inverse Coin Change
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：3592. Inverse Coin Change (https://leetcode.com/problems/inverse-coin-change/)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 3592. Inverse Coin Change，這題的解法重點是完全背包動態規劃 (Unbounded Knapsack DP) 與貪心面額推導，詳細可以參考 https://www.catxcoder.com/medium/2026/09/12/3592-Inverse-Coin-Change.html

@@ -1,0 +1,8 @@
+# 1584. Min Cost to Connect All Points
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：1584. Min Cost to Connect All Points (https://leetcode.com/problems/min-cost-to-connect-all-points/)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 1584. Min Cost to Connect All Points，這題可以使用 Kruskal 演算法與 Union-Find (MST)，詳細可以參考 https://www.catxcoder.com/medium/2026/08/15/1584-Min-Cost-to-Connect-All-Points.html

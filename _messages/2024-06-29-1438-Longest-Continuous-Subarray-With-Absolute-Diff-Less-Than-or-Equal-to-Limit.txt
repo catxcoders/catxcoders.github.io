@@ -1,0 +1,8 @@
+# 1438. Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：1438. Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit (https://leetcode.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 1438. Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit，這題可以使用deque+ two pointer解，詳細可以參考 https://www.catxcoder.com/medium/2024/06/29/1438-Longest-Continuous-Subarray-With-Absolute-Diff-Less-Than-or-Equal-to-Limit.html

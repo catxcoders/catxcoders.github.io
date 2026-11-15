@@ -1,0 +1,8 @@
+# 140. Word Break II
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：140. Word Break II (https://leetcode.com/problems/word-break-ii/)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 140. Word Break II，這題的解法重點是Topdown，詳細可以參考 https://www.catxcoder.com/hard/2024/03/23/140-Word-Break-II.html

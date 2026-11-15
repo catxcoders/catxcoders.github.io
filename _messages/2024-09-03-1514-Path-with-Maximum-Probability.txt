@@ -1,0 +1,8 @@
+# 1514. Path with Maximum Probability
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：1514. Path with Maximum Probability (https://leetcode.com/problems/path-with-maximum-probability/)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 1514. Path with Maximum Probability，這題的解法重點是Dijkstra's Algorithm必寫題目，了解貪婪策略以及Priority Queue，詳細可以參考 https://www.catxcoder.com/medium/2024/09/03/1514-Path-with-Maximum-Probability.html

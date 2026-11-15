@@ -1,0 +1,8 @@
+# 80. Remove Duplicates from Sorted Array II
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：80. Remove Duplicates from Sorted Array II (https://leetcode.com/problems/remove-duplicates-from-sorted-array-ii/)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 80. Remove Duplicates from Sorted Array II，這題的解法重點是80. Remove Duplicates from Sorted Array II，詳細可以參考 https://www.catxcoder.com/medium/2025/01/04/80-Remove-Duplicates-from-Sorted-Array-II.html

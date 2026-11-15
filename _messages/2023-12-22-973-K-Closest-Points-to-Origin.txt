@@ -1,0 +1,8 @@
+# 973. K Closest Points to Origin
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：973. K Closest Points to Origin (https://leetcode.com/problems/k-closest-points-to-origin/)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 973. K Closest Points to Origin，這題可以用Quick Select解，詳細可以參考 https://www.catxcoder.com/medium/2023/12/22/973-K-Closest-Points-to-Origin.html

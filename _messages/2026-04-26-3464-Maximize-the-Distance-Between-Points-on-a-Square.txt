@@ -1,0 +1,8 @@
+# 3464. Maximize the Distance Between Points on a Square
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：3464. Maximize the Distance Between Points on a Square (https://leetcode.com/problems/maximize-the-distance-between-points-on-a-square/description/)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 3464. Maximize the Distance Between Points on a Square，這題的解法重點是3464. Maximize the Distance Between Points on a Square，詳細可以參考 https://www.catxcoder.com/medium/2026/04/26/3464-Maximize-the-Distance-Between-Points-on-a-Square.html

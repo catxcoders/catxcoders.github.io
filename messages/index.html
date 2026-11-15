@@ -1,0 +1,103 @@
+---
+layout: home_post
+title: "社群訊息追蹤"
+description: "追蹤刷題貓文章是否已在社群發布挑戰題訊息"
+---
+
+<section class="message-tracker" aria-labelledby="message-tracker-title">
+  <div class="message-tracker__header">
+    <div>
+      <p class="message-tracker__eyebrow">COMMUNITY POST TRACKER</p>
+      <h1 id="message-tracker-title">社群訊息追蹤</h1>
+      <p>新增文章後會自動列入清單。LINE 紀錄中已發布過的題目標為「已出題」，其餘標為「未傳送訊息」。</p>
+    </div>
+    <div class="message-tracker__summary" aria-label="訊息狀態統計">
+      <div><strong id="tracker-total">{{ site.posts | size }}</strong><span>文章總數</span></div>
+      <div><strong id="tracker-unsent">—</strong><span>未傳送</span></div>
+    </div>
+  </div>
+
+  <div class="message-tracker__toolbar">
+    <label class="message-search">
+      <span class="sr-only">搜尋題號或題名</span>
+      <i class="fas fa-search" aria-hidden="true"></i>
+      <input id="message-search" type="search" placeholder="搜尋題號或題名" autocomplete="off">
+    </label>
+    <div class="message-filters" role="group" aria-label="篩選訊息狀態">
+      <button class="message-filter is-active" type="button" data-filter="all">全部</button>
+      <button class="message-filter" type="button" data-filter="unsent">未傳送訊息</button>
+      <button class="message-filter" type="button" data-filter="sent">已出題</button>
+    </div>
+  </div>
+
+  <div class="message-table-wrap">
+    <table class="message-table">
+      <thead>
+        <tr>
+          <th scope="col">文章日期</th>
+          <th scope="col">題目</th>
+          <th scope="col">難度</th>
+          <th scope="col">訊息檔案</th>
+          <th scope="col">狀態</th>
+        </tr>
+      </thead>
+      <tbody id="message-table-body">
+        {% assign sent_ids = site.data.message_status.sent_problem_ids %}
+        {% for post in site.posts %}
+          {% assign display_title = post.title | remove: "[Leetcode解題] " | split: " - " | first %}
+          {% assign problem_id = display_title | split: "." | first | strip %}
+          {% assign message_filename = post.path | split: "/" | last | replace: ".markdown.markdown", ".txt" | replace: ".markdown", ".txt" | replace: ".md", ".txt" %}
+          {% if sent_ids contains problem_id %}
+            {% assign message_status = "sent" %}
+            {% assign message_status_text = "已出題" %}
+          {% else %}
+            {% assign message_status = "unsent" %}
+            {% assign message_status_text = "未傳送訊息" %}
+          {% endif %}
+          <tr data-status="{{ message_status }}" data-search="{{ problem_id }} {{ display_title | downcase | escape }}">
+            <td data-label="文章日期"><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y-%m-%d" }}</time></td>
+            <td data-label="題目"><a href="{{ post.url | relative_url }}">{{ display_title }}</a></td>
+            <td data-label="難度"><span class="difficulty difficulty--{{ post.categories | first }}">{{ post.categories | first | capitalize }}</span></td>
+            <td data-label="訊息檔案"><code>{{ message_filename }}</code></td>
+            <td data-label="狀態"><span class="message-status message-status--{{ message_status }}"><span aria-hidden="true"></span>{{ message_status_text }}</span></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <p class="message-table-empty" id="message-table-empty" hidden>找不到符合條件的文章。</p>
+  </div>
+</section>
+
+<script>
+(function () {
+  var rows = Array.prototype.slice.call(document.querySelectorAll('#message-table-body tr'));
+  var search = document.getElementById('message-search');
+  var filters = Array.prototype.slice.call(document.querySelectorAll('.message-filter'));
+  var empty = document.getElementById('message-table-empty');
+  var unsent = document.getElementById('tracker-unsent');
+  var activeFilter = 'all';
+
+  unsent.textContent = rows.filter(function (row) { return row.dataset.status === 'unsent'; }).length;
+
+  function updateRows() {
+    var query = search.value.trim().toLowerCase();
+    var visible = 0;
+    rows.forEach(function (row) {
+      var matchesStatus = activeFilter === 'all' || row.dataset.status === activeFilter;
+      var matchesQuery = !query || row.dataset.search.indexOf(query) !== -1;
+      row.hidden = !(matchesStatus && matchesQuery);
+      if (!row.hidden) visible += 1;
+    });
+    empty.hidden = visible !== 0;
+  }
+
+  search.addEventListener('input', updateRows);
+  filters.forEach(function (button) {
+    button.addEventListener('click', function () {
+      activeFilter = button.dataset.filter;
+      filters.forEach(function (item) { item.classList.toggle('is-active', item === button); });
+      updateRows();
+    });
+  });
+})();
+</script>

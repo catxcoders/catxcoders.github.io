@@ -1,0 +1,8 @@
+# 209. Minimum Size Subarray Sum
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：209. Minimum Size Subarray Sum (https://leetcode.com/problems/minimum-size-subarray-sum/)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 209. Minimum Size Subarray Sum，這題的解法重點是[Leetcode解題] 經典Leetcode必刷題目，學習使用前後指針以及Presum，詳細可以參考 https://www.catxcoder.com/medium/2023/07/07/209-Minimum-Size-Subarray-Sum.html

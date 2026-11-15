@@ -1,0 +1,8 @@
+# 1716. Calculate Money in Leetcode Bank
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：1716. Calculate Money in Leetcode Bank (https://leetcode.com/problems/calculate-money-in-leetcode-bank/description/?envType=daily-question&envId=2025-10-25)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 1716. Calculate Money in Leetcode Bank，這題的解法重點是1716. Calculate Money in Leetcode Bank，詳細可以參考 https://www.catxcoder.com/easy/2025/10/25/1716-calculate-money-in-leetcode-bank.html

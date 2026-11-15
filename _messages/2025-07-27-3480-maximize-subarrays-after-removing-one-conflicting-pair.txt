@@ -1,0 +1,8 @@
+# 3480. Maximize Subarrays After Removing One Conflicting Pair
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：3480. Maximize Subarrays After Removing One Conflicting Pair (https://leetcode.com/problems/maximize-subarrays-after-removing-one-conflicting-pair/description/?envType=daily-question&envId=2025-07-26)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 3480. Maximize Subarrays After Removing One Conflicting Pair，這題的解法重點是3480 超詳細解說，附解題思路，詳細可以參考 https://www.catxcoder.com/hard/2025/07/27/3480-maximize-subarrays-after-removing-one-conflicting-pair.html

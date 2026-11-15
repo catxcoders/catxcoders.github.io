@@ -1,0 +1,8 @@
+# 150. Evaluate Reverse Polish Notation
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：150. Evaluate Reverse Polish Notation (https://leetcode.com/problems/evaluate-reverse-polish-notation/)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 150. Evaluate Reverse Polish Notation，這題的解法重點是150. Evaluate Reverse Polish Notation，詳細可以參考 https://www.catxcoder.com/medium/2024/12/21/150-Evaluate-Reverse-Polish-Notation.html

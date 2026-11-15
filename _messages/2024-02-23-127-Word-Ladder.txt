@@ -1,0 +1,8 @@
+# 127. Word Ladder
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：127. Word Ladder (https://leetcode.com/problems/word-ladder/)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 127. Word Ladder，這題可以用BFS解，詳細可以參考 https://www.catxcoder.com/hard/2024/02/23/127-Word-Ladder.html

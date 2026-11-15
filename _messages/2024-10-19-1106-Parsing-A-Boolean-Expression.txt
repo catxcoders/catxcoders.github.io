@@ -1,0 +1,8 @@
+# 1106. Parsing A Boolean Expression
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：1106. Parsing A Boolean Expression (https://leetcode.com/problems/parsing-a-boolean-expression/)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 1106. Parsing A Boolean Expression，這題可以用用指針解，詳細可以參考 https://www.catxcoder.com/hard/2024/10/19/1106-Parsing-A-Boolean-Expression.html

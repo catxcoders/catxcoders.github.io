@@ -1,0 +1,8 @@
+# 4001. Aggregate Two Time Series
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：4001. Aggregate Two Time Series (https://leetcode.com/problems/aggregate-two-time-series/description/)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 4001. Aggregate Two Time Series，這題的解法重點是用雙指針合併時間序列，理解缺失時間點取下一筆值的規則，詳細可以參考 https://www.catxcoder.com/medium/2026/09/25/4001-Aggregate-Two-Time-Series.html

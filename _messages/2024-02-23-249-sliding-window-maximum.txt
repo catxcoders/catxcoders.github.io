@@ -1,0 +1,8 @@
+# 239. Sliding Window Maximum
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：239. Sliding Window Maximum (https://leetcode.com/problems/sliding-window-maximum/description/)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 239. Sliding Window Maximum，這題的解法重點是[Leetcode解題] 239. Sliding Window Maximum，詳細可以參考 https://www.catxcoder.com/hard/2024/02/23/249-sliding-window-maximum.html

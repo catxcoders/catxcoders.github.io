@@ -1,0 +1,8 @@
+# 921. Minimum Add to Make Parentheses Valid
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：921. Minimum Add to Make Parentheses Valid (https://leetcode.com/problems/minimum-add-to-make-parentheses-valid/)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 921. Minimum Add to Make Parentheses Valid，這題可以用stack解，詳細可以參考 https://www.catxcoder.com/medium/2023/12/17/921-Minimum-Add-to-Make-Parentheses-Valid.html

@@ -1,0 +1,8 @@
+# 1869. Longer Contiguous Segments of Ones than Zeros
+
+## Message 1: 本週挑戰題
+📢 本週挑戰題：1869. Longer Contiguous Segments of Ones than Zeros (https://leetcode.com/problemset/)，大家有空可以挑戰看看!
+
+## Message 2: 上週挑戰題解析
+📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 1869. Longer Contiguous Segments of Ones than Zeros，這題的解法重點是1869. Longer Contiguous Segments of Ones than Zeros，詳細可以參考 https://www.catxcoder.com/easy/2026/01/02/1869-Longer-Contiguous-Segments-of-Ones-than-Zeros.html
