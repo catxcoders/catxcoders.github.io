@@ -703,9 +703,17 @@ img {
 
 .message-status {
 	gap: 7px;
+	padding: 7px 10px;
+	background: transparent;
+	border: 0;
+	border-radius: 999px;
 	font-size: 0.82rem;
 	font-weight: 700;
 }
+
+.message-status-trigger { cursor: pointer; }
+.message-status-trigger:hover { background: #f0f4f7; }
+.message-status-trigger:focus-visible { outline: 3px solid rgba(73, 114, 155, 0.3); outline-offset: 2px; }
 
 .message-status span {
 	width: 8px;
@@ -725,6 +733,104 @@ img {
 	text-align: center;
 }
 
+.message-modal-open { overflow: hidden; }
+
+.social-message-modal {
+	position: fixed;
+	inset: 0;
+	z-index: 1100;
+	display: grid;
+	place-items: center;
+	padding: 20px;
+}
+
+.social-message-modal[hidden] { display: none; }
+
+.social-message-modal__backdrop {
+	position: absolute;
+	inset: 0;
+	background: rgba(15, 27, 39, 0.66);
+	backdrop-filter: blur(3px);
+}
+
+.social-message-modal__dialog {
+	position: relative;
+	z-index: 1;
+	width: min(100%, 720px);
+	max-height: calc(100vh - 40px);
+	overflow-y: auto;
+	padding: 26px;
+	background: #fff;
+	border-radius: 18px;
+	box-shadow: 0 26px 80px rgba(0, 0, 0, 0.3);
+}
+
+.social-message-modal__header,
+.social-message-card__header,
+.social-message-modal__actions {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 16px;
+}
+
+.social-message-modal__header { margin-bottom: 18px; }
+.social-message-modal__header p { margin: 0 0 3px; color: #49729b; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.12em; }
+.social-message-modal__header h2 { margin: 0; font-size: 1.35rem; }
+
+.social-message-modal__close {
+	width: 38px;
+	height: 38px;
+	padding: 0;
+	flex: 0 0 auto;
+	background: #f0f4f7;
+	border: 0;
+	border-radius: 50%;
+	color: #40505f;
+	font-size: 1.6rem;
+	line-height: 1;
+	cursor: pointer;
+}
+
+.social-message-card {
+	margin-top: 14px;
+	padding: 16px;
+	background: #f7f9fb;
+	border: 1px solid #e2e8ed;
+	border-radius: 12px;
+}
+
+.social-message-card h3 { margin: 0; font-size: 1rem; }
+.social-message-card textarea {
+	width: 100%;
+	min-height: 92px;
+	margin-top: 12px;
+	padding: 12px;
+	resize: vertical;
+	background: #fff;
+	border: 1px solid #d8e0e6;
+	border-radius: 8px;
+	color: #273541;
+	font-size: 0.92rem;
+	line-height: 1.65;
+}
+
+.social-message-copy,
+.mark-sent-button {
+	padding: 8px 12px;
+	border: 0;
+	border-radius: 8px;
+	font-size: 0.82rem;
+	font-weight: 700;
+	cursor: pointer;
+}
+
+.social-message-copy { background: #e6eef5; color: #315c83; }
+.mark-sent-button { display: inline-block; background: #24292f; color: #fff; text-decoration: none; }
+.mark-sent-button:hover { color: #fff; background: #111820; text-decoration: none; }
+.social-message-modal__actions { margin-top: 18px; }
+.social-message-modal__actions p { margin: 0; color: #687684; font-size: 0.82rem; }
+
 @media (max-width: 768px) {
 	.message-tracker { margin: 18px 10px; padding: 22px 16px; }
 	.message-tracker__header,
@@ -742,6 +848,10 @@ img {
 	.message-table td { display: grid; grid-template-columns: 92px 1fr; gap: 10px; padding: 6px 4px; border: 0; }
 	.message-table td::before { content: attr(data-label); color: var(--tracker-muted); font-size: 0.75rem; font-weight: 700; }
 	.message-table code { max-width: 190px; }
+	.social-message-modal { padding: 10px; }
+	.social-message-modal__dialog { max-height: calc(100vh - 20px); padding: 18px; }
+	.social-message-modal__actions { align-items: stretch; flex-direction: column; }
+	.mark-sent-button { text-align: center; }
 }
 
 /* box / category box */

@@ -46,6 +46,13 @@ description: "追蹤刷題貓文章是否已在社群發布挑戰題訊息"
         {% for post in site.posts %}
           {% assign display_title = post.title | remove: "[Leetcode解題] " | split: " - " | first %}
           {% assign problem_id = display_title | split: "." | first | strip %}
+          {% assign leetcode_parts = post.content | split: "https://leetcode.com/problems/" %}
+          {% assign leetcode_url = "https://leetcode.com/problemset/" %}
+          {% if leetcode_parts.size > 1 %}
+            {% assign leetcode_slug = leetcode_parts[1] | split: "/" | first %}
+            {% assign leetcode_url = "https://leetcode.com/problems/" | append: leetcode_slug | append: "/" %}
+          {% endif %}
+          {% assign solution_summary = post.description | split: " - " | last | strip %}
           {% assign message_filename = post.path | split: "/" | last | replace: ".markdown.markdown", ".txt" | replace: ".markdown", ".txt" | replace: ".md", ".txt" %}
           {% if sent_ids contains problem_id %}
             {% assign message_status = "sent" %}
@@ -59,7 +66,18 @@ description: "追蹤刷題貓文章是否已在社群發布挑戰題訊息"
             <td data-label="題目"><a href="{{ post.url | relative_url }}">{{ display_title }}</a></td>
             <td data-label="難度"><span class="difficulty difficulty--{{ post.categories | first }}">{{ post.categories | first | capitalize }}</span></td>
             <td data-label="訊息檔案"><code>{{ message_filename }}</code></td>
-            <td data-label="狀態"><span class="message-status message-status--{{ message_status }}"><span aria-hidden="true"></span>{{ message_status_text }}</span></td>
+            <td data-label="狀態">
+              <button class="message-status message-status--{{ message_status }} message-status-trigger" type="button" data-message-template="social-message-{{ forloop.index }}" aria-haspopup="dialog">
+                <span aria-hidden="true"></span>{{ message_status_text }}
+              </button>
+              <template id="social-message-{{ forloop.index }}">
+                <span data-message-title>{{ display_title }}</span>
+                <span data-problem-id>{{ problem_id }}</span>
+                <textarea data-challenge-message>📢 本週挑戰題：{{ display_title }} ({{ leetcode_url }})，大家有空可以挑戰看看!</textarea>
+                <textarea data-solution-message>📢上週挑戰題解析
+讓我們一起來看看上週挑戰題 {{ display_title }}，這題的解法重點是{{ solution_summary }}，詳細可以參考 {{ site.url }}{{ post.url }}</textarea>
+              </template>
+            </td>
           </tr>
         {% endfor %}
       </tbody>
@@ -68,6 +86,40 @@ description: "追蹤刷題貓文章是否已在社群發布挑戰題訊息"
   </div>
 </section>
 
+<div class="social-message-modal" id="social-message-modal" hidden>
+  <div class="social-message-modal__backdrop" data-close-message-modal></div>
+  <section class="social-message-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="social-message-modal-title">
+    <div class="social-message-modal__header">
+      <div>
+        <p>社群訊息</p>
+        <h2 id="social-message-modal-title"></h2>
+      </div>
+      <button class="social-message-modal__close" type="button" data-close-message-modal aria-label="關閉訊息視窗">&times;</button>
+    </div>
+
+    <div class="social-message-card">
+      <div class="social-message-card__header">
+        <h3>本週挑戰題</h3>
+        <button class="social-message-copy" type="button" data-copy-target="challenge-message">複製訊息</button>
+      </div>
+      <textarea id="challenge-message" readonly></textarea>
+    </div>
+
+    <div class="social-message-card">
+      <div class="social-message-card__header">
+        <h3>上週挑戰題解析</h3>
+        <button class="social-message-copy" type="button" data-copy-target="solution-message">複製訊息</button>
+      </div>
+      <textarea id="solution-message" readonly></textarea>
+    </div>
+
+    <div class="social-message-modal__actions">
+      <p>訊息傳送後，可透過 GitHub 建立狀態更新 PR。</p>
+      <a class="mark-sent-button" id="mark-sent-button" href="#" target="_blank" rel="noopener">在 GitHub 標記為已出題</a>
+    </div>
+  </section>
+</div>
+
 <script>
 (function () {
   var rows = Array.prototype.slice.call(document.querySelectorAll('#message-table-body tr'));
@@ -75,6 +127,13 @@ description: "追蹤刷題貓文章是否已在社群發布挑戰題訊息"
   var filters = Array.prototype.slice.call(document.querySelectorAll('.message-filter'));
   var empty = document.getElementById('message-table-empty');
   var unsent = document.getElementById('tracker-unsent');
+  var modal = document.getElementById('social-message-modal');
+  var modalTitle = document.getElementById('social-message-modal-title');
+  var challengeMessage = document.getElementById('challenge-message');
+  var solutionMessage = document.getElementById('solution-message');
+  var markSentButton = document.getElementById('mark-sent-button');
+  var messageTriggers = Array.prototype.slice.call(document.querySelectorAll('.message-status-trigger'));
+  var lastTrigger = null;
   var activeFilter = 'all';
 
   unsent.textContent = rows.filter(function (row) { return row.dataset.status === 'unsent'; }).length;
@@ -98,6 +157,62 @@ description: "追蹤刷題貓文章是否已在社群發布挑戰題訊息"
       filters.forEach(function (item) { item.classList.toggle('is-active', item === button); });
       updateRows();
     });
+  });
+
+  function githubIssueUrl(problemId, title) {
+    var issueTitle = '[標記已出題] LeetCode ' + problemId;
+    var issueBody = '請將 LeetCode 題目 #' + problemId + ' 標記為已出題。\n\n題目：' + title + '\n\n送出 Issue 後，GitHub Actions 會自動建立狀態更新 PR。\n\n<!-- mark-sent:' + problemId + ' -->';
+    return 'https://github.com/catxcoders/catxcoders.github.io/issues/new?title=' + encodeURIComponent(issueTitle) + '&body=' + encodeURIComponent(issueBody);
+  }
+
+  function openMessageModal(trigger) {
+    var template = document.getElementById(trigger.dataset.messageTemplate);
+    var title = template.content.querySelector('[data-message-title]').textContent.trim();
+    var problemId = template.content.querySelector('[data-problem-id]').textContent.trim();
+    modalTitle.textContent = title;
+    challengeMessage.value = template.content.querySelector('[data-challenge-message]').value.trim();
+    solutionMessage.value = template.content.querySelector('[data-solution-message]').value.trim();
+    markSentButton.href = githubIssueUrl(problemId, title);
+    markSentButton.hidden = trigger.closest('tr').dataset.status === 'sent';
+    lastTrigger = trigger;
+    modal.hidden = false;
+    document.body.classList.add('message-modal-open');
+    modal.querySelector('.social-message-modal__close').focus();
+  }
+
+  function closeMessageModal() {
+    modal.hidden = true;
+    document.body.classList.remove('message-modal-open');
+    if (lastTrigger) lastTrigger.focus();
+  }
+
+  function copyMessage(button) {
+    var textarea = document.getElementById(button.dataset.copyTarget);
+    var originalText = button.textContent;
+    var copied = function () {
+      button.textContent = '已複製 ✓';
+      window.setTimeout(function () { button.textContent = originalText; }, 1600);
+    };
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(textarea.value).then(copied);
+    } else {
+      textarea.select();
+      document.execCommand('copy');
+      copied();
+    }
+  }
+
+  messageTriggers.forEach(function (trigger) {
+    trigger.addEventListener('click', function () { openMessageModal(trigger); });
+  });
+  Array.prototype.slice.call(document.querySelectorAll('[data-close-message-modal]')).forEach(function (button) {
+    button.addEventListener('click', closeMessageModal);
+  });
+  Array.prototype.slice.call(document.querySelectorAll('.social-message-copy')).forEach(function (button) {
+    button.addEventListener('click', function () { copyMessage(button); });
+  });
+  document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape' && !modal.hidden) closeMessageModal();
   });
 })();
 </script>

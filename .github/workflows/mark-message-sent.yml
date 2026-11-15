@@ -1,0 +1,80 @@
+name: Mark community message as sent
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+jobs:
+  create-status-pr:
+    if: >-
+      startsWith(github.event.issue.title, '[標記已出題]') &&
+      contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR"]'), github.event.issue.author_association)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Validate request and update status
+        id: update
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+        run: |
+          set -euo pipefail
+          problem_id="$(printf '%s' "$ISSUE_BODY" | sed -n 's/.*<!-- mark-sent:\([0-9][0-9]*\) -->.*/\1/p' | head -n 1)"
+          if [ -z "$problem_id" ]; then
+            echo "Issue 中找不到有效題號" >&2
+            exit 1
+          fi
+          result="$(ruby -e '
+            id = ARGV.fetch(0)
+            status_path = "_data/message_status.yml"
+            exists = Dir.glob("_posts/*").any? do |path|
+              title = File.read(path, encoding: "UTF-8")[/^title:\s*(.+)$/, 1].to_s
+              title.match?(/\]\s+#{Regexp.escape(id)}\./)
+            end
+            abort "找不到 LeetCode #{id} 的文章" unless exists
+            status = File.read(status_path, encoding: "UTF-8")
+            if status.match?(/^\s*-\s*"#{Regexp.escape(id)}"\s*$/)
+              puts "already"
+            else
+              File.open(status_path, "a:UTF-8") { |file| file.puts %(  - "#{id}") }
+              puts "updated"
+            end
+          ' "$problem_id")"
+          echo "problem_id=$problem_id" >> "$GITHUB_OUTPUT"
+          echo "result=$result" >> "$GITHUB_OUTPUT"
+
+      - name: Close duplicate request
+        if: steps.update.outputs.result == 'already'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_URL: ${{ github.event.issue.html_url }}
+        run: |
+          gh issue comment "$ISSUE_URL" --body "這題已經是「已出題」狀態，不需要再建立 PR。"
+          gh issue close "$ISSUE_URL"
+
+      - name: Create pull request
+        if: steps.update.outputs.result == 'updated'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          ISSUE_URL: ${{ github.event.issue.html_url }}
+          PROBLEM_ID: ${{ steps.update.outputs.problem_id }}
+        run: |
+          set -euo pipefail
+          branch="automation/mark-sent-${PROBLEM_ID}-${ISSUE_NUMBER}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$branch"
+          git add _data/message_status.yml
+          git commit -m "chore: mark LeetCode ${PROBLEM_ID} as sent"
+          git push origin "$branch"
+          pr_url="$(gh pr create --base main --head "$branch" --title "chore: mark LeetCode ${PROBLEM_ID} as sent" --body "將 LeetCode #${PROBLEM_ID} 的社群訊息狀態更新為「已出題」。\n\nCloses #${ISSUE_NUMBER}")"
+          gh issue comment "$ISSUE_URL" --body "狀態更新 PR 已自動建立：${pr_url}"
+          gh issue close "$ISSUE_URL"
