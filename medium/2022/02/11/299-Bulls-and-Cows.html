@@ -1,0 +1,1770 @@
+<!-- OK -->
+
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="utf-8">
+	<link rel="icon" type="image/x-icon" href="/res/catxcoder.ico">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>[Leetcode解題] 299. Bulls and Cows</title>
+	<meta name="description" content="299. Bulls and Cows - 先比對位置，再用數字出現次數計算錯位的配對" />
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<!-- My CSS -->
+<link href="/res/css/common.css" rel="stylesheet">
+
+	</head>
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-MHQH8LKZYV"></script>
+	<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+
+	gtag('config', 'G-MHQH8LKZYV');
+	</script>
+	<body>		
+				<!-- JQeury -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+    
+	<!-- Font Awesome -->
+	<!--<script defer src="https://use.fontawesome.com/releases/v6.4.2/js/all.js" integrity="	sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe" crossorigin="anonymous"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" integrity="sha512-uKQ39gEGiyUJl4AI6L+ekBdGKpGw4xJ55+xyJG7YFlJokPNYegn9KwQ3P8A7aFQAUtUsAQHep+d/lrGqrbPIDQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<!-- support MathJax -->
+	<style TYPE="text/css">
+	code.has-jax {font: inherit; font-size: 100%; background: inherit; border: inherit;}
+	</style>
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	    tex2jax: {
+	        inlineMath: [['$','$'], ['\\(','\\)']],
+	        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'] // removed 'code' entry
+	    }
+	});
+	MathJax.Hub.Queue(function() {
+	    var all = MathJax.Hub.getAllJax(), i;
+	    for(i = 0; i < all.length; i += 1) {
+	        all[i].SourceElement().parentNode.className += ' has-jax';
+	    }
+	});
+	</script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<!-- A patch to fix mathjax -->
+<!-- https://github.com/mathjax/MathJax/issues/1737 -->
+	<script type="text/x-mathjax-config">
+if (MathJax.Hub.Browser.isSafari && parseInt(MathJax.Hub.Browser.webkit) >= 603) {
+  MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready", function () {
+    var HTMLCSS = MathJax.OutputJax["HTML-CSS"];
+    var MML = MathJax.ElementJax.mml;
+    var toHTML = MML.mo.prototype.toHTML;
+    MML.mo.Augment({
+      toHTML: function (span) {
+        span = toHTML.call(this,span);
+        if (span.bbox.w === 0 && span.bbox.lw < 0 && span.firstChild) {
+          span.style.marginLeft = HTMLCSS.Em(span.bbox.lw);
+        }
+        return span;
+      }
+    });
+  });
+}
+</script>
+
+		<header>
+			<!-- OK -->
+
+<div class="container">
+  <nav class="navbar navbar-expand-lg navbar-default nav-color" >
+    <a href="/index.html">
+      <img src="/res/catxcoder.ico" class="img-fluid" style="width: 32px; margin-right: 10px;">
+    </a>
+    <a class="navbar-item" href="/index.html">
+      刷題貓
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span><i class="fas fa-bars" ></i></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <ul class="navbar-nav ml-auto navbar-right">
+          <li class="nav-item">
+             <a class="nav-link" href="/index.html">首頁</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/posts/categories">難度</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/posts/algorithms">演算法</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/works">主題式</a>
+          </li>
+        </ul>
+    </div>
+  </nav>
+</div>
+
+		</header>
+		<main>
+			<!-- OK -->
+
+<div class="container-fluid text-center bg-color">
+	<div class="row bg-icon">
+		<div class="col-md-2 col-sm-0">
+
+		</div>
+		<div class="view-home col-md-8 col-sm-12 post-home-color">
+			<div class="post-view-color post-view-window">
+	
+	<!-- title -->
+	<div class="post-view-title text-left" >
+		<p>[Leetcode解題] 299. Bulls and Cows</p>
+	</div>
+	
+	<!-- date -->
+	<div class="post-view-date">
+			11 February 2022
+	</div>
+
+	<!-- tags -->
+	<div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">string</i>
+		
+		<i href="#" class="badge badge-dark">counting</i>
+		
+	</div>
+	<hr>
+
+	<!-- excerpt -->
+	<div class="post-view-excerpt text-left">
+		<p>
+			<h2 id="題目">題目</h2>
+
+<p><a href="https://leetcode.com/problems/bulls-and-cows/">299. Bulls and Cows</a></p>
+
+<p>給定兩個等長的數字字串 <code class="language-plaintext highlighter-rouge">secret</code>（答案）和 <code class="language-plaintext highlighter-rouge">guess</code>（猜測），回傳格式為 <code class="language-plaintext highlighter-rouge">"xAyB"</code> 的提示。</p>
+
+<ul>
+  <li><strong>Bull（A）</strong>：數字和位置都正確，計入 <code class="language-plaintext highlighter-rouge">x</code>。</li>
+  <li><strong>Cow（B）</strong>：先排除所有 bulls，再將剩下的相同數字一對一配對，配對數計入 <code class="language-plaintext highlighter-rouge">y</code>。</li>
+</ul>
+
+<p>例如 <code class="language-plaintext highlighter-rouge">secret = "1807"</code>、<code class="language-plaintext highlighter-rouge">guess = "7810"</code>。<code class="language-plaintext highlighter-rouge">8</code> 的位置正確，剩下的 <code class="language-plaintext highlighter-rouge">1</code>、<code class="language-plaintext highlighter-rouge">0</code>、<code class="language-plaintext highlighter-rouge">7</code> 都能配對，因此回傳 <code class="language-plaintext highlighter-rouge">"1A3B"</code>。</p>
+
+<p>兩個字串的長度相同，介於 <code class="language-plaintext highlighter-rouge">1</code> 到 <code class="language-plaintext highlighter-rouge">1000</code>，且只包含 <code class="language-plaintext highlighter-rouge">0</code> 到 <code class="language-plaintext highlighter-rouge">9</code>。數字可以重複，字串也可以 <code class="language-plaintext highlighter-rouge">0</code> 開頭，例如 <code class="language-plaintext highlighter-rouge">"0111"</code>。</p>
+
+<!--more-->
+
+<h2 id="解題思路">解題思路</h2>
+
+<h3 id="1-先確定位置正確的數字">1. 先確定位置正確的數字</h3>
+
+<p>逐位比較 <code class="language-plaintext highlighter-rouge">secret[i]</code> 和 <code class="language-plaintext highlighter-rouge">guess[i]</code>。如果兩者相同，就把 <code class="language-plaintext highlighter-rouge">bulls</code> 加一，並跳過這一位的次數統計。這樣已經配對成功的數字就只會計入一次。</p>
+
+<p>如果兩者不同，就把這兩個數字分別記在 <code class="language-plaintext highlighter-rouge">secret_count</code> 和 <code class="language-plaintext highlighter-rouge">guess_count</code>。例如答案這一位是 <code class="language-plaintext highlighter-rouge">2</code>、猜測是 <code class="language-plaintext highlighter-rouge">1</code>，就把 <code class="language-plaintext highlighter-rouge">secret_count[2]</code> 和 <code class="language-plaintext highlighter-rouge">guess_count[1]</code> 各加一。</p>
+
+<h3 id="2-取兩邊出現次數的較小值">2. 取兩邊出現次數的較小值</h3>
+
+<p>假設扣除 bulls 後，數字 <code class="language-plaintext highlighter-rouge">1</code> 在答案中剩下 <code class="language-plaintext highlighter-rouge">1</code> 次，在猜測中剩下 <code class="language-plaintext highlighter-rouge">2</code> 次。每次配對都會各用掉一個 <code class="language-plaintext highlighter-rouge">1</code>，所以只能配出 <code class="language-plaintext highlighter-rouge">1</code> 個 cow。</p>
+
+<p>對任一數字 <code class="language-plaintext highlighter-rouge">d</code>，它貢獻的 cows 就是 <code class="language-plaintext highlighter-rouge">min(secret_count[d], guess_count[d])</code>。把 <code class="language-plaintext highlighter-rouge">0</code> 到 <code class="language-plaintext highlighter-rouge">9</code> 的結果加總，就得到 <code class="language-plaintext highlighter-rouge">cows</code>。</p>
+
+<h2 id="範例推演">範例推演</h2>
+
+<p>以 <code class="language-plaintext highlighter-rouge">secret = "1123"</code>、<code class="language-plaintext highlighter-rouge">guess = "0111"</code> 為例，逐位比較並統計。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>索引</th>
+      <th><code class="language-plaintext highlighter-rouge">secret[i]</code></th>
+      <th><code class="language-plaintext highlighter-rouge">guess[i]</code></th>
+      <th>處理方式</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td><code class="language-plaintext highlighter-rouge">1</code></td>
+      <td><code class="language-plaintext highlighter-rouge">0</code></td>
+      <td>答案記一個 <code class="language-plaintext highlighter-rouge">1</code>，猜測記一個 <code class="language-plaintext highlighter-rouge">0</code></td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td><code class="language-plaintext highlighter-rouge">1</code></td>
+      <td><code class="language-plaintext highlighter-rouge">1</code></td>
+      <td>計入一個 bull</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td><code class="language-plaintext highlighter-rouge">2</code></td>
+      <td><code class="language-plaintext highlighter-rouge">1</code></td>
+      <td>答案記一個 <code class="language-plaintext highlighter-rouge">2</code>，猜測記一個 <code class="language-plaintext highlighter-rouge">1</code></td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td><code class="language-plaintext highlighter-rouge">3</code></td>
+      <td><code class="language-plaintext highlighter-rouge">1</code></td>
+      <td>答案記一個 <code class="language-plaintext highlighter-rouge">3</code>，猜測記一個 <code class="language-plaintext highlighter-rouge">1</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>統計後，只有 <code class="language-plaintext highlighter-rouge">1</code> 同時出現在兩邊。答案剩下一個 <code class="language-plaintext highlighter-rouge">1</code>，猜測剩下兩個 <code class="language-plaintext highlighter-rouge">1</code>，所以 <code class="language-plaintext highlighter-rouge">cows = min(1, 2) = 1</code>。加上索引 <code class="language-plaintext highlighter-rouge">1</code> 的 bull，回傳 <code class="language-plaintext highlighter-rouge">"1A1B"</code>。</p>
+
+<h2 id="演算法步驟">演算法步驟</h2>
+
+<ol>
+  <li>初始化 <code class="language-plaintext highlighter-rouge">bulls = 0</code>，並建立兩個長度為 <code class="language-plaintext highlighter-rouge">10</code> 的計數陣列，初始值都為 <code class="language-plaintext highlighter-rouge">0</code>。</li>
+  <li>逐位比較兩個字串。相同時累加 <code class="language-plaintext highlighter-rouge">bulls</code>，相異時更新兩邊的數字次數。</li>
+  <li>對 <code class="language-plaintext highlighter-rouge">0</code> 到 <code class="language-plaintext highlighter-rouge">9</code> 的每個數字，取兩個計數的較小值並累加至 <code class="language-plaintext highlighter-rouge">cows</code>。</li>
+  <li>將兩個計數組成 <code class="language-plaintext highlighter-rouge">"xAyB"</code> 並回傳。</li>
+</ol>
+
+<h2 id="c-實作">C++ 實作</h2>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;algorithm&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;cstddef&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;sstream&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
+</span>
+<span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="nl">public:</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">getHint</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">secret</span><span class="p">,</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">guess</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">constexpr</span> <span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="n">digitCount</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">bulls</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">secretCount</span><span class="p">(</span><span class="n">digitCount</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">guessCount</span><span class="p">(</span><span class="n">digitCount</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+
+        <span class="k">for</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">secret</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">secret</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">guess</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="p">{</span>
+                <span class="o">++</span><span class="n">bulls</span><span class="p">;</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="o">++</span><span class="n">secretCount</span><span class="p">[</span><span class="n">secret</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="sc">'0'</span><span class="p">];</span>
+                <span class="o">++</span><span class="n">guessCount</span><span class="p">[</span><span class="n">guess</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="sc">'0'</span><span class="p">];</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="kt">int</span> <span class="n">cows</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="n">digit</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">digit</span> <span class="o">&lt;</span> <span class="n">digitCount</span><span class="p">;</span> <span class="o">++</span><span class="n">digit</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">cows</span> <span class="o">+=</span> <span class="n">std</span><span class="o">::</span><span class="n">min</span><span class="p">(</span><span class="n">secretCount</span><span class="p">[</span><span class="n">digit</span><span class="p">],</span> <span class="n">guessCount</span><span class="p">[</span><span class="n">digit</span><span class="p">]);</span>
+        <span class="p">}</span>
+
+        <span class="n">std</span><span class="o">::</span><span class="n">stringstream</span> <span class="n">hint</span><span class="p">;</span>
+        <span class="n">hint</span> <span class="o">&lt;&lt;</span> <span class="n">bulls</span> <span class="o">&lt;&lt;</span> <span class="sc">'A'</span> <span class="o">&lt;&lt;</span> <span class="n">cows</span> <span class="o">&lt;&lt;</span> <span class="sc">'B'</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">hint</span><span class="p">.</span><span class="n">str</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">std::vector&lt;int&gt;(digitCount, 0)</code> 建立 <code class="language-plaintext highlighter-rouge">10</code> 格，並將每格初始化為 <code class="language-plaintext highlighter-rouge">0</code>。數字字元減去 <code class="language-plaintext highlighter-rouge">'0'</code> 就是對應的索引，例如 <code class="language-plaintext highlighter-rouge">'7' - '0'</code> 等於 <code class="language-plaintext highlighter-rouge">7</code>。</p>
+
+<p><code class="language-plaintext highlighter-rouge">std::stringstream</code> 定義於 <code class="language-plaintext highlighter-rouge">&lt;sstream&gt;</code>。用 <code class="language-plaintext highlighter-rouge">&lt;&lt;</code> 依序寫入兩個計數及字元 <code class="language-plaintext highlighter-rouge">A</code>、<code class="language-plaintext highlighter-rouge">B</code>，再用 <code class="language-plaintext highlighter-rouge">.str()</code> 取出提示字串。</p>
+
+<h2 id="python-實作">Python 實作</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">getHint</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">secret</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">guess</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">bulls</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">secret_count</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">10</span>
+        <span class="n">guess_count</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">10</span>
+
+        <span class="k">for</span> <span class="n">secret_digit</span><span class="p">,</span> <span class="n">guess_digit</span> <span class="ow">in</span> <span class="nf">zip</span><span class="p">(</span><span class="n">secret</span><span class="p">,</span> <span class="n">guess</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">secret_digit</span> <span class="o">==</span> <span class="n">guess_digit</span><span class="p">:</span>
+                <span class="n">bulls</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">secret_count</span><span class="p">[</span><span class="nf">int</span><span class="p">(</span><span class="n">secret_digit</span><span class="p">)]</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="n">guess_count</span><span class="p">[</span><span class="nf">int</span><span class="p">(</span><span class="n">guess_digit</span><span class="p">)]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="n">cows</span> <span class="o">=</span> <span class="nf">sum</span><span class="p">(</span><span class="nf">min</span><span class="p">(</span><span class="n">secret_count</span><span class="p">[</span><span class="n">digit</span><span class="p">],</span> <span class="n">guess_count</span><span class="p">[</span><span class="n">digit</span><span class="p">])</span> <span class="k">for</span> <span class="n">digit</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="sh">"</span><span class="si">{</span><span class="n">bulls</span><span class="si">}</span><span class="s">A</span><span class="si">{</span><span class="n">cows</span><span class="si">}</span><span class="s">B</span><span class="sh">"</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">zip(secret, guess)</code> 會依序產生同一位置的兩個字元，再用 <code class="language-plaintext highlighter-rouge">int()</code> 將單一數字字元轉成索引。</p>
+
+<h2 id="正確性說明">正確性說明</h2>
+
+<p>每個位置都比較一次。演算法恰好在兩個字元相等時增加 <code class="language-plaintext highlighter-rouge">bulls</code>，因此 <code class="language-plaintext highlighter-rouge">bulls</code> 正好是數字與位置都正確的數量。</p>
+
+<p>對於剩下的任一數字 <code class="language-plaintext highlighter-rouge">d</code>，每個 cow 都需要答案和猜測各提供一個 <code class="language-plaintext highlighter-rouge">d</code>。能配成的對數最多是兩邊出現次數的較小值。由於每一個剩下的 <code class="language-plaintext highlighter-rouge">d</code> 都可以和另一邊的任一個 <code class="language-plaintext highlighter-rouge">d</code> 配對，所以可以配到其中一邊用完，達到這個上限。不同數字的配對彼此獨立，加總各數字的配對數就得到正確的 <code class="language-plaintext highlighter-rouge">cows</code>。</p>
+
+<h2 id="複雜度分析">複雜度分析</h2>
+
+<p>令 <code class="language-plaintext highlighter-rouge">n</code> 為任一輸入字串的長度。</p>
+
+<ul>
+  <li><strong>時間複雜度</strong> $O(n)$。比較 <code class="language-plaintext highlighter-rouge">n</code> 個位置後，再掃描 <code class="language-plaintext highlighter-rouge">10</code> 種數字。</li>
+  <li><strong>額外空間複雜度</strong> $O(1)$。兩個計數陣列都固定為 <code class="language-plaintext highlighter-rouge">10</code> 格，此處計算函式內的輔助空間。</li>
+</ul>
+
+<h2 id="常見錯誤">常見錯誤</h2>
+
+<ul>
+  <li><strong>把 bulls 也放進次數統計</strong>。如果接著直接把每個數字的較小次數加到 <code class="language-plaintext highlighter-rouge">cows</code>，就會把已配對的位置算兩次。</li>
+  <li><strong>只檢查數字有沒有出現</strong>。例如 <code class="language-plaintext highlighter-rouge">secret = "12"</code>、<code class="language-plaintext highlighter-rouge">guess = "11"</code>，答案中的 <code class="language-plaintext highlighter-rouge">1</code> 已經用於 bull，提示是 <code class="language-plaintext highlighter-rouge">"1A0B"</code>。配對時需要保留每個數字的剩餘次數。</li>
+  <li><strong>先把整個字串轉成整數</strong>。例如 <code class="language-plaintext highlighter-rouge">"01"</code> 轉換後會失去開頭的 <code class="language-plaintext highlighter-rouge">0</code>。逐位比對時應保留字串，只在更新計數時轉換單一字元。</li>
+</ul>
+
+		</p>
+	</div>		
+  <div style="text-align: left; padding: 25px;">
+  <h1>相關文章</h1>
+  
+  
+
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  <a href="/easy/2026/04/24/392-Is-Subsequence.html" class="badge badge-success">[Leetcode解題] 392. Is Subsequence</a>
+  
+  
+  
+  <!--
+  <div>[Leetcode解題] 392. Is Subsequence</div>
+  <div class="post-view-tags">
+		
+      
+		<a href="/posts/categories/easy/" class="badge badge-success">easy</a>
+  	  
+      
+      
+		
+		
+		<i href="#" class="badge badge-dark">string</i>
+		
+		<i href="#" class="badge badge-dark">two-pointers</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2026/09/26/1807-Evaluate-the-Bracket-Pairs-of-a-String.html" class="badge badge-warning">[Leetcode解題] 1807. Evaluate the Bracket Pairs of a String</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 1807. Evaluate the Bracket Pairs of a String</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">string</i>
+		
+		<i href="#" class="badge badge-dark">hashTable</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2026/09/11/1864-Minimum-Number-of-Swaps-to-Make-the-Binary-String-Alternating.html" class="badge badge-warning">[Leetcode解題] 1864. Minimum Number of Swaps to Make the Binary String Alternating</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 1864. Minimum Number of Swaps to Make the Binary String Alternating</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">string</i>
+		
+		<i href="#" class="badge badge-dark">greedy</i>
+		
+		<i href="#" class="badge badge-dark">counting</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2025/01/11/1400-construct-k-palindrome-strings.html" class="badge badge-warning">[Leetcode解題] 1400. Construct K Palindrome Strings</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 1400. Construct K Palindrome Strings</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">string</i>
+		
+		<i href="#" class="badge badge-dark">greedy</i>
+		
+		<i href="#" class="badge badge-dark">hashmap</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2025/01/04/1930-unique-length-3-palindromic-subsequences.html" class="badge badge-warning">[Leetcode解題] 1930. Unique Length-3 Palindromic Subsequences</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 1930. Unique Length-3 Palindromic Subsequences</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">string</i>
+		
+		<i href="#" class="badge badge-dark">greedy</i>
+		
+		<i href="#" class="badge badge-dark">hashmap</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/12/28/1702-Maximum-Binary-String-After-Change.html" class="badge badge-warning">[Leetcode解題] 1702. Maximum Binary String After Change</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 1702. Maximum Binary String After Change</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">string</i>
+		
+		<i href="#" class="badge badge-dark">greedy</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2022/02/11/299-Bulls-and-Cows.html" class="badge badge-warning">[Leetcode解題] 299. Bulls and Cows</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 299. Bulls and Cows</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">string</i>
+		
+		<i href="#" class="badge badge-dark">counting</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2022/02/11/14-Longest-Common-Prefix.html" class="badge badge-warning">[Leetcode解題] 14. Longest Common Prefix - 暴力解</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 14. Longest Common Prefix - 暴力解</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">string</i>
+		
+		<i href="#" class="badge badge-dark">apple</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+  </div>
+</div>
+		</div>
+		<div class="col-md-2 col-sm-0">
+		</div>
+	</div>
+</div>
+
+		</main>
+		<footer class="footer">
+			<!-- No -->
+
+<!--This is the footer of the website-->
+
+<div class="footer-window container-fluid footer-color">
+	<div class="row">
+		<div class="footer-view footer-left col-md-4 text-left">
+			<div class="footer-section">
+				<div class="account-box">
+			</div>
+			</div>
+		</div>
+		<div class="footer-view footer-center col-md-4 text-center">
+			<div class="footer-section">
+				<div class="footer-copyright">
+					解題愛好者
+					<br><br>
+					歡迎來到刷題貓！我們是兩位熱愛程式設計的工程師，在此分享Leetcode刷題心得以及整理主題式的文章
+					<br><br>
+					© 2023 CATXCODER All Rights Reserved
+				</div>
+				<div>
+				</div>
+			</div>
+		</div>
+		<div class="footer-view footer-right col-md-4 text-center">
+			<div class="footer-section">
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--
+log
+<p>Version 0.0.2</p>
+			<p>0.0.2 - 配色完成</p>
+			<p>0.0.2 - 基本模板完成</p>
+			<p>0.0.2 - 自我介紹新增打字效果</p>
+
+
+
+
+-->
+
+		</footer>
+		</div>
+	</body>
+</html>
+
+<script>
+$(".badge-info").hover(function(){
+    $(this).hide(1000);
+});
+
+
+</script>
