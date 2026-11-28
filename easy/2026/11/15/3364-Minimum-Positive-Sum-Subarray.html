@@ -1,0 +1,2424 @@
+<!-- OK -->
+
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="utf-8">
+	<link rel="icon" type="image/x-icon" href="/res/catxcoder.ico">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>[Leetcode解題] 3364. Minimum Positive Sum Subarray</title>
+	<meta name="description" content="3364. Minimum Positive Sum Subarray - 利用前綴和快速計算長度介於指定區間的子陣列和，尋找大於 0 的最小值" />
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<!-- My CSS -->
+<link href="/res/css/common.css" rel="stylesheet">
+
+	</head>
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-MHQH8LKZYV"></script>
+	<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+
+	gtag('config', 'G-MHQH8LKZYV');
+	</script>
+	<body>		
+				<!-- JQeury -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+    
+	<!-- Font Awesome -->
+	<!--<script defer src="https://use.fontawesome.com/releases/v6.4.2/js/all.js" integrity="	sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe" crossorigin="anonymous"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" integrity="sha512-uKQ39gEGiyUJl4AI6L+ekBdGKpGw4xJ55+xyJG7YFlJokPNYegn9KwQ3P8A7aFQAUtUsAQHep+d/lrGqrbPIDQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<!-- support MathJax -->
+	<style TYPE="text/css">
+	code.has-jax {font: inherit; font-size: 100%; background: inherit; border: inherit;}
+	</style>
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	    tex2jax: {
+	        inlineMath: [['$','$'], ['\\(','\\)']],
+	        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'] // removed 'code' entry
+	    }
+	});
+	MathJax.Hub.Queue(function() {
+	    var all = MathJax.Hub.getAllJax(), i;
+	    for(i = 0; i < all.length; i += 1) {
+	        all[i].SourceElement().parentNode.className += ' has-jax';
+	    }
+	});
+	</script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<!-- A patch to fix mathjax -->
+<!-- https://github.com/mathjax/MathJax/issues/1737 -->
+	<script type="text/x-mathjax-config">
+if (MathJax.Hub.Browser.isSafari && parseInt(MathJax.Hub.Browser.webkit) >= 603) {
+  MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready", function () {
+    var HTMLCSS = MathJax.OutputJax["HTML-CSS"];
+    var MML = MathJax.ElementJax.mml;
+    var toHTML = MML.mo.prototype.toHTML;
+    MML.mo.Augment({
+      toHTML: function (span) {
+        span = toHTML.call(this,span);
+        if (span.bbox.w === 0 && span.bbox.lw < 0 && span.firstChild) {
+          span.style.marginLeft = HTMLCSS.Em(span.bbox.lw);
+        }
+        return span;
+      }
+    });
+  });
+}
+</script>
+
+		<header>
+			<!-- OK -->
+
+<div class="container">
+  <nav class="navbar navbar-expand-lg navbar-default nav-color" >
+    <a href="/index.html">
+      <img src="/res/catxcoder.ico" class="img-fluid" style="width: 32px; margin-right: 10px;">
+    </a>
+    <a class="navbar-item" href="/index.html">
+      刷題貓
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span><i class="fas fa-bars" ></i></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <ul class="navbar-nav ml-auto navbar-right">
+          <li class="nav-item">
+             <a class="nav-link" href="/index.html">首頁</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/posts/categories">難度</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/posts/algorithms">演算法</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link" href="/works">主題式</a>
+          </li>
+        </ul>
+    </div>
+  </nav>
+</div>
+
+		</header>
+		<main>
+			<!-- OK -->
+
+<div class="container-fluid text-center bg-color">
+	<div class="row bg-icon">
+		<div class="col-md-2 col-sm-0">
+
+		</div>
+		<div class="view-home col-md-8 col-sm-12 post-home-color">
+			<div class="post-view-color post-view-window">
+	
+	<!-- title -->
+	<div class="post-view-title text-left" >
+		<p>[Leetcode解題] 3364. Minimum Positive Sum Subarray</p>
+	</div>
+	
+	<!-- date -->
+	<div class="post-view-date">
+			15 November 2026
+	</div>
+
+	<!-- tags -->
+	<div class="post-view-tags">
+		
+      
+		<a href="/posts/categories/easy/" class="badge badge-success">easy</a>
+  	  
+      
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">prefix-sum</i>
+		
+		<i href="#" class="badge badge-dark">sliding-window</i>
+		
+	</div>
+	<hr>
+
+	<!-- excerpt -->
+	<div class="post-view-excerpt text-left">
+		<p>
+			<h2 id="題目">題目</h2>
+
+<p><a href="https://leetcode.com/problems/minimum-positive-sum-subarray/">3364. Minimum Positive Sum Subarray</a></p>
+
+<p>給定一個整數陣列 <code class="language-plaintext highlighter-rouge">nums</code> 以及兩個整數 <code class="language-plaintext highlighter-rouge">l</code> 與 <code class="language-plaintext highlighter-rouge">r</code>。</p>
+
+<p>請找出一個<strong>連續子陣列</strong>，滿足以下條件：</p>
+<ol>
+  <li>子陣列長度介於 <code class="language-plaintext highlighter-rouge">l</code> 與 <code class="language-plaintext highlighter-rouge">r</code> 之間（即 $l \le \text{length} \le r$）。</li>
+  <li>子陣列所有元素的和<strong>嚴格大於 0</strong>（$\text{sum} &gt; 0$）。</li>
+</ol>
+
+<p>在所有符合條件的子陣列中，回傳其<strong>最小的總和</strong>。如果不存在任何符合條件的子陣列，請回傳 <code class="language-plaintext highlighter-rouge">-1</code>。</p>
+
+<p>題目限制：</p>
+<ul>
+  <li>$1 \le \text{nums.length} \le 100$</li>
+  <li>$1 \le l \le r \le \text{nums.length}$</li>
+  <li>$-1000 \le \text{nums}[i] \le 1000$</li>
+</ul>
+
+<!--more-->
+
+<h2 id="解題思路">解題思路</h2>
+
+<h3 id="1-題目需求與限制分析">1. 題目需求與限制分析</h3>
+
+<p>題目要求尋找長度落在區間 $[l, r]$ 內，且總和嚴格大於 0 的子陣列之最小總和。</p>
+
+<p>陣列長度限制 $n \le 100$，規模非常小。如果我們枚舉所有合法的起點與終點，總共的區間數大約為：
+\(O(n \cdot (r - l + 1)) \le O(n^2)\)
+當 $n = 100$ 時，最多僅約 5,000 種子陣列組合，因此使用前綴和（Prefix Sum）進行枚舉即可在極短時間內完成。</p>
+
+<h3 id="2-利用前綴和-o1-取得區間和">2. 利用前綴和 $O(1)$ 取得區間和</h3>
+
+<p>如果每次計算子陣列和都透過迴圈從頭加到尾，時間複雜度會多出一個維度。為了加速計算，我們先建立長度為 $n + 1$ 的前綴和陣列 <code class="language-plaintext highlighter-rouge">presum</code>：</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">presum[0] = 0</code></li>
+  <li><code class="language-plaintext highlighter-rouge">presum[k] = nums[0] + nums[1] + ... + nums[k - 1]</code></li>
+</ul>
+
+<p>對於任意左開右閉或從索引 $i$ 開始、到索引 $j - 1$ 結束的連續子陣列 <code class="language-plaintext highlighter-rouge">nums[i..j-1]</code>（長度為 $j - i$）：
+\(\text{current\_sum} = \text{presum}[j] - \text{presum}[i]\)
+只需進行一次減法即可取得區間總和。</p>
+
+<h3 id="3-枚舉所有符合長度限制的子陣列">3. 枚舉所有符合長度限制的子陣列</h3>
+
+<ul>
+  <li>外層迴圈枚舉子陣列的起點 $i \in [0, n - 1]$。</li>
+  <li>內層迴圈枚舉結尾位置 $j$。因為子陣列長度必須介於 $l$ 與 $r$ 之間，所以長度 $len = j - i$ 必須符合 $l \le len \le r$，即：
+\(j \in [i + l, \min(i + r, n)]\)</li>
+  <li>計算當前區間總和 $\text{current_sum} = \text{presum}[j] - \text{presum}[i]$。</li>
+  <li>若 $\text{current_sum} &gt; 0$，則更新答案最小值：
+\(\text{min\_val} = \min(\text{min\_val}, \text{current\_sum})\)</li>
+</ul>
+
+<p>走訪完所有可能後，若 <code class="language-plaintext highlighter-rouge">min_val</code> 仍為初始值（如無窮大），代表沒有任何正數總和的子陣列，回傳 <code class="language-plaintext highlighter-rouge">-1</code>；否則回傳 <code class="language-plaintext highlighter-rouge">min_val</code>。</p>
+
+<hr />
+
+<h2 id="演算法步驟">演算法步驟</h2>
+
+<ol>
+  <li>計算陣列長度 $n = \text{len}(nums)$，建立長度為 $n + 1$ 的前綴和陣列 <code class="language-plaintext highlighter-rouge">presum</code>。</li>
+  <li>走訪 $nums$，依序計算前綴和：<code class="language-plaintext highlighter-rouge">presum[i + 1] = presum[i] + nums[i]</code>。</li>
+  <li>初始化答案 <code class="language-plaintext highlighter-rouge">min_val</code> 為正無窮大（$\infty$）。</li>
+  <li>雙層迴圈枚舉：
+    <ul>
+      <li>起點 $i$ 從 $0$ 到 $n - 1$。</li>
+      <li>終點 $j$ 從 $i + l$ 到 $\min(i + r, n)$。</li>
+      <li>計算區間和 <code class="language-plaintext highlighter-rouge">current_sum = presum[j] - presum[i]</code>。</li>
+      <li>若 <code class="language-plaintext highlighter-rouge">current_sum &gt; 0</code>，則令 <code class="language-plaintext highlighter-rouge">min_val = min(min_val, current_sum)</code>。</li>
+    </ul>
+  </li>
+  <li>若 <code class="language-plaintext highlighter-rouge">min_val</code> 仍為無窮大，回傳 <code class="language-plaintext highlighter-rouge">-1</code>；否則回傳 <code class="language-plaintext highlighter-rouge">min_val</code>。</li>
+</ol>
+
+<hr />
+
+<h2 id="c-實作">C++ 實作</h2>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;algorithm&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;climits&gt;</span><span class="cp">
+</span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="nl">public:</span>
+    <span class="kt">int</span> <span class="n">minimumSumSubarray</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">nums</span><span class="p">,</span> <span class="kt">int</span> <span class="n">l</span><span class="p">,</span> <span class="kt">int</span> <span class="n">r</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">presum</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">presum</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">presum</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+        <span class="p">}</span>
+
+        <span class="kt">int</span> <span class="n">min_val</span> <span class="o">=</span> <span class="n">INT_MAX</span><span class="p">;</span>
+
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kt">int</span> <span class="n">end</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="n">r</span><span class="p">,</span> <span class="n">n</span><span class="p">);</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="n">l</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">end</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                <span class="kt">int</span> <span class="n">current_sum</span> <span class="o">=</span> <span class="n">presum</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">-</span> <span class="n">presum</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">current_sum</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="n">min_val</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">min_val</span><span class="p">,</span> <span class="n">current_sum</span><span class="p">);</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="n">min_val</span> <span class="o">==</span> <span class="n">INT_MAX</span> <span class="o">?</span> <span class="o">-</span><span class="mi">1</span> <span class="o">:</span> <span class="n">min_val</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="python-實作">Python 實作</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">typing</span> <span class="kn">import</span> <span class="n">List</span>
+
+
+<span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">minimumSumSubarray</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">nums</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nf">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
+        <span class="n">presum</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+            <span class="n">presum</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">presum</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            
+        <span class="n">min_val</span> <span class="o">=</span> <span class="nf">float</span><span class="p">(</span><span class="sh">'</span><span class="s">inf</span><span class="sh">'</span><span class="p">)</span>
+        
+        <span class="c1"># O(n * (r - l + 1))
+</span>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="n">l</span><span class="p">,</span> <span class="nf">min</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="n">r</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="n">current_sum</span> <span class="o">=</span> <span class="n">presum</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">-</span> <span class="n">presum</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">current_sum</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">min_val</span> <span class="o">=</span> <span class="nf">min</span><span class="p">(</span><span class="n">min_val</span><span class="p">,</span> <span class="n">current_sum</span><span class="p">)</span>
+                    
+        <span class="k">return</span> <span class="n">min_val</span> <span class="k">if</span> <span class="n">min_val</span> <span class="o">!=</span> <span class="nf">float</span><span class="p">(</span><span class="sh">'</span><span class="s">inf</span><span class="sh">'</span><span class="p">)</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="複雜度分析">複雜度分析</h2>
+
+<p>令 $n = \text{nums.length}$，以及長度範圍跨度 $m = r - l + 1$。</p>
+
+<ul>
+  <li><strong>時間複雜度</strong>：$O(n \cdot m)$。建立前綴和陣列耗費 $O(n)$。枚舉區間起點共 $n$ 個，對於每個起點，終點檢查最多 $r - l + 1$ 個，每次以 $O(1)$ 算出區間和。最壞情況下 $m \le n$，整體時間複雜度為 $O(n^2)$。因 $n \le 100$，運算次數在 $10^4$ 以內，執行非常迅速。</li>
+  <li><strong>空間複雜度</strong>：$O(n)$。需要一個大小為 $n + 1$ 的陣列儲存前綴和。</li>
+</ul>
+
+<hr />
+
+<h2 id="常見注意事項">常見注意事項</h2>
+
+<ul>
+  <li><strong>正數限制</strong>：題目要求總和必須<strong>嚴格大於 0</strong>（<code class="language-plaintext highlighter-rouge">current_sum &gt; 0</code>），總和小於或等於 0 的子陣列均不能列入考慮。</li>
+  <li><strong>邊界與長度</strong>：內層迴圈終點上界為 $\min(i + r, n)$，避免陣列索引越界。</li>
+  <li><strong>無解回傳</strong>：若遍歷所有合法區間後均未找到大於 0 的總和，依題意回傳 <code class="language-plaintext highlighter-rouge">-1</code>。</li>
+</ul>
+
+		</p>
+	</div>		
+  <div style="text-align: left; padding: 25px;">
+  <h1>相關文章</h1>
+  
+  
+
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  <a href="/easy/2026/11/15/3364-Minimum-Positive-Sum-Subarray.html" class="badge badge-success">[Leetcode解題] 3364. Minimum Positive Sum Subarray</a>
+  
+  
+  
+  <!--
+  <div>[Leetcode解題] 3364. Minimum Positive Sum Subarray</div>
+  <div class="post-view-tags">
+		
+      
+		<a href="/posts/categories/easy/" class="badge badge-success">easy</a>
+  	  
+      
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">prefix-sum</i>
+		
+		<i href="#" class="badge badge-dark">sliding-window</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  <a href="/easy/2026/01/02/1869-Longer-Contiguous-Segments-of-Ones-than-Zeros.html" class="badge badge-success">[Leetcode解題] 1869. Longer Contiguous Segments of Ones than Zeros</a>
+  
+  
+  
+  <!--
+  <div>[Leetcode解題] 1869. Longer Contiguous Segments of Ones than Zeros</div>
+  <div class="post-view-tags">
+		
+      
+		<a href="/posts/categories/easy/" class="badge badge-success">easy</a>
+  	  
+      
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">String</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  <a href="/easy/2024/08/03/1460-Make-Two-Arrays-Equal-by-Reversing-Subarrays.html" class="badge badge-success">[Leetcode解題] 1460. Make Two Arrays Equal by Reversing Subarrays</a>
+  
+  
+  
+  <!--
+  <div>[Leetcode解題] 1460. Make Two Arrays Equal by Reversing Subarrays</div>
+  <div class="post-view-tags">
+		
+      
+		<a href="/posts/categories/easy/" class="badge badge-success">easy</a>
+  	  
+      
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">hashtable</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  
+  <a href="/hard/2024/07/13/2751-Robot-Collisions.html" class="badge badge-danger">[Leetcode解題] 2751. Robot Collisions - 使用stack解</a>
+  
+  <!--
+  <div>[Leetcode解題] 2751. Robot Collisions - 使用stack解</div>
+  <div class="post-view-tags">
+		
+      
+      
+      
+		<a href="/posts/categories/hard/" class="badge badge-danger">hard</a>
+  	  
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">stack</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2026/11/13/2679-Sum-in-a-Matrix.html" class="badge badge-warning">[Leetcode解題] 2679. Sum in a Matrix</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 2679. Sum in a Matrix</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">sorting</i>
+		
+		<i href="#" class="badge badge-dark">matrix</i>
+		
+		<i href="#" class="badge badge-dark">simulation</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2026/10/31/3665-Twisted-Mirror-Path-Count.html" class="badge badge-warning">[Leetcode解題] 3665. Twisted Mirror Path Count</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 3665. Twisted Mirror Path Count</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">dynamic-programming</i>
+		
+		<i href="#" class="badge badge-dark">matrix</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2026/10/30/659-Split-Array-into-Consecutive-Subsequences.html" class="badge badge-warning">[Leetcode解題] 659. Split Array into Consecutive Subsequences</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 659. Split Array into Consecutive Subsequences</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">greedy</i>
+		
+		<i href="#" class="badge badge-dark">hash-table</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2026/10/09/1574-Shortest-Subarray-to-be-Removed-to-Make-Array-Sorted.html" class="badge badge-warning">[Leetcode解題] 1574. Shortest Subarray to be Removed to Make Array Sorted</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 1574. Shortest Subarray to be Removed to Make Array Sorted</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">two-pointers</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2026/10/02/1855-Maximum-Distance-Between-a-Pair-of-Values.html" class="badge badge-warning">[Leetcode解題] 1855. Maximum Distance Between a Pair of Values</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 1855. Maximum Distance Between a Pair of Values</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">two-pointers</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2026/09/26/396-Rotate-Function.html" class="badge badge-warning">[Leetcode解題] 396. Rotate Function</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 396. Rotate Function</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">math</i>
+		
+		<i href="#" class="badge badge-dark">sliding-window</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2026/09/25/4001-Aggregate-Two-Time-Series.html" class="badge badge-warning">[Leetcode解題] 4001. Aggregate Two Time Series</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 4001. Aggregate Two Time Series</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">two-pointers</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2026/08/21/1169-Invalid-Transactions.html" class="badge badge-warning">[Leetcode解題] 1169. Invalid Transactions</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 1169. Invalid Transactions</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">string</i>
+		
+		<i href="#" class="badge badge-dark">simulation</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2026/08/14/2962-Count-Subarrays-Where-Max-Element-Appears-at-Least-K-Times.html" class="badge badge-warning">[Leetcode解題] 2962. Count Subarrays Where Max Element Appears at Least K Times</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 2962. Count Subarrays Where Max Element Appears at Least K Times</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">sliding-window</i>
+		
+		<i href="#" class="badge badge-dark">two-pointer</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2026/04/17/1493-Longest-Subarray-of-1s-After-Deleting-One-Element.html" class="badge badge-warning">[Leetcode解題] 1493. Longest Subarray of 1's After Deleting One Element</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 1493. Longest Subarray of 1's After Deleting One Element</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">sliding-window</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2026/04/11/3741-Minimum-Distance-Between-Three-Equal-Elements-II.html" class="badge badge-warning">[Leetcode解題] 3741. Minimum Distance Between Three Equal Elements II</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 3741. Minimum Distance Between Three Equal Elements II</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">hash-table</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2026/04/10/452-Minimum-Number-of-Arrows-to-Burst-Balloons.html" class="badge badge-warning">[Leetcode解題] 452. Minimum Number of Arrows to Burst Balloons</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 452. Minimum Number of Arrows to Burst Balloons</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">greedy</i>
+		
+		<i href="#" class="badge badge-dark">sorting</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2025/12/06/1895-Largest-Magic-Square.html" class="badge badge-warning">[Leetcode解題] 1895. Largest Magic Square</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 1895. Largest Magic Square</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">preSum</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2025/11/15/419-Battleships-in-a-Board.html" class="badge badge-warning">[Leetcode解題] 419. Battleships in a Board</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 419. Battleships in a Board</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">dfs</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2025/04/26/2261-k-divisible-elements-subarrays.html" class="badge badge-warning">[Leetcode解題] 2261. K Divisible Elements Subarrays</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 2261. K Divisible Elements Subarrays</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">rolling-hash</i>
+		
+		<i href="#" class="badge badge-dark">hash</i>
+		
+		<i href="#" class="badge badge-dark">trie</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2025/04/19/2563-count-the-number-of-fair-pairs.html" class="badge badge-warning">[Leetcode解題] 2563. Count the Number of Fair Pairs</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 2563. Count the Number of Fair Pairs</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">binary-search</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2025/03/16/2560-house-robber-iv.html" class="badge badge-warning">[Leetcode解題] 2560. House Robber IV</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 2560. House Robber IV</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">greedy</i>
+		
+		<i href="#" class="badge badge-dark">binary-search</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/12/06/2554-Maximum-Number-of-Integers-to-Choose-From-a-Range-I.html" class="badge badge-warning">[Leetcode解題]  2554. Maximum Number of Integers to Choose From a Range I</a>
+  
+  
+  <!--
+  <div>[Leetcode解題]  2554. Maximum Number of Integers to Choose From a Range I</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">greedy</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/09/06/380-Insert-Delete-GetRandom-O(1).html" class="badge badge-warning">[Leetcode解題]  380. Insert Delete GetRandom O(1)</a>
+  
+  
+  <!--
+  <div>[Leetcode解題]  380. Insert Delete GetRandom O(1)</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">hashTable</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/08/03/3143-Maximum-Points-Inside-the-Square.html" class="badge badge-warning">[Leetcode解題] 3143. Maximum Points Inside the Square</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 3143. Maximum Points Inside the Square</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">sort</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/07/20/1605-Find-Valid-Matrix-Given-Row-and-Column-Sums.html" class="badge badge-warning">[Leetcode解題] 1605. Find Valid Matrix Given Row and Column Sums - 使用Greedy+雙指針解</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 1605. Find Valid Matrix Given Row and Column Sums - 使用Greedy+雙指針解</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">two-pointers</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/07/12/986-Interval-List-Intersections.html" class="badge badge-warning">[Leetcode解題] 986. Interval List Intersections - 雙指針解</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 986. Interval List Intersections - 雙指針解</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">two-pointers</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/06/30/187-Repeated-DNS-Sequences.html" class="badge badge-warning">[Leetcode解題] 187. Repeated DNA Sequences - 使用hashtable解+4進位</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 187. Repeated DNA Sequences - 使用hashtable解+4進位</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">hash</i>
+		
+		<i href="#" class="badge badge-dark">hashtable</i>
+		
+		<i href="#" class="badge badge-dark">bit</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/06/29/1438-Longest-Continuous-Subarray-With-Absolute-Diff-Less-Than-or-Equal-to-Limit.html" class="badge badge-warning">[Leetcode解題] 1438. Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit - 使用deque+ two pointer解</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 1438. Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit - 使用deque+ two pointer解</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">deque</i>
+		
+		<i href="#" class="badge badge-dark">sliding-window</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/06/22/1248-Count-Number-of-Nice-Subarrays.html" class="badge badge-warning">[Leetcode解題] 1248. Count Number of Nice Subarrays - 使用presum+hashtable解</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 1248. Count Number of Nice Subarrays - 使用presum+hashtable解</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">presum</i>
+		
+		<i href="#" class="badge badge-dark">hash</i>
+		
+		<i href="#" class="badge badge-dark">hashtable</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/05/18/523-Continuous-subarray-sum.html" class="badge badge-warning">[Leetcode解題] 523. Continuous Subarray Sum</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 523. Continuous Subarray Sum</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">presum</i>
+		
+		<i href="#" class="badge badge-dark">hash</i>
+		
+		<i href="#" class="badge badge-dark">hashtable</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/05/18/1423-Maximum-Points-You-Can-Obtain-from-Cards.html" class="badge badge-warning">[Leetcode解題] 1423. Maximum Points You Can Obtain from Cards</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 1423. Maximum Points You Can Obtain from Cards</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">presum</i>
+		
+		<i href="#" class="badge badge-dark">sliding-window</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+		<div class="pagination-box">
+  
+  
+  <a href="/medium/2024/04/20/1146-Snapshot-Array.html" class="badge badge-warning">[Leetcode解題] 1146. Snapshot Array</a>
+  
+  
+  <!--
+  <div>[Leetcode解題] 1146. Snapshot Array</div>
+  <div class="post-view-tags">
+		
+      
+      
+		<a href="/posts/categories/medium/" class="badge badge-warning">medium</a>
+  	  
+      
+		
+		
+		<i href="#" class="badge badge-dark">array</i>
+		
+		<i href="#" class="badge badge-dark">binary-search</i>
+		
+		<i href="#" class="badge badge-dark">bs</i>
+		
+  </div>
+  -->
+</div>
+
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+ 	
+	
+	
+	
+	
+  
+  </div>
+</div>
+		</div>
+		<div class="col-md-2 col-sm-0">
+		</div>
+	</div>
+</div>
+
+		</main>
+		<footer class="footer">
+			<!-- No -->
+
+<!--This is the footer of the website-->
+
+<div class="footer-window container-fluid footer-color">
+	<div class="row">
+		<div class="footer-view footer-left col-md-4 text-left">
+			<div class="footer-section">
+				<div class="account-box">
+			</div>
+			</div>
+		</div>
+		<div class="footer-view footer-center col-md-4 text-center">
+			<div class="footer-section">
+				<div class="footer-copyright">
+					解題愛好者
+					<br><br>
+					歡迎來到刷題貓！我們是兩位熱愛程式設計的工程師，在此分享Leetcode刷題心得以及整理主題式的文章
+					<br><br>
+					© 2023 CATXCODER All Rights Reserved
+				</div>
+				<div>
+				</div>
+			</div>
+		</div>
+		<div class="footer-view footer-right col-md-4 text-center">
+			<div class="footer-section">
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--
+log
+<p>Version 0.0.2</p>
+			<p>0.0.2 - 配色完成</p>
+			<p>0.0.2 - 基本模板完成</p>
+			<p>0.0.2 - 自我介紹新增打字效果</p>
+
+
+
+
+-->
+
+		</footer>
+		</div>
+	</body>
+</html>
+
+<script>
+$(".badge-info").hover(function(){
+    $(this).hide(1000);
+});
+
+
+</script>
